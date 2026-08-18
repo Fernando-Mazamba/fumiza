@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuales y Documentación | SGC - INVESTMENT BOUTIQUE S.A.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Contenido de la página -->
+    <div class="p-5 bg-gray-50">
+        <!-- Breadcrumbs -->
+        <div class="mb-4 flex items-center text-sm text-gray-500">
+            <a href="index.html" class="hover:text-primary-600">Inicio</a>
+            <span class="mx-2">/</span>
+            <a href="documentacion.html" class="hover:text-primary-600">Documentación</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-700">Manuales</span>
+        </div>
+
+        <!-- Título de la página -->
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">Manuales y Documentación - SGC</h1>
+            <p class="text-gray-600">Acceda a los manuales, normas y regulaciones del Sistema de Gestión de Calidad de INVESTMENT BOUTIQUE S.A.</p>
+        </div>
+
+        <!-- Pestañas para las categorías de documentos -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+            <div class="border-b border-gray-200">
+                <nav class="flex -mb-px">
+                    <button id="tab-normas" class="py-4 px-6 text-center border-b-2 border-primary-500 font-medium text-sm text-primary-600 flex-1 flex items-center justify-center" onclick="changeDocTab('normas')">
+                        <i class="fas fa-file-alt mr-2"></i> Normas ISO
+                    </button>
+                    <button id="tab-manuales" class="py-4 px-6 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 flex-1 flex items-center justify-center" onclick="changeDocTab('manuales')">
+                        <i class="fas fa-book mr-2"></i> Manuales
+                    </button>
+                    <button id="tab-organizacional" class="py-4 px-6 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 flex-1 flex items-center justify-center" onclick="changeDocTab('organizacional')">
+                        <i class="fas fa-building mr-2"></i> Organizacionales
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Contenido de Normas ISO -->
+            <div id="content-normas" class="tab-content p-6">
+                <div class="prose max-w-none">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Norma ISO 9001</h2>
+                    <p class="mb-6 text-gray-600">Documento normativo internacional que rige nuestro Sistema de Gestión de Calidad.</p>
+                    
+                    <div class="grid md:grid-cols-1 gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-certificate text-primary-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-blue-800 mb-1">ISO 9001:2015</h3>
+                                <p class="text-sm text-gray-600 mb-2">Sistema de Gestión de la Calidad (SGC) - Requisitos</p>
+                                <a href="../NormasISO/ISO_9001-2015_Free.pdf" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <i class="fas fa-download mr-1"></i> Descargar documento
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-certificate text-primary-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-blue-800 mb-1">ISO 9001:2015 Amd 1:2024</h3>
+                                <p class="text-sm text-gray-600 mb-2">Enmienda 1:2024 a ISO 9001:2015 - Cambio Climático</p>
+                                <a href="../Manualesyleyes/cambio-climatico/ISO_9001_2015_Amd_1_2024.pdf" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <i class="fas fa-download mr-1"></i> Descargar documento
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                        <h3 class="font-medium text-gray-800 mb-2">Principios de la Gestión de Calidad</h3>
+                        <ul class="text-sm text-gray-600 space-y-1 list-disc pl-5">
+                            <li>Enfoque al cliente</li>
+                            <li>Liderazgo</li>
+                            <li>Compromiso de las personas</li>
+                            <li>Enfoque basado en procesos</li>
+                            <li>Mejora continua</li>
+                            <li>Toma de decisiones basada en evidencias</li>
+                            <li>Gestión de las relaciones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido de Manuales -->
+            <div id="content-manuales" class="tab-content p-6 hidden">
+                <div class="prose max-w-none">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Manuales del SGC</h2>
+                    <p class="mb-6 text-gray-600">Manuales y guías para la implementación y mantenimiento del Sistema de Gestión de Calidad.</p>
+                    
+                    <div class="grid md:grid-cols-1 gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-book text-primary-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-blue-800 mb-1">Manual del Sistema de Gestión de Calidad</h3>
+                                <p class="text-sm text-gray-600 mb-2">Documento principal del SGC de INVESTMENT BOUTIQUE S.A.</p>
+                                <a href="comousarmanual.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Acceder al manual
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-orange-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-exclamation-circle text-orange-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-orange-800 mb-1">MAN004 - Manual de Emergencias</h3>
+                                <p class="text-sm text-gray-600 mb-2">Procedimientos para situaciones de emergencia</p>
+                                <a href="../PDF-01/MAN004-ManualdeEmergencias.pdf" target="_blank" class="inline-flex items-center text-orange-600 hover:text-orange-800 text-sm">
+                                    <i class="fas fa-download mr-1"></i> Descargar documento
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-cloud-sun text-primary-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-blue-800 mb-1">Enmienda Cambio Climático</h3>
+                                <p class="text-sm text-gray-600 mb-2">Actualización sobre cambio climático para ISO 9001 (español)</p>
+                                <a href="../Manualesyleyes/cambio-climatico/enmienda-cambio-climatico-espanol.pdf" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <i class="fas fa-download mr-1"></i> Descargar documento
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido de Documentos Organizacionales -->
+            <div id="content-organizacional" class="tab-content p-6 hidden">
+                <div class="prose max-w-none">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Documentos Organizacionales</h2>
+                    <p class="mb-6 text-gray-600">Documentos fundamentales que definen la estructura y funcionamiento de INVESTMENT BOUTIQUE S.A.</p>
+                    
+                    <div class="grid md:grid-cols-1 gap-4 mb-6">
+                        <div class="bg-green-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-bullseye text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-green-800 mb-1">Misión, Visión y Valores</h3>
+                                <p class="text-sm text-gray-600 mb-2">Declaración de principios y objetivos estratégicos</p>
+                                <a href="../PDF-01/DOC-012-Mision-Vision-Valores.html" target="_blank" class="inline-flex items-center text-green-600 hover:text-green-800 text-sm">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Ver documento
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-sitemap text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-purple-800 mb-1">Organigrama</h3>
+                                <p class="text-sm text-gray-600 mb-2">Estructura organizacional de INVESTMENT BOUTIQUE S.A.</p>
+                                <a href="../PDF-01/DOC-011-ORGANOGRAMA.html" target="_blank" class="inline-flex items-center text-purple-600 hover:text-purple-800 text-sm">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Ver documento
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-project-diagram text-primary-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-blue-800 mb-1">Mapa de Procesos</h3>
+                                <p class="text-sm text-gray-600 mb-2">Diagrama de los procesos clave de la organización</p>
+                                <a href="../PDF-01/DOC-004-Mapa-de-Procesos.html" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Ver documento
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-file-contract text-red-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-red-800 mb-1">Análisis del Contexto</h3>
+                                <p class="text-sm text-gray-600 mb-2">Evaluación de factores internos y externos</p>
+                                <a href="../PDF-01/DOC-002-AnalisisdelContexto.html" target="_blank" class="inline-flex items-center text-red-600 hover:text-red-800 text-sm">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Ver documento
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-4 rounded-lg flex items-start">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-users text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-yellow-800 mb-1">Análisis de Partes Interesadas</h3>
+                                <p class="text-sm text-gray-600 mb-2">Identificación y necesidades de grupos de interés</p>
+                                <a href="../PDF-01/DOC-003-Analisis-Partes-Interesadas.html" target="_blank" class="inline-flex items-center text-yellow-600 hover:text-yellow-800 text-sm">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Ver documento
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Información sobre la documentación</h2>
+            <p class="text-gray-600 mb-4">Todos los documentos del Sistema de Gestión de Calidad están disponibles para su consulta. Para acceder a versiones impresas o solicitar información adicional, contacte con el responsable del SGC.</p>
+            
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <h3 class="font-medium text-gray-800 mb-2">Responsables</h3>
+                <p class="text-sm">La Dirección de INVESTMENT BOUTIQUE S.A. y el Responsable del SGC son responsables de mantener actualizada esta documentación.</p>
+                <p class="text-sm mt-2"><strong>Contacto:</strong> Para consultas sobre documentación, comuníquese con el departamento de Calidad.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar entre pestañas de documentación
+        function changeDocTab(category) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(`content-${category}`).classList.remove('hidden');
+            
+            // Actualizar pestañas activas
+            document.querySelectorAll('[id^="tab-"]').forEach(tab => {
+                tab.classList.remove('border-primary-500', 'text-primary-600');
+                tab.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Resaltar pestaña activa
+            document.getElementById(`tab-${category}`).classList.add('border-primary-500', 'text-primary-600');
+            document.getElementById(`tab-${category}`).classList.remove('border-transparent', 'text-gray-500');
+        }
+
+        // Inicializar con la primera pestaña activa
+        document.addEventListener('DOMContentLoaded', function() {
+            changeDocTab('normas');
+        });
+    </script>
+</body>
+</html>

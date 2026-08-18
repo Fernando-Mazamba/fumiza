@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - SGC - FUMIZA S. de R.L.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        vib: {
+                            azul: '#0b2b5c',
+                            azulclaro: '#2a6fdb',
+                            dorado: '#d4a843',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        .section-title {
+            position: relative;
+            padding-left: 1rem;
+        }
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, #0b2b5c, #2a6fdb);
+            border-radius: 2px;
+        }
+        .banner-gradient {
+            background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 50%, #2a6fdb 100%);
+        }
+        .gold-accent {
+            color: #d4a843;
+        }
+        .border-gold {
+            border-color: #d4a843;
+        }
+        .bg-gold-light {
+            background-color: rgba(212, 168, 67, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <main class="p-5 bg-gray-50">
+        <!-- Banner de Bienvenida -->
+        <div class="banner-gradient rounded-lg shadow-md text-white p-8 mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-6 md:mb-0 md:mr-6">
+                    <h2 class="text-3xl font-bold mb-2">Bienvenido a FUMIZA S. de R.L.</h2>
+                    <p class="text-blue-100">Sistema de Gestión de Calidad ISO 9001:2015</p>
+                    <p class="text-blue-200 text-sm mt-2"><i class="fas fa-check-circle gold-accent mr-1"></i> Manejo Integrado de Plagas · Desinfección · Consultoría Ambiental</p>
+                </div>
+                <div class="flex-shrink-0">
+                    <div class="bg-white bg-opacity-20 rounded-full p-2"> 
+                        <img src="../Logotipo/Logo.png"   
+                             alt="FUMIZA S. de R.L."
+                             class="w-16 h-16 object-cover rounded-full"
+                             loading="lazy" width="320" height="320">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjetas de Acceso Rápido -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <a href="apresentacao.html" class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300"> 
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-vib-azul bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-building text-vib-azul text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800">Nuestra Empresa</h3>
+                </div>
+                <p class="text-gray-600">Conozca más sobre FUMIZA, nuestros servicios de Manejo Integrado de Plagas y alcance de certificación.</p>
+            </a>
+            
+            <a href="comousarmanual.html" class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300"> 
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-book text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800">Manual del SGC</h3>
+                </div>
+                <p class="text-gray-600">Acceda al manual completo del Sistema de Gestión de Calidad.</p>
+            </a>
+        </div>
+
+        <!-- Secciones de contenido -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Columna izquierda -->
+            <div class="space-y-6">
+                <!-- Cómo Usar el SGC -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="comousarmanual.html">Cómo Usar el SGC</a></h3>
+                    <p class="text-gray-600 mb-4">Manual completo de utilización del Sistema de Gestión de Calidad.</p>
+                    <a href="comousarmanual.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium"> 
+                        <span>Acceder al manual</span> <i class="fas fa-arrow-right ml-2"></i> 
+                    </a> 
+                </div>
+
+                <!-- Capacitaciones -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="cursos.html">Capacitaciones</a></h3>
+                    <p class="text-gray-600 mb-4">Programas de formación profesional en Manejo Integrado de Plagas, seguridad química, inocuidad alimentaria y bioseguridad.</p>
+                    <a href="cursos.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium"> 
+                        <span>Ver programas disponibles</span> <i class="fas fa-graduation-cap ml-2"></i> 
+                    </a> 
+                </div>
+
+                <!-- Certificados del Sistema de Gestión -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="certificados.html">Certificados del SGC</a></h3>
+                    <p class="text-gray-600 mb-4">Certificación ISO 9001:2015 del Sistema de Gestión de Calidad.</p>
+                    <a href="certificados.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium">
+                        <span>Ver certificados</span>
+                        <i class="fas fa-certificate ml-2 gold-accent"></i>
+                    </a>
+                </div>
+
+                <!-- Cláusulas -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="Clausulas.html">Cláusulas ISO 9001</a></h3>
+                    <p class="text-gray-600 mb-4">Requisitos y cláusulas de la norma ISO 9001:2015 aplicados a nuestros servicios.</p>
+                    <a href="clausulas.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium">
+                        <span>Consultar cláusulas</span>
+                        <i class="fas fa-file-contract ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna derecha -->
+            <div class="space-y-6">
+                <!-- Registros -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="Sistema-de-Registros.html">Registros del SGC</a></h3>
+                    <p class="text-gray-600 mb-4">Gestión de los registros y documentos del sistema de gestión de calidad.</p>
+                    <a href="Sistema-de-Registros.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium"> 
+                        <span>Gestionar registros</span> <i class="fas fa-arrow-right ml-2"></i> 
+                    </a> 
+                </div>
+
+                <!-- Procedimientos -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="poes.html">Procedimientos (POEs)</a></h3>
+                    <p class="text-gray-600 mb-4">Documentación y gestión de procedimientos operativos estándar del SGC.</p>
+                    <a href="poes.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium"> 
+                        <span>Ver procedimientos</span> <i class="fas fa-arrow-right ml-2"></i> 
+                    </a> 
+                </div>
+
+                <!-- Índice Documental del SGC -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="indice_documental_moderno.html">Índice Documental</a></h3>
+                    <p class="text-gray-600 mb-4">Estructura y organización de la documentación del sistema de calidad.</p>
+                    <a href="indice_documental_moderno.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium"> 
+                        <span>Explorar índice</span> <i class="fas fa-folder-tree ml-2"></i> 
+                    </a> 
+                </div>
+
+                <!-- Manuales y Documentación -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="Manuales.html">Manuales y Documentación</a></h3>
+                    <p class="text-gray-600 mb-4">Manuales completos y documentación técnica del SGC.</p>
+                    <a href="Manuales.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium"> 
+                        <span>Acceder a manuales</span> <i class="fas fa-book ml-2"></i> 
+                    </a> 
+                </div>
+
+                <!-- Gestión Ambiental -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="ADMGestionAmbiental.html">Gestión Ambiental</a></h3>
+                    <p class="text-gray-600 mb-4">Consultoría ambiental para licenciamiento, informes y documentación técnica especializada.</p>
+                    <a href="ADMGestionAmbiental.html" class="inline-flex items-center text-vib-azul hover:text-vib-azulclaro font-medium"> 
+                        <span>Acceder al módulo</span> <i class="fas fa-leaf ml-2 gold-accent"></i>
+                    </a> 
+                </div>
+            </div>
+        </div>
+
+        <!-- Enlace a Norma ISO 9001 -->
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Norma ISO 9001:2015</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-600 mb-4">Acceda a la norma internacional de Sistemas de Gestión de Calidad.</p>
+                    <a href="../NormasISO/ISO_9001-2015_Free.pdf" target="_blank" class="inline-flex items-center bg-vib-azul text-white px-4 py-2 rounded-lg hover:bg-vib-azulclaro transition-colors">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        <span>Descargar ISO 9001:2015</span>
+                    </a>
+                </div>
+                <div class="bg-gold-light p-4 rounded-lg border border-gold border-opacity-30">
+                    <h4 class="font-medium text-gray-800 mb-2">Nuestros Servicios</h4>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• <span class="font-medium">Manejo Integrado de Plagas</span> (desinsectación, desratización, desinfección)</li>
+                        <li>• <span class="font-medium">Control y Reubicación</span> de fauna silvestre</li>
+                        <li>• <span class="font-medium">Capacitación Técnica</span> y formación profesional</li>
+                        <li>• <span class="font-medium">Auditorías</span> e inspecciones de control sanitario</li>
+                        <li>• <span class="font-medium">Consultoría Ambiental</span> y suministro de productos profesionales</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Datos de contacto rápidos -->
+        <div class="mt-6 bg-vib-azul text-white p-4 rounded-lg flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center space-x-4 mb-3 md:mb-0">
+                <i class="fas fa-phone-alt text-gold-accent"></i>
+                <span>+504 3210-4795</span>
+                <span class="hidden md:inline">|</span>
+                <i class="fas fa-phone-alt text-gold-accent"></i>
+                <span>+504 3187-9733</span>
+                <span class="hidden md:inline">|</span>
+                <i class="fas fa-envelope text-gold-accent"></i>
+                <span>info@fumiza.hn</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-map-marker-alt text-gold-accent"></i>
+                <span class="text-sm">Centro Comercial Plaza San Pedro, L-05, Distrito Central, Honduras</span>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

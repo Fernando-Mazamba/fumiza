@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FUMIZA S. de R.L. · Sistema de Registros</title>
+  <meta name="description" content="Sistema de gestión de registros - ISO 9001:2015 para FUMIZA S. de R.L." />
+  <link rel="icon" href="assets/img/logo.png" type="image/png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --sidebar: 255 255 255 / .92;
+      --quality-color: #0b2b5c;
+    }
+    .glass { background: rgba(var(--sidebar)); backdrop-filter: blur(10px); }
+    .ring-soft { box-shadow: 0 0 0 1px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.06); }
+    .active { background-color: #e0f2fe !important; color: #075985 !important; }
+    
+    .storage-card {
+      transition: all 0.3s ease;
+    }
+    .storage-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .quality-gradient {
+      background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);
+    }
+    
+    .certification-badge {
+      background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);
+      color: white;
+    }
+
+    .gold-accent {
+      color: #d4a843;
+    }
+
+    .bg-gold-light {
+      background-color: rgba(212, 168, 67, 0.1);
+    }
+
+    .border-gold {
+      border-color: #d4a843;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+  <!-- Botón Volver -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4">
+    <a href="inicio.html" class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Volver al Inicio
+    </a>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="quality-gradient rounded-2xl ring-soft p-6 mb-6 text-white">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center">
+          <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold">Sistema de Registros de Calidad</h1>
+            <p class="text-white text-opacity-90">Gestión documental del Sistema de Gestión de Calidad (SGC)</p>
+          </div>
+        </div>
+        <div class="text-sm bg-white bg-opacity-20 px-3 py-1 rounded-lg">
+          SGC - ISO 9001:2015
+        </div>
+      </div>
+      <!-- Certificación -->
+      <div class="mt-4 p-3 bg-white bg-opacity-15 rounded-lg border border-white border-opacity-20">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-white text-opacity-90">Sistema de Gestión de Calidad ISO 9001:2015</p>
+            <p class="text-xs text-white text-opacity-80">FUMIZA S. de R.L. · Manejo Integrado de Plagas · Desinfección · Consultoría Ambiental</p>
+          </div>
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plataformas de Almacenamiento -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+        <svg class="w-6 h-6 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+        </svg>
+        Plataformas de Almacenamiento en la Nube
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Google Drive -->
+        <div class="storage-card bg-white rounded-2xl ring-soft p-6">
+          <div class="flex items-center mb-4">
+            <div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mr-4">
+              <svg class="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.344 5.71c0-0.73 0.074-1.229 1.199-1.229h8.894v-4.48h-13.144c-4.889 0-5.743 3.664-5.743 5.744v13.497c0 4.073 1.919 5.758 5.743 5.758h13.497c3.584 0 5.738-2.195 5.738-5.758v-8.894h-4.495v7.144c0 1.199-0.73 1.973-1.973 1.973h-9.42c-1.199 0-1.973-0.774-1.973-1.973v-9.42c0-1.199 0.774-1.973 1.973-1.973h7.144v-4.495h-6.669z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Google Drive</h3>
+              <p class="text-sm text-gray-600">Documentos del Sistema de Gestión de Calidad</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <a href="https://drive.google.com" target="_blank" class="w-full quality-gradient text-white text-center py-3 rounded-lg hover:opacity-90 transition-all block">
+              Acceder a Google Drive
+            </a>
+          </div>
+        </div>
+
+        <!-- OneDrive -->
+        <div class="storage-card bg-white rounded-2xl ring-soft p-6">
+          <div class="flex items-center mb-4">
+            <div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mr-4">
+              <svg class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.5 11.5c0 2.485-2.015 4.5-4.5 4.5h-10c-2.485 0-4.5-2.015-4.5-4.5s2.015-4.5 4.5-4.5h10c2.485 0 4.5 2.015 4.5 4.5z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">OneDrive</h3>
+              <p class="text-sm text-gray-600">Archivos corporativos y registros de control de plagas</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <a href="https://onedrive.live.com" target="_blank" class="w-full quality-gradient text-white text-center py-3 rounded-lg hover:opacity-90 transition-all block">
+              Acceder a OneDrive
+            </a>
+          </div>
+        </div>
+
+        <!-- Dropbox -->
+        <div class="storage-card bg-white rounded-2xl ring-soft p-6">
+          <div class="flex items-center mb-4">
+            <div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mr-4">
+              <svg class="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 6l12-4-8 10-4-6zm12 4l-12 4 8-10 4 6zm-12 4l12 4-8-10-4 6z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Dropbox</h3>
+              <p class="text-sm text-gray-600">Archivos compartidos y colaborativos</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <a href="https://dropbox.com" target="_blank" class="w-full quality-gradient text-white text-center py-3 rounded-lg hover:opacity-90 transition-all block">
+              Acceder a Dropbox
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Registros de Calidad ISO 9001:2015 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+        <svg class="w-6 h-6 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        Registros del Sistema de Gestión de Calidad ISO 9001:2015
+      </h2>
+
+      <div class="bg-white rounded-2xl ring-soft p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800 text-lg">ISO 9001:2015</h3>
+              <p class="text-sm text-gray-600">Sistema de Gestión de Calidad</p>
+            </div>
+          </div>
+          <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">CALIDAD CERTIFICADA</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Categoría 1: Control de Plagas -->
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-800 mb-3" style="color: #0b2b5c;">Control de Plagas</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Registros de desinsectación
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Registros de desratización
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Certificados de fumigación
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categoría 2: Desinfección y Sanitización -->
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-800 mb-3" style="color: #0b2b5c;">Desinfección y Sanitización</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Protocolos de desinfección
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Registros de sanitización
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Control de descarización
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categoría 3: Control de Fauna -->
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-800 mb-3" style="color: #0b2b5c;">Control de Fauna</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Registros de captura y reubicación
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Control de murciélagos y aves
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Manejo de fauna silvestre
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categoría 4: Auditorías y Consultoría -->
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-800 mb-3" style="color: #0b2b5c;">Auditorías y Consultoría</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Informes de auditorías sanitarias
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Documentación técnica ambiental
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Inspecciones diagnósticas
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categoría 5: Capacitación y Formación -->
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-800 mb-3" style="color: #0b2b5c;">Capacitación y Formación</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Programas de capacitación en MIP
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Certificados de formación profesional
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Evaluación de competencias
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categoría 6: Suministro de Productos -->
+          <div class="border border-gray-200 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-800 mb-3" style="color: #0b2b5c;">Suministro de Productos</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Inventario de equipos profesionales
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Registros de productos químicos
+              </li>
+              <li class="flex items-start">
+                <svg class="w-4 h-4 mr-2 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Trazabilidad de insumos
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-gray-100">
+          <a href="registros-completos.html" class="quality-gradient text-white text-center py-3 px-6 rounded-lg hover:opacity-90 transition-all inline-flex items-center">
+            Ver todos los registros de calidad
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documentos Específicos del SGC -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+        <svg class="w-6 h-6 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+        </svg>
+        Documentos del Sistema de Gestión de Calidad
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <h3 class="font-semibold mb-2" style="color: #0b2b5c;">Documentos Esenciales</h3>
+          <ul class="text-sm text-blue-700 space-y-1">
+            <li>• Política de Calidad</li>
+            <li>• Manual del Sistema de Gestión de Calidad</li>
+            <li>• Procedimientos operacionales (POEs)</li>
+            <li>• Instrucciones de trabajo</li>
+          </ul>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <h3 class="font-semibold mb-2" style="color: #0b2b5c;">Auditorías y Revisión</h3>
+          <ul class="text-sm text-blue-700 space-y-1">
+            <li>• Plan anual de auditorías internas</li>
+            <li>• Informes de auditoría de calidad</li>
+            <li>• Actas de revisión por la dirección</li>
+            <li>• Seguimiento de acciones correctivas</li>
+          </ul>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <h3 class="font-semibold mb-2" style="color: #0b2b5c;">Indicadores y Reportes</h3>
+          <ul class="text-sm text-blue-700 space-y-1">
+            <li>• Tablero de control de calidad</li>
+            <li>• Indicadores de desempeño del SGC</li>
+            <li>• Reportes de satisfacción del cliente</li>
+            <li>• Análisis de datos para la mejora</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <div class="bg-white rounded-2xl ring-soft p-6">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Acceso Rápido</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="https://drive.google.com" target="_blank" class="flex items-center justify-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+          <svg class="w-6 h-6 text-blue-600 mr-3" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.344 5.71c0-0.73 0.074-1.229 1.199-1.229h8.894v-4.48h-13.144c-4.889 0-5.743 3.664-5.743 5.744v13.497c0 4.073 1.919 5.758 5.743 5.758h13.497c3.584 0 5.738-2.195 5.738-5.758v-8.894h-4.495v7.144c0 1.199-0.73 1.973-1.973 1.973h-9.42c-1.199 0-1.973-0.774-1.973-1.973v-9.42c0-1.199 0.774-1.973 1.973-1.973h7.144v-4.495h-6.669z"/>
+          </svg>
+          <span class="font-medium text-gray-700">Google Drive</span>
+        </a>
+        <a href="comousarmanual.html" class="flex items-center justify-center p-4 quality-gradient text-white rounded-lg hover:opacity-90 transition-all">
+          <svg class="w-6 h-6 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          <span class="font-medium">Manual SGC</span>
+        </a>
+        <a href="registros-calidad.html" class="flex items-center justify-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+          <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span class="font-medium text-gray-700">Registros SGC</span>
+        </a>
+        <a href="auditorias-calidad.html" class="flex items-center justify-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+          <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+          <span class="font-medium text-gray-700">Auditorías</span>
+        </a>
+      </div>
+      
+      <!-- Información de la Empresa -->
+      <div class="mt-6 pt-6 border-t border-gray-100">
+        <h3 class="font-semibold text-gray-700 mb-3">Información de la Empresa</h3>
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <div class="grid grid-cols-

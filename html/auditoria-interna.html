@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FUMIZA S. de R.L. - Auditoría Interna</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 50%, #2a6fdb 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .logo-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: contain;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background-color: white;
+      padding: 5px;
+    }
+
+    .logo-text {
+      text-align: left;
+    }
+
+    .logo-text h1 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+      color: white;
+    }
+
+    .logo-text p {
+      font-size: 1rem;
+      opacity: 0.9;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .iso-badge {
+      display: inline-block;
+      background-color: #d4a843;
+      color: #0b2b5c;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+      margin-top: 15px;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .main-content {
+      padding: 50px 30px;
+      text-align: center;
+    }
+
+    .welcome-text {
+      margin-bottom: 50px;
+    }
+
+    .welcome-text h2 {
+      color: #0b2b5c;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    .welcome-text p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .pdf-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 25px 30px;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .pdf-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .pdf-button:active {
+      transform: translateY(-2px);
+    }
+
+    .audit-button {
+      background: linear-gradient(135deg, #0b2b5c, #2a6fdb);
+    }
+
+    .review-button {
+      background: linear-gradient(135deg, #1a4a8a, #4a8fd4);
+    }
+
+    .pdf-button i {
+      font-size: 1.8rem;
+    }
+
+    footer {
+      background-color: #f8f9fa;
+      padding: 25px 30px;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .footer-text {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .footer-text strong {
+      color: #0b2b5c;
+    }
+
+    .copyright {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    .contact-info {
+      color: #888;
+      font-size: 0.85rem;
+      margin-top: 5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        padding: 30px 20px;
+      }
+      
+      .logo-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      
+      .logo-text {
+        text-align: center;
+      }
+      
+      .logo-text h1 {
+        font-size: 1.6rem;
+      }
+      
+      .main-content {
+        padding: 40px 20px;
+      }
+      
+      .pdf-button {
+        padding: 22px 25px;
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+      
+      .container {
+        border-radius: 15px;
+      }
+      
+      .logo-text h1 {
+        font-size: 1.4rem;
+      }
+      
+      .logo-image {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .welcome-text h2 {
+        font-size: 1.5rem;
+      }
+      
+      .pdf-button {
+        padding: 20px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-container">
+        <img src="../Logotipo/Logo.png" alt="Logo FUMIZA S. de R.L." class="logo-image">
+        <div class="logo-text">
+          <h1>FUMIZA S. de R.L.</h1>
+          <p>Sistema de Gestión ISO 9001:2015</p>
+        </div>
+      </div>
+      <div class="iso-badge">
+        <i class="fas fa-certificate"></i> ISO 9001:2015
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="welcome-text">
+        <h2>Sistema de Gestión de la Calidad</h2>
+        <p>Acceda a los documentos del sistema de gestión de calidad ISO 9001:2015</p>
+      </div>
+
+      <div class="buttons-container">
+        <!-- Botón de Auditoría Interna -->
+        <button class="pdf-button audit-button" onclick="openAuditoriaPDF()">
+          <i class="fas fa-clipboard-check"></i>
+          <span>Auditoría Interna</span>
+        </button>
+
+        <!-- Botón de Revisión por la Dirección -->
+        <button class="pdf-button review-button" onclick="openRevisionPDF()">
+          <i class="fas fa-users-cog"></i>
+          <span>Revisión por la Dirección</span>
+        </button>
+      </div>
+    </main>
+
+    <footer>
+      <p class="footer-text"><strong>FUMIZA S. de R.L.</strong> - Sistema de Gestión de la Calidad</p>
+      <p class="copyright">
+        &copy; 2026 FUMIZA S. de R.L. Todos los derechos reservados.
+      </p>
+      <p class="contact-info">
+        <i class="fas fa-map-marker-alt"></i> Centro Comercial Plaza San Pedro, L-05, Distrito Central, Honduras
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // URLs de los archivos PDF
+    function openAuditoriaPDF() {
+      const pdfUrl = '../Revisionyauditoria/Reporte-Auditoria-Internainvestiment-9001.pdf';
+      window.open(pdfUrl, '_blank');
+    }
+
+    function openRevisionPDF() {
+      const pdfUrl = '../Revisionyauditoria/Revision-por-la-Direccion-Investiment.pdf';
+      window.open(pdfUrl, '_blank');
+    }
+
+    // Efecto de carga en los botones
+    document.querySelectorAll('.pdf-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const originalText = this.querySelector('span').textContent;
+        const icon = this.querySelector('i');
+        const originalIconClass = icon.className;
+        
+        // Mostrar carga
+        this.querySelector('span').textContent = 'Abriendo...';
+        icon.className = 'fas fa-spinner fa-spin';
+        
+        // Restaurar después de 1 segundo
+        setTimeout(() => {
+          this.querySelector('span').textContent = originalText;
+          icon.className = originalIconClass;
+        }, 1000);
+      });
+    });
+
+    // Manejar errores si el logo no se encuentra
+    document.addEventListener('DOMContentLoaded', function() {
+      const logo = document.querySelector('.logo-image');
+      logo.onerror = function() {
+        console.log('Logo no encontrado en la ruta especificada');
+        // Crear un ícono como fallback
+        const fallbackIcon = document.createElement('div');
+        fallbackIcon.className = 'logo-icon-fallback';
+        fallbackIcon.innerHTML = '<i class="fas fa-building-columns"></i>';
+        fallbackIcon.style.cssText = `
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background-color: #d4a843;
+          color: #0b2b5c;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        `;
+        logo.parentNode.replaceChild(fallbackIcon, logo);
+      };
+    });
+  </script>
+</body>
+</html>

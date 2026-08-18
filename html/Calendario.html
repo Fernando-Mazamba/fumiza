@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario del Sistema de Gestión - SGC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #1e3a8a;
+            --color-secondary: #3b82f6;
+            --color-light: #f8fafc;
+            --color-border: #e2e8f0;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-planned: #3b82f6;
+            --color-done: #10b981;
+            --color-rescheduled: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: #334155;
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0.5rem;
+        }
+        
+        /* Cabeçalho com logo */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background-color: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 0.25rem;
+            overflow: hidden;
+        }
+        
+        .logo-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .header-titles {
+            flex: 1;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        
+        .header-subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        
+        /* Controles */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .buttons-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1e40af;
+        }
+        
+        .btn-success {
+            background-color: var(--color-success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+        
+        .btn-warning {
+            background-color: var(--color-warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background-color: #d97706;
+        }
+        
+        .btn-danger {
+            background-color: var(--color-danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--color-border);
+            color: #64748b;
+        }
+        
+        .btn-outline:hover {
+            background-color: #f8fafc;
+        }
+        
+        .filter-container {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-select {
+            padding: 0.375rem 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: 0.375rem;
+            background-color: white;
+            font-size: 0.875rem;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        
+        /* Tabela editável */
+        .table-container {
+            overflow-x: auto;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+        
+        thead {
+            background-color: var(--color-primary);
+            color: white;
+        }
+        
+        th {
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th:last-child {
+            border-right: none;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid var(--color-border);
+            transition: background-color 0.2s;
+        }
+        
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        
+        td {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            vertical-align: top;
+            border-right: 1px solid var(--color-border);
+        }
+        
+        td:last-child {
+            border-right: none;
+        }
+        
+        .editable-cell {
+            cursor: text;
+            position: relative;
+            min-height: 40px;
+        }
+        
+        .editable-cell:hover {
+            background-color: #f0f9ff;
+        }
+        
+        .editable-cell:focus {
+            outline: 2px solid var(--color-secondary);
+            background-color: #f0f9ff;
+        }
+        
+        .cell-actions {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: none;
+            gap: 0.25rem;
+            padding: 0.25rem;
+            background-color: white;
+            border: 1px solid var(--color-border);
+            border-radius: 0.25rem;
+            z-index: 10;
+        }
+        
+        .editable-cell:hover .cell-actions {
+            display: flex;
+        }
+        
+        .cell-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 0.25rem;
+            background-color: #f8fafc;
+            color: #64748b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+        
+        .cell-btn:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+        
+        /* Estados */
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 100px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .status-planned {
+            background-color: #dbeafe;
+            color: var(--color-planned);
+        }
+        
+        .status-done {
+            background-color: #d1fae5;
+            color: var(--color-done);
+        }
+        
+        .status-rescheduled {
+            background-color: #fef3c7;
+            color: var(--color-warning);
+        }
+        
+        /* Modal para nova atividade */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 0.5rem 0.5rem 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+        }
+        
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.375rem;
+            font-weight: 500;
+            color: #475569;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+        
+        .form-control:focus {
+            outline: 2px solid var(--color-secondary);
+            border-color: var(--color-secondary);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: 0.375rem;
+            background-color: white;
+            font-size: 0.875rem;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Informações do sistema */
+        .system-info {
+            background-color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            color: #64748b;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .last-update {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+            }
+            
+            .logo-container {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .header-titles {
+                text-align: center;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-container, .buttons-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .legend {
+                width: 100%;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.25rem;
+            }
+            
+            th, td {
+                padding: 0.5rem 0.25rem;
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+            }
+            
+            .controls, .modal, .cell-actions, .system-info .download-options {
+                display: none;
+            }
+            
+            .table-container {
+                box-shadow: none;
+            }
+            
+            .header {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+        
+        /* Notificações */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-success {
+            background-color: var(--color-success);
+        }
+        
+        .notification-warning {
+            background-color: var(--color-warning);
+        }
+        
+        .notification-error {
+            background-color: var(--color-danger);
+        }
+        
+        .notification-info {
+            background-color: var(--color-primary);
+        }
+        
+        /* Configuração do logo */
+        .logo-config {
+            display: none;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo-config.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho com logo -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-placeholder" id="logoContainer">
+                    <!-- Logo será carregado aqui -->
+                    <div id="logoText">Logo Empresa</div>
+                </div>
+                <div class="header-titles">
+                    <h1>Calendario del Sistema de Gestión</h1>
+                    <div class="header-subtitle">Sistema de Gestión de la Calidad - ISO 9001:2015</div>
+                </div>
+            </div>
+            <button class="btn btn-outline" id="configLogoBtn">
+                <i class="fas fa-cog"></i> Configurar Logo
+            </button>
+        </div>
+        
+        <!-- Configuração do logo -->
+        <div class="logo-config" id="logoConfig">
+            <h3>Configuración del Logo</h3>
+            <div class="form-group">
+                <label class="form-label">URL del logo (puede ser una URL o una ruta local):</label>
+                <input type="text" class="form-control" id="logoUrl" value="../Logotipo/Logo.png" placeholder="Ej: ../Logotipo/Logo.png">
+            </div>
+            <div class="form-group">
+                <label class="form-label">O cargue un archivo de imagen:</label>
+                <input type="file" class="form-control" id="logoFile" accept="image/*">
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" id="saveLogoBtn">Aplicar Logo</button>
+                <button class="btn btn-outline" id="cancelLogoBtn">Cancelar</button>
+            </div>
+        </div>
+        
+        <!-- Controles e filtros -->
+        <div class="controls">
+            <div class="buttons-container">
+                <button class="btn btn-primary" id="addActivityBtn">
+                    <i class="fas fa-plus"></i> Nueva Actividad
+                </button>
+                <button class="btn btn-success" id="saveDataBtn">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+                <button class="btn btn-outline" id="downloadBtn">
+                    <i class="fas fa-download"></i> Descargar Datos
+                </button>
+                <button class="btn btn-outline" id="printBtn">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+            </div>
+            
+            <div class="filter-container">
+                <div>
+                    <select id="filterProcess" class="filter-select">
+                        <option value="all">Todos los procesos</option>
+                        <option value="auditoria">Auditoría Interna</option>
+                        <option value="revision">Revisión por la Dirección</option>
+                        <option value="capacitacion">Capacitación</option>
+                        <option value="mejora">Mejora Continua</option>
+                        <option value="documentacion">Documentación</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <select id="filterStatus" class="filter-select">
+                        <option value="all">Todos los estados</option>
+                        <option value="planned">Planificado</option>
+                        <option value="done">Realizado</option>
+                        <option value="rescheduled">Reprogramado</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <select id="filterNorm" class="filter-select">
+                        <option value="all">Todas las normas</option>
+                        <option value="9001">ISO 9001</option>
+                        <option value="14001">ISO 14001</option>
+                        <option value="45001">ISO 45001</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #dbeafe;"></div>
+                    <span>Planificado</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #d1fae5;"></div>
+                    <span>Realizado</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #fef3c7;"></div>
+                    <span>Reprogramado</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabela de atividades -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Actividad</th>
+                        <th>Proceso</th>
+                        <th>Norma / Cláusula</th>
+                        <th>Responsable</th>
+                        <th>Estado</th>
+                        <th>Observaciones o Evidencia</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="calendarBody">
+                    <!-- Atividades serão carregadas via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Informações do sistema -->
+        <div class="system-info">
+            <div>Este calendario forma parte del Sistema de Gestión de la Calidad y es evidencia documentada de la planificación de actividades.</div>
+            <div>
+                <span class="last-update">Última actualización: <span id="currentDate"></span></span>
+                <span class="download-options"> | Datos guardados localmente</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para adicionar/editar atividade -->
+    <div class="modal" id="activityModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Nueva Actividad del SGC</div>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="activityForm">
+                    <div class="form-group">
+                        <label class="form-label" for="activityDate">Fecha *</label>
+                        <input type="date" class="form-control" id="activityDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="activityName">Actividad *</label>
+                        <input type="text" class="form-control" id="activityName" placeholder="Ej: Auditoría interna - Proceso de ventas" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="activityProcess">Proceso *</label>
+                        <select class="form-select" id="activityProcess" required>
+                            <option value="">Seleccionar proceso...</option>
+                            <option value="auditoria">Auditoría Interna</option>
+                            <option value="revision">Revisión por la Dirección</option>
+                            <option value="capacitacion">Capacitación</option>
+                            <option value="mejora">Mejora Continua</option>
+                            <option value="documentacion">Documentación</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="activityNorm">Norma *</label>
+                        <select class="form-select" id="activityNorm" required>
+                            <option value="">Seleccionar norma...</option>
+                            <option value="ISO 9001">ISO 9001</option>
+                            <option value="ISO 14001">ISO 14001</option>
+                            <option value="ISO 45001">ISO 45001</option>
+                            <option value="ISO 9001 / 14001">ISO 9001 / 14001</option>
+                            <option value="ISO 9001 / 45001">ISO 9001 / 45001</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="activityClause">Cláusula *</label>
+                        <input type="text" class="form-control" id="activityClause" placeholder="Ej: 9.2, 9.3" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="activityResponsible">Responsable *</label>
+                        <input type="text" class="form-control" id="activityResponsible" placeholder="Nombre del responsable" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="activityStatus">Estado *</label>
+                        <select class="form-select" id="activityStatus" required>
+                            <option value="">Seleccionar estado...</option>
+                            <option value="planned">Planificado</option>
+                            <option value="done">Realizado</option>
+                            <option value="rescheduled">Reprogramado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="activityObservations">Observaciones o Evidencia</label>
+                        <textarea class="form-control" id="activityObservations" rows="3" placeholder="Descripción, evidencias, comentarios..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelActivityBtn">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="saveActivityBtn">Guardar Actividad</button>
+                    </div>
+                    
+                    <input type="hidden" id="activityId" value="">
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notificação -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Cambios guardados correctamente</span>
+    </div>
+
+    <script>
+        // Dados do calendário - atividades do SGC
+        let activities = [];
+        let currentEditId = null;
+        let logoUrl = "../Logotipo/Logo.png";
+        
+        // Dados de exemplo para inicialização
+        const defaultActivities = [
+            {
+                id: 1,
+                date: new Date().toISOString().split('T')[0],
+                activity: "Auditoría interna - Proceso de ventas",
+                process: "auditoria",
+                norm: "ISO 9001",
+                clause: "9.2",
+                responsible: "María González",
+                status: "done",
+                observations: "Informe AUD-2023-015. No conformidades menores: 2. Acciones correctivas implementadas."
+            },
+            {
+                id: 2,
+                date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                activity: "Capacitación en cambios normativos",
+                process: "capacitacion",
+                norm: "ISO 9001",
+                clause: "7.2, 7.3",
+                responsible: "Carlos Ruiz",
+                status: "planned",
+                observations: "Asistencia: 15 personas. Material: Presentación CAM-2023-02. Evaluación realizada."
+            },
+            {
+                id: 3,
+                date: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                activity: "Revisión por la Dirección",
+                process: "revision",
+                norm: "ISO 9001",
+                clause: "9.3",
+                responsible: "Ana Martínez",
+                status: "planned",
+                observations: "Preparar informe de indicadores, revisión de acciones correctivas y sugerencias de mejora."
+            }
+        ];
+        
+        // Inicializar armazenamento local
+        function initStorage() {
+            const savedActivities = localStorage.getItem('sgcActivities');
+            const savedLogo = localStorage.getItem('sgcLogoUrl');
+            
+            if (savedActivities) {
+                activities = JSON.parse(savedActivities);
+            } else {
+                activities = defaultActivities;
+                saveToLocalStorage();
+            }
+            
+            if (savedLogo) {
+                logoUrl = savedLogo;
+                loadLogo(logoUrl);
+            } else {
+                loadLogo(logoUrl);
+            }
+        }
+        
+        // Salvar no localStorage
+        function saveToLocalStorage() {
+            localStorage.setItem('sgcActivities', JSON.stringify(activities));
+            localStorage.setItem('sgcLastUpdate', new Date().toISOString());
+        }
+        
+        // Formatar data para exibição
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric' 
+            });
+        }
+        
+        // Obter texto do status
+        function getStatusText(status) {
+            const statusMap = {
+                'planned': 'Planificado',
+                'done': 'Realizado',
+                'rescheduled': 'Reprogramado'
+            };
+            return statusMap[status] || status;
+        }
+        
+        // Obter classe CSS para status
+        function getStatusClass(status) {
+            const classMap = {
+                'planned': 'status-planned',
+                'done': 'status-done',
+                'rescheduled': 'status-rescheduled'
+            };
+            return classMap[status] || '';
+        }
+        
+        // Obter texto do processo
+        function getProcessText(processCode) {
+            const processMap = {
+                'auditoria': 'Auditoría Interna',
+                'revision': 'Revisión por la Dirección',
+                'capacitacion': 'Capacitación',
+                'mejora': 'Mejora Continua',
+                'documentacion': 'Documentación'
+            };
+            return processMap[processCode] || processCode;
+        }
+        
+        // Criar célula editável
+        function createEditableCell(value, type, activityId, field) {
+            const cell = document.createElement('td');
+            cell.className = 'editable-cell';
+            cell.setAttribute('data-field', field);
+            cell.setAttribute('data-activity-id', activityId);
+            
+            if (type === 'status') {
+                const statusSpan = document.createElement('span');
+                statusSpan.className = `status ${getStatusClass(value)}`;
+                statusSpan.textContent = getStatusText(value);
+                statusSpan.addEventListener('click', function() {
+                    cycleStatus(this, activityId);
+                });
+                cell.appendChild(statusSpan);
+            } else if (type === 'date') {
+                cell.textContent = formatDate(value);
+                cell.setAttribute('data-original-value', value);
+            } else if (type === 'process') {
+                cell.textContent = getProcessText(value);
+                cell.setAttribute('data-original-value', value);
+            } else {
+                cell.textContent = value;
+                cell.setAttribute('data-original-value', value);
+            }
+            
+            // Adicionar ações da célula
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'cell-actions';
+            
+            const editBtn = document.createElement('button');
+            editBtn.className = 'cell-btn';
+            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+            editBtn.title = 'Editar';
+            editBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                makeCellEditable(cell, activityId, field);
+            });
+            
+            actionsDiv.appendChild(editBtn);
+            cell.appendChild(actionsDiv);
+            
+            // Permitir edição ao clicar na célula
+            cell.addEventListener('dblclick', function() {
+                makeCellEditable(cell, activityId, field);
+            });
+            
+            return cell;
+        }
+        
+        // Tornar célula editável
+        function makeCellEditable(cell, activityId, field) {
+            const originalValue = cell.getAttribute('data-original-value');
+            let input;
+            
+            if (field === 'status') {
+                input = document.createElement('select');
+                input.innerHTML = `
+                    <option value="planned" ${originalValue === 'planned' ? 'selected' : ''}>Planificado</option>
+                    <option value="done" ${originalValue === 'done' ? 'selected' : ''}>Realizado</option>
+                    <option value="rescheduled" ${originalValue === 'rescheduled' ? 'selected' : ''}>Reprogramado</option>
+                `;
+            } else if (field === 'process') {
+                input = document.createElement('select');
+                input.innerHTML = `
+                    <option value="auditoria" ${originalValue === 'auditoria' ? 'selected' : ''}>Auditoría Interna</option>
+                    <option value="revision" ${originalValue === 'revision' ? 'selected' : ''}>Revisión por la Dirección</option>
+                    <option value="capacitacion" ${originalValue === 'capacitacion' ? 'selected' : ''}>Capacitación</option>
+                    <option value="mejora" ${originalValue === 'mejora' ? 'selected' : ''}>Mejora Continua</option>
+                    <option value="documentacion" ${originalValue === 'documentacion' ? 'selected' : ''}>Documentación</option>
+                `;
+            } else if (field === 'date') {
+                input = document.createElement('input');
+                input.type = 'date';
+                input.value = originalValue;
+            } else if (field === 'norm') {
+                input = document.createElement('select');
+                input.innerHTML = `
+                    <option value="ISO 9001" ${originalValue === 'ISO 9001' ? 'selected' : ''}>ISO 9001</option>
+                    <option value="ISO 14001" ${originalValue === 'ISO 14001' ? 'selected' : ''}>ISO 14001</option>
+                    <option value="ISO 45001" ${originalValue === 'ISO 45001' ? 'selected' : ''}>ISO 45001</option>
+                    <option value="ISO 9001 / 14001" ${originalValue === 'ISO 9001 / 14001' ? 'selected' : ''}>ISO 9001 / 14001</option>
+                    <option value="ISO 9001 / 45001" ${originalValue === 'ISO 9001 / 45001' ? 'selected' : ''}>ISO 9001 / 45001</option>
+                `;
+            } else {
+                input = document.createElement('input');
+                input.type = 'text';
+                input.value = originalValue;
+            }
+            
+            input.className = 'form-control';
+            cell.innerHTML = '';
+            cell.appendChild(input);
+            input.focus();
+            
+            // Salvar ao pressionar Enter ou perder foco
+            input.addEventListener('blur', saveCellEdit);
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    saveCellEdit.call(this);
+                } else if (e.key === 'Escape') {
+                    cancelCellEdit(cell, originalValue, field, activityId);
+                }
+            });
+        }
+        
+        // Salvar edição da célula
+        function saveCellEdit() {
+            const input = this;
+            const cell = input.parentElement;
+            const activityId = parseInt(cell.getAttribute('data-activity-id'));
+            const field = cell.getAttribute('data-field');
+            let newValue = input.value;
+            
+            // Encontrar a atividade e atualizar
+            const activityIndex = activities.findIndex(a => a.id === activityId);
+            if (activityIndex !== -1) {
+                activities[activityIndex][field] = newValue;
+                saveToLocalStorage();
+                
+                // Recriar célula com novo valor
+                const activity = activities[activityIndex];
+                const newCell = createEditableCell(activity[field], getCellType(field), activityId, field);
+                cell.parentElement.replaceChild(newCell, cell);
+                
+                showNotification('Campo actualizado correctamente', 'success');
+            }
+        }
+        
+        // Cancelar edição da célula
+        function cancelCellEdit(cell, originalValue, field, activityId) {
+            const newCell = createEditableCell(originalValue, getCellType(field), activityId, field);
+            cell.parentElement.replaceChild(newCell, cell);
+        }
+        
+        // Obter tipo de célula
+        function getCellType(field) {
+            if (field === 'status') return 'status';
+            if (field === 'date') return 'date';
+            if (field === 'process') return 'process';
+            return 'text';
+        }
+        
+        // Ciclar entre status
+        function cycleStatus(element, activityId) {
+            const statusMap = {
+                'planned': 'done',
+                'done': 'rescheduled',
+                'rescheduled': 'planned'
+            };
+            
+            const currentStatus = activities.find(a => a.id === activityId).status;
+            const newStatus = statusMap[currentStatus];
+            
+            // Atualizar atividade
+            const activityIndex = activities.findIndex(a => a.id === activityId);
+            activities[activityIndex].status = newStatus;
+            saveToLocalStorage();
+            
+            // Atualizar exibição
+            element.textContent = getStatusText(newStatus);
+            element.className = `status ${getStatusClass(newStatus)}`;
+            
+            showNotification('Estado actualizado correctamente', 'success');
+        }
+        
+        // Renderizar atividades na tabela
+        function renderActivities(activitiesToRender) {
+            const tbody = document.getElementById('calendarBody');
+            tbody.innerHTML = '';
+            
+            if (activitiesToRender.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 2rem; color: #64748b;">
+                            No se encontraron actividades. Haga clic en "Nueva Actividad" para agregar una.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Ordenar por data
+            const sortedActivities = [...activitiesToRender].sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            });
+            
+            sortedActivities.forEach(activity => {
+                const row = document.createElement('tr');
+                row.setAttribute('data-activity-id', activity.id);
+                
+                // Data
+                row.appendChild(createEditableCell(activity.date, 'date', activity.id, 'date'));
+                
+                // Atividade
+                row.appendChild(createEditableCell(activity.activity, 'text', activity.id, 'activity'));
+                
+                // Processo
+                row.appendChild(createEditableCell(activity.process, 'process', activity.id, 'process'));
+                
+                // Norma/Cláusula
+                const normCell = document.createElement('td');
+                normCell.className = 'editable-cell';
+                normCell.setAttribute('data-field', 'norm');
+                normCell.setAttribute('data-activity-id', activity.id);
+                normCell.setAttribute('data-original-value', activity.norm);
+                normCell.textContent = `${activity.norm} - ${activity.clause}`;
+                
+                const normActions = document.createElement('div');
+                normActions.className = 'cell-actions';
+                normActions.innerHTML = `<button class="cell-btn" title="Editar"><i class="fas fa-edit"></i></button>`;
+                normActions.querySelector('button').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    makeCellEditable(normCell, activity.id, 'norm');
+                });
+                
+                normCell.appendChild(normActions);
+                normCell.addEventListener('dblclick', function() {
+                    makeCellEditable(normCell, activity.id, 'norm');
+                });
+                row.appendChild(normCell);
+                
+                // Responsável
+                row.appendChild(createEditableCell(activity.responsible, 'text', activity.id, 'responsible'));
+                
+                // Estado
+                row.appendChild(createEditableCell(activity.status, 'status', activity.id, 'status'));
+                
+                // Observações
+                row.appendChild(createEditableCell(activity.observations, 'text', activity.id, 'observations'));
+                
+                // Ações
+                const actionsCell = document.createElement('td');
+                actionsCell.style.width = '100px';
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger';
+                deleteBtn.style.padding = '0.25rem 0.5rem';
+                deleteBtn.style.fontSize = '0.75rem';
+                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                deleteBtn.title = 'Eliminar actividad';
+                deleteBtn.addEventListener('click', function() {
+                    deleteActivity(activity.id);
+                });
+                
+                actionsCell.appendChild(deleteBtn);
+                row.appendChild(actionsCell);
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Filtrar atividades
+        function filterActivities() {
+            const processFilter = document.getElementById('filterProcess').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+            const normFilter = document.getElementById('filterNorm').value;
+            
+            let filtered = activities;
+            
+            if (processFilter !== 'all') {
+                filtered = filtered.filter(activity => activity.process === processFilter);
+            }
+            
+            if (statusFilter !== 'all') {
+                filtered = filtered.filter(activity => activity.status === statusFilter);
+            }
+            
+            if (normFilter !== 'all') {
+                filtered = filtered.filter(activity => activity.norm.includes(normFilter));
+            }
+            
+            renderActivities(filtered);
+        }
+        
+        // Adicionar nova atividade
+        function addActivity() {
+            currentEditId = null;
+            document.getElementById('modalTitle').textContent = 'Nueva Actividad del SGC';
+            document.getElementById('activityForm').reset();
+            document.getElementById('activityId').value = '';
+            
+            // Definir data padrão para hoje
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('activityDate').value = today;
+            
+            showModal();
+        }
+        
+        // Editar atividade
+        function editActivity(id) {
+            const activity = activities.find(a => a.id === id);
+            if (!activity) return;
+            
+            currentEditId = id;
+            document.getElementById('modalTitle').textContent = 'Editar Actividad del SGC';
+            document.getElementById('activityId').value = id;
+            document.getElementById('activityDate').value = activity.date;
+            document.getElementById('activityName').value = activity.activity;
+            document.getElementById('activityProcess').value = activity.process;
+            document.getElementById('activityNorm').value = activity.norm;
+            document.getElementById('activityClause').value = activity.clause;
+            document.getElementById('activityResponsible').value = activity.responsible;
+            document.getElementById('activityStatus').value = activity.status;
+            document.getElementById('activityObservations').value = activity.observations;
+            
+            showModal();
+        }
+        
+        // Salvar atividade (do modal)
+        function saveActivity(event) {
+            event.preventDefault();
+            
+            const id = currentEditId || Date.now();
+            const activityData = {
+                id: id,
+                date: document.getElementById('activityDate').value,
+                activity: document.getElementById('activityName').value,
+                process: document.getElementById('activityProcess').value,
+                norm: document.getElementById('activityNorm').value,
+                clause: document.getElementById('activityClause').value,
+                responsible: document.getElementById('activityResponsible').value,
+                status: document.getElementById('activityStatus').value,
+                observations: document.getElementById('activityObservations').value
+            };
+            
+            if (currentEditId) {
+                // Atualizar atividade existente
+                const index = activities.findIndex(a => a.id === currentEditId);
+                if (index !== -1) {
+                    activities[index] = activityData;
+                }
+            } else {
+                // Adicionar nova atividade
+                activities.push(activityData);
+            }
+            
+            saveToLocalStorage();
+            renderActivities(activities);
+            hideModal();
+            
+            showNotification(
+                currentEditId ? 'Actividad actualizada correctamente' : 'Actividad agregada correctamente',
+                'success'
+            );
+        }
+        
+        // Excluir atividade
+        function deleteActivity(id) {
+            if (confirm('¿Está seguro de que desea eliminar esta actividad?')) {
+                activities = activities.filter(a => a.id !== id);
+                saveToLocalStorage();
+                filterActivities();
+                
+                showNotification('Actividad eliminada correctamente', 'success');
+            }
+        }
+        
+        // Salvar todos os dados
+        function saveAllData() {
+            saveToLocalStorage();
+            showNotification('Todos los cambios han sido guardados', 'success');
+        }
+        
+        // Baixar dados
+        function downloadData() {
+            const dataStr = JSON.stringify(activities, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `calendario-sgc-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('Datos descargados correctamente', 'success');
+        }
+        
+        // Carregar logo
+        function loadLogo(url) {
+            const logoContainer = document.getElementById('logoContainer');
+            const logoText = document.getElementById('logoText');
+            
+            // Limpar conteúdo anterior
+            logoContainer.innerHTML = '';
+            
+            // Tentar carregar a imagem
+            const img = new Image();
+            img.onload = function() {
+                logoContainer.appendChild(img);
+                logoText.style.display = 'none';
+            };
+            img.onerror = function() {
+                // Se não conseguir carregar, mostrar texto
+                logoText.textContent = 'Logo Empresa';
+                logoText.style.display = 'block';
+                logoContainer.appendChild(logoText);
+            };
+            img.src = url;
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100%';
+            img.style.objectFit = 'contain';
+        }
+        
+        // Salvar configuração do logo
+        function saveLogo() {
+            const urlInput = document.getElementById('logoUrl');
+            const fileInput = document.getElementById('logoFile');
+            
+            if (fileInput.files && fileInput.files[0]) {
+                // Usar arquivo carregado
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    logoUrl = e.target.result;
+                    localStorage.setItem('sgcLogoUrl', logoUrl);
+                    loadLogo(logoUrl);
+                    hideLogoConfig();
+                    showNotification('Logo actualizado correctamente', 'success');
+                };
+                
+                reader.readAsDataURL(file);
+            } else if (urlInput.value.trim()) {
+                // Usar URL
+                logoUrl = urlInput.value.trim();
+                localStorage.setItem('sgcLogoUrl', logoUrl);
+                loadLogo(logoUrl);
+                hideLogoConfig();
+                showNotification('Logo actualizado correctamente', 'success');
+            } else {
+                showNotification('Por favor, proporcione una URL o seleccione un archivo', 'warning');
+            }
+        }
+        
+        // Mostrar/ocultar modal
+        function showModal() {
+            document.getElementById('activityModal').style.display = 'flex';
+        }
+        
+        function hideModal() {
+            document.getElementById('activityModal').style.display = 'none';
+        }
+        
+        // Mostrar/ocultar configuração do logo
+        function showLogoConfig() {
+            document.getElementById('logoConfig').classList.add('show');
+        }
+        
+        function hideLogoConfig() {
+            document.getElementById('logoConfig').classList.remove('show');
+        }
+        
+        // Mostrar notificação
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.className = `notification notification-${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Atualizar data atual
+        function updateCurrentDate() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+            document.getElementById('currentDate').textContent = dateString;
+        }
+        
+        // Imprimir calendário
+        function printCalendar() {
+            window.print();
+        }
+        
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar dados
+            initStorage();
+            updateCurrentDate();
+            renderActivities(activities);
+            
+            // Configurar eventos dos botões
+            document.getElementById('addActivityBtn').addEventListener('click', addActivity);
+            document.getElementById('saveDataBtn').addEventListener('click', saveAllData);
+            document.getElementById('downloadBtn').addEventListener('click', downloadData);
+            document.getElementById('printBtn').addEventListener('click', printCalendar);
+            document.getElementById('configLogoBtn').addEventListener('click', showLogoConfig);
+            document.getElementById('saveLogoBtn').addEventListener('click', saveLogo);
+            document.getElementById('cancelLogoBtn').addEventListener('click', hideLogoConfig);
+            
+            // Configurar eventos dos filtros
+            document.getElementById('filterProcess').addEventListener('change', filterActivities);
+            document.getElementById('filterStatus').addEventListener('change', filterActivities);
+            document.getElementById('filterNorm').addEventListener('change', filterActivities);
+            
+            // Configurar eventos do modal
+            document.getElementById('closeModalBtn').addEventListener('click', hideModal);
+            document.getElementById('cancelActivityBtn').addEventListener('click', hideModal);
+            document.getElementById('activityForm').addEventListener('submit', saveActivity);
+            
+            // Fechar modal ao clicar fora
+            document.getElementById('activityModal').addEventListener('click', function(e) {
+                if (e.target === this) hideModal();
+            });
+            
+            // Configurar upload de arquivo para logo
+            document.getElementById('logoFile').addEventListener('change', function() {
+                const urlInput = document.getElementById('logoUrl');
+                if (this.files && this.files[0]) {
+                    urlInput.value = this.files[0].name;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

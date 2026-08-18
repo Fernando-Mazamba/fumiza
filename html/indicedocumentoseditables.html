@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índice de Documentos del SGI - ISO 9001</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+              400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+              800: '#1e40af', 900: '#1e3a8a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .row-hover tr:hover td { background-color: #f1f5f9; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-7xl mx-auto p-6">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-gray-500 mb-4 flex items-center">
+      <a href="index.html" class="hover:text-primary-600">Inicio</a>
+      <span class="mx-2">/</span>
+      <a href="documentacion.html" class="hover:text-primary-600">Documentación</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-700">Índice de Documentos ISO 9001</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+      <h1 class="text-2xl md:text-3xl font-bold mb-2">Índice de Documentos - Sistema de Gestión de Calidad (ISO 9001)</h1>
+      <p class="text-gray-600">Documentos específicos para el Sistema de Gestión de Calidad ISO 9001:2015.</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+      <div class="border-b border-gray-200 overflow-x-auto">
+        <ul class="flex min-w-[720px]">
+          <li><button id="tab-doc" class="tab-btn px-5 py-3 border-b-2 border-primary-600 text-sm font-medium text-primary-700 flex items-center gap-2" onclick="changeTab('doc')"><i class="fa-solid fa-file-word"></i> Documentos (DOC)</button></li>
+          <li><button id="tab-form" class="tab-btn px-5 py-3 border-b-2 border-transparent text-sm font-medium hover:text-primary-600 flex items-center gap-2" onclick="changeTab('form')"><i class="fa-solid fa-sheet-plastic"></i> Formularios (FORM)</button></li>
+          <li><button id="tab-proc" class="tab-btn px-5 py-3 border-b-2 border-transparent text-sm font-medium hover:text-primary-600 flex items-center gap-2" onclick="changeTab('proc')"><i class="fa-solid fa-diagram-project"></i> Procedimientos (PRO/PSC)</button></li>
+          <li><button id="tab-oc" class="tab-btn px-5 py-3 border-b-2 border-transparent text-sm font-medium hover:text-primary-600 flex items-center gap-2" onclick="changeTab('oc')"><i class="fa-solid fa-bullseye"></i> Objetivos de Calidad (OC)</button></li>
+        </ul>
+      </div>
+
+      <!-- DOC Content -->
+      <section id="content-doc" class="tab-content p-6">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm row-hover">
+            <thead>
+              <tr class="bg-gray-100 text-gray-700">
+                <th class="text-left p-3 w-40">Categoría</th>
+                <th class="text-left p-3 w-32">Identificador</th>
+                <th class="text-left p-3">Nombre</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-001-Alcance-SGI.docx" class="text-primary-700 hover:underline">001-Alcance-SGI</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-002-AnalisisdelContexto.docx" class="text-primary-700 hover:underline">002-Análisis del Contexto</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-003-Analisis-Partes-Interesadas.docx" class="text-primary-700 hover:underline">003-Análisis Partes Interesadas</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-004-Mapa-de-Procesos.docx" class="text-primary-700 hover:underline">004-Mapa de Procesos</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-005%20-Politica-de-la-Calidad.docx" class="text-primary-700 hover:underline">005-Política de la Calidad</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-010-Propiedad-del-cliente.docx" class="text-primary-700 hover:underline">010-Propiedad del cliente</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-011-ORGANOGRAMA.docx" class="text-primary-700 hover:underline">011-ORGANOGRAMA</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-012-Mision-Vision-Valores.docx" class="text-primary-700 hover:underline">012-Misión Visión Valores</a></td></tr>
+              <tr><td class="p-3">Documentos</td><td class="p-3">DOC</td><td class="p-3"><a target="_blank" href="../word01/DOC-013-RecursosdeMedicion-KPIs.docx" class="text-primary-700 hover:underline">013-Recursos de Medición - KPIs</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FORM Content -->
+      <section id="content-form" class="tab-content p-6 hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm row-hover">
+            <thead>
+              <tr class="bg-gray-100 text-gray-700">
+                <th class="text-left p-3 w-40">Categoría</th>
+                <th class="text-left p-3 w-32">Identificador</th>
+                <th class="text-left p-3">Nombre</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-001-Quejas-y-Reclamos.xlsx" class="text-primary-700 hover:underline">001-Quejas y Reclamos</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-002-Comunicacion-interna-y-externa.xlsx" class="text-primary-700 hover:underline">002-Comunicación interna y externa</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-004-Calibracion-de-equipos.xlsx" class="text-primary-700 hover:underline">004-Calibración de equipos</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../word01/FORM-007-NoConformidad.docx" class="text-primary-700 hover:underline">007-No Conformidad</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-008-Registro-No-Conformidad-Oportunidades-Excel.xlsx" class="text-primary-700 hover:underline">008-Registro No Conformidad / Oportunidad de Mejora</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../word01/FORM-010-Plan-de-Auditoria.docx" class="text-primary-700 hover:underline">010-Plan de Auditoría</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-011-programa-de-auditoria-interna.xlsx" class="text-primary-700 hover:underline">011-Programa de auditoría interna</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../word01/FORM-012-Revision-por-direccion.docx" class="text-primary-700 hover:underline">012-Revisión por dirección</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-020-PROGRAMA-DE-REVISION-POR-LA-GERENCIA-ESTRATEGICA.xlsx" class="text-primary-700 hover:underline">020-PROGRAMA DE REVISIÓN POR LA DIRECCIÓN</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../word01/FORM-015-Reporte-de-Auditoria-Interna.docx" class="text-primary-700 hover:underline">015-Reporte de Auditoría Interna</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../word01/FORM-017-EvaluaciondeProveedores.docx" class="text-primary-700 hover:underline">017-Evaluación de Proveedores</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../word01/FORM-018-Oden-de-Compra.docx" class="text-primary-700 hover:underline">018-Orden de Compra</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-022-Encuesta-Satisfaccion-Cliente.xlsx" class="text-primary-700 hover:underline">022-Encuesta Satisfacción Cliente</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../Excel-trinormas/FORM-023-CERTIFICADO-DE-ANALISIS-DE-CALIDAD.xlsx" class="text-primary-700 hover:underline">023-CERTIFICADO DE ANÁLISIS DE CALIDAD</a></td></tr>
+              <tr><td class="p-3">Formularios</td><td class="p-3">FORM</td><td class="p-3"><a target="_blank" href="../word01/FORM-043-RegistrodeTrazabilidad.docx" class="text-primary-700 hover:underline">043-Registro de Trazabilidad</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PROC Content -->
+      <section id="content-proc" class="tab-content p-6 hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm row-hover">
+            <thead>
+              <tr class="bg-gray-100 text-gray-700">
+                <th class="text-left p-3 w-40">Categoría</th>
+                <th class="text-left p-3 w-32">Identificador</th>
+                <th class="text-left p-3">Nombre</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-001-control-informacion-documentada.docx" class="text-primary-700 hover:underline">001-Control de información documentada</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-002-control-registros.docx" class="text-primary-700 hover:underline">002-Control de registros</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-003-producto-no-conforme.docx" class="text-primary-700 hover:underline">003-Procedimiento de producto no conforme</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-004-auditorias-internas.docx" class="text-primary-700 hover:underline">004-Auditorías internas</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-005-acciones-correctivas.docx" class="text-primary-700 hover:underline">005-Acciones correctivas</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-006-acciones-preventivas.docx" class="text-primary-700 hover:underline">006-Acciones preventivas</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-007-gestion-riesgo.docx" class="text-primary-700 hover:underline">007-Gestión de riesgos</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-008-gestion-cliente.docx" class="text-primary-700 hover:underline">008-Gestión de clientes</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-013-Procedimiento-de-ComprasySubcontratacion.docx" class="text-primary-700 hover:underline">013-Procedimiento de Compras y Subcontratación</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-016-Procedimiento-compras.docx" class="text-primary-700 hover:underline">016-Procedimiento de compras</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-019-Evaluacion-de-Riesgos-y-Oportunidades.docx" class="text-primary-700 hover:underline">019-Evaluación de Riesgos y Oportunidades</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-030-Procedimiento-de-Preservacion-de-Producto.docx" class="text-primary-700 hover:underline">030-Procedimiento de Preservación de Producto</a></td></tr>
+              <tr><td class="p-3">Procedimientos</td><td class="p-3">PRO</td><td class="p-3"><a target="_blank" href="../word01/PRO-031-ControledaProducaoeprestacaodoservico.docx" class="text-primary-700 hover:underline">031-Control de Producción y prestación de servicios</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-001-Proceso-Liderazgo.docx" class="text-primary-700 hover:underline">001-Proceso Liderazgo</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-002-Gestiondelosrecursos.docx" class="text-primary-700 hover:underline">002-Gestión de los recursos</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-007-Analisisydiseno-del-servicio.docx" class="text-primary-700 hover:underline">007-Análisis y diseño del servicio</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-008-Desarrollo-del-Servicio.docx" class="text-primary-700 hover:underline">008-Desarrollo del Servicio</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-009-Post-venta.docx" class="text-primary-700 hover:underline">009-Post venta</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-010-AdministracionyRRHH.docx" class="text-primary-700 hover:underline">010-Administración y RRHH</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-011-Gestiondeproveedores.docx" class="text-primary-700 hover:underline">011-Gestión de proveedores</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PSC</td><td class="p-3"><a target="_blank" href="../word01/PSC-012-Gestion-logisitca.docx" class="text-primary-700 hover:underline">012-Gestión logística</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PCS</td><td class="p-3"><a target="_blank" href="../word01/PCS-005-Cumplimiento-y-Mejora..docx" class="text-primary-700 hover:underline">005-Cumplimiento y Mejora</a></td></tr>
+              <tr><td class="p-3">Procesos</td><td class="p-3">PCS</td><td class="p-3"><a target="_blank" href="../word01/PCS%20006%20Gestion%20del%20cliente.docx" class="text-primary-700 hover:underline">006-Gestión del cliente</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- OC Content -->
+      <section id="content-oc" class="tab-content p-6 hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm row-hover">
+            <thead>
+              <tr class="bg-gray-100 text-gray-700">
+                <th class="text-left p-3 w-40">Categoría</th>
+                <th class="text-left p-3 w-32">Identificador</th>
+                <th class="text-left p-3">Nombre</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr><td class="p-3">Objetivos</td><td class="p-3">OC</td><td class="p-3"><a target="_blank" href="../word01/OC-001-Objetivos-de-la-calidad.docx" class="text-primary-700 hover:underline">001-Objetivos de la calidad</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- Tips -->
+    <div class="text-xs text-gray-500 mt-3 flex items-start gap-2">
+      <i class="fa-solid fa-circle-info mt-0.5"></i>
+      <p>Documentos específicos para el Sistema de Gestión de Calidad ISO 9001:2015.</p>
+    </div>
+  </div>
+
+  <script>
+    function changeTab(key) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('content-' + key).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-primary-600','text-primary-700');
+        btn.classList.add('border-transparent','text-gray-600');
+      });
+      const active = document.getElementById('tab-' + key);
+      if (active) {
+        active.classList.remove('border-transparent','text-gray-600');
+        active.classList.add('border-primary-600','text-primary-700');
+      }
+      // Guardar la pestaña activa en localStorage
+      try { localStorage.setItem('sgi_iso9001_idx_active', key); } catch(e) {}
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = (() => { try { return localStorage.getItem('sgi_iso9001_idx_active'); } catch(e) { return null } })();
+      changeTab(saved || 'doc');
+    });
+  </script>
+</body>
+</html>

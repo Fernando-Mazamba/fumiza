@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cláusula 5.4: Consulta y Participación de los Trabajadores | SGI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        iso9001: '#2563eb',
+                        iso14001: '#16a34a',
+                        iso45001: '#dc2626'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Contenido de la página -->
+    <div class="p-5 bg-gray-50">
+        <!-- Breadcrumbs -->
+        <div class="mb-4 flex items-center text-sm text-gray-500">
+            <a href="index.html" class="hover:text-primary-600">Inicio</a>
+            <span class="mx-2">/</span>
+            <a href="documentacion.html" class="hover:text-primary-600">Documentación</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-700">Cláusula 5.4</span>
+        </div>
+
+        <!-- Título de la cláusula -->
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">Cláusula 5.4: Consulta y Participación de los Trabajadores</h1>
+            <p class="text-gray-600">La alta dirección ha implementado mecanismos efectivos para la consulta y participación activa de los trabajadores en el Sistema de Gestión de Seguridad y Salud Ocupacional (SGSST). Esto asegura que los trabajadores estén involucrados en la identificación de riesgos, en la implementación de medidas preventivas y correctivas, y en la mejora continua de las condiciones laborales, fomentando una cultura de seguridad participativa y responsable.</p>
+        </div>
+
+        <!-- Pestañas para las tres normas -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+            <div class="border-b border-gray-200">
+                <nav class="flex -mb-px">
+                    <button id="tab-9001" class="py-4 px-6 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 flex-1 flex items-center justify-center" onclick="changeTab('9001')">
+                        <i class="fas fa-certificate text-iso9001 mr-2"></i> ISO 9001
+                    </button>
+                    <button id="tab-14001" class="py-4 px-6 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 flex-1 flex items-center justify-center" onclick="changeTab('14001')">
+                        <i class="fas fa-leaf text-iso14001 mr-2"></i> ISO 14001
+                    </button>
+                    <button id="tab-45001" class="py-4 px-6 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 flex-1 flex items-center justify-center" onclick="changeTab('45001')">
+                        <i class="fas fa-hard-hat text-iso45001 mr-2"></i> ISO 45001
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Contenido de ISO 9001 -->
+            <div id="content-9001" class="tab-content p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-certificate text-iso9001 text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">ISO 9001: Sistema de Gestión de la Calidad</h2>
+                        <p class="text-gray-600">Consulta y Participación de los Trabajadores</p>
+                    </div>
+                </div>
+
+                <div class="prose max-w-none">
+                    <p class="mb-4">La organización garantiza la consulta y participación activa de los trabajadores en todos los niveles y etapas del Sistema de Gestión de la Calidad (SGC).</p>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Acciones implementadas:</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-blue-800 mb-2">Mecanismos de consulta</h4>
+                            <p class="text-sm">Se han establecido canales formales como reuniones periódicas, buzones de sugerencias, encuestas, y espacios de diálogo directo entre los trabajadores y la alta dirección.</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-blue-800 mb-2">Participación significativa</h4>
+                            <p class="text-sm">Los trabajadores contribuyen en la identificación de oportunidades de mejora, evaluación de procesos, determinación de controles, investigación de no conformidades y revisión del desempeño del SGC.</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-blue-800 mb-2">Comités de calidad</h4>
+                            <p class="text-sm">Funcionan activamente como espacios de representación y toma de decisiones conjuntas para la mejora continua de la calidad.</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-blue-800 mb-2">No discriminación ni represalias</h4>
+                            <p class="text-sm">Se promueve un entorno de confianza donde la participación no genera consecuencias negativas para los trabajadores.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Documentos relacionados:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><a href="../PDF-01/PRO-023-ProcedimientodeParticipacionyConsulta.html" target="_blank" class="text-blue-600 hover:underline">PRO-023 – Procedimiento de Participación y Consulta</a> - Regula la conformación, funciones y dinámicas de participación de los trabajadores en el SGC.</li>
+                        <li><a href="../PDF-01/FORM-036-Registro-de-Retroalimentacion-de-Trabajadores.html" target="_blank" class="text-blue-600 hover:underline">FORM-036 – Registro de Retroalimentación de Trabajadores</a> - Instrumento para captar opiniones, sugerencias y preocupaciones de forma continua.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contenido de ISO 14001 -->
+            <div id="content-14001" class="tab-content p-6 hidden">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-leaf text-iso14001 text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">ISO 14001: Sistema de Gestión Ambiental</h2>
+                        <p class="text-gray-600">Consulta y Participación de los Trabajadores</p>
+                    </div>
+                </div>
+
+                <div class="prose max-w-none">
+                    <p class="mb-4">La organización garantiza la consulta y participación activa de los trabajadores en todos los niveles y etapas del Sistema de Gestión Ambiental (SGA).</p>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Acciones implementadas:</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-green-800 mb-2">Mecanismos de consulta</h4>
+                            <p class="text-sm">Se han establecido canales formales como reuniones periódicas, buzones de sugerencias, encuestas, y espacios de diálogo directo entre los trabajadores y la alta dirección.</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-green-800 mb-2">Participación significativa</h4>
+                            <p class="text-sm">Los trabajadores contribuyen en la identificación de aspectos ambientales, evaluación de impactos, determinación de controles, investigación de incidentes y revisión del desempeño del SGA.</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-green-800 mb-2">Comités ambientales</h4>
+                            <p class="text-sm">Funcionan activamente como espacios de representación y toma de decisiones conjuntas para la mejora continua del desempeño ambiental.</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-green-800 mb-2">No discriminación ni represalias</h4>
+                            <p class="text-sm">Se promueve un entorno de confianza donde la participación no genera consecuencias negativas para los trabajadores.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Documentos relacionados:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><a href="../PDF-01/PRO-023-ProcedimientodeParticipacionyConsulta.html" target="_blank" class="text-green-600 hover:underline">PRO-023 – Procedimiento de Participación y Consulta</a> - Regula la conformación, funciones y dinámicas de participación de los trabajadores en el SGA.</li>
+                        <li><a href="../PDF-01/FORM-036-Registro-de-Retroalimentacion-de-Trabajadores.html" target="_blank" class="text-green-600 hover:underline">FORM-036 – Registro de Retroalimentación de Trabajadores</a> - Instrumento para captar opiniones, sugerencias y preocupaciones de forma continua.</li>
+                        <li><a href="../PDF-01/Anexo-03-SGA-Guia-para-la-consulta-publica-y-participacion-ciudadan.html" target="_blank" class="text-green-600 hover:underline">ANEXO 03 SGA – Guía para la Consulta Pública y Participación Ciudadana</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contenido de ISO 45001 -->
+            <div id="content-45001" class="tab-content p-6 hidden">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-hard-hat text-iso45001 text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">ISO 45001: Sistema de Gestión de Seguridad y Salud en el Trabajo</h2>
+                        <p class="text-gray-600">Consulta y Participación de los Trabajadores</p>
+                    </div>
+                </div>
+
+                <div class="prose max-w-none">
+                    <p class="mb-4">La organización garantiza la consulta y participación activa de los trabajadores y sus representantes en todos los niveles y etapas del Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST).</p>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Acciones implementadas:</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-red-800 mb-2">Mecanismos de consulta</h4>
+                            <p class="text-sm">Se encuentran establecidos canales formales como reuniones periódicas, buzones de sugerencias, encuestas, y espacios de diálogo directo entre los trabajadores y la alta dirección.</p>
+                        </div>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-red-800 mb-2">Participación significativa</h4>
+                            <p class="text-sm">Los trabajadores contribuyen en la identificación de peligros, evaluación de riesgos, determinación de controles, investigación de incidentes y revisión del desempeño del SG-SST.</p>
+                        </div>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-red-800 mb-2">Comité de Seguridad y Salud en el Trabajo</h4>
+                            <p class="text-sm">Funciona activamente como espacio de representación y toma de decisiones conjuntas.</p>
+                        </div>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-red-800 mb-2">No discriminación ni represalias</h4>
+                            <p class="text-sm">Se promueve un entorno de confianza donde la participación no genera consecuencias negativas para los trabajadores.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Documentos relacionados:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><a href="../PDF-01/REG-001-Reglamento-del-Comite-de-Seguridad-y-Salud-en-el-Trabajo.html" target="_blank" class="text-red-600 hover:underline">REG-001 – Reglamento del Comité de Seguridad y Salud en el Trabajo</a> - Regula la constitución y funcionamiento del comité de seguridad y salud, en el que los trabajadores son miembros activos para asegurar su participación en la toma de decisiones relacionadas con la seguridad laboral.</li>
+                        <li><a href="../PDF-01/PRO-023-ProcedimientodeParticipacionyConsulta.html" target="_blank" class="text-red-600 hover:underline">PRO-023 – Procedimiento de Participación y Consulta</a> - Regula la conformación, funciones y dinámicas de participación del comité.</li>
+                        <li><a href="../PDF-01/FORM-036-Registro-de-Retroalimentacion-de-Trabajadores.html" target="_blank" class="text-red-600 hover:underline">FORM-036 – Registro de Retroalimentación de Trabajadores</a> - Instrumento para captar opiniones, sugerencias y preocupaciones de forma continua.</li>
+                        <li><a href="../PDF-01/FORM-035-Encuesta_Percepcion_Riesgos_Modelo_Español.html" target="_blank" class="text-red-600 hover:underline">FORM-035 – Encuesta Percepción de Riesgos</a> - Evalúa la percepción de los trabajadores sobre los riesgos del entorno laboral.</li>
+                        <li><a href="../PDF-01/PSC-004-SySO.html" target="_blank" class="text-red-600 hover:underline">PSC-004 – SySO</a> - Proceso estratégico que incorpora la participación de los trabajadores en la gestión de la seguridad y salud ocupacional.</li>
+                        <li><a href="../PDF-01/FORM-033-Acta-Reuniones-de-Seguridad-Modelo.html" target="_blank" class="text-red-600 hover:underline">FORM-033 – Acta Reunión de Seguridad</a> - Documento que registra las reuniones de seguridad en las que los trabajadores pueden expresar sus inquietudes, hacer propuestas y participar activamente en la mejora de las condiciones de seguridad y salud.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consideraciones adicionales -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Consideraciones Adicionales</h2>
+            <p class="text-gray-600 mb-4">La consulta y participación de los trabajadores es fundamental para el éxito de los sistemas de gestión. Asegura que las decisiones tomadas reflejen las experiencias y conocimientos de quienes realizan las actividades, promoviendo un sentido de propiedad y compromiso con los sistemas de gestión.</p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-medium text-blue-800 mb-2">Cómo cumplimos</h3>
+                <p class="text-sm">Mediante la implementación de mecanismos formales de consulta y participación, la constitución de comités representativos, y la promoción de un ambiente de confianza donde los trabajadores pueden expresar libremente sus opiniones y sugerencias.</p>
+            </div>
+            
+            <div class="bg-gray-100 p-4 rounded-lg mt-4">
+                <h3 class="font-medium text-gray-800 mb-2">Responsables</h3>
+                <p class="text-sm">La Alta Dirección es responsable de facilitar la consulta y participación de los trabajadores, con el apoyo del Comité de Gestión Integrada, los responsables de cada área funcional y los representantes de los trabajadores.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar entre pestañas
+        function changeTab(norm) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(`content-${norm}`).classList.remove('hidden');
+            
+            // Actualizar pestañas activas
+            document.querySelectorAll('[id^="tab-"]').forEach(tab => {
+                tab.classList.remove('border-primary-500', 'text-primary-600');
+                tab.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Resaltar pestaña activa
+            document.getElementById(`tab-${norm}`).classList.add('border-primary-500', 'text-primary-600');
+            document.getElementById(`tab-${norm}`).classList.remove('border-transparent', 'text-gray-500');
+        }
+
+        // Inicializar con la primera pestaña activa
+        document.addEventListener('DOMContentLoaded', function() {
+            changeTab('9001');
+        });
+    </script>
+</body>
+</html>

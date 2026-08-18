@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cláusulas ISO 9001:2015 - Consultores VIB</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        vib: {
+                            azul: '#0b2b5c',
+                            azulclaro: '#2a6fdb',
+                            dorado: '#d4a843',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .submenu.open {
+            max-height: 1000px;
+        }
+        .subclausula-item {
+            transition: all 0.2s ease;
+            border-left: 3px solid #e5e7eb;
+        }
+        .subclausula-item:hover {
+            background-color: #f8fafc;
+        }
+        .clausula-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #2a6fdb;
+        }
+        .clausula-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .iso-badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .iso-9001 { 
+            background-color: #dbeafe; 
+            color: #0b2b5c; 
+        }
+        .search-highlight {
+            background-color: #ffeb3b;
+            padding: 0.1rem 0;
+            border-radius: 0.2rem;
+        }
+        .hidden-element {
+            display: none;
+        }
+        .banner-gradient {
+            background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 50%, #2a6fdb 100%);
+        }
+        .gold-accent {
+            color: #d4a843;
+        }
+        .border-gold {
+            border-color: #d4a843;
+        }
+        .bg-gold-light {
+            background-color: rgba(212, 168, 67, 0.1);
+        }
+        .text-vib-azul {
+            color: #0b2b5c;
+        }
+        .bg-vib-azul {
+            background-color: #0b2b5c;
+        }
+        .bg-vib-azul-claro {
+            background-color: rgba(42, 111, 219, 0.1);
+        }
+        .border-vib-azul {
+            border-color: #0b2b5c;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Contenido de la página -->
+    <div class="p-5 bg-gray-50">
+        <!-- Breadcrumbs -->
+        <div class="mb-4 flex items-center text-sm text-gray-500">
+            <a href="index.html" class="hover:text-vib-azul">Inicio</a>
+            <span class="mx-2">/</span>
+            <a href="documentacion.html" class="hover:text-vib-azul">Documentación</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-700 font-medium">Cláusulas ISO 9001:2015</span>
+        </div>
+
+        <!-- Encabezado de la página -->
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-6 border-l-4" style="border-left-color: #d4a843;">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800 mb-2">Cláusulas ISO 9001:2015</h1>
+                    <p class="text-gray-600">Sistema de Gestión de la Calidad - Estructura de Alto Nivel (HLS)</p>
+                    <div class="mt-2 flex items-center text-sm" style="color: #0b2b5c;">
+                        <i class="fas fa-certificate mr-2" style="color: #d4a843;"></i>
+                        <span>Consultores VIB - Certificado por SIS Cert</span>
+                    </div>
+                </div>
+                <div class="px-4 py-2 rounded-lg font-medium" style="background-color: rgba(212, 168, 67, 0.15); color: #0b2b5c;">
+                    <i class="fas fa-award mr-2" style="color: #d4a843;"></i>
+                    ISO 9001:2015
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Buscar Cláusulas</h2>
+                <div class="text-sm text-gray-500">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    10 cláusulas principales
+                </div>
+            </div>
+            
+            <div class="flex items-center">
+                <div class="relative flex-grow">
+                    <input type="text" id="search-input" placeholder="Buscar por número de cláusula, título o contenido..." class="pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <button id="clear-search" class="ml-3 text-gray-500 hover:text-gray-700 p-2 hidden" title="Limpiar búsqueda">
+                    <i class="fas fa-times-circle text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="search-results" class="hidden mt-4 p-4 rounded-lg border" style="background-color: rgba(11, 43, 92, 0.05); border-color: #2a6fdb;">
+                <p class="text-sm" style="color: #0b2b5c;"><span id="result-count">0</span> resultados encontrados para "<span id="search-term"></span>"</p>
+            </div>
+        </div>
+
+        <!-- Información sobre la estructura -->
+        <div class="p-5 rounded-lg shadow-sm mb-6" style="background-color: rgba(11, 43, 92, 0.05);">
+            <div class="flex items-start">
+                <div class="p-3 rounded-lg mr-4" style="background-color: rgba(42, 111, 219, 0.1);">
+                    <i class="fas fa-sitemap text-2xl" style="color: #0b2b5c;"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2" style="color: #0b2b5c;">Estructura de Alto Nivel (HLS)</h3>
+                    <p class="text-gray-700 text-sm mb-3">La norma ISO 9001:2015 sigue la Estructura de Alto Nivel (HLS), que es común a todas las normas de sistemas de gestión ISO. Esta estructura consta de 10 cláusulas organizadas de manera lógica para facilitar la integración con otros sistemas de gestión.</p>
+                    <div class="text-xs text-gray-600 flex items-center">
+                        <i class="fas fa-lightbulb mr-1" style="color: #d4a843;"></i>
+                        <span>Las cláusulas 4-10 contienen los requisitos específicos del sistema de gestión de calidad.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Cláusulas -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Cláusulas ISO 9001:2015</h2>
+            <p class="text-gray-600 mb-6">Seleccione una cláusula para visualizar sus subcláusulas y requisitos específicos del sistema de gestión de calidad.</p>
+            
+            <div id="clausulas-container" class="space-y-4">
+                <!-- Cláusula 4 -->
+                <div class="clausula-card bg-white p-5 rounded-lg border border-gray-200">
+                    <button onclick="toggleSubmenu('clausula-4')" class="w-full flex justify-between items-center">
+                        <div class="flex items-center">
+                            <span class="text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);">4</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 text-left"><a href="4-Contexto.html" class="hover:text-vib-azul">Contexto de la organización</a></h3>
+                                <p class="text-sm text-gray-600 text-left">Comprensión de la organización y de su contexto</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="iso-badge iso-9001 mr-3">4 subcláusulas</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="clausula-4" class="submenu mt-4 pl-14">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="4-1ContextodelaOrganizacion.html" class="hover:text-vib-azul">4.1 Comprensión de la organización y de su contexto</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar las cuestiones externas e internas que son pertinentes para su propósito y que afectan su capacidad para lograr los resultados previstos de su sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="4-2-Comprensiondelasnecesidades.html" class="hover:text-vib-azul">4.2 Comprensión de las necesidades y expectativas de las partes interesadas</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar las partes interesadas pertinentes para el sistema de gestión de calidad y los requisitos de estas partes interesadas.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="4-3-Alcance.html" class="hover:text-vib-azul">4.3 Determinación del alcance del sistema de gestión de calidad</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar los límites y la aplicabilidad del sistema de gestión de calidad para establecer su alcance.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="4-4-SGC-procesos.html" class="hover:text-vib-azul">4.4 Sistema de gestión de calidad y sus procesos</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe establecer, implementar, mantener y mejorar continuamente un sistema de gestión de calidad de acuerdo con los requisitos de la norma.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cláusula 5 -->
+                <div class="clausula-card bg-white p-5 rounded-lg border border-gray-200">
+                    <button onclick="toggleSubmenu('clausula-5')" class="w-full flex justify-between items-center">
+                        <div class="flex items-center">
+                            <span class="text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);">5</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 text-left"><a href="5-LIDERAZGO.html" class="hover:text-vib-azul">Liderazgo</a></h3>
+                                <p class="text-sm text-gray-600 text-left">Liderazgo y compromiso, política, roles, responsabilidades y autoridades</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="iso-badge iso-9001 mr-3">3 subcláusulas</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="clausula-5" class="submenu mt-4 pl-14">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="5-1-Liderazgo-compromiso.html" class="hover:text-vib-azul">5.1 Liderazgo y compromiso</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La alta dirección debe demostrar liderazgo y compromiso con respecto al sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="5-2-Politica-calidad.html" class="hover:text-vib-azul">5.2 Política de calidad</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La alta dirección debe establecer, implementar y mantener una política de calidad que sea apropiada para el propósito y el contexto de la organización.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="5-3-Roles-responsabilidades-autoridades.html" class="hover:text-vib-azul">5.3 Roles, responsabilidades y autoridades en la organización</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La alta dirección debe asegurarse de que las responsabilidades y autoridades para los roles pertinentes sean asignadas, comunicadas y comprendidas en la organización.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cláusula 6 -->
+                <div class="clausula-card bg-white p-5 rounded-lg border border-gray-200">
+                    <button onclick="toggleSubmenu('clausula-6')" class="w-full flex justify-between items-center">
+                        <div class="flex items-center">
+                            <span class="text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);">6</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 text-left"><a href="6-planificacion.html" class="hover:text-vib-azul">Planificación</a></h3>
+                                <p class="text-sm text-gray-600 text-left">Acciones para abordar riesgos y oportunidades, objetivos y planificación para lograrlos</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="iso-badge iso-9001 mr-3">3 subcláusulas</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="clausula-6" class="submenu mt-4 pl-14">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="6-1-Acciones-riesgos-oportunidades.html" class="hover:text-vib-azul">6.1 Acciones para abordar riesgos y oportunidades</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe planificar acciones para abordar riesgos y oportunidades relacionadas con el sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="6-2-Objetivos-calidad-planificacion.html" class="hover:text-vib-azul">6.2 Objetivos de calidad y planificación para lograrlos</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe establecer objetivos de calidad para las funciones y niveles pertinentes.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="6-3-planificacion-cambios.html" class="hover:text-vib-azul">6.3 Planificación de los cambios</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">Cuando la organización determine la necesidad de cambios, estos deben llevarse a cabo de manera planificada.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cláusula 7 -->
+                <div class="clausula-card bg-white p-5 rounded-lg border border-gray-200">
+                    <button onclick="toggleSubmenu('clausula-7')" class="w-full flex justify-between items-center">
+                        <div class="flex items-center">
+                            <span class="text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);">7</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 text-left"><a href="7-APOYO.html" class="hover:text-vib-azul">Soporte</a></h3>
+                                <p class="text-sm text-gray-600 text-left">Recursos, competencia, conciencia, comunicación e información documentada</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="iso-badge iso-9001 mr-3">5 subcláusulas</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="clausula-7" class="submenu mt-4 pl-14">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="7-1-Recursos.html" class="hover:text-vib-azul">7.1 Recursos</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar y proporcionar los recursos necesarios para el establecimiento, implementación, mantenimiento y mejora continua del sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="7-2-Competencia.html" class="hover:text-vib-azul">7.2 Competencia</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar la competencia necesaria del personal que realiza trabajo bajo su control que afecta el desempeño y la eficacia del sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="7-3-Conciencia.html" class="hover:text-vib-azul">7.3 Toma de conciencia</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">El personal que realiza trabajo bajo el control de la organización debe ser consciente de la política de calidad, los objetivos de calidad y su contribución a la eficacia del sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="7-4-Comunicacion.html" class="hover:text-vib-azul">7.4 Comunicación</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar las comunicaciones internas y externas pertinentes para el sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="7-5-Informacion-documentada.html" class="hover:text-vib-azul">7.5 Información documentada</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">El sistema de gestión de calidad debe incluir información documentada requerida por la norma e información documentada determinada por la organización como necesaria para la eficacia del sistema de gestión.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cláusula 8 -->
+                <div class="clausula-card bg-white p-5 rounded-lg border border-gray-200">
+                    <button onclick="toggleSubmenu('clausula-8')" class="w-full flex justify-between items-center">
+                        <div class="flex items-center">
+                            <span class="text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);">8</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 text-left"><a href="8-operacion.html" class="hover:text-vib-azul">Operación</a></h3>
+                                <p class="text-sm text-gray-600 text-left">Planificación y control operacional, requisitos para los productos y servicios</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="iso-badge iso-9001 mr-3">6 subcláusulas</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="clausula-8" class="submenu mt-4 pl-14">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="8-1-Planificacion-control-operacional.html" class="hover:text-vib-azul">8.1 Planificación y control operacional</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe planificar, implementar y controlar los procesos necesarios para cumplir con los requisitos de los productos y servicios.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="8-2-Requisitos-productos-servicios.html" class="hover:text-vib-azul">8.2 Requisitos para los productos y servicios</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe asegurarse de que tiene la capacidad para cumplir con los requisitos para los productos y servicios que se ofrecen a los clientes.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="8-3-Diseno-desarrollo-productos-servicios.html" class="hover:text-vib-azul">8.3 Diseño y desarrollo de productos y servicios</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">Cuando sea aplicable, la organización debe establecer, implementar y mantener un proceso para el diseño y desarrollo de productos y servicios.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="8-4-Control-procesos-externos.html" class="hover:text-vib-azul">8.4 Control de los procesos, productos y servicios proporcionados externamente</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe asegurarse de que los procesos, productos y servicios proporcionados externamente conformen los requisitos especificados.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="8-5-Produccion-prestacion-servicios.html" class="hover:text-vib-azul">8.5 Producción y provisión del servicio</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe implementar la producción y la provisión del servicio bajo condiciones controladas.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="8-6-Liberacion-productos-servicios.html" class="hover:text-vib-azul">8.6 Liberación de los productos y servicios</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe implementar actividades de seguimiento y medición en las etapas apropiadas para verificar que se cumplan los requisitos para los productos y servicios.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cláusula 9 -->
+                <div class="clausula-card bg-white p-5 rounded-lg border border-gray-200">
+                    <button onclick="toggleSubmenu('clausula-9')" class="w-full flex justify-between items-center">
+                        <div class="flex items-center">
+                            <span class="text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);">9</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 text-left"><a href="9-evaluacion-del-desepenno.html" class="hover:text-vib-azul">Evaluación del desempeño</a></h3>
+                                <p class="text-sm text-gray-600 text-left">Seguimiento, medición, análisis, evaluación, auditoría interna y revisión por la dirección</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="iso-badge iso-9001 mr-3">3 subcláusulas</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="clausula-9" class="submenu mt-4 pl-14">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="9-1-Seguimiento-medicion-analisis-evaluacion.html" class="hover:text-vib-azul">9.1 Seguimiento, medición, análisis y evaluación</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar qué necesita seguir y medir, los métodos de seguimiento, medición, análisis y evaluación necesarios para asegurar resultados válidos del sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="9-2-Auditoria-interna.html" class="hover:text-vib-azul">9.2 Auditoría interna</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe conducir auditorías internas a intervalos planificados para proporcionar información sobre si el sistema de gestión de calidad cumple con los requisitos de la organización y de la norma.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="9-3-Revision-direccion.html" class="hover:text-vib-azul">9.3 Revisión por la dirección</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La alta dirección debe revisar el sistema de gestión de calidad de la organización a intervalos planificados para asegurarse de su conveniencia, adecuación, eficacia y alineación con la dirección estratégica de la organización.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cláusula 10 -->
+                <div class="clausula-card bg-white p-5 rounded-lg border border-gray-200">
+                    <button onclick="toggleSubmenu('clausula-10')" class="w-full flex justify-between items-center">
+                        <div class="flex items-center">
+                            <span class="text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);">10</span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 text-left"><a href="10-MEJORA.html" class="hover:text-vib-azul">Mejora</a></h3>
+                                <p class="text-sm text-gray-600 text-left">Mejora continua, no conformidad y acción correctiva</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="iso-badge iso-9001 mr-3">2 subcláusulas</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="clausula-10" class="submenu mt-4 pl-14">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="10-1-Generalidades.html" class="hover:text-vib-azul">10.1 Mejora continua</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">La organización debe determinar y seleccionar oportunidades de mejora e implementar las acciones necesarias para cumplir con los requisitos del sistema de gestión de calidad.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                            <div class="subclausula-item p-4 rounded-lg">
+                                <h4 class="font-medium text-gray-800"><a href="10-2-No-conformidad-accion-correctiva.html" class="hover:text-vib-azul">10.2 No conformidad y acción correctiva</a></h4>
+                                <p class="text-sm text-gray-600 mt-2">Cuando ocurra una no conformidad, la organización debe reaccionar ante ella, evaluar la necesidad de acciones para eliminar las causas de la no conformidad e implementar las acciones necesarias.</p>
+                                <div class="mt-3">
+                                    <span class="iso-badge iso-9001">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen de cláusulas -->
+        <div class="bg-white p-6 rounded-lg shadow-sm mt-8">
+            <h3 class="font-bold text-gray-800 mb-4">Resumen de Cláusulas ISO 9001:2015</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="p-4 rounded-lg text-center" style="background-color: rgba(11, 43, 92, 0.08);">
+                    <div class="text-2xl font-bold mb-1" style="color: #0b2b5c;">4-6</div>
+                    <div class="text-sm text-gray-700">Contexto, Liderazgo y Planificación</div>
+                </div>
+                <div class="p-4 rounded-lg text-center" style="background-color: rgba(11, 43, 92, 0.08);">
+                    <div class="text-2xl font-bold mb-1" style="color: #0b2b5c;">7</div>
+                    <div class="text-sm text-gray-700">Soporte</div>
+                </div>
+                <div class="p-4 rounded-lg text-center" style="background-color: rgba(11, 43, 92, 0.08);">
+                    <div class="text-2xl font-bold mb-1" style="color: #0b2b5c;">8</div>
+                    <div class="text-sm text-gray-700">Operación</div>
+                </div>
+                <div class="p-4 rounded-lg text-center" style="background-color: rgba(11, 43, 92, 0.08);">
+                    <div class="text-2xl font-bold mb-1" style="color: #0b2b5c;">9</div>
+                    <div class="text-sm text-gray-700">Evaluación del Desempeño</div>
+                </div>
+                <div class="p-4 rounded-lg text-center" style="background-color: rgba(11, 43, 92, 0.08);">
+                    <div class="text-2xl font-bold mb-1" style="color: #0b2b5c;">10</div>
+                    <div class="text-sm text-gray-700">Mejora</div>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-gray-600">
+                <p><i class="fas fa-info-circle mr-2" style="color: #d4a843;"></i>Las cláusulas 1-3 de ISO 9001:2015 son introductorias y no contienen requisitos certificables.</p>
+            </div>
+            <div class="mt-3 text-sm" style="color: #0b2b5c;">
+                <p><i class="fas fa-certificate mr-2" style="color: #d4a843;"></i>Consultores VIB · Certificado por SIS Cert</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para alternar submenús
+        function toggleSubmenu(id) {
+            const submenu = document.getElementById(id);
+            submenu.classList.toggle('open');
+            
+            // Cambiar icono
+            const icon = submenu.previousElementSibling.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+            if (submenu.classList.contains('open')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+
+        // Función para realizar búsquedas
+        function performSearch(searchTerm) {
+            const searchResults = document.getElementById('search-results');
+            const resultCount = document.getElementById('result-count');
+            const searchTermElement = document.getElementById('search-term');
+            const clearSearchBtn = document.getElementById('clear-search');
+            
+            if (!searchTerm.trim()) {
+                // Si la búsqueda está vacía, mostrar todos los elementos
+                document.querySelectorAll('.clausula-card, .subclausula-item').forEach(el => {
+                    el.classList.remove('hidden-element');
+                });
+                searchResults.classList.add('hidden');
+                clearSearchBtn.classList.add('hidden');
+                // Quitar resaltados
+                document.querySelectorAll('.search-highlight').forEach(el => {
+                    const parent = el.parentNode;
+                    parent.replaceChild(document.createTextNode(el.textContent), el);
+                    parent.normalize();
+                });
+                return;
+            }
+            
+            // Mostrar botón de limpiar búsqueda
+            clearSearchBtn.classList.remove('hidden');
+            
+            // Ocultar todos los elementos inicialmente
+            document.querySelectorAll('.clausula-card').forEach(card => {
+                card.classList.add('hidden-element');
+            });
+            
+            // Realizar búsqueda
+            let count = 0;
+            const searchRegex = new RegExp(searchTerm, 'gi');
+            
+            // Buscar en cláusulas principales
+            document.querySelectorAll('.clausula-card').forEach(card => {
+                const title = card.querySelector('h3').textContent;
+                const description = card.querySelector('p').textContent;
+                const clausulaNum = card.querySelector('span.bg-blue-100')?.textContent || '';
+                
+                if (title.match(searchRegex) || description.match(searchRegex) || clausulaNum.match(searchRegex)) {
+                    card.classList.remove('hidden-element');
+                    count++;
+                    
+                    // Resaltar texto
+                    highlightText(card.querySelector('h3'), searchRegex);
+                    highlightText(card.querySelector('p'), searchRegex);
+                }
+            });
+            
+            // Buscar en subcláusulas
+            document.querySelectorAll('.subclausula-item').forEach(item => {
+                const title = item.querySelector('h4').textContent;
+                const description = item.querySelector('p').textContent;
+                
+                if (title.match(searchRegex) || description.match(searchRegex)) {
+                    // Mostrar la cláusula principal si está oculta
+                    const card = item.closest('.clausula-card');
+                    card.classList.remove('hidden-element');
+                    
+                    // Expandir el submenú
+                    const submenuId = card.querySelector('.submenu').id;
+                    if (!document.getElementById(submenuId).classList.contains('open')) {
+                        toggleSubmenu(submenuId);
+                    }
+                    
+                    // Mostrar la subcláusula
+                    item.classList.remove('hidden-element');
+                    count++;
+                    
+                    // Resaltar texto
+                    highlightText(item.querySelector('h4'), searchRegex);
+                    highlightText(item.querySelector('p'), searchRegex);
+                } else {
+                    item.classList.add('hidden-element');
+                }
+            });
+            
+            // Mostrar resultados
+            if (count > 0) {
+                resultCount.textContent = count;
+                searchTermElement.textContent = searchTerm;
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.classList.add('hidden');
+                // Mostrar mensaje de no resultados
+                const existingAlert = document.querySelector('.bg-yellow-50');
+                if (existingAlert) existingAlert.remove();
+                
+                const noResults = document.createElement('div');
+                noResults.className = 'bg-yellow-50 p-4 rounded-lg mb-4';
+                noResults.innerHTML = `<p class="text-yellow-800"><i class="fas fa-exclamation-triangle mr-2"></i>No se encontraron resultados para "${searchTerm}"</p>`;
+                
+                document.getElementById('clausulas-container').prepend(noResults);
+            }
+        }
+
+        // Función para resaltar texto
+        function highlightText(element, regex) {
+            const text = element.textContent;
+            element.innerHTML = text.replace(regex, match => 
+                `<span class="search-highlight">${match}</span>`
+            );
+        }
+
+        // Función para limpiar búsqueda
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            performSearch('');
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar evento de búsqueda
+            const searchInput = document.getElementById('search-input');
+            let searchTimeout;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    performSearch(this.value);
+                }, 300);
+            });
+            
+            // Configurar botón de limpiar búsqueda
+            document.getElementById('clear-search').addEventListener('click', clearSearch);
+            
+            // Permitir búsqueda con Enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(this.value);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
