@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio - SGC - FUMIZA S. de R.L.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        vib: {
+                            azul: '#0b2b5c',
+                            azulclaro: '#2a6fdb',
+                            dorado: '#d4a843',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar { transition: all 0.3s ease; }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+            }
+            .overlay.open { display: block; }
+        }
+        .menu-item { transition: all 0.2s ease; }
+        .menu-item:hover { background-color: #f3f4f6; border-left: 4px solid #2a6fdb; }
+        .menu-item.active { background-color: #eff6ff; border-left: 4px solid #1d4ed8; font-weight: 600; }
+        .dark .menu-item:hover { background-color: #374151; border-left: 4px solid #60a5fa; }
+        .dark .menu-item.active { background-color: #1e3a8a; border-left: 4px solid #60a5fa; }
+
+        .feature-card { transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        .logo-container {
+            background: linear-gradient(145deg, #0b2b5c 0%, #1a4a8a 100%);
+            box-shadow: 0 4px 10px rgba(11, 43, 92, 0.4);
+        }
+        .dark .logo-container {
+            background: linear-gradient(145deg, #0a2347 0%, #1a4a8a 100%);
+        }
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+            background: transparent;
+            border-radius: 50%;
+        }
+
+        .certification-badge {
+            background: linear-gradient(135deg, #d4a843 0%, #b8922f 100%);
+            color: #0b2b5c;
+            font-weight: 700;
+            padding: 0.25rem 0.9rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            letter-spacing: 0.3px;
+        }
+        .dark .certification-badge {
+            background: linear-gradient(135deg, #e0b84c 0%, #c9a33a 100%);
+            color: #0a1f3d;
+        }
+
+        .frame-wrapper {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            height: 100%;
+        }
+        .dark .frame-wrapper {
+            background: #1f2937;
+            border-color: #4b5563;
+        }
+        #contentFrame {
+            width: 100%;
+            height: calc(100vh - 120px);
+            border: 0;
+            overflow: hidden;
+        }
+
+        .icon-home { color: #2a6fdb !important; }
+        .icon-doc { color: #0b2b5c !important; }
+        .icon-building { color: #d4a843 !important; }
+        .icon-book { color: #8b5cf6 !important; }
+        .icon-list { color: #ec4899 !important; }
+        .icon-award { color: #d4a843 !important; }
+        .icon-teacher { color: #06b6d4 !important; }
+        .icon-contract { color: #84cc16 !important; }
+        .icon-cogs { color: #ef4444 !important; }
+        .icon-archive { color: #6366f1 !important; }
+        .icon-config { color: #14b8a6 !important; }
+        .icon-calendar { color: #f43f5e !important; }
+        .icon-users { color: #0ea5e9 !important; }
+        .icon-audit { color: #8b5cf6 !important; }
+
+        .dark .icon-home { color: #60a5fa !important; }
+        .dark .icon-doc { color: #34d399 !important; }
+        .dark .icon-building { color: #fbbf24 !important; }
+        .dark .icon-book { color: #a78bfa !important; }
+        .dark .icon-list { color: #f472b6 !important; }
+        .dark .icon-award { color: #fbbf24 !important; }
+        .dark .icon-teacher { color: #22d3ee !important; }
+        .dark .icon-contract { color: #a3e635 !important; }
+        .dark .icon-cogs { color: #f87171 !important; }
+        .dark .icon-archive { color: #818cf8 !important; }
+        .dark .icon-config { color: #2dd4bf !important; }
+        .dark .icon-calendar { color: #f9a8d4 !important; }
+        .dark .icon-users { color: #38bdf8 !important; }
+        .dark .icon-audit { color: #a78bfa !important; }
+
+        .dark body { background-color: #111827; color: #f3f4f6; }
+        .dark .sidebar { background-color: #1f2937; border-color: #374151; }
+        .dark .bg-white { background-color: #1f2937; }
+        .dark .text-gray-800 { color: #f3f4f6; }
+        .dark .text-gray-600 { color: #d1d5db; }
+        .dark .text-gray-500 { color: #9ca3af; }
+        .dark .border-gray-200 { border-color: #374151; }
+        .dark .bg-gray-50 { background-color: #111827; }
+
+        body, html { overflow: hidden; }
+        .flex-1.flex.flex-col { overflow: hidden; }
+        main { overflow: hidden !important; }
+    </style>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden">
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- ========== SIDEBAR ========== -->
+    <div class="sidebar bg-white w-64 border-r border-gray-200 flex flex-col" id="sidebar">
+        <div class="p-5 border-b border-gray-200 flex flex-col items-center">
+            <div class="logo-container w-20 h-20 rounded-full flex items-center justify-center mb-3 overflow-hidden pulse">
+                <div class="logo-img">
+                    <img src="Logotipo/Logo.png" alt="FUMIZA S. de R.L." style="width:100%; height:100%; object-fit:cover;" />
+                </div>
+            </div>
+            <h1 class="text-xl font-bold text-gray-800">SGC</h1>
+            <p class="text-sm text-gray-500 text-center font-medium">FUMIZA S. de R.L.</p>
+            <div class="certification-badge mt-2">
+                ISO 9001:2015
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4 px-3" id="sideMenu">
+            <div class="mb-6">
+                <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">Menú Principal</h2>
+                <ul>
+                    <li class="mb-1">
+                        <a href="html/Iniciooriginal.html" target="contentFrame" class="menu-item active flex items-center p-3 text-gray-700 rounded-lg" data-menu="inicio">
+                            <i class="fas fa-home w-5 icon-home mr-3"></i> <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/indice_documental_moderno.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="documentacion">
+                            <i class="fas fa-file-alt w-5 icon-doc mr-3"></i> <span>Documentación</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">Empresa</h2>
+                <ul>
+                    <li class="mb-1">
+                        <a href="html/apresentacao.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="nosotros">
+                            <i class="fas fa-building w-5 icon-building mr-3"></i> <span>Nosotros</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/comousarmanual.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="manual">
+                            <i class="fas fa-book w-5 icon-book mr-3"></i> <span>Cómo Usar el SGC</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/indice_documental_moderno.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="indice">
+                            <i class="fas fa-list-ol w-5 icon-list mr-3"></i> <span>Índice de Documentos</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/certificados.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="certificados">
+                            <i class="fas fa-award w-5 icon-award mr-3"></i> <span>Certificados</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/cursos.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="capacitaciones">
+                            <i class="fas fa-chalkboard-teacher w-5 icon-teacher mr-3"></i> <span>Capacitaciones</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">Gestión</h2>
+                <ul>
+                    <li class="mb-1">
+                        <a href="html/Clausulas.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="clausulas">
+                            <i class="fas fa-file-contract w-5 icon-contract mr-3"></i> <span>Cláusulas ISO 9001</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/poes.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="procesos">
+                            <i class="fas fa-cogs w-5 icon-cogs mr-3"></i> <span>POEs - Procedimientos</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/auditoria-interna.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="auditorias">
+                            <i class="fas fa-clipboard-check w-5 icon-audit mr-3"></i> <span>Auditorías Internas</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/Sistema-de-Registros.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="registros">
+                            <i class="fas fa-archive w-5 icon-archive mr-3"></i> <span>Registros del SGC</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">Sistema</h2>
+                <ul>
+                    <li class="mb-1">
+                        <a href="html/Manuales.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="administradores">
+                            <i class="fas fa-users-cog w-5 icon-users mr-3"></i> <span>Manuales SGC</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="html/Calendario.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="calendario">
+                            <i class="fas fa-calendar-alt w-5 icon-calendar mr-3"></i> <span>Calendario</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="configuraciones.html" target="contentFrame" class="menu-item flex items-center p-3 text-gray-700 rounded-lg" data-menu="config">
+                            <i class="fas fa-cog w-5 icon-config mr-3"></i> <span>Configuraciones</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Footer Sidebar con datos de FUMIZA (solo dirección y email) -->
+        <div class="p-4 border-t border-gray-200 text-center">
+            <p class="text-xs text-gray-500 mb-1">
+                <i class="fa-solid fa-envelope mr-1 text-vib-azulclaro"></i> info@fumiza.hn
+            </p>
+            <p class="text-xs text-gray-500">
+                <i class="fa-solid fa-location-dot mr-1 text-vib-azulclaro"></i> Plaza San Pedro, L-05, Distrito Central, Honduras
+            </p>
+        </div>
+    </div>
+
+    <!-- ========== CONTENEDOR PRINCIPAL ========== -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Topbar -->
+        <header class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex items-center justify-between p-4">
+                <div class="flex items-center">
+                    <button class="md:hidden mr-3 text-gray-600 dark:text-gray-300" onclick="toggleSidebar()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <div class="flex items-center">
+                        <div class="logo-container w-10 h-10 rounded-full flex items-center justify-center mr-3 md:hidden overflow-hidden">
+                            <div class="logo-img">
+                                <img src="Logotipo/Logo.png" alt="FUMIZA S. de R.L." style="width:100%; height:100%; object-fit:cover;" />
+                            </div>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-800 dark:text-white">Sistema de Gestión de Calidad</h1>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">FUMIZA S. de R.L. · ISO 9001:2015</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <button id="themeToggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" title="Cambiar modo claro/oscuro">
+                        <i id="themeIcon" class="fas fa-moon"></i>
+                    </button>
+
+                    <div class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border-2 border-vib-azulclaro dark:border-blue-400" title="ISO 9001:2015">
+                        <img src="Logotipo/9001.png" alt="ISO 9001:2015" class="w-full h-full object-contain" />
+                    </div>
+
+                    <div class="hidden md:flex items-center certification-badge">
+                        <i class="fas fa-shield-alt mr-2"></i> ISO 9001:2015
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-hidden p-5 bg-gray-50 dark:bg-gray-900">
+            <div class="frame-wrapper h-full">
+                <iframe id="contentFrame" name="contentFrame" src="html/Iniciooriginal.html" title="SGC - FUMIZA S. de R.L."></iframe>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+
+        const sideMenu = document.getElementById('sideMenu');
+        sideMenu.addEventListener('click', function(e) {
+            const link = e.target.closest('a.menu-item');
+            if (!link) return;
+            if (link.getAttribute('target') === 'contentFrame') {
+                sideMenu.querySelectorAll('.menu-item').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                if (window.innerWidth <= 768) toggleSidebar();
+            }
+        });
+
+        const contentFrame = document.getElementById('contentFrame');
+        contentFrame.addEventListener('load', () => {
+            try {
+                const innerTitle = contentFrame.contentDocument?.title;
+                if (innerTitle) document.title = `${innerTitle} — SGC FUMIZA S. de R.L.`;
+            } catch (_) {}
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+    </script>
+</body>
+</html>

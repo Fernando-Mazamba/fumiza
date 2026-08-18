@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-034 Matriz de Trabajadores - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-intro {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .form-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #e2e8f0;
+            padding: 15px 12px;
+            text-align: left;
+            vertical-align: top;
+            font-size: 14px;
+        }
+        
+        .form-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .form-header-row {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .form-header-cell {
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px;
+        }
+        
+        .form-subheader-row {
+            background-color: #718096;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .form-subheader-cell {
+            padding: 10px;
+        }
+        
+        .form-data-row:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        
+        .form-data-row:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        
+        .role-cell {
+            min-width: 180px;
+            font-weight: bold;
+            background-color: #edf2f7;
+        }
+        
+        .expectations-cell {
+            min-width: 250px;
+        }
+        
+        .needs-cell {
+            min-width: 250px;
+        }
+        
+        .interaction-cell {
+            min-width: 250px;
+        }
+        
+        .criteria-cell {
+            min-width: 250px;
+        }
+        
+        .form-instructions {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .matrix-purpose {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .purpose-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .signature-field {
+            border-bottom: 1px solid #cbd5e0;
+            padding: 10px 0 40px;
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .signature-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .role-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .role-icon {
+            font-size: 18px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .form-table-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        SGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Matriz de Trabajadores - Roles y Responsabilidades</div>
+        <div class="doc-code">Código: FORM-034</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Introducción -->
+            <div class="form-intro">
+                <p><strong>Esta matriz tiene como objetivo definir claramente los roles, expectativas, necesidades y criterios de éxito para cada posición dentro de la organización</strong>. Proporciona una visión integral de cómo cada trabajador contribuye al Sistema de Gestión Integrado (SGI) y facilita la alineación entre las expectativas organizacionales y las capacidades individuales.</p>
+            </div>
+            
+            <!-- Propósito de la matriz -->
+            <div class="matrix-purpose">
+                <div class="purpose-title">Propósito de la Matriz de Trabajadores:</div>
+                <ul class="instructions-list">
+                    <li>Clarificar roles y responsabilidades dentro de la organización.</li>
+                    <li>Establecer expectativas claras para cada posición.</li>
+                    <li>Identificar necesidades de capacitación y recursos.</li>
+                    <li>Definir criterios objetivos para evaluar el desempeño.</li>
+                    <li>Facilitar la comunicación entre diferentes niveles jerárquicos.</li>
+                    <li>Alinear los esfuerzos individuales con los objetivos organizacionales.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección de la matriz -->
+            <div class="section">
+                <div class="section-title">Matriz de Trabajadores - Detalle por Rol</div>
+                
+                <div class="form-table-container">
+                    <table class="form-table">
+                        <thead>
+                            <!-- Fila de encabezado principal -->
+                            <tr class="form-header-row">
+                                <th colspan="5" class="form-header-cell">FORM-034 - MATRIZ DE TRABAJADORES</th>
+                            </tr>
+                            <!-- Fila de información del formulario -->
+                            <tr class="form-subheader-row">
+                                <td colspan="4" class="form-subheader-cell">Crea: SGI | Aprueba: CEO</td>
+                                <td class="form-subheader-cell">Versión: 000 | Fecha: 01.12.2024</td>
+                            </tr>
+                            <!-- Fila vacía para separación -->
+                            <tr>
+                                <td colspan="5" style="height: 15px;"></td>
+                            </tr>
+                            <!-- Encabezados de columnas -->
+                            <tr>
+                                <th class="role-cell">Trabajador/Rol</th>
+                                <th class="expectations-cell">Expectativas</th>
+                                <th class="needs-cell">Necesidades</th>
+                                <th class="interaction-cell">Interacción con los procesos</th>
+                                <th class="criteria-cell">Criterios de éxito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Datos del archivo original -->
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">👨‍💼</span>
+                                        <span>Gerente</span>
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción adicional del rol">Responsable de la dirección estratégica y operativa del área/departamento</textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Lograr los objetivos de productividad y calidad establecidos</textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Recursos adecuados y capacitación constante</textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Gestión de recursos humanos y toma de decisiones estratégicas</textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Cumplimiento de los objetivos de productividad y reducción de costos</textarea>
+                                </td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">👷</span>
+                                        <span>Operario de producción</span>
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción adicional del rol">Encargado de las operaciones directas en la línea de producción</textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Cumplir con los objetivos de producción diaria de acuerdo al plan</textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Herramientas de trabajo funcionales y descansos apropiados</textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Operación en la línea de producción y manejo de materiales</textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Cumplimiento con el volumen de producción sin fallas</textarea>
+                                </td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">👨‍🔧</span>
+                                        <span>Supervisor</span>
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción adicional del rol">Responsable de supervisar las operaciones y garantizar el cumplimiento de normas</textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Supervisar y garantizar el cumplimiento de las normas de seguridad</textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Capacitación en técnicas de liderazgo y gestión de equipos</textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Monitoreo de la producción y control de calidad</textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Reducción de accidentes y cumplimiento de las normativas de seguridad</textarea>
+                                </td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">👩‍💼</span>
+                                        <span>Asistente administrativo</span>
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción adicional del rol">Encargado de la gestión documental y apoyo administrativo</textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Gestionar la documentación administrativa de manera eficiente</textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Acceso a tecnología de gestión y sistemas administrativos</textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Organización de archivos y gestión de comunicaciones internas</textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Organización eficiente de los documentos y reducción de tiempos administrativos</textarea>
+                                </td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">🔧</span>
+                                        <span>Técnico de mantenimiento</span>
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción adicional del rol">Responsable del mantenimiento preventivo y correctivo de equipos</textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Realizar mantenimiento preventivo y correctivo a las máquinas</textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Acceso a manuales técnicos y herramientas de diagnóstico</textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Realización de mantenimiento preventivo y atención de emergencias</textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;">Reducción de tiempos de inactividad de las máquinas</textarea>
+                                </td>
+                            </tr>
+                            
+                            <!-- Filas adicionales para nuevos roles (3 filas) -->
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">➕</span>
+                                        <input type="text" style="width: 100%; border: none; background: transparent; font-weight: bold;" placeholder="Nuevo rol">
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción del rol"></textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Expectativas para este rol"></textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Necesidades para desempeñar el rol"></textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Interacción con procesos del SGI"></textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Criterios para evaluar éxito"></textarea>
+                                </td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">➕</span>
+                                        <input type="text" style="width: 100%; border: none; background: transparent; font-weight: bold;" placeholder="Nuevo rol">
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción del rol"></textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Expectativas para este rol"></textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Necesidades para desempeñar el rol"></textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Interacción con procesos del SGI"></textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Criterios para evaluar éxito"></textarea>
+                                </td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td class="role-cell">
+                                    <div class="role-header">
+                                        <span class="role-icon">➕</span>
+                                        <input type="text" style="width: 100%; border: none; background: transparent; font-weight: bold;" placeholder="Nuevo rol">
+                                    </div>
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px; font-weight: normal; margin-top: 5px;" placeholder="Descripción del rol"></textarea>
+                                </td>
+                                <td class="expectations-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Expectativas para este rol"></textarea>
+                                </td>
+                                <td class="needs-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Necesidades para desempeñar el rol"></textarea>
+                                </td>
+                                <td class="interaction-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Interacción con procesos del SGI"></textarea>
+                                </td>
+                                <td class="criteria-cell">
+                                    <textarea style="width: 100%; border: none; background: transparent; resize: none; min-height: 120px;" placeholder="Criterios para evaluar éxito"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Instrucciones de uso -->
+                <div class="form-instructions">
+                    <div class="instructions-title">Instrucciones para completar la matriz:</div>
+                    <ul class="instructions-list">
+                        <li><strong>Trabajador/Rol:</strong> Nombre del puesto o posición dentro de la organización.</li>
+                        <li><strong>Expectativas:</strong> Resultados o comportamientos esperados para el rol.</li>
+                        <li><strong>Necesidades:</strong> Recursos, herramientas, capacitación o apoyo requerido para desempeñar el rol efectivamente.</li>
+                        <li><strong>Interacción con los procesos:</strong> Cómo el rol interactúa con los procesos del Sistema de Gestión Integrado (SGI).</li>
+                        <li><strong>Criterios de éxito:</strong> Indicadores medibles que definen el desempeño exitoso en el rol.</li>
+                        <li><strong>Iconos:</strong> Los iconos ayudan a identificar visualmente diferentes tipos de roles (gerenciales, operativos, técnicos, administrativos).</li>
+                    </ul>
+                </div>
+                
+                <!-- Beneficios de la matriz -->
+                <div class="matrix-purpose">
+                    <div class="purpose-title">Beneficios de la Matriz de Trabajadores:</div>
+                    <ul class="instructions-list">
+                        <li><strong>Claridad organizacional:</strong> Todos los empleados comprenden sus roles y responsabilidades.</li>
+                        <li><strong>Gestión del desempeño:</strong> Facilita la evaluación objetiva del desempeño.</li>
+                        <li><strong>Planificación de recursos humanos:</strong> Identifica necesidades de capacitación y desarrollo.</li>
+                        <li><strong>Comunicación efectiva:</strong> Mejora la comunicación entre departamentos y niveles jerárquicos.</li>
+                        <li><strong>Alineación estratégica:</strong> Asegura que todos los roles contribuyan a los objetivos organizacionales.</li>
+                        <li><strong>Gestión del cambio:</strong> Facilita la adaptación a cambios organizacionales.</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de firmas -->
+                <div class="signature-section">
+                    <div class="section-title">Autorizaciones y Firmas</div>
+                    <div class="signature-grid">
+                        <div class="signature-field">
+                            <div class="signature-label">RESPONSABLE DE RECURSOS HUMANOS</div>
+                            <div class="signature-name">Nombre, Firma y Fecha</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">GERENTE GENERAL</div>
+                            <div class="signature-name">Nombre, Firma y Fecha</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-034 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Verifica se o logo existe, caso contrário mostra um placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+            
+            // Agregar iconos según el tipo de rol cuando se ingresa un nuevo rol
+            document.querySelectorAll('input[type="text"][placeholder="Nuevo rol"]').forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value) {
+                        const roleText = this.value.toLowerCase();
+                        const iconSpan = this.parentElement.querySelector('.role-icon');
+                        
+                        // Determinar icono según palabras clave en el nombre del rol
+                        if (roleText.includes('gerente') || roleText.includes('director') || roleText.includes('jefe')) {
+                            iconSpan.textContent = '👨‍💼';
+                        } else if (roleText.includes('operario') || roleText.includes('operador') || roleText.includes('product')) {
+                            iconSpan.textContent = '👷';
+                        } else if (roleText.includes('supervisor') || roleText.includes('coordinador')) {
+                            iconSpan.textContent = '👨‍🔧';
+                        } else if (roleText.includes('asistente') || roleText.includes('administrativo') || roleText.includes('secretari')) {
+                            iconSpan.textContent = '👩‍💼';
+                        } else if (roleText.includes('técnico') || roleText.includes('mantenimiento') || roleText.includes('ingenier')) {
+                            iconSpan.textContent = '🔧';
+                        } else if (roleText.includes('analista') || roleText.includes('especialista')) {
+                            iconSpan.textContent = '👨‍🔬';
+                        } else if (roleText.includes('calidad')) {
+                            iconSpan.textContent = '✅';
+                        } else if (roleText.includes('seguridad')) {
+                            iconSpan.textContent = '🛡️';
+                        } else if (roleText.includes('ventas') || roleText.includes('comercial')) {
+                            iconSpan.textContent = '💰';
+                        } else {
+                            iconSpan.textContent = '👤';
+                        }
+                    }
+                });
+            });
+            
+            // Resaltar campos vacíos en las filas de nuevos roles
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const roleInput = row.querySelector('input[type="text"][placeholder="Nuevo rol"]');
+                if (roleInput) {
+                    const textareas = row.querySelectorAll('textarea');
+                    
+                    // Verificar si la fila está vacía
+                    const checkIfRowEmpty = () => {
+                        let isEmpty = true;
+                        
+                        if (roleInput.value.trim() !== '') {
+                            isEmpty = false;
+                        }
+                        
+                        textareas.forEach(textarea => {
+                            if (textarea.value.trim() !== '') {
+                                isEmpty = false;
+                            }
+                        });
+                        
+                        // Resaltar fila vacía
+                        if (isEmpty) {
+                            row.style.backgroundColor = '#fff5f5';
+                        } else {
+                            // Restaurar color según si es par o impar
+                            const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+                            row.style.backgroundColor = rowIndex % 2 === 0 ? '#ffffff' : '#f7fafc';
+                        }
+                    };
+                    
+                    // Agregar event listeners para detectar cambios
+                    roleInput.addEventListener('input', checkIfRowEmpty);
+                    roleInput.addEventListener('blur', checkIfRowEmpty);
+                    
+                    textareas.forEach(textarea => {
+                        textarea.addEventListener('input', checkIfRowEmpty);
+                        textarea.addEventListener('blur', checkIfRowEmpty);
+                    });
+                    
+                    // Verificar estado inicial
+                    checkIfRowEmpty();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

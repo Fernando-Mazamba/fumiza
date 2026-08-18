@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-029 Registro Entrega de EPI - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-intro {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .form-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 8px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+        
+        .form-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-header-row {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .form-header-cell {
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px;
+        }
+        
+        .form-subheader-row {
+            background-color: #718096;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .form-subheader-cell {
+            padding: 10px;
+        }
+        
+        .form-data-row:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        
+        .form-data-row:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        
+        .form-input-cell {
+            min-width: 120px;
+        }
+        
+        .form-narrow-cell {
+            min-width: 80px;
+        }
+        
+        .form-medium-cell {
+            min-width: 100px;
+        }
+        
+        .form-wide-cell {
+            min-width: 150px;
+        }
+        
+        .form-signature-cell {
+            min-width: 140px;
+        }
+        
+        .form-checkbox-cell {
+            width: 60px;
+        }
+        
+        .form-instructions {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .epi-info {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .epi-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .signature-field {
+            border-bottom: 1px solid #cbd5e0;
+            padding: 10px 0 50px;
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .signature-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .status-new {
+            background-color: #c6f6d5;
+            color: #22543d;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .status-used {
+            background-color: #fed7d7;
+            color: #742a2a;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .status-repaired {
+            background-color: #feebc8;
+            color: #744210;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .form-table-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Registro de Entrega de Equipos de Protección Individual (EPI)</div>
+        <div class="doc-code">Código: FORM-029</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Introducción -->
+            <div class="form-intro">
+                <p><strong>Este formulario tiene como objetivo registrar la entrega de Equipos de Protección Individual (EPI) a los trabajadores</strong>. Documenta la asignación de equipos de protección, la orientación recibida y las firmas de conformidad, cumpliendo con los requisitos de seguridad y salud ocupacional del Sistema de Gestión Integrado (SGI).</p>
+            </div>
+            
+            <!-- Sección del formulario -->
+            <div class="section">
+                <div class="section-title">Registro de Entrega de EPI - Formulario de Control</div>
+                
+                <div class="form-table-container">
+                    <table class="form-table">
+                        <thead>
+                            <!-- Fila de encabezado principal -->
+                            <tr class="form-header-row">
+                                <th colspan="12" class="form-header-cell">FORM-029 | REGISTRO DE ENTREGA DE EQUIPOS DE PROTECCIÓN INDIVIDUAL (EPI)</th>
+                            </tr>
+                            <!-- Fila de información del formulario -->
+                            <tr class="form-subheader-row">
+                                <td colspan="10" class="form-subheader-cell">Crea: ESGI | Aprueba: CEO</td>
+                                <td colspan="2" class="form-subheader-cell">Versión: 000 | Fecha: 01.12.2024</td>
+                            </tr>
+                            <!-- Fila vacía para separación -->
+                            <tr>
+                                <td colspan="12" style="height: 15px;"></td>
+                            </tr>
+                            <!-- Encabezados de columnas -->
+                            <tr>
+                                <th class="form-wide-cell">Nombre del Trabajador</th>
+                                <th class="form-medium-cell">Matrícula</th>
+                                <th class="form-wide-cell">Cargo</th>
+                                <th class="form-medium-cell">Sector</th>
+                                <th class="form-medium-cell">Fecha de Entrega</th>
+                                <th class="form-wide-cell">Descripción del EPI</th>
+                                <th class="form-medium-cell">Certificado de Aprobación (CA)</th>
+                                <th class="form-narrow-cell">Cantidad</th>
+                                <th class="form-medium-cell">Condición del EPI</th>
+                                <th class="form-medium-cell">Orientación Recibida (Sí/No)</th>
+                                <th class="form-signature-cell">Firma del Trabajador</th>
+                                <th class="form-signature-cell">Firma del Responsable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Ejemplo de filas con datos (del archivo original) -->
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Nombre" placeholder="Nombre completo"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="00123" placeholder="Matrícula"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="xxxxxxxxxx" placeholder="Cargo del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Producción" placeholder="Sector/Área"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="2025-03-25" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Casco de Seguridad" placeholder="Descripción del EPI"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="78945" placeholder="Número CA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="1" placeholder="Cantidad"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="nuevo" selected>Nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="reparado">Reparado</option>
+                                        <option value="reacondicionado">Reacondicionado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="si" selected>Sí</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Firma" placeholder="Firma del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Pedro Silva" placeholder="Nombre responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Nombre" placeholder="Nombre completo"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="00456" placeholder="Matrícula"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="xxxxxxxxxx" placeholder="Cargo del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Seguridad" placeholder="Sector/Área"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="2025-03-25" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Guantes de Protección" placeholder="Descripción del EPI"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="65412" placeholder="Número CA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="2" placeholder="Cantidad"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="nuevo" selected>Nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="reparado">Reparado</option>
+                                        <option value="reacondicionado">Reacondicionado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="si" selected>Sí</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Firma" placeholder="Firma del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Pedro Silva" placeholder="Nombre responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Nombre" placeholder="Nombre completo"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="00789" placeholder="Matrícula"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="xxxxxxxxxx" placeholder="Cargo del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Mantenimiento" placeholder="Sector/Área"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="2025-03-25" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Máscara de Soldadura" placeholder="Descripción del EPI"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="98765" placeholder="Número CA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="1" placeholder="Cantidad"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="nuevo" selected>Nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="reparado">Reparado</option>
+                                        <option value="reacondicionado">Reacondicionado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="si" selected>Sí</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Firma" placeholder="Firma del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Pedro Silva" placeholder="Nombre responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Nombre" placeholder="Nombre completo"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="00112" placeholder="Matrícula"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="xxxxxxxxxx" placeholder="Cargo del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Infraestructura" placeholder="Sector/Área"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="2025-03-25" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Botas de Seguridad" placeholder="Descripción del EPI"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="32145" placeholder="Número CA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="1" placeholder="Cantidad"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="nuevo" selected>Nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="reparado">Reparado</option>
+                                        <option value="reacondicionado">Reacondicionado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="si" selected>Sí</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Firma" placeholder="Firma del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="Pedro Silva" placeholder="Nombre responsable"></td>
+                            </tr>
+                            
+                            <!-- Filas vacías adicionales para nuevos registros (6 filas) -->
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Matrícula"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Cargo del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Sector/Área"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Descripción del EPI"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Número CA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Cantidad"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="nuevo">Nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="reparado">Reparado</option>
+                                        <option value="reacondicionado">Reacondicionado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="si">Sí</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Firma del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Matrícula"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Cargo del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Sector/Área"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Descripción del EPI"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Número CA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Cantidad"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="nuevo">Nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="reparado">Reparado</option>
+                                        <option value="reacondicionado">Reacondicionado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="si">Sí</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Firma del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Matrícula"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Cargo del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Sector/Área"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Descripción del EPI"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Número CA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Cantidad"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="nuevo">Nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="reparado">Reparado</option>
+                                        <option value="reacondicionado">Reacondicionado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="si">Sí</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Firma del trabajador"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre responsable"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Información sobre EPI -->
+                <div class="epi-info">
+                    <div class="epi-title">Información sobre Equipos de Protección Individual (EPI)</div>
+                    <ul class="instructions-list">
+                        <li>Los EPI deben cumplir con las normativas de seguridad aplicables.</li>
+                        <li>El Certificado de Aprobación (CA) es obligatorio para todos los EPI.</li>
+                        <li>La orientación sobre el uso correcto del EPI debe ser proporcionada al trabajador.</li>
+                        <li>El trabajador debe firmar confirmando la recepción y orientación recibida.</li>
+                        <li>El responsable debe verificar que el EPI entregado esté en condiciones adecuadas de uso.</li>
+                    </ul>
+                </div>
+                
+                <!-- Instrucciones de uso -->
+                <div class="form-instructions">
+                    <div class="instructions-title">Instrucciones para completar el formulario:</div>
+                    <ul class="instructions-list">
+                        <li><strong>Nombre del Trabajador:</strong> Nombre completo del trabajador que recibe el EPI.</li>
+                        <li><strong>Matrícula:</strong> Número de identificación del trabajador en la empresa.</li>
+                        <li><strong>Cargo:</strong> Posición o función que desempeña el trabajador.</li>
+                        <li><strong>Sector:</strong> Área o departamento donde trabaja.</li>
+                        <li><strong>Fecha de Entrega:</strong> Fecha en que se realiza la entrega del EPI.</li>
+                        <li><strong>Descripción del EPI:</strong> Tipo específico de equipo de protección entregado.</li>
+                        <li><strong>Certificado de Aprobación (CA):</strong> Número de certificación del EPI.</li>
+                        <li><strong>Cantidad:</strong> Número de unidades entregadas.</li>
+                        <li><strong>Condición del EPI:</strong> Estado del equipo al momento de la entrega.</li>
+                        <li><strong>Orientación Recibida:</strong> Confirmación de que se proporcionó instrucción sobre uso.</li>
+                        <li><strong>Firma del Trabajador:</strong> Firma que confirma recepción y orientación.</li>
+                        <li><strong>Firma del Responsable:</strong> Firma de quien entrega y verifica el EPI.</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de firmas -->
+                <div class="signature-section">
+                    <div class="section-title">Autorizaciones y Firmas Finales</div>
+                    <div class="signature-grid">
+                        <div class="signature-field">
+                            <div class="signature-label">RESPONSABLE DE SEGURIDAD Y SALUD OCUPACIONAL</div>
+                            <div class="signature-name">Nombre, Firma y Fecha</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">GERENTE DE OPERACIONES</div>
+                            <div class="signature-name">Nombre, Firma y Fecha</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-029 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Verifica se o logo existe, caso contrário mostra um placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+            
+            // Configurar campos de fecha con formato sugerido
+            document.querySelectorAll('input[type="text"][placeholder*="DD.MM.AAAA"]').forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = '';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+                    const datePattern2 = /^\d{2}\.\d{2}\.\d{4}$/;
+                    
+                    if (this.value && !datePattern.test(this.value) && !datePattern2.test(this.value)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Validar que la matrícula sea numérica
+            document.querySelectorAll('input[type="text"][placeholder*="Matrícula"]').forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value && !this.value.match(/^\d+$/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Validar que la cantidad sea numérica
+            document.querySelectorAll('input[type="text"][placeholder="Cantidad"]').forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value && !this.value.match(/^\d+$/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Validar que el Certificado de Aprobación sea numérico
+            document.querySelectorAll('input[type="text"][placeholder*="Número CA"]').forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value && !this.value.match(/^\d+$/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
