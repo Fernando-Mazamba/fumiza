@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REG-001 Reglamento del Comité de Seguridad y Salud en el Trabajo - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .content-list {
+            margin: 15px 0 20px 40px;
+        }
+        
+        .content-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+        
+        .committee-role {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .role-title {
+            color: #276749;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e informaciones de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Reglamento del Comité de Seguridad y Salud en el Trabajo</div>
+        <div class="doc-code">Código: REG-001</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">1. Objetivo</a></li>
+                    <li class="toc-item"><a href="#composicion" class="toc-link">2. Composición del Comité</a></li>
+                    <li class="toc-item"><a href="#funciones" class="toc-link">3. Funciones del Comité</a></li>
+                    <li class="toc-item"><a href="#reuniones" class="toc-link">4. Reuniones</a></li>
+                    <li class="toc-item"><a href="#obligaciones" class="toc-link">5. Obligaciones de los Miembros del Comité</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">6. Responsabilidades del Comité</a></li>
+                    <li class="toc-item"><a href="#comunicacion" class="toc-link">7. Comunicación y Reportes</a></li>
+                    <li class="toc-item"><a href="#modificacion" class="toc-link">8. Modificación del Reglamento</a></li>
+                    <li class="toc-item"><a href="#vigencia" class="toc-link">9. Vigencia</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">10. Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">Objetivo</div>
+                <div class="content-text">
+                    El Comité de Seguridad y Salud en el Trabajo tiene como objetivo promover, coordinar y supervisar todas las actividades relacionadas con la seguridad y salud en el trabajo, asegurando el cumplimiento de las normativas y la mejora continua de las condiciones laborales.
+                </div>
+            </div>
+            
+            <!-- Sección 2: Composición del Comité -->
+            <div class="section" id="composicion">
+                <div class="section-title">Composición del Comité</div>
+                <div class="content-text">
+                    El Comité de Seguridad y Salud en el Trabajo estará compuesto por:
+                </div>
+                <ul class="content-list">
+                    <li><strong>Presidente:</strong> Representante de la alta dirección de la organización.</li>
+                    <li><strong>Vicepresidente:</strong> Representante del área de Recursos Humanos o similar.</li>
+                    <li><strong>Miembros:</strong> Representantes de diferentes áreas operativas y un representante de los trabajadores.</li>
+                    <li><strong>Secretario:</strong> Designado por el Comité para llevar el registro de actas y documentación.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 3: Funciones del Comité -->
+            <div class="section" id="funciones">
+                <div class="section-title">Funciones del Comité</div>
+                <div class="content-text">
+                    Las funciones del Comité de Seguridad y Salud en el Trabajo son:
+                </div>
+                <ul class="content-list">
+                    <li>Identificar y evaluar los riesgos laborales en el entorno de trabajo.</li>
+                    <li>Proponer medidas preventivas y correctivas para minimizar los riesgos.</li>
+                    <li>Fomentar la capacitación continua en materia de seguridad y salud ocupacional.</li>
+                    <li>Coordinar y supervisar las auditorías de seguridad y salud.</li>
+                    <li>Velar por el cumplimiento de las normativas legales y de la organización en materia de seguridad.</li>
+                    <li>Informar y sensibilizar a todos los trabajadores sobre la importancia de la seguridad y salud en el trabajo.</li>
+                    <li>Realizar un seguimiento y evaluación continua de las acciones de seguridad y salud implementadas.</li>
+                    <li>Proponer medidas correctivas ante incidentes o accidentes laborales.</li>
+                    <li>Revisar y actualizar los procedimientos de seguridad conforme a las mejores prácticas.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 4: Reuniones -->
+            <div class="section" id="reuniones">
+                <div class="section-title">Reuniones</div>
+                <div class="content-text">
+                    Las reuniones del Comité de Seguridad y Salud en el Trabajo se llevan a cabo de forma regular y estructurada para garantizar la efectividad en la gestión de la seguridad y salud laboral.
+                </div>
+                <ul class="content-list">
+                    <li>Las reuniones ordinarias se llevarán a cabo <strong>mensualmente</strong> en fecha fija establecida por el Comité.</li>
+                    <li>Las reuniones extraordinarias pueden ser convocadas por el Presidente, Vicepresidente o por al menos el 50% de los miembros del Comité.</li>
+                    <li>Las decisiones se toman por mayoría de votos de los miembros presentes.</li>
+                    <li>El acta de cada reunión es redactada y firmada por el Secretario del Comité, y se distribuye a todos los miembros.</li>
+                    <li>Se establece un quórum mínimo del 60% de los miembros para la validez de las reuniones.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 5: Obligaciones de los Miembros -->
+            <div class="section" id="obligaciones">
+                <div class="section-title">Obligaciones de los Miembros del Comité</div>
+                <div class="content-text">
+                    Todos los miembros del Comité tienen las siguientes obligaciones:
+                </div>
+                <ul class="content-list">
+                    <li><strong>Asistir a las reuniones del Comité</strong> de forma puntual y participativa.</li>
+                    <li><strong>Participar activamente</strong> en la identificación de riesgos y en el desarrollo de soluciones.</li>
+                    <li><strong>Promover la seguridad y salud</strong> en sus áreas de trabajo y entre sus colaboradores.</li>
+                    <li><strong>Informar oportunamente</strong> sobre los riesgos que perciban en el entorno laboral.</li>
+                    <li><strong>Colaborar en la ejecución</strong> de planes de emergencia, evacuación y respuesta a incidentes.</li>
+                    <li><strong>Mantener la confidencialidad</strong> de la información sensible tratada en el Comité.</li>
+                    <li><strong>Capacitarse continuamente</strong> en temas de seguridad y salud ocupacional.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 6: Responsabilidades del Comité -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">Responsabilidades del Comité</div>
+                
+                <div class="committee-role">
+                    <div class="role-title">Presidente:</div>
+                    <div class="content-text">
+                        Coordina las actividades del Comité, preside las reuniones y garantiza que se tomen las decisiones adecuadas para la mejora de la seguridad y salud en el trabajo. Representa al Comité ante la alta dirección.
+                    </div>
+                </div>
+                
+                <div class="committee-role">
+                    <div class="role-title">Vicepresidente:</div>
+                    <div class="content-text">
+                        Asiste al Presidente en sus funciones y lo sustituye en su ausencia. Coordina la preparación de los temas a tratar en las reuniones.
+                    </div>
+                </div>
+                
+                <div class="committee-role">
+                    <div class="role-title">Secretario:</div>
+                    <div class="content-text">
+                        Elabora las convocatorias, redacta las actas de las reuniones, mantiene el archivo documental del Comité y gestiona la comunicación oficial.
+                    </div>
+                </div>
+                
+                <div class="committee-role">
+                    <div class="role-title">Miembros:</div>
+                    <div class="content-text">
+                        Participan activamente en todas las actividades del Comité, representan los intereses de sus áreas, y aseguran que las acciones acordadas se implementen correctamente.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Comunicación y Reportes -->
+            <div class="section" id="comunicacion">
+                <div class="section-title">Comunicación y Reportes</div>
+                <div class="content-text">
+                    El Comité establece y mantiene un sistema de comunicación efectivo para garantizar la transparencia y participación en materia de seguridad y salud laboral.
+                </div>
+                <ul class="content-list">
+                    <li>El Comité establece un <strong>sistema de comunicación bidireccional</strong> con todos los trabajadores para transmitir las decisiones y acciones tomadas.</li>
+                    <li>Se elaboran <strong>informes periódicos</strong> (trimestrales y anuales) sobre el estado de la seguridad y salud en el trabajo, los cuales se presentan a la dirección de la organización.</li>
+                    <li>En caso de incidentes o accidentes graves, el Comité realiza un <strong>informe detallado</strong> con análisis de causas raíces y toma las medidas necesarias para evitar su recurrencia.</li>
+                    <li>Los resultados de las inspecciones, auditorías y evaluaciones son comunicados a las áreas correspondientes para su implementación.</li>
+                    <li>Se mantiene un <strong>tablero de indicadores</strong> visible para todos los trabajadores con las métricas clave de seguridad y salud.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 8: Modificación del Reglamento -->
+            <div class="section" id="modificacion">
+                <div class="section-title">Modificación del Reglamento</div>
+                <div class="content-text">
+                    Este reglamento puede ser modificado para adaptarse a los cambios organizacionales, legales o técnicos que se presenten.
+                </div>
+                <ul class="content-list">
+                    <li>Este reglamento puede ser modificado por <strong>acuerdo unánime</strong> de los miembros del Comité.</li>
+                    <li>Toda modificación propuesta debe ser sometida a la <strong>aprobación de la dirección</strong> de la organización.</li>
+                    <li>Las modificaciones aprobadas se incorporan al reglamento y se comunican a todos los niveles de la organización.</li>
+                    <li>Se mantiene un registro histórico de todas las modificaciones realizadas al reglamento.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 9: Vigencia -->
+            <div class="section" id="vigencia">
+                <div class="section-title">Vigencia</div>
+                <div class="content-text">
+                    Este reglamento entra en vigor a partir de su aprobación y se mantiene vigente hasta su modificación o sustitución.
+                </div>
+                <ul class="content-list">
+                    <li>Este reglamento entra en vigor a partir de su <strong>aprobación formal</strong> por la dirección de la organización.</li>
+                    <li>Debe ser <strong>revisado anualmente</strong> para asegurar su adecuación a las necesidades de la organización y a los cambios normativos.</li>
+                    <li>La versión vigente del reglamento está disponible para todos los trabajadores en el portal documental del SGI.</li>
+                    <li>En caso de actualizaciones normativas relevantes, el Comité puede adelantar la revisión del reglamento.</li>
+                </ul>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original - Adaptado al formato SGI</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: REG-001 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter';
+            
+            // Verifica si el logo existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                };
+            }
+        });
+    </script>
+</body>
+</html>
