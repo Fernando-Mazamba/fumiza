@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-008 Registro No Conformidad/Oportunidades - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .form-main-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2d3748;
+            text-align: center;
+            margin: 20px 0 10px;
+        }
+        
+        .form-subtitle {
+            font-size: 20px;
+            color: #2c5282;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        .form-code-info {
+            text-align: right;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+            padding-right: 20px;
+        }
+        
+        .form-section {
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            background-color: #fff;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+        
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c5282;
+            font-size: 14px;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #2c5282;
+            box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+        
+        .form-select {
+            cursor: pointer;
+            background-color: white;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin: 0;
+        }
+        
+        .inline-fields {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .inline-field {
+            flex: 1;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .action-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        
+        .action-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .action-table input, .action-table textarea, .action-table select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        .action-table textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        
+        .signature-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-box {
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .signature-line {
+            height: 1px;
+            background-color: #333;
+            margin: 60px 0 15px;
+        }
+        
+        .signature-info {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .control-changes {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .control-title {
+            color: #2c5282;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .control-info {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-open {
+            background-color: #fed7d7;
+            color: #c53030;
+        }
+        
+        .status-in-progress {
+            background-color: #feebc8;
+            color: #b7791f;
+        }
+        
+        .status-closed {
+            background-color: #c6f6d5;
+            color: #276749;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px;
+            float: right;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover {
+            background-color: #3182ce;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            clear: both;
+        }
+        
+        .form-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .form-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .form-btn.secondary {
+            background-color: #38a169;
+        }
+        
+        .form-btn.secondary:hover {
+            background-color: #2f855a;
+        }
+        
+        .form-btn.tertiary {
+            background-color: #718096;
+        }
+        
+        .form-btn.tertiary:hover {
+            background-color: #4a5568;
+        }
+        
+        .nc-type-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        
+        .nc-type-nc {
+            background-color: #fed7d7;
+            color: #c53030;
+            border: 1px solid #fc8181;
+        }
+        
+        .nc-type-om {
+            background-color: #e9d8fd;
+            color: #553c9a;
+            border: 1px solid #d6bcfa;
+        }
+        
+        .nc-type-oportunidad {
+            background-color: #c6f6d5;
+            color: #276749;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .download-options {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #edf2f7;
+            border-radius: 5px;
+            clear: both;
+        }
+        
+        .download-title {
+            color: #2c5282;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .download-btn:hover {
+            background-color: #2d3748;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn,
+            .form-actions,
+            .download-options {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-section {
+                padding: 15px;
+            }
+            
+            .signature-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        00
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Registro de No Conformidad / Oportunidades de Mejora</div>
+        <div class="doc-code">Código: FORM-008</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Título del formulario -->
+            <div class="form-main-title">REGISTRO DE NO CONFORMIDAD/OPORTUNIDAD</div>
+            <div class="form-subtitle">Sistema de Gestión de la Calidad (SGC)</div>
+            <div class="form-code-info">
+                <strong>Código:</strong> FORM-008 | <strong>Revisión:</strong> 00
+            </div>
+            
+            <!-- Instrucciones -->
+            <div class="control-changes">
+                <div class="control-title">💡 INSTRUCCIONES</div>
+                <div class="control-info">
+                    <p>Complete todos los campos del formulario para registrar No Conformidades u Oportunidades de Mejora. Este formulario es completamente editable y puede ser descargado en múltiples formatos.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 1: Información básica -->
+            <div class="form-section">
+                <div class="section-title">
+                    INFORMACIÓN BÁSICA
+                    <span id="nc-type-badge" class="nc-type-badge nc-type-nc" style="display: none;">NO CONFORMIDAD</span>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">RNC N°</label>
+                        <input type="text" class="form-input" id="rnc-number" placeholder="Ej: RNC-2024-001" value="RNC-2024-001">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">OM N° (Oportunidad de Mejora)</label>
+                        <input type="text" class="form-input" id="om-number" placeholder="Ej: OM-2024-001">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">FECHA</label>
+                        <input type="date" class="form-input" id="register-date" value="2024-12-01">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">TIPO DE REGISTRO</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="register-type" value="nc" checked onchange="updateRegisterType()">
+                                <span>No Conformidad</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="register-type" value="om" onchange="updateRegisterType()">
+                                <span>Oportunidad de Mejora</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="register-type" value="oportunidad" onchange="updateRegisterType()">
+                                <span>Oportunidad</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Origen y datos relacionados -->
+            <div class="form-section">
+                <div class="section-title">ORIGEN DE NO CONFORMIDAD / OPORTUNIDAD</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">ORIGEN</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="origin-type" value="cliente" checked>
+                                <span>CLIENTE</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="origin-type" value="proveedor">
+                                <span>PROVEEDOR</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="origin-type" value="oportunidad">
+                                <span>OPORTUNIDAD</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="origin-type" value="interna">
+                                <span>INTERNA</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="origin-type" value="auditoria">
+                                <span>AUDITORÍA EXTERNA</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="origin-type" value="riesgos">
+                                <span>RIESGOS</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">CLIENTE / PROVEEDOR</label>
+                        <input type="text" class="form-input" placeholder="Nombre del cliente o proveedor" value="Empresa ABC S.A.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">PRODUCTO / EQUIPO</label>
+                        <input type="text" class="form-input" placeholder="Producto o equipo relacionado" value="Proyecto X - Sistema Eléctrico">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">N° DEL LOTE</label>
+                        <input type="text" class="form-input" placeholder="Número de lote si aplica">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">CANTIDAD</label>
+                        <input type="text" class="form-input" placeholder="Cantidad afectada">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">RESPONSABLE(S) SEGUIMIENTO</label>
+                        <input type="text" class="form-input" placeholder="Nombre del responsable" value="Juan Pérez">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Descripción -->
+            <div class="form-section">
+                <div class="section-title">DESCRIPCIÓN DE LA NO CONFORMIDAD/OPORTUNIDAD</div>
+                
+                <div class="form-group">
+                    <label class="form-label">DESCRIPCIÓN DETALLADA</label>
+                    <textarea class="form-textarea" placeholder="Describa detalladamente la situación..." rows="5">Retraso en la entrega del proyecto debido a problemas en la coordinación con proveedores de materiales especializados. El proyecto tenía fecha límite de entrega el 30/11/2024 y se entregó el 05/12/2024, con un retraso de 5 días hábiles.</textarea>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Colección de hechos -->
+            <div class="form-section">
+                <div class="section-title">COLECCIÓN DE HECHOS</div>
+                
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label class="form-label">¿CUÁL ES EL PROBLEMA/OPORTUNIDAD?</label>
+                    <textarea class="form-textarea" placeholder="Describa el problema o la oportunidad identificada..." rows="3">Falta de un sistema de seguimiento y alerta temprana para proveedores críticos, lo que impide anticipar retrasos en la cadena de suministro.</textarea>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label class="form-label">¿POR QUÉ ESTO ES UN PROBLEMA/OPORTUNIDAD?</label>
+                    <textarea class="form-textarea" placeholder="Explique por qué esto representa un problema o una oportunidad..." rows="3">Los retrasos en proyectos críticos afectan la satisfacción del cliente, generan costos adicionales por penalidades contractuales y dañan la reputación de la empresa en el mercado.</textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">¿CUÁNDO SE PRODUJO EL PROBLEMA/OPORTUNIDAD?</label>
+                        <input type="date" class="form-input" value="2024-11-30">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">¿DÓNDE SE ORIGINÓ EL PROBLEMA/OPORTUNIDAD?</label>
+                        <input type="text" class="form-input" placeholder="Ubicación o área donde se originó" value="Área de Compras y Logística">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">¿QUIÉN ORIGINÓ EL PROBLEMA/OPORTUNIDAD?</label>
+                        <input type="text" class="form-input" placeholder="Persona o departamento responsable">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">CARGO</label>
+                        <input type="text" class="form-input" placeholder="Cargo de la persona responsable">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Acción inmediata (solo para No Conformidad) -->
+            <div class="form-section" id="immediate-action-section">
+                <div class="section-title">ACCIÓN INMEDIATA (No Conformidad)</div>
+                
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label class="form-label">DESCRIPCIÓN DE LA ACCIÓN INMEDIATA</label>
+                    <textarea class="form-textarea" placeholder="Describa las acciones tomadas inmediatamente para contener el problema..." rows="4">1. Comunicación inmediata al cliente explicando la situación y ofreciendo compensación por el retraso.
+2. Reunión de emergencia con el proveedor para acelerar la entrega de materiales pendientes.
+3. Reasignación de recursos internos para minimizar el impacto del retraso.</textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">RESPONSABLE DE LA ACCIÓN INMEDIATA</label>
+                        <input type="text" class="form-input" placeholder="Nombre del responsable" value="María González">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">FECHA DE LA ACCIÓN INMEDIATA</label>
+                        <input type="date" class="form-input" value="2024-12-01">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Segunda fase - Análisis de causa -->
+            <div class="form-section">
+                <div class="section-title">SEGUNDA FASE - ANÁLISIS DE CAUSA</div>
+                
+                <div class="form-group">
+                    <label class="form-label">CAUSA PROBABLE / HECHO MOTIVADOR (Análisis de causa raíz)</label>
+                    <textarea class="form-textarea" placeholder="Describa las causas probables que originaron el problema/oportunidad..." rows="5">1. Falta de un sistema de monitoreo de proveedores críticos.
+2. Ausencia de planes de contingencia para proveedores estratégicos.
+3. Comunicación ineficiente entre el área de compras y el área de proyectos.
+4. Criterios de selección de proveedores basados principalmente en precio, sin considerar fiabilidad en plazos de entrega.</textarea>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Acciones correctivas / mejoras -->
+            <div class="form-section">
+                <div class="section-title">ACCIONES CORRECTIVAS / MEJORAS</div>
+                
+                <div class="table-container">
+                    <table class="action-table">
+                        <thead>
+                            <tr>
+                                <th width="5%">N°</th>
+                                <th width="15%">Fecha inicio</th>
+                                <th width="40%">Acción a realizar</th>
+                                <th width="25%">Responsable</th>
+                                <th width="15%">Plazo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><input type="date" value="2024-12-05"></td>
+                                <td><textarea>Implementar sistema de seguimiento de proveedores críticos con alertas tempranas</textarea></td>
+                                <td><input type="text" value="Carlos Rodríguez"></td>
+                                <td><input type="date" value="2024-12-31"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><input type="date" value="2024-12-10"></td>
+                                <td><textarea>Desarrollar e implementar planes de contingencia para los 5 proveedores más críticos</textarea></td>
+                                <td><input type="text" value="Ana Martínez"></td>
+                                <td><input type="date" value="2025-01-15"></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><input type="date" value="2024-12-03"></td>
+                                <td><textarea>Establecer reuniones semanales de coordinación entre compras y proyectos</textarea></td>
+                                <td><input type="text" value="Luis Fernández"></td>
+                                <td><input type="date" value="2024-12-17"></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><input type="date" value="2024-12-15"></td>
+                                <td><textarea>Revisar y actualizar criterios de evaluación de proveedores incluyendo indicadores de cumplimiento de plazos</textarea></td>
+                                <td><input type="text" value="Sofía Vargas"></td>
+                                <td><input type="date" value="2025-01-31"></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><input type="date"></td>
+                                <td><textarea></textarea></td>
+                                <td><input type="text"></td>
+                                <td><input type="date"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="form-btn tertiary" onclick="addActionRow()" style="margin-top: 15px; font-size: 14px; padding: 8px 16px;">
+                    + Agregar Acción
+                </button>
+            </div>
+            
+            <!-- Sección 8: Verificación de eficacia -->
+            <div class="form-section">
+                <div class="section-title">VERIFICACIÓN DE LA EFICACIA DE LA ACCIÓN</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">MÉTODO DE VERIFICACIÓN</label>
+                        <textarea class="form-textarea" placeholder="Describa cómo se verificará la eficacia de las acciones implementadas..." rows="3">1. Monitoreo del cumplimiento de plazos por proveedores críticos durante 3 meses.
+2. Encuesta de satisfacción del cliente en el próximo proyecto.
+3. Revisión de indicadores de retrasos en proyectos.</textarea>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">RESPONSABLE DE VERIFICACIÓN</label>
+                        <input type="text" class="form-input" placeholder="Nombre del responsable" value="Gerente de Calidad">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">FECHA DE CIERRE</label>
+                        <input type="date" class="form-input" value="2025-03-01">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 25px;">
+                    <label class="form-label">SI LAS ACCIONES NO FUERON EFICACES, ACCIONES A REALIZAR</label>
+                    <textarea class="form-textarea" placeholder="Describa las acciones alternativas si las implementadas no son eficaces..." rows="3">1. Revisión y ajuste del sistema de seguimiento de proveedores.
+2. Evaluación de nuevos proveedores alternativos.
+3. Capacitación adicional al personal de compras y logística.</textarea>
+                </div>
+            </div>
+            
+            <!-- Sección 9: Nuevos riesgos -->
+            <div class="form-section">
+                <div class="section-title">EVALUACIÓN DE NUEVOS RIESGOS</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">¿EXISTE UN NUEVO RIESGO ASOCIADO?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="new-risk" value="si">
+                                <span>SÍ</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="new-risk" value="no" checked>
+                                <span>NO</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">DESCRIPCIÓN DE NUEVOS RIESGOS IDENTIFICADOS (si aplica)</label>
+                    <textarea class="form-textarea" placeholder="Describa cualquier nuevo riesgo identificado durante el análisis..." rows="3">Posible resistencia al cambio por parte del personal al implementar nuevos sistemas de seguimiento de proveedores.</textarea>
+                </div>
+            </div>
+            
+            <!-- Sección 10: Firmas -->
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-label">ELABORADO / ACTUALIZADO POR</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-info">Responsable del Sistema</div>
+                    <div class="signature-info">Fecha: 01.12.2024</div>
+                </div>
+                
+                <div class="signature-box">
+                    <div class="signature-label">REVISADO POR</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-info">Gerente General</div>
+                    <div class="signature-info">Fecha: 01.12.2024</div>
+                </div>
+                
+                <div class="signature-box">
+                    <div class="signature-label">APROBADO POR</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-info">CEO</div>
+                    <div class="signature-info">Fecha: 01.12.2024</div>
+                </div>
+            </div>
+            
+            <!-- Control de cambios -->
+            <div class="control-changes">
+                <div class="control-title">CONTROL DE CAMBIOS</div>
+                <div class="control-info">
+                    <strong>Revisión 00:</strong> Edición inicial 01 de diciembre de 2024
+                </div>
+            </div>
+            
+            <!-- Opciones de descarga -->
+            <div class="download-options">
+                <div class="download-title">📥 DESCARGAR EN FORMATO:</div>
+                <div class="download-buttons">
+                    <button class="download-btn" onclick="downloadJSON()">JSON</button>
+                    <button class="download-btn" onclick="downloadCSV()">CSV</button>
+                    <button class="download-btn" onclick="downloadPDF()">PDF</button>
+                    <button class="download-btn" onclick="downloadWord()">Word</button>
+                    <button class="download-btn" onclick="downloadHTML()">HTML</button>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="form-actions">
+                <button class="form-btn tertiary" onclick="clearForm()">
+                    🗑️ Limpiar Formulario
+                </button>
+                <button class="form-btn tertiary" onclick="generateReport()">
+                    📊 Generar Reporte
+                </button>
+                <button class="form-btn secondary" onclick="saveRecord()">
+                    💾 Guardar Registro
+                </button>
+                <button class="form-btn" onclick="closeRecord()">
+                    ✅ Cerrar Registro
+                </button>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">
+                🖨️ Imprimir Formulario
+            </button>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-008 | Revisión: 00 | Página 1 de 1</p>
+            <p><em>Documento controlado. Este registro forma parte del sistema de gestión de no conformidades y oportunidades de mejora del SGC.</em></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica si el logo existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO SGC</text></svg>';
+                };
+            }
+            
+            // Establecer fecha actual por defecto en campos vacíos
+            const today = new Date().toISOString().split('T')[0];
+            const dateInputs = document.querySelectorAll('input[type="date"]:not([value])');
+            dateInputs.forEach(input => {
+                if (!input.value) {
+                    input.value = today;
+                }
+            });
+            
+            // Actualizar tipo de registro inicial
+            updateRegisterType();
+            
+            // Generar números automáticos si están vacíos
+            if (!document.getElementById('rnc-number').value) {
+                document.getElementById('rnc-number').value = `RNC-${new Date().getFullYear()}-001`;
+            }
+        });
+        
+        function updateRegisterType() {
+            const registerType = document.querySelector('input[name="register-type"]:checked').value;
+            const badge = document.getElementById('nc-type-badge');
+            const immediateActionSection = document.getElementById('immediate-action-section');
+            
+            // Actualizar badge
+            badge.style.display = 'inline-block';
+            
+            if (registerType === 'nc') {
+                badge.textContent = 'NO CONFORMIDAD';
+                badge.className = 'nc-type-badge nc-type-nc';
+                immediateActionSection.style.display = 'block';
+            } else if (registerType === 'om') {
+                badge.textContent = 'OPORTUNIDAD DE MEJORA';
+                badge.className = 'nc-type-badge nc-type-om';
+                immediateActionSection.style.display = 'none';
+            } else if (registerType === 'oportunidad') {
+                badge.textContent = 'OPORTUNIDAD';
+                badge.className = 'nc-type-badge nc-type-oportunidad';
+                immediateActionSection.style.display = 'none';
+            }
+        }
+        
+        function addActionRow() {
+            const table = document.querySelector('.action-table tbody');
+            const lastRow = table.lastElementChild;
+            const newRow = lastRow.cloneNode(true);
+            
+            // Limpiar campos
+            const inputs = newRow.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'date' && !input.value) {
+                    input.value = new Date().toISOString().split('T')[0];
+                } else if (input.type === 'text' || input.tagName === 'TEXTAREA') {
+                    input.value = '';
+                }
+            });
+            
+            // Actualizar número de fila
+            const rowNumber = newRow.querySelector('td:first-child');
+            const lastRowNumber = parseInt(lastRow.querySelector('td:first-child').textContent);
+            rowNumber.textContent = lastRowNumber + 1;
+            
+            table.appendChild(newRow);
+            
+            showNotification('Nueva acción agregada', 'success');
+        }
+        
+        function clearForm() {
+            if (confirm('¿Está seguro de que desea limpiar todos los campos del formulario? Esta acción no se puede deshacer.')) {
+                // Limpiar campos de entrada
+                document.querySelectorAll('.form-input, .form-textarea').forEach(element => {
+                    element.value = '';
+                });
+                
+                // Restablecer radios a valores por defecto
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    if (radio.name === 'register-type') {
+                        radio.checked = (radio.value === 'nc');
+                    } else if (radio.name === 'origin-type') {
+                        radio.checked = (radio.value === 'cliente');
+                    } else if (radio.name === 'new-risk') {
+                        radio.checked = (radio.value === 'no');
+                    }
+                });
+                
+                // Restablecer fechas
+                const today = new Date().toISOString().split('T')[0];
+                document.querySelectorAll('input[type="date"]').forEach(input => {
+                    input.value = today;
+                });
+                
+                // Restablecer números
+                document.getElementById('rnc-number').value = `RNC-${new Date().getFullYear()}-001`;
+                document.getElementById('om-number').value = '';
+                
+                // Actualizar visualización
+                updateRegisterType();
+                
+                showNotification('Formulario limpiado correctamente', 'success');
+            }
+        }
+        
+        function saveRecord() {
+            const data = collectFormData();
+            
+            if (!data.rnc_number || data.rnc_number.trim() === '') {
+                alert('⚠️ Por favor, ingrese un número de RNC válido.');
+                return;
+            }
+            
+            // Guardar en localStorage
+            const key = `nc-record-${data.rnc_number}`;
+            localStorage.setItem(key, JSON.stringify(data));
+            
+            // Mostrar confirmación
+            alert(`✅ Registro guardado exitosamente\n\n📋 Detalles:\n• Número: ${data.rnc_number}\n• Tipo: ${data.register_type.toUpperCase()}\n• Fecha: ${data.register_date}\n\nEl registro ha sido almacenado localmente.`);
+            
+            // Descargar JSON
+            downloadJSON();
+            
+            showNotification('Registro guardado correctamente', 'success');
+        }
+        
+        function closeRecord() {
+            const rncNumber = document.getElementById('rnc-number').value;
+            if (!rncNumber || rncNumber.trim() === '') {
+                alert('⚠️ Por favor, ingrese un número de RNC válido.');
+                return;
+            }
+            
+            const confirmation = confirm(`¿Está seguro que desea cerrar el registro ${rncNumber}?\n\nUna vez cerrado, el registro será marcado como completado.`);
+            
+            if (confirmation) {
+                // Marcar como cerrado en localStorage
+                const key = `nc-record-${rncNumber}`;
+                const data = localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : collectFormData();
+                data.status = 'cerrado';
+                data.closed_date = new Date().toISOString();
+                localStorage.setItem(key, JSON.stringify(data));
+                
+                alert(`✅ Registro ${rncNumber} cerrado exitosamente\n\nEl registro ha sido marcado como completado.`);
+                showNotification('Registro cerrado correctamente', 'success');
+            }
+        }
+        
+        function collectFormData() {
+            const data = {
+                rnc_number: document.getElementById('rnc-number').value,
+                om_number: document.getElementById('om-number').value,
+                register_date: document.getElementById('register-date').value,
+                register_type: document.querySelector('input[name="register-type"]:checked').value,
+                origin_type: document.querySelector('input[name="origin-type"]:checked').value,
+                client_provider: document.querySelectorAll('.form-input')[3].value,
+                product_equipment: document.querySelectorAll('.form-input')[4].value,
+                lot_number: document.querySelectorAll('.form-input')[5].value,
+                quantity: document.querySelectorAll('.form-input')[6].value,
+                responsible: document.querySelectorAll('.form-input')[7].value,
+                description: document.querySelectorAll('.form-textarea')[0].value,
+                problem: document.querySelectorAll('.form-textarea')[1].value,
+                why_problem: document.querySelectorAll('.form-textarea')[2].value,
+                when_happened: document.querySelectorAll('input[type="date"]')[1].value,
+                where_origin: document.querySelectorAll('.form-input')[8].value,
+                who_origin: document.querySelectorAll('.form-input')[9].value,
+                position: document.querySelectorAll('.form-input')[10].value,
+                immediate_action: document.getElementById('immediate-action-section').style.display !== 'none' ? document.querySelectorAll('.form-textarea')[3].value : '',
+                cause_analysis: document.querySelectorAll('.form-textarea')[4].value,
+                verification_method: document.querySelectorAll('.form-textarea')[5].value,
+                new_risk_description: document.querySelectorAll('.form-textarea')[6].value,
+                new_risk_exists: document.querySelector('input[name="new-risk"]:checked').value,
+                generated_date: new Date().toISOString(),
+                sistema: 'SGC'
+            };
+            
+            // Recopilar acciones
+            data.actions = [];
+            document.querySelectorAll('.action-table tbody tr').forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 5) {
+                    const action = {
+                        number: cells[0].textContent,
+                        start_date: cells[1].querySelector('input')?.value || '',
+                        action: cells[2].querySelector('textarea')?.value || '',
+                        responsible: cells[3].querySelector('input')?.value || '',
+                        deadline: cells[4].querySelector('input')?.value || ''
+                    };
+                    if (action.action.trim() !== '') {
+                        data.actions.push(action);
+                    }
+                }
+            });
+            
+            return data;
+        }
+        
+        function downloadJSON() {
+            const data = collectFormData();
+            const jsonData = JSON.stringify(data, null, 2);
+            downloadFile(jsonData, `${data.rnc_number || 'no-conformidad'}.json`, 'application/json');
+            showNotification('JSON descargado', 'info');
+        }
+        
+        function downloadCSV() {
+            const data = collectFormData();
+            
+            let csvContent = "REGISTRO DE NO CONFORMIDAD/OPORTUNIDAD\n";
+            csvContent += "Sistema de Gestión de la Calidad (SGC)\n\n";
+            
+            // Información básica
+            csvContent += "INFORMACIÓN BÁSICA\n";
+            csvContent += `RNC N°,${data.rnc_number}\n`;
+            csvContent += `OM N°,${data.om_number}\n`;
+            csvContent += `Fecha,${data.register_date}\n`;
+            csvContent += `Tipo,${data.register_type.toUpperCase()}\n\n`;
+            
+            // Descripción
+            csvContent += "DESCRIPCIÓN\n";
+            csvContent += `Descripción,"${data.description.replace(/"/g, '""')}"\n\n`;
+            
+            // Acciones
+            csvContent += "ACCIONES CORRECTIVAS/MEJORAS\n";
+            csvContent += "N°,Fecha inicio,Acción,Responsable,Plazo\n";
+            data.actions.forEach(action => {
+                csvContent += `${action.number},${action.start_date},"${action.action.replace(/"/g, '""')}",${action.responsible},${action.deadline}\n`;
+            });
+            
+            downloadFile(csvContent, `${data.rnc_number || 'no-conformidad'}.csv`, 'text/csv');
+            showNotification('CSV descargado', 'info');
+        }
+        
+        function downloadPDF() {
+            alert('⏳ Generando PDF...\n\nEn una implementación real, esto generaría un PDF del formulario completo.\n\nPara producción, se recomienda usar librerías como jsPDF o html2pdf.js');
+            
+            const data = collectFormData();
+            const content = `REPORTE DE NO CONFORMIDAD/OPORTUNIDAD\nSistema de Gestión de la Calidad (SGC)\n\n`;
+            
+            downloadFile(content, `${data.rnc_number || 'no-conformidad'}.pdf`, 'application/pdf');
+            showNotification('Simulación PDF completada', 'info');
+        }
+        
+        function downloadWord() {
+            const data = collectFormData();
+            const content = `REPORTE DE NO CONFORMIDAD/OPORTUNIDAD\n\nSistema de Gestión de la Calidad (SGC)\n\nFecha: ${new Date().toLocaleDateString('es-ES')}\n\n`;
+            
+            // Para Word, podríamos generar XML o usar una librería
+            downloadFile(content, `${data.rnc_number || 'no-conformidad'}.doc`, 'application/msword');
+            showNotification('Documento Word descargado', 'info');
+        }
+        
+        function downloadHTML() {
+            const htmlContent = document.querySelector('.document-container').outerHTML;
+            downloadFile(htmlContent, 'formulario-no-conformidad-sgc.html', 'text/html');
+            showNotification('HTML descargado', 'info');
+        }
+        
+        function generateReport() {
+            const data = collectFormData();
+            
+            let report = `📋 REPORTE DE NO CONFORMIDAD/OPORTUNIDAD\n`;
+            report += `Sistema de Gestión de la Calidad (SGC)\n`;
+            report += `============================================\n`;
+            report += `Número RNC: ${data.rnc_number}\n`;
+            report += `Número OM: ${data.om_number || 'No aplica'}\n`;
+            report += `Tipo: ${data.register_type.toUpperCase()}\n`;
+            report += `Fecha: ${data.register_date}\n`;
+            report += `\n`;
+            report += `DESCRIPCIÓN:\n`;
+            report += `${data.description.substring(0, 200)}${data.description.length > 200 ? '...' : ''}\n`;
+            report += `\n`;
+            report += `ACCIONES PLANEADAS: ${data.actions.length}\n`;
+            report += `\n`;
+            report += `Generado automáticamente por el Sistema de Gestión de la Calidad (SGC)\n`;
+            
+            downloadFile(report, `reporte-${data.rnc_number}.txt`, 'text/plain');
+            showNotification('Reporte generado', 'info');
+        }
+        
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background-color: ${type === 'success' ? '#38a169' : type === 'info' ? '#3182ce' : '#e53e3e'};
+                color: white;
+                border-radius: 5px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: bold;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+            
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>

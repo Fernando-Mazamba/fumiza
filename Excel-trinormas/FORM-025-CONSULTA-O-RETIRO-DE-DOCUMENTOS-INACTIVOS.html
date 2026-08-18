@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-025 Consulta o Retiro de Documentos Inactivos - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-intro {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .form-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .form-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .form-header-row {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .form-header-cell {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .form-subheader-row {
+            background-color: #718096;
+            color: white;
+        }
+        
+        .form-subheader-cell {
+            font-size: 14px;
+        }
+        
+        .form-info-cell {
+            text-align: left;
+            font-weight: bold;
+            background-color: #f7fafc;
+        }
+        
+        .form-checkbox-cell {
+            width: 60px;
+        }
+        
+        .form-instructions {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-field {
+            border-bottom: 1px solid #cbd5e0;
+            padding: 10px 0 30px;
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+        
+        .signature-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .reset-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c53030;
+        }
+        
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .save-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .load-btn {
+            background-color: #805ad5;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .load-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        .add-row-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .add-row-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .table-input {
+            width: 100%;
+            border: none;
+            text-align: center;
+            background: transparent;
+            font-size: 14px;
+        }
+        
+        .table-input:focus {
+            outline: 1px solid #3182ce;
+            background-color: #f0f9ff;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .reset-btn, .save-btn, .load-btn, .add-row-btn {
+                display: none;
+            }
+            
+            .form-table-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Consulta o Retiro de Documentos Inactivos</div>
+        <div class="doc-code">Código: FORM-025</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Introducción -->
+            <div class="form-intro">
+                <p><strong>Este formulario tiene como objetivo gestionar la consulta y retiro de documentos inactivos del archivo documental del Sistema de Gestión de la Calidad (SGC)</strong>. Debe ser completado por el personal autorizado que requiera consultar o retirar documentación archivada.</p>
+            </div>
+            
+            <!-- Sección del formulario -->
+            <div class="section">
+                <div class="section-title">Formulario de Consulta o Retiro de Documentos Inactivos</div>
+                
+                <div class="form-table-container">
+                    <table class="form-table" id="document-table">
+                        <thead>
+                            <!-- Fila de encabezado principal -->
+                            <tr class="form-header-row">
+                                <th colspan="11" class="form-header-cell">CONSULTA DE DOCUMENTOS INACTIVOS</th>
+                            </tr>
+                            <!-- Fila de información del formulario -->
+                            <tr class="form-subheader-row">
+                                <td colspan="6" class="form-subheader-cell"></td>
+                                <td colspan="2" class="form-subheader-cell">CÓDIGO</td>
+                                <td colspan="3" class="form-subheader-cell">FORM-025</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6"></td>
+                                <td colspan="2" class="form-info-cell">REVISIÓN</td>
+                                <td colspan="3">0</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6"></td>
+                                <td colspan="2" class="form-info-cell">FECHA:</td>
+                                <td colspan="3">01.12.2024</td>
+                            </tr>
+                            <!-- Fila vacía para separación -->
+                            <tr>
+                                <td colspan="11" style="height: 20px;"></td>
+                            </tr>
+                            <!-- Encabezado de información -->
+                            <tr>
+                                <td colspan="5" class="form-info-cell">INFORMACIÓN PARA LA CONSULTA</td>
+                                <td colspan="2"></td>
+                                <td colspan="4" class="form-info-cell">COMPROMISO DE ENTREGA</td>
+                            </tr>
+                            <!-- Encabezados de columnas -->
+                            <tr>
+                                <th rowspan="2">FECHA</th>
+                                <th rowspan="2">RESPONSABLE<br>(Persona que hace la consulta)</th>
+                                <th rowspan="2">DESCRIPCIÓN<br>(carpeta / caja / correlativo / Proceso)</th>
+                                <th rowspan="2">ENTREGADO POR<br>(Personal de SGC)</th>
+                                <th rowspan="2">FECHA DE COMPROMISO<br>(Para entrega de documento)</th>
+                                <th colspan="2">ENTREGADO</th>
+                                <th rowspan="2">FECHA DE ENTREGA</th>
+                                <th rowspan="2">RECIBE Y VERIFICA<br>(SGC)</th>
+                            </tr>
+                            <tr>
+                                <th>SI</th>
+                                <th>NO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Filas para completar (5 filas iniciales) -->
+                            <tr>
+                                <td><input type="text" class="table-input" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" class="table-input" placeholder="Nombre completo"></td>
+                                <td><input type="text" class="table-input" placeholder="Descripción del documento"></td>
+                                <td><input type="text" class="table-input" placeholder="Nombre del responsable"></td>
+                                <td><input type="text" class="table-input" placeholder="DD.MM.AAAA"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-si"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-no"></td>
+                                <td><input type="text" class="table-input" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" class="table-input" placeholder="Firma y nombre"></td>
+                            </tr>
+                            <!-- Repetir filas vacías -->
+                            <tr>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-si"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-no"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-si"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-no"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-si"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-no"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-si"></td>
+                                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-no"></td>
+                                <td><input type="text" class="table-input"></td>
+                                <td><input type="text" class="table-input"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Instrucciones de uso -->
+                <div class="form-instructions">
+                    <div class="instructions-title">Instrucciones para completar el formulario:</div>
+                    <ul class="instructions-list">
+                        <li><strong>FECHA:</strong> Fecha en la que se realiza la consulta o solicitud de retiro (formato DD.MM.AAAA).</li>
+                        <li><strong>RESPONSABLE:</strong> Nombre completo de la persona que realiza la consulta o solicita el documento.</li>
+                        <li><strong>DESCRIPCIÓN:</strong> Detalle completo del documento solicitado (carpeta, caja, correlativo, proceso relacionado).</li>
+                        <li><strong>ENTREGADO POR:</strong> Nombre del personal de SGC que entrega el documento.</li>
+                        <li><strong>FECHA DE COMPROMISO:</strong> Fecha acordada para la devolución del documento (si aplica).</li>
+                        <li><strong>ENTREGADO (SI/NO):</strong> Marcar con "X" en la casilla correspondiente al momento de la entrega.</li>
+                        <li><strong>FECHA DE ENTREGA:</strong> Fecha real en la que se entrega el documento al solicitante.</li>
+                        <li><strong>RECIBE Y VERIFICA (SGC):</strong> Firma y nombre de quien recibe el documento, verificando su estado.</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de firmas -->
+                <div class="signature-section">
+                    <div class="section-title">Autorizaciones y Firmas</div>
+                    <div class="signature-grid">
+                        <div class="signature-field">
+                            <div class="signature-label">RESPONSABLE DE CONSULTA</div>
+                            <div class="signature-name">Nombre y Firma</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">ENTREGADO POR (SGC)</div>
+                            <div class="signature-name">Nombre y Firma</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">RECIBIDO POR (SGC)</div>
+                            <div class="signature-name">Nombre y Firma</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Botones de acción -->
+            <div class="form-actions">
+                <button class="reset-btn" onclick="resetForm()">🔄 Reiniciar Formulario</button>
+                <button class="add-row-btn" onclick="addRow()">➕ Agregar Fila</button>
+                <button class="save-btn" onclick="saveFormData()">💾 Guardar Datos</button>
+                <button class="load-btn" onclick="loadFormData()">📂 Cargar Datos</button>
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: FORM-025 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar verificación del logo
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">SISTEMA DE GESTIÓN DE LA CALIDAD</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Se ha colocado un logo temporal.");
+            };
+            
+            // Configurar comportamiento de los checkboxes (solo uno por fila)
+            document.querySelectorAll('.entregado-si').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const row = this.closest('tr');
+                    const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+                    
+                    // Si se marca este checkbox, desmarcar el otro en la misma fila
+                    if (this.checked) {
+                        checkboxes.forEach(cb => {
+                            if (cb !== this) {
+                                cb.checked = false;
+                            }
+                        });
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.entregado-no').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const row = this.closest('tr');
+                    const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+                    
+                    // Si se marca este checkbox, desmarcar el otro en la misma fila
+                    if (this.checked) {
+                        checkboxes.forEach(cb => {
+                            if (cb !== this) {
+                                cb.checked = false;
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Configurar campos de fecha con formato sugerido
+            document.querySelectorAll('.table-input[placeholder*="DD.MM.AAAA"]').forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = '';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.value && !this.value.match(/\d{2}\.\d{2}\.\d{4}/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Función para agregar una nueva fila a la tabla
+        function addRow() {
+            const tbody = document.getElementById('table-body');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td><input type="text" class="table-input"></td>
+                <td><input type="text" class="table-input"></td>
+                <td><input type="text" class="table-input"></td>
+                <td><input type="text" class="table-input"></td>
+                <td><input type="text" class="table-input"></td>
+                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-si"></td>
+                <td class="form-checkbox-cell"><input type="checkbox" class="entregado-no"></td>
+                <td><input type="text" class="table-input"></td>
+                <td><input type="text" class="table-input"></td>
+            `;
+            
+            tbody.appendChild(newRow);
+            
+            // Configurar los checkboxes de la nueva fila
+            const siCheckbox = newRow.querySelector('.entregado-si');
+            const noCheckbox = newRow.querySelector('.entregado-no');
+            
+            siCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    noCheckbox.checked = false;
+                }
+            });
+            
+            noCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    siCheckbox.checked = false;
+                }
+            });
+        }
+        
+        // Función para reiniciar el formulario
+        function resetForm() {
+            if (confirm("¿Está seguro de que desea reiniciar el formulario? Se perderán todos los datos ingresados.")) {
+                document.querySelectorAll('.table-input').forEach(input => {
+                    input.value = '';
+                });
+                
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Eliminar filas adicionales (mantener solo las 5 iniciales)
+                const tbody = document.getElementById('table-body');
+                while (tbody.children.length > 5) {
+                    tbody.removeChild(tbody.lastChild);
+                }
+                
+                alert("Formulario reiniciado correctamente.");
+            }
+        }
+        
+        // Función para guardar los datos del formulario
+        function saveFormData() {
+            const rows = document.querySelectorAll('#table-body tr');
+            const formData = {
+                registros: [],
+                fechaGuardado: new Date().toLocaleString('es-ES'),
+                versionFormulario: "FORM-025 v000"
+            };
+            
+            rows.forEach((row, index) => {
+                const inputs = row.querySelectorAll('.table-input');
+                const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+                
+                // Solo guardar filas que tengan al menos un campo completado
+                let hasData = false;
+                inputs.forEach(input => {
+                    if (input.value.trim() !== '') hasData = true;
+                });
+                
+                if (hasData || checkboxes[0].checked || checkboxes[1].checked) {
+                    formData.registros.push({
+                        fecha: inputs[0].value,
+                        responsable: inputs[1].value,
+                        descripcion: inputs[2].value,
+                        entregadoPor: inputs[3].value,
+                        fechaCompromiso: inputs[4].value,
+                        entregadoSi: checkboxes[0].checked,
+                        entregadoNo: checkboxes[1].checked,
+                        fechaEntrega: inputs[5].value,
+                        recibeVerifica: inputs[6].value
+                    });
+                }
+            });
+            
+            // Si no hay datos, mostrar alerta
+            if (formData.registros.length === 0) {
+                alert("No hay datos para guardar. Por favor, complete al menos una fila del formulario.");
+                return;
+            }
+            
+            // Crear un blob con los datos
+            const blob = new Blob([JSON.stringify(formData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            // Crear un enlace para descargar
+            const a = document.createElement('a');
+            a.href = url;
+            
+            // Generar nombre de archivo basado en la fecha
+            const fecha = new Date().toISOString().slice(0,10);
+            a.download = `Consulta_Retiro_Documentos_${fecha}.json`;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert(`Datos guardados correctamente. Se han registrado ${formData.registros.length} entradas.`);
+        }
+        
+        // Función para cargar datos desde un archivo
+        function loadFormData() {
+            // Crear un input de tipo file
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const formData = JSON.parse(e.target.result);
+                        
+                        // Verificar que sea un archivo válido
+                        if (!formData.registros || !Array.isArray(formData.registros)) {
+                            throw new Error('Formato de archivo inválido');
+                        }
+                        
+                        // Limpiar el formulario primero
+                        resetForm();
+                        
+                        // Cargar los datos en las filas
+                        const tbody = document.getElementById('table-body');
+                        const rows = tbody.querySelectorAll('tr');
+                        
+                        formData.registros.forEach((registro, index) => {
+                            let row;
+                            
+                            // Si hay más registros que filas existentes, agregar nuevas filas
+                            if (index >= rows.length) {
+                                addRow();
+                                const newRows = tbody.querySelectorAll('tr');
+                                row = newRows[newRows.length - 1];
+                            } else {
+                                row = rows[index];
+                            }
+                            
+                            // Obtener los inputs de la fila
+                            const inputs = row.querySelectorAll('.table-input');
+                            const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+                            
+                            // Asignar valores
+                            inputs[0].value = registro.fecha || '';
+                            inputs[1].value = registro.responsable || '';
+                            inputs[2].value = registro.descripcion || '';
+                            inputs[3].value = registro.entregadoPor || '';
+                            inputs[4].value = registro.fechaCompromiso || '';
+                            checkboxes[0].checked = registro.entregadoSi || false;
+                            checkboxes[1].checked = registro.entregadoNo || false;
+                            inputs[5].value = registro.fechaEntrega || '';
+                            inputs[6].value = registro.recibeVerifica || '';
+                        });
+                        
+                        alert(`Datos cargados correctamente. Se han cargado ${formData.registros.length} registros.`);
+                    } catch (error) {
+                        alert('Error al cargar el archivo. Asegúrese de que es un archivo JSON válido exportado desde este formulario.');
+                        console.error('Error al cargar datos:', error);
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+    </script>
+</body>
+</html>

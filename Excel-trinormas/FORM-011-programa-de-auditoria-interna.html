@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-011 Programa de Auditoría Interna - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .program-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .program-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #2d3748;
+            vertical-align: middle;
+        }
+        
+        .program-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .program-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .program-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        
+        .approval-section {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 2px solid #4a5568;
+        }
+        
+        .approval-box {
+            text-align: center;
+            width: 45%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .approval-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #4a5568;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .signature-line {
+            margin-top: 60px;
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            font-size: 12px;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .action-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #718096;
+        }
+        
+        .action-btn.save {
+            background-color: #38a169;
+        }
+        
+        .action-btn.save:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.export {
+            background-color: #3182ce;
+        }
+        
+        .action-btn.export:hover {
+            background-color: #2c5282;
+        }
+        
+        .editable-field {
+            width: 100%;
+            min-height: 40px;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            background-color: white;
+        }
+        
+        .editable-field:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.1);
+        }
+        
+        .editable-select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            background-color: white;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        
+        .editable-select:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.1);
+        }
+        
+        .add-row-btn {
+            background-color: #718096;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .add-row-btn:hover {
+            background-color: #4a5568;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: #38a169;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-weight: bold;
+            display: none;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons,
+            .add-row-btn {
+                display: none;
+            }
+            
+            .editable-field,
+            .editable-select {
+                border: 1px solid #ddd;
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1200px) {
+            .program-table {
+                font-size: 12px;
+            }
+            
+            .program-table th, .program-table td {
+                padding: 8px 5px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .approval-section {
+                flex-direction: column;
+            }
+            
+            .approval-box {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e informaciones de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <input type="date" id="fecha-emision" value="2024-12-01" class="editable-field" style="width: 120px;">
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <input type="text" id="elabora" value="ESGC" class="editable-field" style="width: 120px;">
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <input type="text" id="aprueba" value="CEO" class="editable-field" style="width: 120px;">
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <input type="text" id="version" value="000" class="editable-field" style="width: 60px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">PROGRAMA DE AUDITORÍA INTERNA</div>
+        <div class="doc-code">Código: FORM-011</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="action-btn export" onclick="exportToPDF()">
+                    📄 Exportar PDF
+                </button>
+                <button class="action-btn export" onclick="exportToExcel()">
+                    📊 Exportar Excel
+                </button>
+                <button class="action-btn save" onclick="saveProgramData()">
+                    💾 Guardar Programa
+                </button>
+                <button class="action-btn" onclick="window.print()">
+                    🖨️ Imprimir
+                </button>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="intro-text">
+                <textarea id="intro-text" class="editable-field" rows="4">Este documento establece el Programa de Auditorías Internas del Sistema de Gestión de la Calidad (SGC), conforme a los requisitos de la norma ISO 9001:2015. El programa garantiza que las auditorías internas se realicen de manera planificada, sistemática e independiente para evaluar la eficacia del SGC y su mejora continua.</textarea>
+            </div>
+            
+            <!-- Tabla del Programa de Auditoría -->
+            <div class="table-container">
+                <table class="program-table" id="audit-program-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">CICLO</th>
+                            <th rowspan="2">No.</th>
+                            <th colspan="3">ALCANCE</th>
+                            <th rowspan="2">PROYECTO A AUDITAR</th>
+                            <th rowspan="2">PROCESOS A AUDITAR</th>
+                            <th colspan="3">RIESGOS Y/O ASPECTOS AMBIENTALES MÁS IMPORTANTES</th>
+                            <th colspan="6">FECHA</th>
+                            <th rowspan="2">AUDITORES</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">(Descripción detallada)</th>
+                            <th colspan="3">(Identificación principal)</th>
+                            <th colspan="3">Inicia</th>
+                            <th colspan="3">Termina</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th colspan="3"></th>
+                            <th></th>
+                            <th></th>
+                            <th colspan="3></th>
+                            <th>Día</th>
+                            <th>Mes</th>
+                            <th>Año</th>
+                            <th>Día</th>
+                            <th>Mes</th>
+                            <th>Año</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="audit-table-body">
+                        <!-- Fila 1 -->
+                        <tr data-row="1">
+                            <td><input type="text" value="1" class="editable-field" style="width: 30px; text-align: center;"></td>
+                            <td><input type="text" value="1" class="editable-field" style="width: 30px; text-align: center;"></td>
+                            <td colspan="3">
+                                <textarea class="editable-field" rows="6">Auditoría Interna bajo el enfoque de la norma ISO 9001:2015 (Calidad).
+
+Alcance: Proyecto, todos los procesos del sistema de gestión, incluidos los requisitos legales y reglamentarios vigentes aplicables a la empresa.</textarea>
+                            </td>
+                            <td><input type="text" value="SGC" class="editable-field" style="font-weight: bold;"></td>
+                            <td><textarea class="editable-field" rows="4">Todos los procesos del SGC</textarea></td>
+                            <td colspan="3">
+                                <textarea class="editable-field" rows="6">Riesgos identificados:
+- Incumplimiento de requisitos legales
+- No conformidades en procesos clave
+- Deficiencias en documentación</textarea>
+                            </td>
+                            <td><input type="text" class="editable-field" placeholder="Día" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Mes" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Año" style="width: 50px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Día" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Mes" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Año" style="width: 50px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Auditor asignado"></td>
+                        </tr>
+                        
+                        <!-- Filas adicionales vacías -->
+                        <tr data-row="2">
+                            <td><input type="text" class="editable-field" style="width: 30px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" style="width: 30px; text-align: center;"></td>
+                            <td colspan="3"><textarea class="editable-field" rows="3" placeholder="Descripción del alcance"></textarea></td>
+                            <td><input type="text" class="editable-field" placeholder="Proyecto"></td>
+                            <td><textarea class="editable-field" rows="3" placeholder="Procesos a auditar"></textarea></td>
+                            <td colspan="3"><textarea class="editable-field" rows="3" placeholder="Riesgos identificados"></textarea></td>
+                            <td><input type="text" class="editable-field" placeholder="Día" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Mes" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Año" style="width: 50px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Día" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Mes" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Año" style="width: 50px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Auditor asignado"></td>
+                        </tr>
+                        
+                        <tr data-row="3">
+                            <td><input type="text" class="editable-field" style="width: 30px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" style="width: 30px; text-align: center;"></td>
+                            <td colspan="3"><textarea class="editable-field" rows="3" placeholder="Descripción del alcance"></textarea></td>
+                            <td><input type="text" class="editable-field" placeholder="Proyecto"></td>
+                            <td><textarea class="editable-field" rows="3" placeholder="Procesos a auditar"></textarea></td>
+                            <td colspan="3"><textarea class="editable-field" rows="3" placeholder="Riesgos identificados"></textarea></td>
+                            <td><input type="text" class="editable-field" placeholder="Día" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Mes" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Año" style="width: 50px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Día" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Mes" style="width: 40px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Año" style="width: 50px; text-align: center;"></td>
+                            <td><input type="text" class="editable-field" placeholder="Auditor asignado"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button class="add-row-btn" onclick="addAuditRow()">
+                    + Agregar Nueva Auditoría
+                </button>
+            </div>
+            
+            <!-- Sección de aprobaciones -->
+            <div class="approval-section">
+                <div class="approval-box">
+                    <div class="approval-title">COORDINADOR SGC</div>
+                    <textarea class="editable-field" rows="3" style="width: 100%; margin-bottom: 15px;">Responsable de la planificación y coordinación del Programa de Auditorías Internas.</textarea>
+                    <div class="signature-line">
+                        <input type="text" class="editable-field" placeholder="Firma y sello" style="text-align: center; width: 100%;">
+                    </div>
+                </div>
+                
+                <div class="approval-box">
+                    <div class="approval-title">GERENTE GENERAL</div>
+                    <textarea class="editable-field" rows="3" style="width: 100%; margin-bottom: 15px;">Aprueba el Programa de Auditorías Internas y asigna los recursos necesarios.</textarea>
+                    <div class="signature-line">
+                        <input type="text" class="editable-field" placeholder="Firma y sello" style="text-align: center; width: 100%;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table" id="version-history-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" value="000" class="editable-field" style="width: 60px;"></td>
+                                <td><input type="date" value="2024-12-01" class="editable-field"></td>
+                                <td><input type="text" value="Original" class="editable-field"></td>
+                                <td><input type="text" value="CEO" class="editable-field"></td>
+                                <td>
+                                    <button onclick="addVersionRow()" style="background: none; border: none; cursor: pointer; color: #3182ce;">+</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: FORM-011 | Revisión: <span id="revision-display">000</span> | Página 1 de 1</p>
+            <p><em>Documento controlado. Este programa debe mantenerse actualizado y disponible para auditorías del SGC.</em></p>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica si el logo existe
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+            };
+            
+            // Actualizar número de revisión en pie de página
+            const versionInput = document.getElementById('version');
+            const revisionDisplay = document.getElementById('revision-display');
+            
+            versionInput.addEventListener('input', function() {
+                revisionDisplay.textContent = this.value;
+            });
+            
+            // Inicializar con el valor actual
+            revisionDisplay.textContent = versionInput.value;
+            
+            // Configurar eventos para guardar automáticamente cambios
+            setupAutoSave();
+        });
+        
+        function setupAutoSave() {
+            const inputs = document.querySelectorAll('.editable-field, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    showNotification('Cambio guardado temporalmente', 'info');
+                });
+            });
+        }
+        
+        function addAuditRow() {
+            const tableBody = document.getElementById('audit-table-body');
+            const rows = tableBody.querySelectorAll('tr');
+            const newRowNum = rows.length + 1;
+            
+            // Clonar la última fila
+            const lastRow = rows[rows.length - 1];
+            const newRow = lastRow.cloneNode(true);
+            newRow.setAttribute('data-row', newRowNum);
+            
+            // Limpiar los campos
+            const inputs = newRow.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                if (input.type !== 'button') {
+                    input.value = '';
+                    input.placeholder = input.placeholder || '';
+                }
+            });
+            
+            // Actualizar número de fila
+            const rowNumberInput = newRow.querySelector('td:nth-child(1) input');
+            if (rowNumberInput) {
+                rowNumberInput.value = newRowNum;
+            }
+            
+            const auditNumberInput = newRow.querySelector('td:nth-child(2) input');
+            if (auditNumberInput) {
+                auditNumberInput.value = newRowNum;
+            }
+            
+            tableBody.appendChild(newRow);
+            
+            // Desplazar a la nueva fila
+            newRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            showNotification('Nueva auditoría agregada', 'success');
+        }
+        
+        function addVersionRow() {
+            const tableBody = document.querySelector('#version-history-table tbody');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td><input type="text" class="editable-field" style="width: 60px;" placeholder="001"></td>
+                <td><input type="date" class="editable-field" value="${new Date().toISOString().split('T')[0]}"></td>
+                <td><input type="text" class="editable-field" placeholder="Modificación"></td>
+                <td><input type="text" class="editable-field" placeholder="Responsable"></td>
+                <td>
+                    <button onclick="this.closest('tr').remove()" style="background: none; border: none; cursor: pointer; color: #c53030;">×</button>
+                </td>
+            `;
+            
+            tableBody.appendChild(newRow);
+            showNotification('Nueva versión agregada al historial', 'info');
+        }
+        
+        function saveProgramData() {
+            // Recopilar datos del formulario
+            const programData = {
+                fecha_emision: document.getElementById('fecha-emision').value,
+                elabora: document.getElementById('elabora').value,
+                aprueba: document.getElementById('aprueba').value,
+                version: document.getElementById('version').value,
+                introduccion: document.getElementById('intro-text').value,
+                auditorias: [],
+                aprobaciones: {
+                    coordinador: document.querySelector('.approval-box:nth-child(1) textarea').value,
+                    gerente: document.querySelector('.approval-box:nth-child(2) textarea').value
+                },
+                historial_versiones: []
+            };
+            
+            // Recopilar auditorías
+            const auditRows = document.querySelectorAll('#audit-table-body tr');
+            auditRows.forEach(row => {
+                const inputs = row.querySelectorAll('input, textarea');
+                const auditData = {
+                    ciclo: inputs[0]?.value || '',
+                    numero: inputs[1]?.value || '',
+                    alcance: inputs[2]?.value || '',
+                    proyecto: inputs[3]?.value || '',
+                    procesos: inputs[4]?.value || '',
+                    riesgos: inputs[5]?.value || '',
+                    fecha_inicio_dia: inputs[6]?.value || '',
+                    fecha_inicio_mes: inputs[7]?.value || '',
+                    fecha_inicio_ano: inputs[8]?.value || '',
+                    fecha_fin_dia: inputs[9]?.value || '',
+                    fecha_fin_mes: inputs[10]?.value || '',
+                    fecha_fin_ano: inputs[11]?.value || '',
+                    auditores: inputs[12]?.value || ''
+                };
+                
+                // Solo agregar si hay datos
+                if (auditData.ciclo || auditData.numero || auditData.alcance) {
+                    programData.auditorias.push(auditData);
+                }
+            });
+            
+            // Recopilar historial de versiones
+            const versionRows = document.querySelectorAll('#version-history-table tbody tr');
+            versionRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const versionData = {
+                    version: inputs[0]?.value || '',
+                    fecha: inputs[1]?.value || '',
+                    asiento: inputs[2]?.value || '',
+                    aprueba: inputs[3]?.value || ''
+                };
+                
+                programData.historial_versiones.push(versionData);
+            });
+            
+            // Convertir a JSON y descargar
+            const jsonData = JSON.stringify(programData, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `programa-auditoria-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Programa guardado y descargado correctamente', 'success');
+        }
+        
+        function exportToPDF() {
+            showNotification('Preparando PDF para descarga...', 'info');
+            
+            // Para una implementación real, usar jsPDF o similar
+            // Por ahora, descargamos como HTML
+            const content = document.querySelector('.document-container').outerHTML;
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `programa-auditoria-${new Date().toISOString().split('T')[0]}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Documento descargado como HTML', 'success');
+        }
+        
+        function exportToExcel() {
+            // Recopilar datos para Excel
+            let csvContent = "CICLO,No.,ALCANCE,PROYECTO,PROCESOS,RIESGOS,FECHA INICIO,FECHA FIN,AUDITORES\n";
+            
+            const auditRows = document.querySelectorAll('#audit-table-body tr');
+            auditRows.forEach(row => {
+                const inputs = row.querySelectorAll('input, textarea');
+                const ciclo = inputs[0]?.value || '';
+                const numero = inputs[1]?.value || '';
+                const alcance = inputs[2]?.value || '';
+                const proyecto = inputs[3]?.value || '';
+                const procesos = inputs[4]?.value || '';
+                const riesgos = inputs[5]?.value || '';
+                const fechaInicio = `${inputs[6]?.value || ''}/${inputs[7]?.value || ''}/${inputs[8]?.value || ''}`;
+                const fechaFin = `${inputs[9]?.value || ''}/${inputs[10]?.value || ''}/${inputs[11]?.value || ''}`;
+                const auditores = inputs[12]?.value || '';
+                
+                // Solo exportar si hay datos
+                if (ciclo || numero || alcance) {
+                    csvContent += `"${ciclo}","${numero}","${alcance.replace(/"/g, '""')}","${proyecto}","${procesos.replace(/"/g, '""')}","${riesgos.replace(/"/g, '""')}","${fechaInicio}","${fechaFin}","${auditores}"\n`;
+                }
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `programa-auditoria-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Datos exportados a CSV (compatible con Excel)', 'success');
+        }
+        
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.backgroundColor = type === 'success' ? '#38a169' : 
+                                              type === 'info' ? '#3182ce' : '#d69e2e';
+            notification.style.display = 'block';
+            
+            // Animación de entrada
+            notification.style.animation = 'none';
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease';
+            }, 10);
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 300);
+            }, 3000);
+        }
+        
+        // Agregar estilos de animación si no existen
+        if (!document.querySelector('#notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>

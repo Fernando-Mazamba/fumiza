@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexo-02 Lista de Verificación para la Identificación de Aspectos Ambientales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-subtitle {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            padding: 5px 40px 20px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2c5282;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: counter(toc-item) ".";
+            counter-increment: toc-item;
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .section-description {
+            margin-bottom: 25px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .verification-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 30px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .verification-table th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+            width: 50%;
+        }
+        
+        .verification-table th:nth-child(2),
+        .verification-table th:nth-child(3) {
+            width: 15%;
+            text-align: center;
+        }
+        
+        .verification-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .verification-table td:nth-child(2),
+        .verification-table td:nth-child(3) {
+            text-align: center;
+        }
+        
+        .verification-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .checkbox-options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .checkbox-option input[type="radio"] {
+            cursor: pointer;
+        }
+        
+        .conclusion-section {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 40px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .conclusion-title {
+            color: #22543d;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #c6f6d5;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: auto;
+        }
+        
+        .print-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .verification-table {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+            
+            .checkbox-options input[type="radio"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 16px;
+                height: 16px;
+                border: 1px solid #333;
+                border-radius: 3px;
+                display: inline-block;
+                position: relative;
+            }
+            
+            .checkbox-options input[type="radio"]:checked:before {
+                content: "✓";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .verification-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn, .print-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .verification-table th,
+            .verification-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .header, .doc-title, .doc-subtitle {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            .verification-table th:nth-child(2),
+            .verification-table th:nth-child(3),
+            .verification-table td:nth-child(2),
+            .verification-table td:nth-child(3) {
+                width: 20%;
+            }
+            
+            .verification-table th:first-child,
+            .verification-table td:first-child {
+                width: 60%;
+            }
+        }
+        
+        .form-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .counter {
+            counter-reset: toc-item;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Anexo-02 | Lista de verificación para la identificación de</div>
+        <div class="doc-subtitle">aspectos ambientales - Sistema de Gestión de la Calidad (SGC)</div>
+        
+        <!-- Panel de controles de edición -->
+        <div class="controls-panel" id="controlsPanel">
+            <button class="edit-btn" id="editContentBtn">EDITAR CONTENIDO</button>
+            <button class="action-btn secondary" id="saveBtn">GUARDAR EN NAVEGADOR</button>
+            <button class="action-btn" id="exportBtn">EXPORTAR COMO HTML</button>
+            <button class="action-btn secondary" id="loadBtn">CARGAR EDICIONES GUARDADAS</button>
+            <button class="print-btn" onclick="window.print()">📄 IMPRIMIR</button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura activo</span>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content" id="mainContent">
+            <!-- Tabla de Contenidos -->
+            <div class="toc counter">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#emisiones" class="toc-link">Emisiones a la Atmósfera</a></li>
+                    <li class="toc-item"><a href="#energia" class="toc-link">Consumo de Energía</a></li>
+                    <li class="toc-item"><a href="#agua" class="toc-link">Consumo y Contaminación de Agua</a></li>
+                    <li class="toc-item"><a href="#residuos" class="toc-link">Generación de Residuos Sólidos</a></li>
+                    <li class="toc-item"><a href="#suelo" class="toc-link">Contaminación de Suelo y Subsuelo</a></li>
+                    <li class="toc-item"><a href="#materiales" class="toc-link">Uso de Materiales y Recursos Naturales</a></li>
+                    <li class="toc-item"><a href="#ruido" class="toc-link">Ruido y Vibraciones</a></li>
+                    <li class="toc-item"><a href="#biodiversidad" class="toc-link">Afectación a la Biodiversidad</a></li>
+                    <li class="toc-item"><a href="#transporte" class="toc-link">Transporte</a></li>
+                    <li class="toc-item"><a href="#emergencias" class="toc-link">Emergencias Ambientales</a></li>
+                    <li class="toc-item"><a href="#sociales" class="toc-link">Impactos Sociales</a></li>
+                </ol>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="section" id="introduccion">
+                <div class="section-title">Lista de Verificación para la Identificación de Aspectos Ambientales <span id="editIndicator0" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="introduccion-texto">
+                    Esta lista de verificación está diseñada para ayudar a identificar los aspectos ambientales asociados con las actividades, productos o servicios de la organización, en el marco del Sistema de Gestión de la Calidad (SGC). Cada ítem debe revisarse de manera detallada para asegurar una evaluación exhaustiva de los posibles aspectos ambientales.
+                </div>
+            </div>
+            
+            <!-- Sección 1: Emisiones a la Atmósfera -->
+            <div class="section" id="emisiones">
+                <div class="section-title">1. Emisiones a la Atmósfera <span id="editIndicator1" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-1-1">¿La actividad genera emisiones de gases (CO₂, NOx, SOx, partículas)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-1-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-1-2">¿Se utilizan combustibles fósiles (diésel, gasolina, gas natural) para la generación de energía?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-1-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-1-3">¿Hay emisiones fugitivas de polvo, solventes o químicos en la operación?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-1-3" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-1-4">¿Se realizan operaciones que generan olores molestos o emisiones de compuestos orgánicos volátiles?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-4" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-4" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-1-4" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-1-5">¿Se utilizan tecnologías de control de emisiones (filtros, catalizadores, etc.)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-5" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p1-5" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-1-5" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 2: Consumo de Energía -->
+            <div class="section" id="energia">
+                <div class="section-title">2. Consumo de Energía <span id="editIndicator2" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-2-1">¿Se utiliza energía eléctrica en el proceso productivo?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-2-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-2-2">¿La organización utiliza energías no renovables (diésel, gas, carbón)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-2-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-2-3">¿Se implementan medidas de eficiencia energética?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-2-3" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-2-4">¿Se utiliza energía renovable (solar, eólica, biomasa)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-4" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p2-4" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-2-4" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 3: Consumo y Contaminación de Agua -->
+            <div class="section" id="agua">
+                <div class="section-title">3. Consumo y Contaminación de Agua <span id="editIndicator3" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-3-1">¿Se utiliza agua en los procesos productivos o de mantenimiento?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-3-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-3-2">¿El agua utilizada es de fuentes subterráneas, superficiales o de red pública?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-3-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-3-3">¿Existen vertidos de aguas residuales industriales o domésticas?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-3-3" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-3-4">¿Las aguas residuales son tratadas antes del vertido?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-4" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-4" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-3-4" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-3-5">¿Se implementan medidas para reducir el consumo de agua (reutilización, reciclaje)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-5" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p3-5" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-3-5" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Generación de Residuos Sólidos -->
+            <div class="section" id="residuos">
+                <div class="section-title">4. Generación de Residuos Sólidos <span id="editIndicator4" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-4-1">¿Se generan residuos peligrosos (químicos, aceites, solventes, baterías, etc.)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-4-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-4-2">¿Se generan residuos no peligrosos (plásticos, papel, cartón, metal, orgánicos)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-4-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-4-3">¿Existe un sistema de gestión de residuos para la separación, almacenamiento y disposición?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-4-3" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-4-4">¿Se implementan medidas de reducción, reutilización o reciclaje de residuos?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-4" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p4-4" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-4-4" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Contaminación de Suelo y Subsuelo -->
+            <div class="section" id="suelo">
+                <div class="section-title">5. Contaminación de Suelo y Subsuelo <span id="editIndicator5" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-5-1">¿Existen riesgos de derrames de sustancias peligrosas (químicos, aceites, combustibles)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-5-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-5-2">¿Se utilizan áreas específicas para el almacenamiento de materiales peligrosos?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-5-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-5-3">¿Existen barreras o medidas de contención para evitar la contaminación del suelo?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-5-3" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-5-4">¿Se realizan actividades que puedan generar erosión del suelo o degradación del terreno?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-4" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p5-4" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-5-4" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 6: Uso de Materiales y Recursos Naturales -->
+            <div class="section" id="materiales">
+                <div class="section-title">6. Uso de Materiales y Recursos Naturales <span id="editIndicator6" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-6-1">¿La actividad consume materias primas que son recursos naturales no renovables?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p6-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p6-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-6-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-6-2">¿Se utilizan materiales reciclados o sostenibles en el proceso productivo?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p6-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p6-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-6-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-6-3">¿Se implementan prácticas para reducir el uso de materias primas?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p6-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p6-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-6-3" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 7: Ruido y Vibraciones -->
+            <div class="section" id="ruido">
+                <div class="section-title">7. Ruido y Vibraciones <span id="editIndicator7" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-7-1">¿Las operaciones generan niveles significativos de ruido?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-7-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-7-2">¿El ruido generado afecta a la comunidad cercana o la fauna local?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-7-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-7-3">¿Se utilizan medidas para mitigar el ruido (barreras acústicas, límites de horario)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-7-3" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-7-4">¿Se generan vibraciones por maquinaria o vehículos pesados?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-4" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p7-4" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-7-4" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 8: Afectación a la Biodiversidad -->
+            <div class="section" id="biodiversidad">
+                <div class="section-title">8. Afectación a la Biodiversidad <span id="editIndicator8" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-8-1">¿Las actividades afectan hábitats naturales o áreas protegidas?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p8-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p8-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-8-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-8-2">¿Se generan impactos negativos sobre especies en peligro o vulnerables?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p8-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p8-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-8-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-8-3">¿Existen medidas de protección de la flora y fauna local?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p8-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p8-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-8-3" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 9: Transporte -->
+            <div class="section" id="transporte">
+                <div class="section-title">9. Transporte <span id="editIndicator9" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-9-1">¿Se utilizan vehículos que generan emisiones (CO, NOx, SOx)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p9-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p9-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-9-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-9-2">¿Se implementan medidas para optimizar el transporte (rutas, vehículos eficientes)?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p9-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p9-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-9-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-9-3">¿El transporte afecta la calidad del aire o genera congestión en las áreas cercanas?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p9-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p9-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-9-3" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 10: Emergencias Ambientales -->
+            <div class="section" id="emergencias">
+                <div class="section-title">10. Emergencias Ambientales <span id="editIndicator10" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-10-1">¿Existen planes de contingencia en caso de derrames o accidentes ambientales?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p10-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p10-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-10-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-10-2">¿El personal está capacitado en la respuesta a emergencias ambientales?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p10-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p10-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-10-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-10-3">¿Se realizan simulacros de emergencias ambientales?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p10-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p10-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-10-3" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 11: Impactos Sociales -->
+            <div class="section" id="sociales">
+                <div class="section-title">11. Impactos Sociales <span id="editIndicator11" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Sí/No</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="pregunta-11-1">¿Las actividades de la organización generan empleo local?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p11-1" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p11-1" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-11-1" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-11-2">¿Las operaciones afectan a la comunidad en términos de ruido, calidad del aire, agua o movilidad?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p11-2" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p11-2" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-11-2" contenteditable="false"></td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="pregunta-11-3">¿La organización realiza consultas con la comunidad sobre los impactos ambientales y sociales?</td>
+                            <td>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p11-3" value="si"> Sí
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="radio" name="p11-3" value="no"> No
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="editable" id="obs-11-3" contenteditable="false"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Conclusión de la Evaluación -->
+            <div class="conclusion-section">
+                <div class="conclusion-title">Conclusión de la Evaluación <span id="editIndicator12" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="conclusion-texto">
+                    Al final de la lista, se debe incluir un resumen de los aspectos ambientales identificados y la severidad de sus impactos. Esto permitirá priorizar los riesgos ambientales más significativos y establecer un plan de acción para su mitigación, en el contexto del Sistema de Gestión de la Calidad (SGC).
+                    <br><br>
+                    Esta lista de verificación asegura una cobertura amplia de los aspectos ambientales, ayudando a identificar los potenciales impactos de las actividades de la organización y establecer planes de mitigación y mejora ambiental, alineados con los requisitos del SGC.
+                </div>
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original - Sistema de Gestión de la Calidad (SGC)</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: Anexo-02 | Revisión: 000 | Página 1 de 1 | Sistema de Gestión de la Calidad (SGC)</p>
+        </div>
+    </div>
+
+    <script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'Anexo-02-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Se detectaron ediciones guardadas. Use "CARGAR EDICIONES GUARDADAS" para cargarlas.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                        console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+                
+                // Configurar scroll suave para los enlaces del TOC
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+                
+                // Guardar también el estado de los checkboxes
+                const radioButtons = document.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach((radio, index) => {
+                    const name = radio.getAttribute('name');
+                    const id = `radio-${name}`;
+                    if (!this.originalContent[id]) {
+                        this.originalContent[id] = '';
+                    }
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                const observationCells = document.querySelectorAll('.verification-table td:nth-child(3)');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESACTIVAR EDICIÓN';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo edición activo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Permitir edición de celdas de observaciones
+                    observationCells.forEach(cell => {
+                        cell.setAttribute('contenteditable', 'true');
+                        cell.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTENIDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo lectura activo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Deshacer edición de celdas de observaciones
+                    observationCells.forEach(cell => {
+                        cell.setAttribute('contenteditable', 'false');
+                        cell.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Active el modo edición primero para poder guardar cambios.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const observationCells = document.querySelectorAll('.verification-table td:nth-child(3)');
+                const radioButtons = document.querySelectorAll('input[type="radio"]');
+                const savedContent = {};
+                
+                // Guardar contenido de texto editable
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                // Guardar observaciones
+                observationCells.forEach((cell, index) => {
+                    const id = `obs-cell-${index}`;
+                    savedContent[id] = cell.innerHTML;
+                });
+                
+                // Guardar estado de los radio buttons
+                radioButtons.forEach(radio => {
+                    if (radio.checked) {
+                        const name = radio.getAttribute('name');
+                        savedContent[`radio-${name}`] = radio.value;
+                    }
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('Las ediciones han sido guardadas en el navegador correctamente.');
+                } catch (error) {
+                    alert('Error al guardar las ediciones: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('No se encontraron ediciones guardadas en el navegador.');
+                    return;
+                }
+                
+                if (confirm('¿Cargar las ediciones guardadas? Esto sobrescribirá el contenido actual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        const observationCells = document.querySelectorAll('.verification-table td:nth-child(3)');
+                        const radioButtons = document.querySelectorAll('input[type="radio"]');
+                        
+                        // Cargar contenido de texto editable
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        // Cargar observaciones
+                        observationCells.forEach((cell, index) => {
+                            const id = `obs-cell-${index}`;
+                            if (savedContent[id]) {
+                                cell.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        // Cargar estado de los radio buttons
+                        radioButtons.forEach(radio => {
+                            const name = radio.getAttribute('name');
+                            const savedValue = savedContent[`radio-${name}`];
+                            if (savedValue && radio.value === savedValue) {
+                                radio.checked = true;
+                            }
+                        });
+                        
+                        alert('Ediciones cargadas correctamente desde el navegador.');
+                    } catch (error) {
+                        alert('Error al cargar las ediciones: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Anexo-02-Lista-de-Verificacion-Aspectos-Ambientales-SGC.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. Descargando...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todas las ediciones actuales.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    const observationCells = document.querySelectorAll('.verification-table td:nth-child(3)');
+                    const radioButtons = document.querySelectorAll('input[type="radio"]');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    observationCells.forEach((cell, index) => {
+                        const id = `obs-cell-${index}`;
+                        if (this.originalContent[id]) {
+                            cell.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    radioButtons.forEach(radio => {
+                        radio.checked = false;
+                    });
+                    
+                    alert('Contenido original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

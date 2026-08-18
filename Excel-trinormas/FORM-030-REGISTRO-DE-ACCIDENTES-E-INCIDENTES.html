@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-030 Registro de Accidentes e Incidentes - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-intro {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .form-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1300px;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 8px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+        
+        .form-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-header-row {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .form-header-cell {
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px;
+        }
+        
+        .form-subheader-row {
+            background-color: #718096;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .form-subheader-cell {
+            padding: 10px;
+        }
+        
+        .form-data-row:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        
+        .form-data-row:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        
+        .form-input-cell {
+            min-width: 100px;
+        }
+        
+        .form-narrow-cell {
+            min-width: 80px;
+        }
+        
+        .form-medium-cell {
+            min-width: 120px;
+        }
+        
+        .form-wide-cell {
+            min-width: 180px;
+        }
+        
+        .form-very-wide-cell {
+            min-width: 250px;
+        }
+        
+        .form-signature-cell {
+            min-width: 160px;
+        }
+        
+        .form-instructions {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .safety-info {
+            background-color: #fff5f5;
+            border: 1px solid #fc8181;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .safety-title {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .definitions {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .definitions-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-field {
+            border-bottom: 1px solid #cbd5e0;
+            padding: 10px 0 40px;
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .signature-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn, .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+            margin-left: 10px;
+        }
+        
+        .print-btn:hover, .download-btn:hover {
+            background-color: #718096;
+        }
+        
+        .button-container {
+            clear: both;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .accident-type {
+            background-color: #fed7d7;
+            color: #742a2a;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .incident-type {
+            background-color: #feebc8;
+            color: #744210;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .download-btn {
+                display: none;
+            }
+            
+            .form-table-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .print-btn, .download-btn {
+                width: 100%;
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        001
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Registro de Accidentes e Incidentes</div>
+        <div class="doc-code">Código: FORM-030</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Introducción -->
+            <div class="form-intro">
+                <p><strong>Este formulario tiene como objetivo registrar todos los accidentes e incidentes que ocurran en el lugar de trabajo</strong>. Documenta los detalles del evento, causas probables, medidas tomadas y seguimiento, cumpliendo con los requisitos de seguridad y salud ocupacional del Sistema de Gestión de la Calidad (SGC).</p>
+            </div>
+            
+            <!-- Sección de definiciones -->
+            <div class="definitions">
+                <div class="definitions-title">Definiciones Importantes:</div>
+                <ul class="instructions-list">
+                    <li><strong>Accidente:</strong> Evento no planificado que resulta en lesión, enfermedad o muerte.</li>
+                    <li><strong>Incidente:</strong> Evento no planificado que no resulta en lesión, pero que tuvo el potencial de causarlo (casi-accidente).</li>
+                    <li><strong>Lesión:</strong> Daño físico o enfermedad resultante de un accidente de trabajo.</li>
+                    <li><strong>Tiempo de Ausencia:</strong> Período durante el cual el trabajador no puede realizar sus labores debido a la lesión.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección del formulario -->
+            <div class="section">
+                <div class="section-title">Registro de Accidentes e Incidentes - Formulario de Control</div>
+                
+                <div class="form-table-container">
+                    <table class="form-table">
+                        <thead>
+                            <!-- Fila de encabezado principal -->
+                            <tr class="form-header-row">
+                                <th colspan="11" class="form-header-cell">FORM-030 | REGISTRO DE ACCIDENTES E INCIDENTES</th>
+                            </tr>
+                            <!-- Fila de información del formulario -->
+                            <tr class="form-subheader-row">
+                                <td colspan="10" class="form-subheader-cell">Crea: ESGC | Aprueba: CEO</td>
+                                <td class="form-subheader-cell">Versión: 001 | Fecha: 01.12.2024</td>
+                            </tr>
+                            <!-- Fila vacía para separación -->
+                            <tr>
+                                <td colspan="11" style="height: 15px;"></td>
+                            </tr>
+                            <!-- Encabezados de columnas -->
+                            <tr>
+                                <th class="form-narrow-cell">Nº de Registro</th>
+                                <th class="form-medium-cell">Fecha del Accidente/Incidente</th>
+                                <th class="form-wide-cell">Nombre del Empleado</th>
+                                <th class="form-medium-cell">Departamento</th>
+                                <th class="form-medium-cell">Tipo (Accidente/Incidente)</th>
+                                <th class="form-very-wide-cell">Descripción del Evento</th>
+                                <th class="form-wide-cell">Causa Probable</th>
+                                <th class="form-wide-cell">Medidas Tomadas</th>
+                                <th class="form-medium-cell">Lesión (Si Aplica)</th>
+                                <th class="form-medium-cell">Tiempo de Ausencia (Si Aplica)</th>
+                                <th class="form-signature-cell">Responsable del Registro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Ejemplo de filas con datos (5 filas vacías para registro) -->
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="001" value="001"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA" value="01.12.2024"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo del empleado"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="produccion">Producción</option>
+                                        <option value="mantenimiento">Mantenimiento</option>
+                                        <option value="logistica">Logística</option>
+                                        <option value="administracion">Administración</option>
+                                        <option value="calidad">Calidad</option>
+                                        <option value="seguridad">Seguridad</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="accidente">Accidente</option>
+                                        <option value="incidente">Incidente</option>
+                                        <option value="casi-accidente">Casi-Accidente</option>
+                                    </select>
+                                </td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa detalladamente el evento ocurrido"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa la causa probable identificada"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa las medidas tomadas inmediatamente"></textarea></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="sin-lesion">Sin Lesión</option>
+                                        <option value="leve">Lesión Leve</option>
+                                        <option value="moderada">Lesión Moderada</option>
+                                        <option value="grave">Lesión Grave</option>
+                                        <option value="fatal">Fatal</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Ej: 2 días"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre y firma del responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="002"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo del empleado"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="produccion">Producción</option>
+                                        <option value="mantenimiento">Mantenimiento</option>
+                                        <option value="logistica">Logística</option>
+                                        <option value="administracion">Administración</option>
+                                        <option value="calidad">Calidad</option>
+                                        <option value="seguridad">Seguridad</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="accidente">Accidente</option>
+                                        <option value="incidente">Incidente</option>
+                                        <option value="casi-accidente">Casi-Accidente</option>
+                                    </select>
+                                </td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa detalladamente el evento ocurrido"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa la causa probable identificada"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa las medidas tomadas inmediatamente"></textarea></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="sin-lesion">Sin Lesión</option>
+                                        <option value="leve">Lesión Leve</option>
+                                        <option value="moderada">Lesión Moderada</option>
+                                        <option value="grave">Lesión Grave</option>
+                                        <option value="fatal">Fatal</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Ej: 2 días"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre y firma del responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="003"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo del empleado"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="produccion">Producción</option>
+                                        <option value="mantenimiento">Mantenimiento</option>
+                                        <option value="logistica">Logística</option>
+                                        <option value="administracion">Administración</option>
+                                        <option value="calidad">Calidad</option>
+                                        <option value="seguridad">Seguridad</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="accidente">Accidente</option>
+                                        <option value="incidente">Incidente</option>
+                                        <option value="casi-accidente">Casi-Accidente</option>
+                                    </select>
+                                </td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa detalladamente el evento ocurrido"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa la causa probable identificada"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa las medidas tomadas inmediatamente"></textarea></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="sin-lesion">Sin Lesión</option>
+                                        <option value="leve">Lesión Leve</option>
+                                        <option value="moderada">Lesión Moderada</option>
+                                        <option value="grave">Lesión Grave</option>
+                                        <option value="fatal">Fatal</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Ej: 2 días"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre y firma del responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="004"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo del empleado"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="produccion">Producción</option>
+                                        <option value="mantenimiento">Mantenimiento</option>
+                                        <option value="logistica">Logística</option>
+                                        <option value="administracion">Administración</option>
+                                        <option value="calidad">Calidad</option>
+                                        <option value="seguridad">Seguridad</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="accidente">Accidente</option>
+                                        <option value="incidente">Incidente</option>
+                                        <option value="casi-accidente">Casi-Accidente</option>
+                                    </select>
+                                </td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa detalladamente el evento ocurrido"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa la causa probable identificada"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa las medidas tomadas inmediatamente"></textarea></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="sin-lesion">Sin Lesión</option>
+                                        <option value="leve">Lesión Leve</option>
+                                        <option value="moderada">Lesión Moderada</option>
+                                        <option value="grave">Lesión Grave</option>
+                                        <option value="fatal">Fatal</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Ej: 2 días"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre y firma del responsable"></td>
+                            </tr>
+                            
+                            <tr class="form-data-row">
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="005"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre completo del empleado"></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="produccion">Producción</option>
+                                        <option value="mantenimiento">Mantenimiento</option>
+                                        <option value="logistica">Logística</option>
+                                        <option value="administracion">Administración</option>
+                                        <option value="calidad">Calidad</option>
+                                        <option value="seguridad">Seguridad</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="accidente">Accidente</option>
+                                        <option value="incidente">Incidente</option>
+                                        <option value="casi-accidente">Casi-Accidente</option>
+                                    </select>
+                                </td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa detalladamente el evento ocurrido"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa la causa probable identificada"></textarea></td>
+                                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 80px;" placeholder="Describa las medidas tomadas inmediatamente"></textarea></td>
+                                <td>
+                                    <select style="width: 100%; border: none; text-align: center;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="sin-lesion">Sin Lesión</option>
+                                        <option value="leve">Lesión Leve</option>
+                                        <option value="moderada">Lesión Moderada</option>
+                                        <option value="grave">Lesión Grave</option>
+                                        <option value="fatal">Fatal</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Ej: 2 días"></td>
+                                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre y firma del responsable"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Información de seguridad -->
+                <div class="safety-info">
+                    <div class="safety-title">Procedimiento de Notificación de Accidentes/Incidentes:</div>
+                    <ul class="instructions-list">
+                        <li>Todos los accidentes e incidentes deben ser reportados <strong>inmediatamente</strong> al supervisor.</li>
+                        <li>Este formulario debe ser completado dentro de las <strong>24 horas</strong> posteriores al evento.</li>
+                        <li>En caso de accidente grave o fatal, notificar a las autoridades competentes según legislación aplicable.</li>
+                        <li>Realizar investigación de causas raíces para prevenir recurrencia.</li>
+                        <li>Implementar acciones correctivas basadas en los hallazgos de la investigación.</li>
+                    </ul>
+                </div>
+                
+                <!-- Instrucciones de uso -->
+                <div class="form-instructions">
+                    <div class="instructions-title">Instrucciones para completar el formulario:</div>
+                    <ul class="instructions-list">
+                        <li><strong>Nº de Registro:</strong> Número consecutivo único para cada registro.</li>
+                        <li><strong>Fecha del Accidente/Incidente:</strong> Fecha exacta en que ocurrió el evento.</li>
+                        <li><strong>Nombre del Empleado:</strong> Nombre completo del empleado involucrado.</li>
+                        <li><strong>Departamento:</strong> Área o departamento donde ocurrió el evento.</li>
+                        <li><strong>Tipo:</strong> Clasificación del evento (Accidente, Incidente o Casi-Accidente).</li>
+                        <li><strong>Descripción del Evento:</strong> Relato detallado de lo ocurrido, incluyendo lugar, hora y circunstancias.</li>
+                        <li><strong>Causa Probable:</strong> Análisis inicial de las causas que originaron el evento.</li>
+                        <li><strong>Medidas Tomadas:</strong> Acciones implementadas inmediatamente después del evento.</li>
+                        <li><strong>Lesión (Si Aplica):</strong> Tipo y gravedad de la lesión, si corresponde.</li>
+                        <li><strong>Tiempo de Ausencia (Si Aplica):</strong> Días de incapacidad médica, si aplica.</li>
+                        <li><strong>Responsable del Registro:</strong> Persona que completa el registro (generalmente supervisor o responsable de SST).</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de firmas -->
+                <div class="signature-section">
+                    <div class="section-title">Autorizaciones y Firmas Finales</div>
+                    <div class="signature-grid">
+                        <div class="signature-field">
+                            <div class="signature-label">SUPERVISOR DEL ÁREA</div>
+                            <div class="signature-name">Nombre, Firma y Fecha</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">RESPONSABLE DE SEGURIDAD Y SALUD OCUPACIONAL</div>
+                            <div class="signature-name">Nombre, Firma y Fecha</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">GERENTE DE OPERACIONES</div>
+                            <div class="signature-name">Nombre, Firma y Fecha</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="button-container">
+                <button class="download-btn" onclick="downloadForm()">💾 Descargar Formulario</button>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-030 | Revisión: 001 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Función para descargar el formulario como HTML
+        function downloadForm() {
+            const content = document.documentElement.outerHTML;
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FORM-030-Registro-de-Accidentes-e-Incidentes-SGC.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Verifica se o logo existe, caso contrário mostra um placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+            
+            // Configurar campos de fecha con formato sugerido
+            document.querySelectorAll('input[type="text"][placeholder*="DD.MM.AAAA"]').forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = '';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    const datePattern = /^\d{2}\.\d{2}\.\d{4}$/;
+                    
+                    if (this.value && !datePattern.test(this.value)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Auto-incrementar el número de registro
+            let registroNumber = 1;
+            document.querySelectorAll('input[type="text"][placeholder="001"]').forEach(input => {
+                input.value = registroNumber.toString().padStart(3, '0');
+                registroNumber++;
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value.match(/^\d+$/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Configurar los otros campos de número de registro
+            document.querySelectorAll('tbody tr').forEach((row, index) => {
+                if (index > 0) {
+                    const registroInput = row.querySelector('td:nth-child(1) input');
+                    if (registroInput && registroInput.placeholder && registroInput.placeholder.match(/^\d{3}$/)) {
+                        const placeholderNum = parseInt(registroInput.placeholder);
+                        if (!isNaN(placeholderNum)) {
+                            registroInput.value = placeholderNum.toString().padStart(3, '0');
+                            registroNumber = placeholderNum + 1;
+                        }
+                    }
+                }
+            });
+            
+            // Mostrar alerta cuando se selecciona "Lesión Grave" o "Fatal"
+            document.querySelectorAll('select').forEach(select => {
+                select.addEventListener('change', function() {
+                    if (this.value === 'grave' || this.value === 'fatal') {
+                        // Encontrar la fila correspondiente
+                        const row = this.closest('tr');
+                        const fechaInput = row.querySelector('td:nth-child(2) input');
+                        const nombreInput = row.querySelector('td:nth-child(3) input');
+                        
+                        if (fechaInput && nombreInput) {
+                            console.log(`¡ALERTA! Se registró una lesión ${this.value === 'grave' ? 'grave' : 'fatal'} para ${nombreInput.value || 'empleado'} ocurrida el ${fechaInput.value || 'fecha no especificada'}`);
+                            // En una implementación real, aquí se podría mostrar un alert o notificación
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

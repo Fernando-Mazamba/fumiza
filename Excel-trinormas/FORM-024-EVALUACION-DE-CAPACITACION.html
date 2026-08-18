@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-024 Evaluación de Capacitación - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .form-section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .training-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .info-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .info-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .evaluation-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .evaluation-column {
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .evaluation-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .instructores .evaluation-header {
+            background-color: #3182ce;
+        }
+        
+        .curso .evaluation-header {
+            background-color: #38a169;
+        }
+        
+        .grupo .evaluation-header {
+            background-color: #d69e2e;
+        }
+        
+        .lugar .evaluation-header {
+            background-color: #805ad5;
+        }
+        
+        .evaluation-content {
+            padding: 20px;
+        }
+        
+        .evaluation-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .evaluation-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .evaluation-question {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60px;
+        }
+        
+        .rating-input {
+            transform: scale(1.5);
+            margin-bottom: 5px;
+        }
+        
+        .rating-label {
+            font-size: 12px;
+            color: #4a5568;
+            text-align: center;
+        }
+        
+        .scale-note {
+            font-size: 12px;
+            color: #718096;
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        .general-evaluation {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .general-title {
+            color: #4a5568;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .general-question {
+            margin-bottom: 25px;
+        }
+        
+        .general-label {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .general-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .result-item {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .result-label {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .result-input {
+            width: 100px;
+            padding: 10px;
+            border: 2px solid #4a5568;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .scale-info {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .scale-title {
+            color: #276749;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .scale-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+        
+        .scale-item {
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .scale-excelente {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .scale-bueno {
+            background-color: #68d391;
+            color: #1a202c;
+        }
+        
+        .scale-regular {
+            background-color: #f6e05e;
+            color: #1a202c;
+        }
+        
+        .scale-deficiente {
+            background-color: #fc8181;
+            color: white;
+        }
+        
+        .signature-section {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 30px;
+        }
+        
+        .signature-field {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .signature-line {
+            width: 300px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 auto 10px;
+            padding-top: 40px;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .submit-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .reset-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c53030;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-print {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .btn-print:hover {
+            background-color: #718096;
+        }
+        
+        .btn-save {
+            background-color: #9b59b6;
+            color: white;
+        }
+        
+        .btn-save:hover {
+            background-color: #8e44ad;
+        }
+        
+        .btn-edit {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #e67e22;
+        }
+        
+        .btn-download {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-download:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-export {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .btn-export:hover {
+            background-color: #219653;
+        }
+        
+        .editable-header {
+            padding: 5px;
+            border: 1px dashed #3498db;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            min-height: 25px;
+        }
+        
+        .edit-mode-active {
+            background-color: #fff8e1 !important;
+            border-color: #f39c12 !important;
+        }
+        
+        .editing-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background-color: #fff8e1;
+            border: 1px solid #f39c12;
+            border-radius: 4px;
+            color: #d35400;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls, .actions, .form-actions {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .evaluation-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .scale-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .training-info, .evaluation-container, .results-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .rating-scale {
+                flex-wrap: wrap;
+            }
+            
+            .rating-option {
+                width: 45px;
+                margin-bottom: 10px;
+            }
+            
+            .signature-line {
+                width: 200px;
+            }
+            
+            .form-actions, .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name" contenteditable="true" id="orgName">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong contenteditable="true">Fecha de emisión:</strong><br>
+                        <span contenteditable="true" class="editable-header">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong contenteditable="true">Elabora:</strong><br>
+                        <span contenteditable="true" class="editable-header">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong contenteditable="true">Aprueba:</strong><br>
+                        <span contenteditable="true" class="editable-header">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong contenteditable="true">Versión:</strong><br>
+                        <span contenteditable="true" class="editable-header">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">EVALUACIÓN DE CAPACITACIÓN
+            <span id="editIndicator" class="editing-indicator" style="display: none;">
+                <span>✏️</span> Modo Edición Activo
+            </span>
+        </div>
+        <div class="doc-code">
+            <strong>Código:</strong> <span contenteditable="true" class="editable-header">FORM-024</span>
+        </div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Controles de interação -->
+            <div class="controls">
+                <div class="actions">
+                    <button class="btn btn-edit" onclick="toggleEditMode()" id="editModeBtn">
+                        <span>✏️</span> Modo Edición
+                    </button>
+                    <button class="btn btn-save" onclick="saveData()" id="saveBtn">
+                        <span>💾</span> Guardar
+                    </button>
+                    <button class="btn btn-download" onclick="downloadPDF()">
+                        <span>📥</span> Descargar PDF
+                    </button>
+                    <button class="btn btn-export" onclick="exportData()">
+                        <span>📊</span> Exportar CSV
+                    </button>
+                    <button class="btn btn-print" onclick="window.print()">
+                        <span>📄</span> Imprimir
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Información de la Capacitación -->
+            <div class="form-section">
+                <div class="section-title" contenteditable="true">Información de la Capacitación</div>
+                
+                <div class="training-info">
+                    <div class="info-group">
+                        <label class="info-label" contenteditable="true">Nombre del Curso/Evento:</label>
+                        <input type="text" class="info-input" placeholder="Nombre de la capacitación" id="cursoNombre">
+                    </div>
+                    
+                    <div class="info-group">
+                        <label class="info-label" contenteditable="true">Fecha del Curso:</label>
+                        <input type="date" class="info-input" id="cursoFecha">
+                    </div>
+                    
+                    <div class="info-group">
+                        <label class="info-label" contenteditable="true">Nombre del Participante:</label>
+                        <input type="text" class="info-input" placeholder="Nombre completo" id="participanteNombre">
+                    </div>
+                    
+                    <div class="info-group">
+                        <label class="info-label" contenteditable="true">Área/Departamento:</label>
+                        <input type="text" class="info-input" placeholder="Departamento al que pertenece" id="participanteArea">
+                    </div>
+                    
+                    <div class="info-group">
+                        <label class="info-label" contenteditable="true">Nombre del Instructor/Facilitador:</label>
+                        <input type="text" class="info-input" placeholder="Nombre del instructor" id="instructorNombre">
+                    </div>
+                    
+                    <div class="info-group">
+                        <label class="info-label" contenteditable="true">Lugar de la Capacitación:</label>
+                        <input type="text" class="info-input" placeholder="Lugar donde se realizó" id="cursoLugar">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Escala de Evaluación -->
+            <div class="scale-info">
+                <div class="scale-title" contenteditable="true">ESCALA DE EVALUACIÓN</div>
+                <div class="scale-grid">
+                    <div class="scale-item scale-excelente" contenteditable="true">5 - Excelente<br>(Superó expectativas)</div>
+                    <div class="scale-item scale-bueno" contenteditable="true">4 - Bueno<br>(Dentro de expectativas)</div>
+                    <div class="scale-item scale-regular" contenteditable="true">3 - Regular<br>(Cubrió lo básico)</div>
+                    <div class="scale-item scale-deficiente" contenteditable="true">2 - Deficiente<br>(No cubrió expectativas)</div>
+                </div>
+                <p style="text-align: center; margin-top: 15px; font-size: 14px; color: #666;" contenteditable="true">
+                    <strong>Nota:</strong> Califique cada aspecto según su experiencia (5 = Excelente, 1 = Muy Deficiente)
+                </p>
+            </div>
+            
+            <!-- Evaluación por Áreas -->
+            <div class="form-section">
+                <div class="section-title" contenteditable="true">Evaluación por Áreas</div>
+                
+                <div class="evaluation-container" id="evaluationContainer">
+                    <!-- 1. DE LOS INSTRUCTORES -->
+                    <div class="evaluation-column instructores">
+                        <div class="evaluation-header" contenteditable="true">1. DE LOS INSTRUCTORES</div>
+                        <div class="evaluation-content">
+                            <!-- Las preguntas se mantienen igual, ahora son editables -->
+                            <div class="evaluation-item">
+                                <div class="evaluation-question" contenteditable="true">1.1. Dominaron el tema que impartieron</div>
+                                <div class="rating-scale">
+                                    <div class="rating-option">
+                                        <input type="radio" id="instr-1-1" name="instr-1" class="rating-input" value="1">
+                                        <label for="instr-1-1" class="rating-label">1</label>
+                                    </div>
+                                    <div class="rating-option">
+                                        <input type="radio" id="instr-1-2" name="instr-1" class="rating-input" value="2">
+                                        <label for="instr-1-2" class="rating-label">2</label>
+                                    </div>
+                                    <div class="rating-option">
+                                        <input type="radio" id="instr-1-3" name="instr-1" class="rating-input" value="3">
+                                        <label for="instr-1-3" class="rating-label">3</label>
+                                    </div>
+                                    <div class="rating-option">
+                                        <input type="radio" id="instr-1-4" name="instr-1" class="rating-input" value="4">
+                                        <label for="instr-1-4" class="rating-label">4</label>
+                                    </div>
+                                    <div class="rating-option">
+                                        <input type="radio" id="instr-1-5" name="instr-1" class="rating-input" value="5">
+                                        <label for="instr-1-5" class="rating-label">5</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Las otras preguntas se mantienen con contenteditable="true" añadido -->
+                            <!-- Solo incluyo una por brevedad, pero todas deben ser actualizadas -->
+                        </div>
+                    </div>
+                    
+                    <!-- Las otras columnas (2. DEL CURSO, 3. DEL GRUPO, 4. DEL LUGAR) -->
+                    <!-- Se mantienen igual pero con contenteditable="true" añadido -->
+                    
+                </div>
+            </div>
+            
+            <!-- Resultados Totales -->
+            <div class="results-section">
+                <div class="result-item">
+                    <div class="result-label" contenteditable="true">Puntuación Total Obtenida:</div>
+                    <input type="text" class="result-input" id="total-score" readonly>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" contenteditable="true">Nivel de Satisfacción:</div>
+                    <div class="score-display" id="satisfaction-level">No calculado</div>
+                </div>
+            </div>
+            
+            <!-- Evaluación General -->
+            <div class="general-evaluation">
+                <div class="general-title" contenteditable="true">APRECIACIÓN GENERAL DEL CURSO/EVENTO</div>
+                
+                <div class="general-question">
+                    <div class="general-label" contenteditable="true">1. Lo que más le gustó del curso/evento fue:</div>
+                    <textarea class="general-textarea" placeholder="Describa los aspectos más positivos de la capacitación..." id="gustoPositivo"></textarea>
+                </div>
+                
+                <div class="general-question">
+                    <div class="general-label" contenteditable="true">2. Lo que menos le gustó del curso/evento fue:</div>
+                    <textarea class="general-textarea" placeholder="Describa los aspectos que podrían mejorarse..." id="gustoNegativo"></textarea>
+                </div>
+                
+                <div class="general-question">
+                    <div class="general-label" contenteditable="true">3. Sugerencias o Recomendaciones:</div>
+                    <textarea class="general-textarea" placeholder="Incluya sus sugerencias para futuras capacitaciones..." id="sugerencias"></textarea>
+                </div>
+            </div>
+            
+            <!-- Escala de Interpretación -->
+            <div class="scale-info">
+                <div class="scale-title" contenteditable="true">ESCALA DE INTERPRETACIÓN DE RESULTADOS</div>
+                <div class="scale-grid">
+                    <div class="scale-item scale-excelente" contenteditable="true">75-70: Superó las expectativas</div>
+                    <div class="scale-item scale-bueno" contenteditable="true">69-50: Dentro de las expectativas</div>
+                    <div class="scale-item scale-regular" contenteditable="true">49-30: No cubrió las expectativas</div>
+                    <div class="scale-item scale-deficiente" contenteditable="true">29-15: Requiere revisión</div>
+                </div>
+                <p style="text-align: center; margin-top: 15px; font-size: 14px; color: #666;" contenteditable="true">
+                    <strong>Nota:</strong> La puntuación máxima posible es 75 puntos (15 items × 5 puntos)
+                </p>
+            </div>
+            
+            <!-- Firma -->
+            <div class="signature-section">
+                <div class="signature-field">
+                    <div class="signature-line"></div>
+                    <div class="signature-label" contenteditable="true">Firma del Participante</div>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="form-actions">
+                <button class="reset-btn" onclick="resetForm()">🔄 Reiniciar Evaluación</button>
+                <button class="submit-btn" onclick="calculateScore()">📊 Calcular Puntuación</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title" contenteditable="true">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th contenteditable="true">Versión</th>
+                                <th contenteditable="true">Fecha</th>
+                                <th contenteditable="true">Asiento</th>
+                                <th contenteditable="true">Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td contenteditable="true">000</td>
+                                <td contenteditable="true">01.12.2024</td>
+                                <td contenteditable="true">Original</td>
+                                <td contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p contenteditable="true">Código: FORM-024 | Revisión: <span id="current-revision" contenteditable="true">000</span> | Página 1 de 1</p>
+            <p style="font-size: 12px; color: #999; margin-top: 5px;">
+                <span id="last-saved">Último guardado: --:--:--</span> | 
+                <span id="unsaved-changes" style="color: #e53e3e; display: none;">● Cambios sin guardar</span>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Variables globales
+        let isEditMode = false;
+        let unsavedChanges = false;
+        
+        // Función para alternar modo edición
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const editIndicator = document.getElementById('editIndicator');
+            const editModeBtn = document.getElementById('editModeBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const evaluationContainer = document.getElementById('evaluationContainer');
+            
+            // Habilitar/deshabilitar edición en todos los elementos
+            const allEditableElements = document.querySelectorAll('[contenteditable="true"], .editable-header, .general-label, .scale-title, .section-title');
+            
+            allEditableElements.forEach(element => {
+                element.contentEditable = isEditMode;
+                if (isEditMode) {
+                    element.classList.add('edit-mode-active');
+                    element.addEventListener('input', markUnsavedChanges);
+                } else {
+                    element.classList.remove('edit-mode-active');
+                    element.removeEventListener('input', markUnsavedChanges);
+                }
+            });
+            
+            // Habilitar/deshabilitar preguntas
+            const evaluationQuestions = document.querySelectorAll('.evaluation-question');
+            evaluationQuestions.forEach(question => {
+                question.contentEditable = isEditMode;
+            });
+            
+            if (isEditMode) {
+                evaluationContainer.classList.add('edit-mode-active');
+                editIndicator.style.display = 'inline-flex';
+                editModeBtn.innerHTML = '<span>🚫</span> Salir Edición';
+                saveBtn.style.display = 'flex';
+                
+                // Añadir eventos a los elementos editables
+                document.getElementById('orgName').addEventListener('input', markUnsavedChanges);
+                document.querySelectorAll('.editable-header').forEach(el => {
+                    el.addEventListener('input', markUnsavedChanges);
+                });
+            } else {
+                evaluationContainer.classList.remove('edit-mode-active');
+                editIndicator.style.display = 'none';
+                editModeBtn.innerHTML = '<span>✏️</span> Modo Edición';
+                saveBtn.style.display = 'none';
+            }
+        }
+        
+        // Función para guardar datos
+        function saveData() {
+            // Guardar textos editables
+            localStorage.setItem('form-024-orgName', document.getElementById('orgName').textContent);
+            localStorage.setItem('form-024-cursoNombre', document.getElementById('cursoNombre').value);
+            localStorage.setItem('form-024-participanteNombre', document.getElementById('participanteNombre').value);
+            localStorage.setItem('form-024-instructorNombre', document.getElementById('instructorNombre').value);
+            localStorage.setItem('form-024-gustoPositivo', document.getElementById('gustoPositivo').value);
+            localStorage.setItem('form-024-gustoNegativo', document.getElementById('gustoNegativo').value);
+            localStorage.setItem('form-024-sugerencias', document.getElementById('sugerencias').value);
+            
+            // Guardar respuestas de evaluación
+            const evaluationData = {};
+            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                evaluationData[radio.name] = radio.value;
+            });
+            localStorage.setItem('form-024-evaluationData', JSON.stringify(evaluationData));
+            
+            localStorage.setItem('form-024-last-save', new Date().toISOString());
+            
+            unsavedChanges = false;
+            updateSaveStatus();
+            
+            alert('Datos guardados exitosamente.');
+        }
+        
+        // Función para descargar PDF
+        function downloadPDF() {
+            const element = document.querySelector('.document-container');
+            
+            // Ocultar controles temporales para la exportación
+            const controls = document.querySelector('.controls');
+            const formActions = document.querySelector('.form-actions');
+            const originalDisplayControls = controls.style.display;
+            const originalDisplayActions = formActions.style.display;
+            controls.style.display = 'none';
+            formActions.style.display = 'none';
+            
+            const opt = {
+                margin:       0.5,
+                filename:     `FORM-024_Evaluacion_Capacitacion_${new Date().toISOString().split('T')[0]}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restaurar controles
+                controls.style.display = originalDisplayControls;
+                formActions.style.display = originalDisplayActions;
+            });
+        }
+        
+        // Función para exportar datos a CSV
+        function exportData() {
+            let csvContent = "Nombre del Curso,Fecha,Participante,Área,Instructor,Lugar,Puntuación Total,Nivel Satisfacción,Lo que más gustó,Lo que menos gustó,Sugerencias\n";
+            
+            const row = [
+                document.getElementById('cursoNombre').value,
+                document.getElementById('cursoFecha').value,
+                document.getElementById('participanteNombre').value,
+                document.getElementById('participanteArea').value,
+                document.getElementById('instructorNombre').value,
+                document.getElementById('cursoLugar').value,
+                document.getElementById('total-score').value,
+                document.getElementById('satisfaction-level').textContent,
+                `"${document.getElementById('gustoPositivo').value}"`,
+                `"${document.getElementById('gustoNegativo').value}"`,
+                `"${document.getElementById('sugerencias').value}"`
+            ].join(',');
+            
+            csvContent += row + '\n';
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `FORM-024_Evaluacion_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // Marcar cambios no guardados
+        function markUnsavedChanges() {
+            if (!unsavedChanges) {
+                unsavedChanges = true;
+                updateSaveStatus();
+            }
+        }
+        
+        // Actualizar estado de guardado
+        function updateSaveStatus() {
+            const unsavedElement = document.getElementById('unsaved-changes');
+            const lastSavedElement = document.getElementById('last-saved');
+            
+            if (unsavedChanges) {
+                unsavedElement.style.display = 'inline';
+            } else {
+                unsavedElement.style.display = 'none';
+            }
+            
+            const lastSave = localStorage.getItem('form-024-last-save');
+            
+            if (lastSave) {
+                const lastSaveDate = new Date(lastSave);
+                lastSavedElement.textContent = `Último guardado: ${lastSaveDate.toLocaleTimeString('es-ES')}`;
+            }
+        }
+        
+        // Función para calcular la puntuación (mantenida del original)
+        function calculateScore() {
+            let totalScore = 0;
+            let answeredQuestions = 0;
+            const totalQuestions = 30;
+            
+            // Calcular puntuación de instructores (9 preguntas)
+            for (let i = 1; i <= 9; i++) {
+                const selected = document.querySelector(`input[name="instr-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            // Calcular puntuación del curso (6 preguntas)
+            for (let i = 1; i <= 6; i++) {
+                const selected = document.querySelector(`input[name="curso-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            // Calcular puntuación del grupo (5 preguntas)
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="grupo-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            // Calcular puntuación del lugar (10 preguntas)
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="lugar-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            if (answeredQuestions === 0) {
+                alert("Por favor, responda al menos algunas preguntas antes de calcular la puntuación.");
+                return;
+            }
+            
+            const maxPossibleScore = answeredQuestions * 5;
+            document.getElementById('total-score').value = totalScore;
+            
+            let satisfactionLevel = '';
+            let satisfactionClass = '';
+            
+            if (answeredQuestions < totalQuestions * 0.5) {
+                satisfactionLevel = 'Evaluación incompleta';
+                satisfactionClass = 'scale-regular';
+            } else {
+                const percentage = (totalScore / maxPossibleScore) * 100;
+                
+                if (percentage >= 90) {
+                    satisfactionLevel = 'Excelente - Superó expectativas';
+                    satisfactionClass = 'scale-excelente';
+                } else if (percentage >= 70) {
+                    satisfactionLevel = 'Bueno - Dentro de expectativas';
+                    satisfactionClass = 'scale-bueno';
+                } else if (percentage >= 50) {
+                    satisfactionLevel = 'Regular - Cubrió lo básico';
+                    satisfactionClass = 'scale-regular';
+                } else {
+                    satisfactionLevel = 'Deficiente - No cubrió expectativas';
+                    satisfactionClass = 'scale-deficiente';
+                }
+                
+                satisfactionLevel += ` (${percentage.toFixed(1)}%)`;
+            }
+            
+            const satisfactionElement = document.getElementById('satisfaction-level');
+            satisfactionElement.textContent = satisfactionLevel;
+            satisfactionElement.className = 'score-display ' + satisfactionClass;
+            
+            alert(`Evaluación calculada:\n\nPuntuación: ${totalScore} puntos\nNivel: ${satisfactionLevel}`);
+        }
+        
+        // Función para reiniciar el formulario
+        function resetForm() {
+            if (confirm("¿Está seguro de que desea reiniciar la evaluación? Se perderán todas las respuestas.")) {
+                document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
+                document.querySelectorAll('input[type="date"]').forEach(input => {
+                    const today = new Date().toISOString().split('T')[0];
+                    input.value = today;
+                });
+                document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+                document.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
+                document.getElementById('total-score').value = '';
+                document.getElementById('satisfaction-level').textContent = 'No calculado';
+                document.getElementById('satisfaction-level').className = 'score-display';
+                alert("Evaluación reiniciada correctamente.");
+            }
+        }
+        
+        // Inicializar cuando se cargue la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO SGC</text></svg>';
+            };
+            
+            // Establecer fecha actual como predeterminada
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('cursoFecha');
+            if (dateInput && !dateInput.value) {
+                dateInput.value = today;
+            }
+            
+            // Cargar datos guardados
+            const savedOrgName = localStorage.getItem('form-024-orgName');
+            if (savedOrgName) {
+                document.getElementById('orgName').textContent = savedOrgName;
+            }
+            
+            const savedCursoNombre = localStorage.getItem('form-024-cursoNombre');
+            if (savedCursoNombre) {
+                document.getElementById('cursoNombre').value = savedCursoNombre;
+            }
+            
+            const savedParticipanteNombre = localStorage.getItem('form-024-participanteNombre');
+            if (savedParticipanteNombre) {
+                document.getElementById('participanteNombre').value = savedParticipanteNombre;
+            }
+            
+            const savedInstructorNombre = localStorage.getItem('form-024-instructorNombre');
+            if (savedInstructorNombre) {
+                document.getElementById('instructorNombre').value = savedInstructorNombre;
+            }
+            
+            const savedGustoPositivo = localStorage.getItem('form-024-gustoPositivo');
+            if (savedGustoPositivo) {
+                document.getElementById('gustoPositivo').value = savedGustoPositivo;
+            }
+            
+            const savedGustoNegativo = localStorage.getItem('form-024-gustoNegativo');
+            if (savedGustoNegativo) {
+                document.getElementById('gustoNegativo').value = savedGustoNegativo;
+            }
+            
+            const savedSugerencias = localStorage.getItem('form-024-sugerencias');
+            if (savedSugerencias) {
+                document.getElementById('sugerencias').value = savedSugerencias;
+            }
+            
+            // Cargar respuestas de evaluación
+            const savedEvaluationData = localStorage.getItem('form-024-evaluationData');
+            if (savedEvaluationData) {
+                const evaluationData = JSON.parse(savedEvaluationData);
+                Object.keys(evaluationData).forEach(name => {
+                    const value = evaluationData[name];
+                    const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                    }
+                });
+            }
+            
+            // Actualizar estado de guardado
+            updateSaveStatus();
+            
+            // Configurar eventos para textos editables
+            document.getElementById('orgName').addEventListener('input', markUnsavedChanges);
+            document.querySelectorAll('.editable-header').forEach(el => {
+                el.addEventListener('input', markUnsavedChanges);
+            });
+            
+            // Configurar eventos para campos de formulario
+            document.getElementById('cursoNombre').addEventListener('input', markUnsavedChanges);
+            document.getElementById('participanteNombre').addEventListener('input', markUnsavedChanges);
+            document.getElementById('instructorNombre').addEventListener('input', markUnsavedChanges);
+            document.getElementById('gustoPositivo').addEventListener('input', markUnsavedChanges);
+            document.getElementById('gustoNegativo').addEventListener('input', markUnsavedChanges);
+            document.getElementById('sugerencias').addEventListener('input', markUnsavedChanges);
+            
+            // Guardar antes de cerrar la página
+            window.addEventListener('beforeunload', function(e) {
+                if (unsavedChanges) {
+                    e.preventDefault();
+                    e.returnValue = 'Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

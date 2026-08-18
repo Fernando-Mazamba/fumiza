@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-026 Planificación de los Cambios - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-intro {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c5282;
+            font-size: 16px;
+        }
+        
+        .form-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1800px;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 8px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12px;
+        }
+        
+        .form-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-header-row {
+            background-color: #1a365d;
+            color: white;
+        }
+        
+        .form-header-cell {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .form-subheader-row {
+            background-color: #4299e1;
+            color: white;
+        }
+        
+        .form-info-cell {
+            text-align: left;
+            font-weight: bold;
+            background-color: #f7fafc;
+        }
+        
+        .form-input-cell {
+            min-width: 80px;
+        }
+        
+        .form-wide-cell {
+            min-width: 120px;
+        }
+        
+        .form-narrow-cell {
+            min-width: 60px;
+        }
+        
+        .form-checkbox-cell {
+            width: 40px;
+        }
+        
+        .form-instructions {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-field {
+            border-bottom: 1px solid #cbd5e0;
+            padding: 10px 0 30px;
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 5px;
+        }
+        
+        .signature-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-btn:hover {
+            background-color: #3182ce;
+        }
+        
+        .action-btn.print {
+            background-color: #38a169;
+        }
+        
+        .action-btn.print:hover {
+            background-color: #48bb78;
+        }
+        
+        .action-btn.download {
+            background-color: #ed8936;
+        }
+        
+        .action-btn.download:hover {
+            background-color: #f6ad55;
+        }
+        
+        .action-btn.edit {
+            background-color: #805ad5;
+        }
+        
+        .action-btn.edit:hover {
+            background-color: #9f7aea;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .form-table-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span contenteditable="true">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span contenteditable="true">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span contenteditable="true">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span contenteditable="true">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botões de ação -->
+        <div class="action-buttons">
+            <button class="action-btn edit" id="editToggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                </svg>
+                Editar Todo
+            </button>
+            <button class="action-btn print" onclick="window.print()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                </svg>
+                Imprimir
+            </button>
+            <button class="action-btn download" id="downloadBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+                Descargar
+            </button>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Control de los Cambios al Sistema de Gestión de la Calidad</div>
+        <div class="doc-code">Código: <span contenteditable="true">FORM-026</span></div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Introdução -->
+            <div class="form-intro">
+                <p><strong>Este formulario tiene como objetivo planificar y controlar los cambios realizados al Sistema de Gestión de la Calidad (SGC)</strong>. Permite identificar, evaluar y gestionar de manera estructurada las modificaciones, asegurando que se mantenga la integridad del sistema y se mitiguen los impactos negativos.</p>
+            </div>
+            
+            <!-- Seção do formulário -->
+            <div class="section">
+                <div class="section-title">Planificación de los Cambios - Formulario de Control</div>
+                
+                <div class="form-table-container">
+                    <table class="form-table">
+                        <thead>
+                            <!-- Fila de encabezado principal -->
+                            <tr class="form-header-row">
+                                <th colspan="18" class="form-header-cell">CONTROL DE LOS CAMBIOS AL SISTEMA DE GESTIÓN DE LA CALIDAD</th>
+                            </tr>
+                            <!-- Fila de información del formulario -->
+                            <tr class="form-subheader-row">
+                                <td colspan="17"></td>
+                                <td class="form-info-cell" contenteditable="true">
+                                    CÓDIGO: FORM-026<br>
+                                    REV: 000<br>
+                                    FECHA: 01.12.2024
+                                </td>
+                            </tr>
+                            <!-- Fila vacía para separación -->
+                            <tr>
+                                <td colspan="18" style="height: 10px;"></td>
+                            </tr>
+                            <!-- Encabezado de identificación del cambio -->
+                            <tr>
+                                <td colspan="8" class="form-info-cell">IDENTIFICACIÓN DEL CAMBIO</td>
+                                <td colspan="2" class="form-info-cell">AUTORIDAD</td>
+                                <td colspan="8" class="form-info-cell">CONSECUENCIAS POTENCIALES Y ACCIONES PARA MITIGAR SUS EFECTOS</td>
+                            </tr>
+                            <!-- Encabezados de columnas principales -->
+                            <tr>
+                                <th rowspan="2" class="form-narrow-cell">Item</th>
+                                <th rowspan="2" class="form-input-cell">Empresa</th>
+                                <th rowspan="2" class="form-input-cell">Proceso</th>
+                                <th rowspan="2" class="form-wide-cell">Descripción de los cambios</th>
+                                <th rowspan="2" class="form-wide-cell">Propósito de los cambios</th>
+                                <th rowspan="2" class="form-wide-cell">Asignación o re-asignación de responsabilidades</th>
+                                <th rowspan="2" class="form-wide-cell">Recursos necesarios</th>
+                                <th rowspan="2" class="form-input-cell">Fecha de inicio del cambio</th>
+                                <th rowspan="2" class="form-input-cell">Responsable (aprobador)</th>
+                                <th rowspan="2" class="form-wide-cell">Consecuencias potenciales de los cambios</th>
+                                <th rowspan="2" class="form-wide-cell">Planes de acción</th>
+                                <th rowspan="2" class="form-input-cell">Fecha de ejecución de los planes de acción</th>
+                                <th rowspan="2" class="form-input-cell">Responsable del plan de acción</th>
+                                <th rowspan="2" class="form-input-cell">Fecha de verificación</th>
+                                <th rowspan="2" class="form-wide-cell">Evidencias luego de aplicar los planes de acción</th>
+                                <th rowspan="2" class="form-input-cell">¿Se mantiene la integridad del sistema?</th>
+                                <th rowspan="2" class="form-input-cell">Fecha de cierre</th>
+                            </tr>
+                        </thead>
+                        <tbody id="formRows">
+                            <!-- As linhas serão geradas via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Botões para adicionar/remover linhas -->
+                <div class="action-buttons" style="margin-top: 20px; justify-content: center;">
+                    <button class="action-btn" id="addRowBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                        Agregar Fila
+                    </button>
+                    <button class="action-btn" id="removeRowBtn" style="background-color: #e53e3e;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        Eliminar Última Fila
+                    </button>
+                </div>
+                
+                <!-- Instrucciones de uso -->
+                <div class="form-instructions">
+                    <div class="instructions-title">Instrucciones para completar el formulario:</div>
+                    <ul class="instructions-list">
+                        <li><strong>Item:</strong> Número consecutivo de identificación del cambio.</li>
+                        <li><strong>Empresa:</strong> Nombre de la empresa o unidad organizacional donde se realiza el cambio.</li>
+                        <li><strong>Proceso:</strong> Proceso del SGC que es afectado por el cambio.</li>
+                        <li><strong>Descripción de los cambios:</strong> Detalle completo de las modificaciones a realizar.</li>
+                        <li><strong>Propósito de los cambios:</strong> Objetivo y justificación del cambio.</li>
+                        <li><strong>Asignación de responsabilidades:</strong> Personas responsables de implementar el cambio.</li>
+                        <li><strong>Recursos necesarios:</strong> Recursos humanos, materiales, financieros requeridos.</li>
+                        <li><strong>Fecha de inicio:</strong> Fecha planificada para iniciar el cambio.</li>
+                        <li><strong>Responsable (aprobador):</strong> Persona que autoriza el cambio.</li>
+                        <li><strong>Consecuencias potenciales:</strong> Impactos identificados del cambio en el sistema.</li>
+                        <li><strong>Planes de acción:</strong> Acciones definidas para mitigar consecuencias negativas.</li>
+                        <li><strong>Fecha de ejecución:</strong> Fecha para implementar los planes de acción.</li>
+                        <li><strong>Responsable del plan:</strong> Persona encargada de ejecutar los planes de acción.</li>
+                        <li><strong>Fecha de verificación:</strong> Fecha para verificar la efectividad del cambio.</li>
+                        <li><strong>Evidencias:</strong> Documentación que demuestra la implementación exitosa.</li>
+                        <li><strong>Integridad del sistema:</strong> Evaluación de si el cambio mantiene la integridad del SGC.</li>
+                        <li><strong>Fecha de cierre:</strong> Fecha en que se cierra formalmente el registro del cambio.</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección de firmas -->
+                <div class="signature-section">
+                    <div class="section-title">Autorizaciones y Firmas</div>
+                    <div class="signature-grid">
+                        <div class="signature-field">
+                            <div class="signature-label">SOLICITANTE DEL CAMBIO</div>
+                            <div class="signature-name" contenteditable="true">Nombre y Firma</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">ANALISTA DE IMPACTO</div>
+                            <div class="signature-name" contenteditable="true">Nombre y Firma</div>
+                        </div>
+                        <div class="signature-field">
+                            <div class="signature-label">APROBADOR FINAL</div>
+                            <div class="signature-name" contenteditable="true">Nombre y Firma</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody id="versionTableBody">
+                            <tr>
+                                <td contenteditable="true">000</td>
+                                <td contenteditable="true">01.12.2024</td>
+                                <td contenteditable="true">Original</td>
+                                <td contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="action-buttons" style="margin-top: 10px; justify-content: center;">
+                    <button class="action-btn" id="addVersionBtn" style="background-color: #38a169;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                        Agregar Versión
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p contenteditable="true">Código: FORM-026 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configuração inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO SGC</text></svg>';
+            };
+            
+            // Estado de edição
+            let editMode = true; // Inicia em modo de edição
+            
+            // Adiciona linhas iniciais
+            for (let i = 0; i < 5; i++) {
+                addFormRow(i + 1);
+            }
+            
+            // Configura botão de alternância de edição
+            const editToggle = document.getElementById('editToggle');
+            editToggle.addEventListener('click', toggleEditMode);
+            
+            // Configura botão de adicionar linha
+            const addRowBtn = document.getElementById('addRowBtn');
+            addRowBtn.addEventListener('click', function() {
+                const rows = document.querySelectorAll('#formRows tr');
+                addFormRow(rows.length + 1);
+            });
+            
+            // Configura botão de remover linha
+            const removeRowBtn = document.getElementById('removeRowBtn');
+            removeRowBtn.addEventListener('click', function() {
+                const rows = document.querySelectorAll('#formRows tr');
+                if (rows.length > 1) {
+                    rows[rows.length - 1].remove();
+                }
+            });
+            
+            // Configura botão de adicionar versão
+            const addVersionBtn = document.getElementById('addVersionBtn');
+            addVersionBtn.addEventListener('click', function() {
+                addVersionRow();
+            });
+            
+            // Configura botão de download
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.addEventListener('click', downloadDocument);
+        });
+        
+        // Adiciona uma nova linha ao formulário
+        function addFormRow(itemNumber) {
+            const formRows = document.getElementById('formRows');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" value="${itemNumber.toString().padStart(3, '0')}"></td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre empresa"></td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Proceso afectado"></td>
+                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;" placeholder="Descripción detallada del cambio"></textarea></td>
+                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;" placeholder="Objetivo del cambio"></textarea></td>
+                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;" placeholder="Responsabilidades asignadas"></textarea></td>
+                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;" placeholder="Recursos requeridos"></textarea></td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre responsable"></td>
+                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;" placeholder="Consecuencias identificadas"></textarea></td>
+                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;" placeholder="Planes de acción definidos"></textarea></td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="Nombre responsable"></td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+                <td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;" placeholder="Evidencias documentales"></textarea></td>
+                <td>
+                    <select style="width: 100%; border: none; text-align: center;">
+                        <option value="">Seleccionar</option>
+                        <option value="si">SÍ</option>
+                        <option value="no">NO</option>
+                    </select>
+                </td>
+                <td><input type="text" style="width: 100%; border: none; text-align: center;" placeholder="DD.MM.AAAA"></td>
+            `;
+            
+            formRows.appendChild(newRow);
+            
+            // Adiciona validação de data aos novos campos
+            const dateInputs = newRow.querySelectorAll('input[type="text"][placeholder*="DD.MM.AAAA"]');
+            dateInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = '';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.value && !this.value.match(/\d{2}\.\d{2}\.\d{4}/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Adiciona uma nova linha ao histórico de versões
+        function addVersionRow() {
+            const versionTableBody = document.getElementById('versionTableBody');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td contenteditable="true">001</td>
+                <td contenteditable="true">${getCurrentDate()}</td>
+                <td contenteditable="true">Modificación</td>
+                <td contenteditable="true">CEO</td>
+            `;
+            
+            versionTableBody.appendChild(newRow);
+        }
+        
+        // Obtém a data atual no formato DD.MM.AAAA
+        function getCurrentDate() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
+        
+        // Alterna o modo de edição
+        function toggleEditMode() {
+            const editToggle = document.getElementById('editToggle');
+            const editableElements = document.querySelectorAll('[contenteditable="true"]');
+            const formInputs = document.querySelectorAll('.form-table input, .form-table textarea, .form-table select');
+            
+            editMode = !editMode;
+            
+            // Alterna todos os elementos editáveis
+            editableElements.forEach(element => {
+                element.contentEditable = editMode;
+                if (editMode) {
+                    element.style.backgroundColor = '#f0f9ff';
+                    element.style.border = '1px dashed #3182ce';
+                } else {
+                    element.style.backgroundColor = '';
+                    element.style.border = '';
+                }
+            });
+            
+            // Alterna inputs do formulário
+            formInputs.forEach(input => {
+                input.disabled = !editMode;
+                if (editMode) {
+                    input.style.backgroundColor = '#f0f9ff';
+                    input.style.border = '1px dashed #3182ce';
+                } else {
+                    input.style.backgroundColor = '';
+                    input.style.border = 'none';
+                }
+            });
+            
+            // Atualiza o texto do botão
+            if (editMode) {
+                editToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                    </svg>
+                    Editar Todo
+                `;
+                editToggle.style.backgroundColor = '#805ad5';
+            } else {
+                editToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                    Modo Visualización
+                `;
+                editToggle.style.backgroundColor = '#38a169';
+            }
+        }
+        
+        // Download do documento
+        function downloadDocument() {
+            // Cria um clone do documento para preservar o estado atual
+            const container = document.querySelector('.document-container');
+            const clone = container.cloneNode(true);
+            
+            // Remove botões de ação do clone
+            const actionButtons = clone.querySelector('.action-buttons');
+            if (actionButtons) actionButtons.remove();
+            
+            // Remove atributos contenteditable do clone
+            const editableElements = clone.querySelectorAll('[contenteditable]');
+            editableElements.forEach(el => {
+                el.removeAttribute('contenteditable');
+            });
+            
+            // Habilita inputs desabilitados para o download
+            const disabledInputs = clone.querySelectorAll('input:disabled, textarea:disabled, select:disabled');
+            disabledInputs.forEach(input => {
+                input.disabled = false;
+            });
+            
+            // Remove estilos de edição
+            const editStyles = clone.querySelectorAll('[style*="border: 1px dashed"]');
+            editStyles.forEach(el => {
+                el.style.border = '';
+                el.style.backgroundColor = '';
+            });
+            
+            // Converte para HTML
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>FORM-026 Planificación de los Cambios - SGC</title>
+                    <style>
+                        ${document.querySelector('style').textContent}
+                    </style>
+                </head>
+                <body>
+                    ${clone.outerHTML}
+                </body>
+                </html>
+            `;
+            
+            // Cria blob e link para download
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FORM-026-Planificacion-de-los-Cambios-SGC.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
