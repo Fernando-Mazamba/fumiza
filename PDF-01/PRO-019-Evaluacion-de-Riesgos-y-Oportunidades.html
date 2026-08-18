@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-019 Evaluación de Riesgos y Oportunidades - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5c3e;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5c3e;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5c3e;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5c3e;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2c5c3e;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4a8c6d;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5c3e;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #1e3c2a;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 10px;
+            border-left: 4px solid #2c5c3e;
+        }
+        
+        .subsection-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c5c3e;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #2c5c3e;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .numbered-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+            counter-reset: item;
+        }
+        
+        .numbered-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            counter-increment: item;
+        }
+        
+        .numbered-list li:before {
+            content: counter(item) ".";
+            color: #2c5c3e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-container {
+            margin: 25px 0;
+        }
+        
+        .responsibility-item {
+            background-color: #f0f7ff;
+            border: 1px solid #c3d9ff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .responsibility-title {
+            color: #2c5c3e;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .hierarchy-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffd54f;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .hierarchy-title {
+            color: #92400e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .hierarchy-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            counter-reset: hierarchy-item;
+        }
+        
+        .hierarchy-list li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            padding-left: 60px;
+            counter-increment: hierarchy-item;
+        }
+        
+        .hierarchy-list li:before {
+            content: counter(hierarchy-item, decimal-leading-zero);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #f59e0b;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .records-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .records-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5c3e;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5c3e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .edit-btn, .print-btn, .download-btn {
+            background-color: #2c5c3e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-btn:hover, .print-btn:hover, .download-btn:hover {
+            background-color: #4a8c6d;
+        }
+        
+        .edit-btn.editing {
+            background-color: #d32f2f;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px;
+            transition: border 0.3s, background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .editable.editing {
+            border: 1px dashed #4a8c6d;
+            background-color: #fff8e1;
+            padding: 5px;
+            min-height: 20px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .edit-btn, .print-btn, .download-btn, .button-container {
+                display: none;
+            }
+            
+            .editable.editing {
+                border: none;
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .hierarchy-list li {
+                padding-left: 50px;
+            }
+            
+            .hierarchy-list li:before {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+            
+            .button-container {
+                flex-direction: column;
+            }
+            
+            .edit-btn, .print-btn, .download-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Evaluación de Riesgos y Oportunidades</div>
+        <div class="doc-code">Código: PRO-019</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">1. Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">2. Alcance</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">3. Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimientos" class="toc-link">4. Procedimientos</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                <div class="content-text editable">
+                    Establecer un procedimiento sistemático para identificar, evaluar y controlar los riesgos y oportunidades relacionados con la Seguridad y Salud Ocupacional (SSO), de acuerdo con los requisitos de la norma <strong>ISO 45001:2018</strong>. El objetivo es prevenir incidentes, mejorar continuamente las condiciones de trabajo y garantizar el cumplimiento legal y normativo.
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                <div class="content-text editable">
+                    Este procedimiento se aplica a todas las actividades, procesos, instalaciones y unidades operativas de la organización, incluyendo empleados, terceros, proveedores de servicios y visitantes que puedan verse afectados por los riesgos ocupacionales.
+                </div>
+            </div>
+            
+            <!-- Sección 3: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">3. Responsabilidades</div>
+                
+                <div class="responsibility-container">
+                    <div class="responsibility-item editable">
+                        <div class="responsibility-title">Alta Dirección:</div>
+                        <p>Asegurar la implementación y eficacia del procedimiento, proporcionando recursos y promoviendo una cultura de seguridad.</p>
+                    </div>
+                    
+                    <div class="responsibility-item editable">
+                        <div class="responsibility-title">Responsable del SGC:</div>
+                        <p>Coordinar y revisar periódicamente el proceso de evaluación de riesgos, garantizando el cumplimiento de la norma ISO 45001:2018.</p>
+                    </div>
+                    
+                    <div class="responsibility-item editable">
+                        <div class="responsibility-title">Gerentes de Área:</div>
+                        <p>Implementar y supervisar la aplicación de las medidas de control y garantizar que los procedimientos sean seguidos correctamente.</p>
+                    </div>
+                    
+                    <div class="responsibility-item editable">
+                        <div class="responsibility-title">Empleados:</div>
+                        <p>Cumplir con los procedimientos de seguridad, reportar condiciones inseguras y contribuir a la mejora continua.</p>
+                    </div>
+                    
+                    <div class="responsibility-item editable">
+                        <div class="responsibility-title">Comité Interno de Prevención de Accidentes (CIPA):</div>
+                        <p>Apoyar la identificación de peligros y proponer mejoras.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Procedimientos -->
+            <div class="section" id="procedimientos">
+                <div class="section-title">4. Procedimientos</div>
+                
+                <div class="procedure-box editable">
+                    <div class="procedure-title">4.1. Identificación de Peligros</div>
+                    <div class="content-text">
+                        La identificación de peligros se realizará a través de:
+                    </div>
+                    <ol class="numbered-list">
+                        <li>Inspecciones de seguridad periódicas;</li>
+                        <li>Observación directa de las actividades operativas;</li>
+                        <li>Consulta y participación activa de los empleados;</li>
+                        <li>Análisis de incidentes, cuasi accidentes y no conformidades;</li>
+                        <li>Revisión de requisitos legales y normativos;</li>
+                        <li>Uso de listas de verificación específicas para cada área de operación;</li>
+                        <li>Evaluación de riesgos ergonómicos, físicos, químicos, biológicos y psicosociales.</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection-title editable">4.2. Evaluación de Riesgos</div>
+                <div class="content-text editable">
+                    Una vez identificados los peligros, los riesgos serán clasificados según los siguientes criterios:
+                </div>
+                <ul class="bullet-list editable">
+                    <li><strong>Probabilidad:</strong> Baja, Media o Alta;</li>
+                    <li><strong>Severidad:</strong> Leve, Moderada o Grave;</li>
+                    <li><strong>Nivel de Riesgo:</strong> Determinado mediante una matriz de riesgo, definiendo la necesidad de acciones correctivas y preventivas.</li>
+                </ul>
+                
+                <div class="subsection-title editable">4.3. Implementación de Medidas de Control</div>
+                <div class="content-text editable">
+                    Las medidas de control deben seguir la jerarquía establecida:
+                </div>
+                
+                <div class="hierarchy-box editable">
+                    <div class="hierarchy-title">Jerarquía de Controles de SSO</div>
+                    <ol class="hierarchy-list">
+                        <li><strong>Eliminación:</strong> Eliminación total del peligro identificado;</li>
+                        <li><strong>Sustitución:</strong> Modificación de procesos, materiales o equipos para reducir el riesgo;</li>
+                        <li><strong>Controles de Ingeniería:</strong> Implementación de barreras físicas, confinamiento de procesos y mejoras estructurales;</li>
+                        <li><strong>Controles Administrativos:</strong> Procedimientos operacionales estandarizados, capacitaciones periódicas y rotación de funciones;</li>
+                        <li><strong>Equipos de Protección Personal (EPP):</strong> Uso de EPP certificados y adecuados para la actividad.</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection-title editable">4.4. Monitoreo y Revisión</div>
+                <ol class="numbered-list editable">
+                    <li>Realización de auditorías internas e inspecciones regulares;</li>
+                    <li>Revisión periódica de la matriz de riesgos y oportunidades;</li>
+                    <li>Recopilación de retroalimentación de los empleados para la mejora continua;</li>
+                    <li>Investigación detallada de incidentes e implementación de acciones correctivas;</li>
+                    <li>Monitoreo de los indicadores de desempeño en SSO.</li>
+                </ol>
+                
+                <div class="subsection-title editable">4.5. Registros y Evidencias</div>
+                <div class="content-text editable">
+                    Se deben mantener los siguientes registros para asegurar la trazabilidad y el cumplimiento normativo:
+                </div>
+                
+                <div class="records-box editable">
+                    <div class="records-title">Registros Obligatorios del Sistema SSO</div>
+                    <ul class="bullet-list">
+                        <li>Informes de inspección y auditoría;</li>
+                        <li>Registros de capacitaciones y entrenamientos;</li>
+                        <li>Planes de acción correctiva y preventiva;</li>
+                        <li>Informes de investigación de incidentes;</li>
+                        <li>Actas de reuniones de seguridad y CIPA;</li>
+                        <li>Indicadores de desempeño en SSO.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Botones de edición, impresión y descarga -->
+            <div class="button-container">
+                <button class="edit-btn" onclick="toggleEditMode()">✏️ Editar Documento</button>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+                <button class="download-btn" onclick="downloadDocument()">⬇️ Descargar Documento</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table editable">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-019 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let isEditMode = false;
+        
+        // Configurar elementos editables
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar contador para jerarquía
+            const hierarchyList = document.querySelector('.hierarchy-list');
+            if (hierarchyList) {
+                hierarchyList.style.counterReset = 'hierarchy-item';
+            }
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5c3e" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar elementos editables
+            setupEditableElements();
+        });
+        
+        // Función para configurar elementos editables
+        function setupEditableElements() {
+            const editableElements = document.querySelectorAll('.editable');
+            
+            editableElements.forEach(element => {
+                element.addEventListener('dblclick', function(e) {
+                    if (!isEditMode) return;
+                    
+                    if (this.matches('ul') || this.matches('ol') || this.matches('.hierarchy-box') || this.matches('.records-box')) {
+                        // Para listas y contenedores especiales, activar edición en items hijos
+                        const childElements = this.querySelectorAll('li, p, div:not(.hierarchy-title):not(.records-title)');
+                        childElements.forEach(child => {
+                            child.setAttribute('contenteditable', 'true');
+                            child.classList.add('editing');
+                        });
+                        
+                        // Mostrar mensaje de ayuda
+                        alert('Ahora puede editar los elementos de esta lista/contenedor. Haga clic fuera para guardar.');
+                    } else {
+                        // Para otros elementos, activar directamente
+                        this.setAttribute('contenteditable', 'true');
+                        this.classList.add('editing');
+                    }
+                });
+                
+                // Guardar cambios al perder el foco
+                element.addEventListener('blur', function() {
+                    console.log('Contenido actualizado:', this.innerHTML);
+                });
+            });
+        }
+        
+        // Función para activar/desactivar modo de edición
+        function toggleEditMode() {
+            const editBtn = document.querySelector('.edit-btn');
+            const editableElements = document.querySelectorAll('.editable');
+            
+            isEditMode = !isEditMode;
+            
+            if (isEditMode) {
+                // Activar modo edición
+                editBtn.innerHTML = '💾 Guardar Cambios';
+                editBtn.classList.add('editing');
+                
+                // Habilitar todos los elementos editables para doble clic
+                editableElements.forEach(element => {
+                    element.style.cursor = 'pointer';
+                    element.style.border = '1px dashed #4a8c6d';
+                    element.title = 'Doble clic para editar';
+                });
+                
+                alert('Modo de edición activado. Haga doble clic en cualquier texto para editarlo. Haga clic en "Guardar Cambios" cuando termine.');
+            } else {
+                // Desactivar modo edición
+                editBtn.innerHTML = '✏️ Editar Documento';
+                editBtn.classList.remove('editing');
+                
+                // Deshabilitar edición en todos los elementos
+                editableElements.forEach(element => {
+                    element.style.cursor = 'default';
+                    element.style.border = '1px dashed transparent';
+                    element.title = '';
+                    
+                    // Quitar contenteditable de todos los elementos
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                    
+                    // Quitar también de elementos hijos
+                    const childElements = element.querySelectorAll('[contenteditable="true"]');
+                    childElements.forEach(child => {
+                        child.removeAttribute('contenteditable');
+                        child.classList.remove('editing');
+                        child.style.border = '';
+                        child.style.padding = '';
+                        child.style.minHeight = '';
+                    });
+                });
+                
+                alert('Cambios guardados. El documento ya no es editable.');
+            }
+        }
+        
+        // Función para descargar el documento
+        function downloadDocument() {
+            // Clonar el documento
+            const documentClone = document.documentElement.cloneNode(true);
+            
+            // Remover los botones y scripts del clone
+            const buttons = documentClone.querySelectorAll('.button-container, .edit-btn, .print-btn, .download-btn');
+            buttons.forEach(button => button.remove());
+            
+            const scripts = documentClone.querySelectorAll('script');
+            scripts.forEach(script => script.remove());
+            
+            // Crear el contenido HTML
+            const htmlContent = documentClone.outerHTML;
+            
+            // Crear blob y link de descarga
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            const downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'PRO-019-evaluacion-riesgos-oportunidades-SGC.html';
+            
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            URL.revokeObjectURL(url);
+            
+            alert('Documento descargado como "PRO-019-evaluacion-riesgos-oportunidades-SGC.html"');
+        }
+        
+        // Función para verificar cambios en SGI -> SGC
+        function verifySGCChanges() {
+            const elementsToCheck = [
+                '.org-name',
+                '.content-text',
+                '.editable p',
+                '.editable li',
+                '.editable td',
+                '.responsibility-title'
+            ];
+            
+            let sgiCount = 0;
+            let sgcCount = 0;
+            
+            elementsToCheck.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    const text = element.textContent || element.innerHTML;
+                    if (text.includes('SGI') && !text.includes('SGC')) {
+                        sgiCount++;
+                        console.warn('SGI encontrado en:', element);
+                    } else if (text.includes('SGC')) {
+                        sgcCount++;
+                    }
+                });
+            });
+            
+            console.log(`SGI encontrados: ${sgiCount}, SGC encontrados: ${sgcCount}`);
+            
+            if (sgiCount > 0) {
+                console.warn('Aún se encontraron referencias a SGI en el documento.');
+            } else {
+                console.log('Todas las referencias han sido actualizadas a SGC correctamente.');
+            }
+        }
+        
+        // Verificar cambios cuando se carga la página
+        window.onload = function() {
+            verifySGCChanges();
+        };
+    </script>
+</body>
+</html>

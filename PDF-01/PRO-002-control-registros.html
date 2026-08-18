@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-002 - Control de Registros - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .document-editable {
+            outline: 2px dashed #4a5568;
+            outline-offset: -2px;
+        }
+        
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .control-btn:hover {
+            background-color: #718096;
+        }
+        
+        .edit-mode {
+            background-color: #38a169;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step::before {
+            content: counter(step-counter) ".";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .procedure-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .storage-box {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .storage-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .reference-box {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .reference-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        [contenteditable="true"] {
+            outline: 1px solid #4a5568;
+            background-color: rgba(74, 85, 104, 0.05);
+            padding: 2px 4px;
+            border-radius: 3px;
+            min-height: 20px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #38a169;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .notification button:hover {
+            opacity: 0.8;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .controls {
+                display: none;
+            }
+            
+            .procedure-step {
+                page-break-inside: avoid;
+            }
+            
+            [contenteditable="true"] {
+                outline: none;
+                background-color: transparent;
+                padding: 0;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .controls {
+                flex-direction: column;
+                right: 10px;
+                top: 10px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Controles de edición y download -->
+    <div class="controls">
+        <button class="control-btn" id="editToggle">
+            <span>✏️</span> <span id="editText">Editar Documento</span>
+        </button>
+        <button class="control-btn" id="downloadBtn">
+            <span>⬇️</span> Descargar
+        </button>
+        <button class="control-btn" id="resetBtn">
+            <span>🔄</span> Restablecer
+        </button>
+    </div>
+
+    <div class="document-container" id="documentContainer">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name editable" data-id="orgName">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable" data-id="issueDate">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable" data-id="preparedBy">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable" data-id="approvedBy">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable" data-id="version">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title editable" data-id="docTitle">Control de Registros</div>
+        <div class="doc-code editable" data-id="docCode">Código: PRO-002</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title editable" data-id="tocTitle">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link editable" data-id="toc1">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link editable" data-id="toc2">Alcance</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link editable" data-id="toc3">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link editable" data-id="toc4">Procedimiento</a></li>
+                    <li class="toc-item"><a href="#documentacion" class="toc-link editable" data-id="toc5">Documentación Relacionada</a></li>
+                    <li class="toc-item"><a href="#referencias" class="toc-link editable" data-id="toc6">Referencias Normativas</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link editable" data-id="toc7">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                
+                <div class="objective-box">
+                    <div class="objective-title editable" data-id="objectiveTitle">Propósito del Procedimiento</div>
+                    <p class="editable" data-id="objectiveText"><strong>El objetivo de este procedimiento es establecer las pautas para el control de los registros generados en el Sistema de Gestión de la Calidad (SGC)</strong>, conforme a los requisitos establecidos en las normativas ISO aplicables. Se busca garantizar la autenticidad, integridad, accesibilidad y retención adecuada de los registros como evidencia objetiva del desempeño del SGC.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                
+                <p class="editable" data-id="scopeText">Este procedimiento es aplicable a todos los registros generados dentro de la organización como parte del Sistema de Gestión de la Calidad (SGC), incluidos aquellos asociados a la calidad, el medio ambiente, la seguridad y la salud en el trabajo.</p>
+                
+                <div class="highlight-box">
+                    <p class="editable" data-id="scopeHighlight"><strong>Tipos de registros incluidos:</strong> Documentos de auditorías internas, inspecciones, pruebas, revisiones, evaluaciones de riesgos, actas de reunión, registros de capacitación, informes de no conformidades, acciones correctivas, y cualquier otro registro que proporcione evidencia del desempeño del Sistema de Gestión de la Calidad.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">3. Responsabilidades</div>
+                
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th class="editable" data-id="tableHeader1">Rol</th>
+                            <th class="editable" data-id="tableHeader2">Responsabilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" data-id="role1"><strong>Responsable de Calidad</strong></td>
+                            <td class="editable" data-id="responsibility1">Asegura que todos los registros del Sistema de Gestión de la Calidad sean gestionados de acuerdo con los requisitos normativos y las políticas internas, supervisando la implementación de este procedimiento.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" data-id="role2"><strong>Responsables de Área</strong></td>
+                            <td class="editable" data-id="responsibility2">Supervisan y garantizan que los registros generados en sus respectivas áreas sean completos, precisos y se mantengan de acuerdo con este procedimiento, reportando cualquier desviación al Responsable de Calidad.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" data-id="role3"><strong>Personal Administrativo</strong></td>
+                            <td class="editable" data-id="responsibility3">Se encarga de la conservación, archivo y disposición de los registros según lo establecido en este procedimiento, manteniendo el sistema de gestión documental actualizado.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" data-id="role4"><strong>Auditores Internos</strong></td>
+                            <td class="editable" data-id="responsibility4">Verifican la conformidad en la gestión de registros durante las auditorías internas del Sistema de Gestión de la Calidad, emitiendo hallazgos y recomendaciones para la mejora continua.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Procedimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title">4. Procedimiento</div>
+                
+                <p class="editable" data-id="procedureIntro">La organización implementa los siguientes pasos para el control efectivo de los registros del Sistema de Gestión de la Calidad:</p>
+                
+                <div class="procedure-container">
+                    <div class="procedure-step">
+                        <div class="procedure-title editable" data-id="step1Title">Generación de Registros</div>
+                        <div class="procedure-content">
+                            <p class="editable" data-id="step1Text">Los registros se generan como parte de las actividades del Sistema de Gestión de la Calidad, como resultado de procesos operativos, revisiones, auditorías, evaluaciones de riesgos, inspecciones, etc. Estos registros deben ser claros, legibles, completos y reflejar la evidencia objetiva de la actividad realizada.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title editable" data-id="step2Title">Identificación de Registros</div>
+                        <div class="procedure-content">
+                            <p class="editable" data-id="step2Text">Todos los registros se identifican de manera única, indicando la referencia del documento, fecha de emisión, tipo de registro y la persona responsable de su generación o validación. Esta identificación garantiza la trazabilidad y facilita la recuperación de la información.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title editable" data-id="step3Title">Accesibilidad y Almacenamiento de Registros</div>
+                        <div class="procedure-content">
+                            <div class="storage-box">
+                                <div class="storage-title editable" data-id="storage1Title">Registros Electrónicos</div>
+                                <p class="editable" data-id="storage1Text">Se almacenan en sistemas informáticos seguros, que permiten el acceso controlado y la protección de los datos mediante autenticación de usuarios y encriptación cuando sea necesario.</p>
+                            </div>
+                            
+                            <div class="storage-box">
+                                <div class="storage-title editable" data-id="storage2Title">Registros Físicos</div>
+                                <p class="editable" data-id="storage2Text">Se almacenan en lugares físicos seguros, con acceso restringido para proteger la integridad y confidencialidad de la información, utilizando archivos y armarios con control de acceso.</p>
+                            </div>
+                            
+                            <p class="editable" data-id="storageConclusion"><strong>En ambos casos, los registros están fácilmente accesibles para el personal autorizado</strong>, sin comprometer su seguridad y protección, cumpliendo con los principios de confidencialidad, integridad y disponibilidad.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title editable" data-id="step4Title">Protección de los Registros</div>
+                        <div class="procedure-content">
+                            <ul class="procedure-list">
+                                <li class="editable" data-id="protection1"><strong>Seguridad:</strong> Los registros se protegen contra daños, pérdidas, accesos no autorizados, alteraciones o destrucción accidental mediante controles físicos y lógicos.</li>
+                                <li class="editable" data-id="protection2"><strong>Copias de seguridad:</strong> Para los registros electrónicos, se establecen procedimientos de copia de seguridad periódica para evitar la pérdida de información crítica, almacenando las copias en ubicaciones seguras.</li>
+                                <li class="editable" data-id="protection3"><strong>Conservación:</strong> Los registros se conservan por un tiempo determinado según las normativas y las necesidades organizacionales, sin superar los plazos establecidos en el Plan de Retención de Registros.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title editable" data-id="step5Title">Retención y Eliminación de Registros</div>
+                        <div class="procedure-content">
+                            <div class="highlight-box">
+                                <p class="editable" data-id="retentionText"><strong>Períodos de Retención:</strong> Los registros se conservan por el tiempo que se requiera para cumplir con los requisitos legales, contractuales o de la organización. La duración de la retención de los registros está especificada en el Plan de Retención de Registros del Sistema de Gestión de la Calidad.</p>
+                            </div>
+                            
+                            <div class="highlight-box">
+                                <p class="editable" data-id="disposalText"><strong>Eliminación de Registros:</strong> Una vez transcurrido el período de retención, los registros se eliminan de manera segura y responsable, mediante destrucción física certificada (para registros en papel) o eliminación segura con sobreescritura (para registros electrónicos).</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title editable" data-id="step6Title">Revisión y Auditoría de Registros</div>
+                        <div class="procedure-content">
+                            <p class="editable" data-id="reviewText">Los registros se revisan y auditan periódicamente para verificar su integridad, accesibilidad y conformidad con los requisitos establecidos. Las auditorías internas se realizan para verificar el cumplimiento de este procedimiento y la efectividad en el control de los registros del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="reference-box">
+                                <div class="reference-title editable" data-id="reviewFrequencyTitle">Frecuencia de Revisión</div>
+                                <p class="editable" data-id="reviewFrequencyText">La revisión de registros se realiza al menos una vez al año como parte de la revisión por la dirección del Sistema de Gestión de la Calidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Documentación Relacionada -->
+            <div class="section" id="documentacion">
+                <div class="section-title">5. Documentación Relacionada</div>
+                
+                <ul class="procedure-list">
+                    <li class="editable" data-id="relatedDoc1">Política de Gestión de Registros del SGC</li>
+                    <li class="editable" data-id="relatedDoc2">Plan de Retención de Registros del SGC</li>
+                    <li class="editable" data-id="relatedDoc3">Procedimiento de Auditoría Interna (PRO-003)</li>
+                    <li class="editable" data-id="relatedDoc4">Procedimiento de Control de Información Documentada (PRO-001)</li>
+                    <li class="editable" data-id="relatedDoc5">Manual del Sistema de Gestión de la Calidad</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 6: Referencias Normativas -->
+            <div class="section" id="referencias">
+                <div class="section-title">6. Referencias Normativas</div>
+                
+                <div class="reference-box">
+                    <div class="reference-title editable" data-id="normativeTitle">Normas de Referencia</div>
+                    <ul class="procedure-list">
+                        <li class="editable" data-id="norm1"><strong>Normas ISO aplicables</strong> - Requisitos para sistemas de gestión (cláusula 7.5)</li>
+                        <li class="editable" data-id="norm2">Requisitos legales aplicables en materia de conservación documental</li>
+                        <li class="editable" data-id="norm3">Regulaciones específicas del sector sobre retención de registros</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th class="editable" data-id="versionHeader1">Versión</th>
+                                <th class="editable" data-id="versionHeader2">Fecha</th>
+                                <th class="editable" data-id="versionHeader3">Asiento</th>
+                                <th class="editable" data-id="versionHeader4">Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" data-id="version1Num">000</td>
+                                <td class="editable" data-id="version1Date">01.12.2024</td>
+                                <td class="editable" data-id="version1Note">Original</td>
+                                <td class="editable" data-id="version1Approval">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p class="editable" data-id="footerText">Código: PRO-002 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Guardar estado original do documento
+        const originalState = document.documentElement.innerHTML;
+        
+        // Estado de edição
+        let isEditing = false;
+        const editToggle = document.getElementById('editToggle');
+        const editText = document.getElementById('editText');
+        const documentContainer = document.getElementById('documentContainer');
+        
+        // Alternar modo de edição
+        editToggle.addEventListener('click', function() {
+            isEditing = !isEditing;
+            
+            if (isEditing) {
+                // Ativar modo edição
+                documentContainer.classList.add('document-editable');
+                editToggle.classList.add('edit-mode');
+                editText.textContent = 'Guardar Edición';
+                
+                // Tornar todos os elementos editáveis
+                document.querySelectorAll('.editable').forEach(element => {
+                    element.setAttribute('contenteditable', 'true');
+                });
+                
+                // Mostrar mensagem de ajuda
+                showNotification('Modo de edición activado. Haz clic en cualquier texto para editar.', 'info');
+            } else {
+                // Desativar modo edição
+                documentContainer.classList.remove('document-editable');
+                editToggle.classList.remove('edit-mode');
+                editText.textContent = 'Editar Documento';
+                
+                // Remover editável de todos os elementos
+                document.querySelectorAll('.editable').forEach(element => {
+                    element.removeAttribute('contenteditable');
+                });
+                
+                // Mostrar mensagem de confirmação
+                showNotification('Cambios guardados.', 'success');
+                
+                // Salvar no localStorage
+                saveToLocalStorage();
+            }
+        });
+        
+        // Função para descargar documento
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Criar um blob com o conteúdo HTML
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Criar link de descarga
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PRO-002-Control-Registros-SGC.html';
+            
+            // Adicionar ao documento e clicar
+            document.body.appendChild(a);
+            a.click();
+            
+            // Limpar
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Documento descargado correctamente.', 'success');
+        });
+        
+        // Função para restablecer documento ao original
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            if (confirm('¿Estás seguro de que quieres restablecer el documento a su estado original? Se perderán todos los cambios no guardados.')) {
+                document.documentElement.innerHTML = originalState;
+                showNotification('Documento restablecido al estado original.', 'info');
+            }
+        });
+        
+        // Salvar no localStorage
+        function saveToLocalStorage() {
+            const editableElements = document.querySelectorAll('.editable');
+            const savedContent = {};
+            
+            editableElements.forEach(element => {
+                const id = element.getAttribute('data-id');
+                if (id) {
+                    savedContent[id] = element.innerHTML;
+                }
+            });
+            
+            localStorage.setItem('pro002-saved-content', JSON.stringify(savedContent));
+        }
+        
+        // Carregar do localStorage
+        function loadFromLocalStorage() {
+            const savedContent = localStorage.getItem('pro002-saved-content');
+            
+            if (savedContent) {
+                const content = JSON.parse(savedContent);
+                
+                Object.keys(content).forEach(id => {
+                    const element = document.querySelector(`[data-id="${id}"]`);
+                    if (element) {
+                        element.innerHTML = content[id];
+                    }
+                });
+                
+                showNotification('Cambios previos cargados.', 'info');
+            }
+        }
+        
+        // Mostrar notificação
+        function showNotification(message, type) {
+            // Remover notificação anterior se existir
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Criar notificação
+            const notification = document.createElement('div');
+            notification.className = `notification`;
+            notification.style.backgroundColor = type === 'success' ? '#38a169' : '#4a5568';
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remover após 5 segundos
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+        
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter step-counter';
+            
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica se o logo existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA ORGANIZACIÓN</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                };
+            }
+            
+            // Carregar conteúdo salvo do localStorage
+            loadFromLocalStorage();
+            
+            // Substituir todas as referências de SGI para SGC
+            replaceSGIToSGC();
+        });
+        
+        // Função para substituir SGI por SGC
+        function replaceSGIToSGC() {
+            const elements = document.querySelectorAll('*:not(script):not(style)');
+            
+            elements.forEach(element => {
+                if (element.childNodes.length === 1 && element.childNodes[0].nodeType === Node.TEXT_NODE) {
+                    const text = element.textContent;
+                    if (text.includes('SGI') && !text.includes('ESGC')) {
+                        element.textContent = text.replace(/SGI/g, 'SGC');
+                    }
+                }
+            });
+            
+            // Substituir no título
+            document.title = document.title.replace('SGI', 'SGC');
+        }
+        
+        // Permitir tecla Esc para sair do modo de edição
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isEditing) {
+                editToggle.click();
+            }
+        });
+    </script>
+</body>
+</html>

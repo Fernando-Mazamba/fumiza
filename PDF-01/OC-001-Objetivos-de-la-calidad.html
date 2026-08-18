@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OC-001 Objetivos de la Calidad - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .objective-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: box-shadow 0.3s;
+        }
+        
+        .objective-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .objective-code {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .objective-code:before {
+            content: "🎯";
+            margin-right: 10px;
+        }
+        
+        .objective-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .meta-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #2c5282;
+        }
+        
+        .meta-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .meta-value {
+            color: #2d3748;
+            font-size: 16px;
+        }
+        
+        .policy-value {
+            color: #2c5282;
+            font-weight: bold;
+        }
+        
+        .indicator-details {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            margin-top: 15px;
+        }
+        
+        .indicator-title {
+            color: #4a5568;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .indicator-description {
+            color: #4a5568;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .calculation-box {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .formula {
+            font-family: 'Cambria', 'Times New Roman', serif;
+            font-size: 16px;
+            text-align: center;
+            color: #2d3748;
+        }
+        
+        .source {
+            font-style: italic;
+            color: #718096;
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #cbd5e0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .download-btn {
+            background-color: #1a365d;
+            color: white;
+        }
+        
+        .edit-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .objective-card {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .objective-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculation-box {
+                overflow-x: scroll;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* Estilos para modo edición */
+        .editable {
+            border: 1px dashed #cbd5e0 !important;
+        }
+        
+        .editing-mode {
+            background-color: #f0fff4;
+        }
+        
+        .editable-content {
+            padding: 8px;
+            border: 1px dashed #cbd5e0;
+            border-radius: 4px;
+            min-height: 30px;
+            outline: none;
+        }
+        
+        .editable-content:focus {
+            border-color: #2c5282;
+            background-color: #f0fff4;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="documentContent">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Objetivos de la Calidad - Sistema de Gestión de la Calidad</div>
+        <div class="doc-code">Código: OC-001</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#oc-001" class="toc-link">OC-001: Aumentar la Satisfacción del Cliente</a></li>
+                    <li class="toc-item"><a href="#oc-002" class="toc-link">OC-002: Garantizar el Cumplimiento Normativo y Legal</a></li>
+                    <li class="toc-item"><a href="#oc-003" class="toc-link">OC-003: Mejorar Continuamente los Procesos</a></li>
+                    <li class="toc-item"><a href="#oc-004" class="toc-link">OC-004: Incrementar la Eficiencia Operativa</a></li>
+                    <li class="toc-item"><a href="#oc-005" class="toc-link">OC-005: Fortalecer la Competencia y Formación del Personal</a></li>
+                    <li class="toc-item"><a href="#oc-006" class="toc-link">OC-006: Mejorar la Relación con Proveedores</a></li>
+                    <li class="toc-item"><a href="#oc-007" class="toc-link">OC-007: Asegurar una Comunicación Transparente y Eficaz</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="objective-card" style="background-color: #ebf8ff; border-left: 4px solid #4299e1;">
+                <div class="objective-code">OBJETIVOS DE CALIDAD DEL SGC</div>
+                <div class="editable-content" id="introduccion">
+                    Los siguientes objetivos de calidad han sido establecidos para asegurar la mejora continua del Sistema de Gestión de la Calidad (SGC) de la organización, alineados con la Política de Calidad y los requisitos de la norma ISO 9001:2015. Cada objetivo cuenta con indicadores medibles que permiten monitorear el desempeño y la eficacia del sistema de gestión.
+                </div>
+            </div>
+            
+            <!-- OC-001 -->
+            <div class="section" id="oc-001">
+                <div class="objective-card">
+                    <div class="objective-code">OC-001: Aumentar la Satisfacción del Cliente</div>
+                    
+                    <div class="objective-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">POLÍTICA RELACIONADA</div>
+                            <div class="meta-value policy-value editable-content" id="politica-001">Enfoque en el Cliente</div>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <div class="meta-label">INDICADOR PRINCIPAL</div>
+                            <div class="meta-value editable-content" id="indicador-001">Índice de Satisfacción del Cliente</div>
+                        </div>
+                    </div>
+                    
+                    <div class="indicator-details">
+                        <div class="indicator-title">Descripción del Indicador</div>
+                        <div class="indicator-description editable-content" id="descripcion-001">
+                            La organización evalúa de forma sistemática la percepción de los clientes sobre la calidad y conformidad de los productos y servicios proporcionados. Este indicador garantiza que no solo cumplimos con los requisitos establecidos, sino que superamos las expectativas de nuestros clientes, fortaleciendo su lealtad y confianza en nuestra organización.
+                        </div>
+                        
+                        <div class="indicator-title">Cálculo del Indicador</div>
+                        <div class="calculation-box">
+                            <div class="formula editable-content" id="formula-001">
+                                Índice de Satisfacción del Cliente (%) = (Número de Clientes Satisfechos / Total de Clientes Encuestados) × 100
+                            </div>
+                        </div>
+                        
+                        <div class="indicator-title">Metas Establecidas</div>
+                        <div class="indicator-description editable-content" id="metas-001">
+                            • Meta mínima aceptable: 85% de satisfacción<br>
+                            • Meta objetivo: 92% de satisfacción<br>
+                            • Meta de excelencia: 95% de satisfacción
+                        </div>
+                        
+                        <div class="source">
+                            <strong>Fuente del Indicador:</strong> 
+                            <span class="editable-content" id="fuente-001">
+                                Encuestas de satisfacción aplicadas tras la prestación del servicio o entrega de productos, complementadas con análisis de quejas, sugerencias y niveles de recompra.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OC-002 -->
+            <div class="section" id="oc-002">
+                <div class="objective-card">
+                    <div class="objective-code">OC-002: Garantizar el Cumplimiento Normativo y Legal</div>
+                    
+                    <div class="objective-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">POLÍTICA RELACIONADA</div>
+                            <div class="meta-value policy-value editable-content" id="politica-002">Calidad y Conformidad</div>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <div class="meta-label">INDICADOR PRINCIPAL</div>
+                            <div class="meta-value editable-content" id="indicador-002">Porcentaje de Cumplimiento Normativo</div>
+                        </div>
+                    </div>
+                    
+                    <div class="indicator-details">
+                        <div class="indicator-title">Descripción del Indicador</div>
+                        <div class="indicator-description editable-content" id="descripcion-002">
+                            La organización monitorea y garantiza el cumplimiento integral con todas las normas, regulaciones y estándares aplicables a sus productos, servicios y procesos. Este indicador refleja nuestro compromiso con la legalidad, ética empresarial y responsabilidad social corporativa.
+                        </div>
+                        
+                        <div class="indicator-title">Cálculo del Indicador</div>
+                        <div class="calculation-box">
+                            <div class="formula editable-content" id="formula-002">
+                                Porcentaje de Cumplimiento (%) = (Número de Procesos Cumpliendo Normas / Total de Procesos Auditados) × 100
+                            </div>
+                        </div>
+                        
+                        <div class="indicator-title">Metas Establecidas</div>
+                        <div class="indicator-description editable-content" id="metas-002">
+                            • Cumplimiento total: 100% en requisitos legales obligatorios<br>
+                            • Cumplimiento normativo voluntario: 95%<br>
+                            • Cero sanciones o multas por incumplimiento
+                        </div>
+                        
+                        <div class="source">
+                            <strong>Fuente del Indicador:</strong> 
+                            <span class="editable-content" id="fuente-002">
+                                Auditorías internas, revisiones externas, registros de cumplimiento legal y seguimiento de requisitos normativos.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OC-003 -->
+            <div class="section" id="oc-003">
+                <div class="objective-card">
+                    <div class="objective-code">OC-003: Mejorar Continuamente los Procesos</div>
+                    
+                    <div class="objective-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">POLÍTICA RELACIONADA</div>
+                            <div class="meta-value policy-value editable-content" id="politica-003">Mejora Continua</div>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <div class="meta-label">INDICADOR PRINCIPAL</div>
+                            <div class="meta-value editable-content" id="indicador-003">Número de Iniciativas de Mejora Implementadas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="indicator-details">
+                        <div class="indicator-title">Descripción del Indicador</div>
+                        <div class="indicator-description editable-content" id="descripcion-003">
+                            La organización mide su capacidad de innovación y optimización a través del número de iniciativas de mejora que implementa exitosamente. Estas iniciativas están orientadas a optimizar procesos, aumentar la eficiencia, reducir costos y garantizar una mayor satisfacción del cliente.
+                        </div>
+                        
+                        <div class="indicator-title">Cálculo del Indicador</div>
+                        <div class="calculation-box">
+                            <div class="formula editable-content" id="formula-003">
+                                Número de Iniciativas de Mejora = Total de Iniciativas Implementadas en el período
+                            </div>
+                        </div>
+                        
+                        <div class="indicator-title">Metas Establecidas</div>
+                        <div class="indicator-description editable-content" id="metas-003">
+                            • Mínimo 4 iniciativas de mejora por trimestre<br>
+                            • Al menos 2 iniciativas de mejora significativa por año<br>
+                            • 80% de las iniciativas deben demostrar impacto positivo medible
+                        </div>
+                        
+                        <div class="source">
+                            <strong>Fuente del Indicador:</strong> 
+                            <span class="editable-content" id="fuente-003">
+                                Registros del sistema de gestión de calidad (SGC), actas de reuniones de mejora y reportes de implementación de acciones correctivas/preventivas.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OC-004 -->
+            <div class="section" id="oc-004">
+                <div class="objective-card">
+                    <div class="objective-code">OC-004: Incrementar la Eficiencia Operativa</div>
+                    
+                    <div class="objective-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">POLÍTICA RELACIONADA</div>
+                            <div class="meta-value policy-value editable-content" id="politica-004">Eficiencia y Excelencia Operativa</div>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <div class="meta-label">INDICADOR PRINCIPAL</div>
+                            <div class="meta-value editable-content" id="indicador-004">Índice de Tareas Completadas a Tiempo</div>
+                        </div>
+                    </div>
+                    
+                    <div class="indicator-details">
+                        <div class="indicator-title">Descripción del Indicador</div>
+                        <div class="indicator-description editable-content" id="descripcion-004">
+                            La organización monitorea su capacidad para cumplir con los plazos establecidos en la entrega de servicios y productos. Este indicador es fundamental para reducir riesgos operativos, mantener la confianza de los clientes y optimizar la utilización de recursos.
+                        </div>
+                        
+                        <div class="indicator-title">Cálculo del Indicador</div>
+                        <div class="calculation-box">
+                            <div class="formula editable-content" id="formula-004">
+                                Índice de Cumplimiento de Plazos (%) = (Número de Tareas Finalizadas a Tiempo / Total de Tareas Realizadas) × 100
+                            </div>
+                        </div>
+                        
+                        <div class="indicator-title">Metas Establecidas</div>
+                        <div class="indicator-description editable-content" id="metas-004">
+                            • Cumplimiento mínimo: 90% de las tareas dentro del plazo<br>
+                            • Objetivo operativo: 95% de cumplimiento de plazos<br>
+                            • Proyectos críticos: 100% de cumplimiento en entregas clave
+                        </div>
+                        
+                        <div class="source">
+                            <strong>Fuente del Indicador:</strong> 
+                            <span class="editable-content" id="fuente-004">
+                                Registros operativos de tiempos de entrega, sistemas de planificación de proyectos y reportes de avance de actividades.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OC-005 -->
+            <div class="section" id="oc-005">
+                <div class="objective-card">
+                    <div class="objective-code">OC-005: Fortalecer la Competencia y Formación del Personal</div>
+                    
+                    <div class="objective-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">POLÍTICA RELACIONADA</div>
+                            <div class="meta-value policy-value editable-content" id="politica-005">Desarrollo del Personal</div>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <div class="meta-label">INDICADOR PRINCIPAL</div>
+                            <div class="meta-value editable-content" id="indicador-005">Porcentaje de Personal Capacitado</div>
+                        </div>
+                    </div>
+                    
+                    <div class="indicator-details">
+                        <div class="indicator-title">Descripción del Indicador</div>
+                        <div class="indicator-description editable-content" id="descripcion-005">
+                            La organización evalúa la proporción de empleados que reciben capacitación adecuada para garantizar que poseen las competencias necesarias para cumplir con los estándares de calidad. Este indicador refleja nuestra inversión en capital humano y nuestro compromiso con la excelencia profesional.
+                        </div>
+                        
+                        <div class="indicator-title">Cálculo del Indicador</div>
+                        <div class="calculation-box">
+                            <div class="formula editable-content" id="formula-005">
+                                Porcentaje de Personal Capacitado (%) = (Número de Empleados Capacitados / Total de Empleados) × 100
+                            </div>
+                        </div>
+                        
+                        <div class="indicator-title">Metas Establecidas</div>
+                        <div class="indicator-description editable-content" id="metas-005">
+                            • 100% del personal recibe capacitación básica en el SGC<br>
+                            • 80% del personal recibe capacitación específica anual<br>
+                            • 40 horas anuales de formación por empleado en promedio
+                        </div>
+                        
+                        <div class="source">
+                            <strong>Fuente del Indicador:</strong> 
+                            <span class="editable-content" id="fuente-005">
+                                Registros de capacitación del personal, planes de desarrollo individual y certificados de formación.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OC-006 -->
+            <div class="section" id="oc-006">
+                <div class="objective-card">
+                    <div class="objective-code">OC-006: Mejorar la Relación con Proveedores</div>
+                    
+                    <div class="objective-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">POLÍTICA RELACIONADA</div>
+                            <div class="meta-value policy-value editable-content" id="politica-006">Gestión de Proveedores</div>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <div class="meta-label">INDICADOR PRINCIPAL</div>
+                            <div class="meta-value editable-content" id="indicador-006">Índice de Desempeño de Proveedores</div>
+                        </div>
+                    </div>
+                    
+                    <div class="indicator-details">
+                        <div class="indicator-title">Descripción del Indicador</div>
+                        <div class="indicator-description editable-content" id="descripcion-006">
+                            La organización mide el nivel de cumplimiento de los proveedores en cuanto a calidad, tiempos de entrega y conformidad con los requisitos establecidos. Este indicador permite gestionar proactivamente la cadena de suministro y asegurar la calidad de los insumos y servicios externos.
+                        </div>
+                        
+                        <div class="indicator-title">Cálculo del Indicador</div>
+                        <div class="calculation-box">
+                            <div class="formula editable-content" id="formula-006">
+                                Índice de Desempeño de Proveedores (%) = (Proveedores Evaluados Positivamente / Total de Proveedores Evaluados) × 100
+                            </div>
+                        </div>
+                        
+                        <div class="indicator-title">Metas Establecidas</div>
+                        <div class="indicator-description editable-content" id="metas-006">
+                            • 90% de proveedores con evaluación positiva<br>
+                            • Reducción del 20% en incidencias con proveedores<br>
+                            • 100% de proveedores críticos certificados o evaluados anualmente
+                        </div>
+                        
+                        <div class="source">
+                            <strong>Fuente del Indicador:</strong> 
+                            <span class="editable-content" id="fuente-006">
+                                Evaluaciones y auditorías de desempeño de proveedores, registros de no conformidades y reportes de calidad de materiales/servicios recibidos.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OC-007 -->
+            <div class="section" id="oc-007">
+                <div class="objective-card">
+                    <div class="objective-code">OC-007: Asegurar una Comunicación Transparente y Eficaz</div>
+                    
+                    <div class="objective-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">POLÍTICA RELACIONADA</div>
+                            <div class="meta-value policy-value editable-content" id="politica-007">Comunicación Efectiva</div>
+                        </div>
+                        
+                        <div class="meta-item">
+                            <div class="meta-label">INDICADOR PRINCIPAL</div>
+                            <div class="meta-value editable-content" id="indicador-007">Índice de Comunicación Eficaz</div>
+                        </div>
+                    </div>
+                    
+                    <div class="indicator-details">
+                        <div class="indicator-title">Descripción del Indicador</div>
+                        <div class="indicator-description editable-content" id="descripcion-007">
+                            La organización monitorea la eficacia de las comunicaciones internas y externas, asegurando que la información llegue de manera clara, oportuna y comprensiva a todas las partes interesadas. Este indicador es esencial para la coordinación, toma de decisiones y cultura organizacional.
+                        </div>
+                        
+                        <div class="indicator-title">Cálculo del Indicador</div>
+                        <div class="calculation-box">
+                            <div class="formula editable-content" id="formula-007">
+                                Índice de Comunicación Eficaz (%) = (Comunicación Validada como Efectiva / Total de Comunicaciones Realizadas) × 100
+                            </div>
+                        </div>
+                        
+                        <div class="indicator-title">Metas Establecidas</div>
+                        <div class="indicator-description editable-content" id="metas-007">
+                            • 90% de efectividad en comunicaciones críticas<br>
+                            • Reducción del 50% en malentendidos por comunicación<br>
+                            • 100% de los empleados reciben información relevante en tiempo adecuado
+                        </div>
+                        
+                        <div class="source">
+                            <strong>Fuente del Indicador:</strong> 
+                            <span class="editable-content" id="fuente-007">
+                                Encuestas internas y externas sobre eficacia comunicativa, análisis de retroalimentación y evaluación de comprensión de mensajes clave.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botones de ação -->
+            <div class="action-buttons">
+                <button class="btn edit-btn" id="toggleEditBtn">📝 Habilitar Edición</button>
+                <button class="btn download-btn" id="downloadBtn">💾 Descargar PDF</button>
+                <button class="btn print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: OC-001 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Control de edição
+            const editBtn = document.getElementById('toggleEditBtn');
+            let editMode = false;
+            
+            editBtn.addEventListener('click', function() {
+                editMode = !editMode;
+                
+                if (editMode) {
+                    // Ativar modo edição
+                    this.textContent = '🔒 Deshabilitar Edición';
+                    this.classList.remove('edit-btn');
+                    this.classList.add('print-btn');
+                    
+                    // Habilitar edição em todos os campos de conteúdo
+                    document.querySelectorAll('.editable-content').forEach(field => {
+                        field.setAttribute('contenteditable', 'true');
+                        field.classList.add('editing-mode');
+                    });
+                    
+                    // Adicionar classe ao container para indicar modo edição
+                    document.querySelector('.document-container').classList.add('editing-mode');
+                    
+                } else {
+                    // Desativar modo edição
+                    this.textContent = '📝 Habilitar Edición';
+                    this.classList.remove('print-btn');
+                    this.classList.add('edit-btn');
+                    
+                    // Desabilitar edição
+                    document.querySelectorAll('.editable-content').forEach(field => {
+                        field.setAttribute('contenteditable', 'false');
+                        field.classList.remove('editing-mode');
+                    });
+                    
+                    // Salvar dados
+                    saveData();
+                    
+                    // Remover classe do container
+                    document.querySelector('.document-container').classList.remove('editing-mode');
+                }
+            });
+            
+            // Download como PDF
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            downloadBtn.addEventListener('click', function() {
+                // Verificar se as bibliotecas estão disponíveis
+                if (typeof html2canvas === 'undefined' || typeof jsPDF === 'undefined') {
+                    // Mostrar mensagem discreta
+                    const message = document.createElement('div');
+                    message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #2c5282; color: white; padding: 15px; border-radius: 5px; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 300px;';
+                    message.innerHTML = `
+                        <p style="margin: 0 0 10px 0; font-weight: bold;">Para descargar como PDF:</p>
+                        <div style="font-size: 12px; line-height: 1.4;">
+                            <p style="margin: 0 0 5px 0;">Agregar estas librerías:</p>
+                            <code style="display: block; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                                &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"&gt;&lt;/script&gt;
+                            </code>
+                            <code style="display: block; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 3px; margin-bottom: 10px; font-size: 11px;">
+                                &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"&gt;&lt;/script&gt;
+                            </code>
+                        </div>
+                        <button onclick="this.parentElement.remove()" style="background: white; color: #2c5282; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 12px;">Cerrar</button>
+                    `;
+                    document.body.appendChild(message);
+                    
+                    // Remover após 10 segundos
+                    setTimeout(() => {
+                        if (message.parentElement) {
+                            message.remove();
+                        }
+                    }, 10000);
+                    
+                    // Usar impressão como fallback
+                    setTimeout(() => {
+                        window.print();
+                    }, 100);
+                    
+                    return;
+                }
+                
+                // Desativar temporariamente o modo de edição para impressão
+                const wasEditMode = editMode;
+                if (editMode) {
+                    editMode = false;
+                    editBtn.click();
+                }
+                
+                // Usar html2canvas para capturar o conteúdo
+                html2canvas(document.querySelector('.document-container')).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    pdf.save('OC-001-Objetivos-de-la-Calidad.pdf');
+                    
+                    // Restaurar modo de edição se estava ativo
+                    if (wasEditMode) {
+                        setTimeout(() => {
+                            editMode = true;
+                            editBtn.click();
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Salvar dados localmente
+            function saveData() {
+                const formData = {};
+                
+                // Coletar dados de todos os campos editáveis
+                document.querySelectorAll('.editable-content').forEach(field => {
+                    if (field.id) {
+                        formData[field.id] = field.innerHTML;
+                    }
+                });
+                
+                localStorage.setItem('OC-001-data', JSON.stringify(formData));
+            }
+            
+            // Carregar dados salvos
+            function loadData() {
+                const savedData = localStorage.getItem('OC-001-data');
+                if (savedData) {
+                    const formData = JSON.parse(savedData);
+                    
+                    Object.keys(formData).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.innerHTML = formData[key];
+                        }
+                    });
+                }
+            }
+            
+            // Auto-salvar quando o usuário edita
+            document.addEventListener('input', function(e) {
+                if (e.target.classList.contains('editable-content') && editMode) {
+                    saveData();
+                }
+            });
+            
+            // Carregar dados ao iniciar
+            loadData();
+            
+            // Inicializar tooltip para botões
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

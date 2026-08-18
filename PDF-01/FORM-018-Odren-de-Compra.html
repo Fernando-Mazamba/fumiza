@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-018 Orden de Compra del SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .order-info {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .items-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+        }
+        
+        .items-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .items-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .items-table tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .add-item-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .add-item-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .total-section {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+            text-align: right;
+        }
+        
+        .total-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+        }
+        
+        .conditions-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .condition-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .condition-item:last-child {
+            border-bottom: none;
+        }
+        
+        .condition-title {
+            font-weight: bold;
+            color: #276749;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .approval-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .approval-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .approval-block {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .approval-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .signature-line {
+            height: 1px;
+            background-color: #cbd5e0;
+            margin: 20px 0;
+        }
+        
+        .observations-section {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .observations-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .observations-textarea:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .print-btn, .save-btn, .calculate-btn, .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .calculate-btn {
+            background-color: #3182ce;
+        }
+        
+        .download-btn {
+            background-color: #805ad5;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .calculate-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .download-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .save-btn, .calculate-btn, .add-item-btn, .download-btn {
+                display: none;
+            }
+            
+            .items-table {
+                page-break-inside: avoid;
+            }
+            
+            .form-input, .observations-textarea {
+                border: 1px solid #999;
+                background-color: #f9f9f9;
+            }
+            
+            .form-input[type="date"] {
+                background-color: #f9f9f9;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .items-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .approval-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        /* Estilo para inputs no modo de impressão */
+        .print-only-value {
+            display: none;
+        }
+        
+        @media print {
+            .form-input, .observations-textarea, select {
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            }
+            
+            .form-input {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            
+            .print-only-value {
+                display: block;
+                padding: 3px 0;
+                min-height: 20px;
+            }
+            
+            .form-input, .observations-textarea, select {
+                display: none !important;
+            }
+            
+            .editable-field {
+                position: relative;
+            }
+            
+            .editable-field::after {
+                content: attr(data-print-value);
+                display: block;
+                padding: 3px 0;
+                min-height: 20px;
+                border-bottom: 1px dotted #ccc;
+            }
+        }
+        
+        /* Estilo para edição completa */
+        .editable-field {
+            position: relative;
+        }
+        
+        .edit-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: rgba(74, 85, 104, 0.1);
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px 5px;
+            display: none;
+        }
+        
+        .editable-field:hover .edit-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="document-content">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable-field" data-field="fecha-emision-doc" data-print-value="01.12.2024">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable-field" data-field="elabora" data-print-value="ESGC">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable-field" data-field="aprueba" data-print-value="CEO">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable-field" data-field="version" data-print-value="000">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Orden de Compra del Sistema de Gestión de la Calidad (SGC)</div>
+        <div class="doc-code">Código: FORM-018-SGC</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Información de la orden -->
+            <div class="section">
+                <div class="section-title">Información de la Orden de Compra</div>
+                
+                <div class="order-info">
+                    <div class="info-grid">
+                        <div>
+                            <div class="form-field">
+                                <label class="form-label">Número de Orden de Compra (OC):</label>
+                                <input type="text" class="form-input" id="numero-oc" value="OC-0001" placeholder="Ej: OC-0001">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Fecha de Emisión:</label>
+                                <input type="date" class="form-input" id="fecha-emision">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Responsable de la Compra:</label>
+                                <input type="text" class="form-input" id="responsable-compra" placeholder="Nombre del responsable">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-field">
+                                <label class="form-label">Proveedor/Subcontratista:</label>
+                                <input type="text" class="form-input" id="proveedor" placeholder="Nombre del proveedor">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Teléfono de Contacto:</label>
+                                <input type="tel" class="form-input" id="telefono-proveedor" placeholder="Teléfono del proveedor">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Correo Electrónico:</label>
+                                <input type="email" class="form-input" id="email-proveedor" placeholder="Correo del proveedor">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field" style="margin-top: 15px;">
+                        <label class="form-label">Dirección del Proveedor:</label>
+                        <input type="text" class="form-input" id="direccion-proveedor" placeholder="Dirección completa del proveedor">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Productos/Servicios -->
+            <div class="section">
+                <div class="section-title">Descripción del Producto o Servicio</div>
+                
+                <table class="items-table" id="items-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">Ítem</th>
+                            <th style="width: 35%;">Descripción</th>
+                            <th style="width: 10%;">Cantidad</th>
+                            <th style="width: 10%;">Unidad de Medida</th>
+                            <th style="width: 15%;">Precio Unitario</th>
+                            <th style="width: 15%;">Precio Total</th>
+                            <th style="width: 10%;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-body">
+                        <tr class="item-row">
+                            <td>1</td>
+                            <td>
+                                <input type="text" class="form-input item-desc" placeholder="Descripción detallada del producto/servicio">
+                            </td>
+                            <td>
+                                <input type="number" class="form-input item-qty" min="1" value="1" onchange="calcularTotalItem(this)">
+                            </td>
+                            <td>
+                                <select class="form-input item-unit">
+                                    <option value="">Seleccionar</option>
+                                    <option value="unidad">Unidad</option>
+                                    <option value="kg">Kilogramo (kg)</option>
+                                    <option value="l">Litro (l)</option>
+                                    <option value="m">Metro (m)</option>
+                                    <option value="m2">Metro cuadrado (m²)</option>
+                                    <option value="m3">Metro cúbico (m³)</option>
+                                    <option value="hr">Hora (hr)</option>
+                                    <option value="dia">Día</option>
+                                    <option value="servicio">Servicio</option>
+                                    <option value="paquete">Paquete</option>
+                                    <option value="caja">Caja</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-input item-price" min="0" step="0.01" value="0" onchange="calcularTotalItem(this)">
+                            </td>
+                            <td>
+                                <div class="item-total">0.00</div>
+                                <input type="hidden" class="item-total-value" value="0">
+                            </td>
+                            <td>
+                                <button type="button" class="remove-item-btn" onclick="removerItem(this)" style="background-color: #e53e3e; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">X</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button type="button" class="add-item-btn" onclick="agregarItem()">
+                    ➕ Agregar Ítem
+                </button>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="calculate-btn" onclick="calcularTotalGeneral()">📊 Calcular Total General</button>
+                </div>
+            </div>
+            
+            <!-- Total general -->
+            <div class="section">
+                <div class="section-title">Total General</div>
+                
+                <div class="total-section">
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-size: 18px; color: #4a5568;">Total de la Orden:</span>
+                    </div>
+                    <div class="total-amount" id="total-general">0.00</div>
+                    <div style="margin-top: 10px; color: #666; font-size: 14px;">
+                        <div id="currency-selector" style="display: inline-block; margin-right: 20px;">
+                            <label style="margin-right: 10px;">Moneda:</label>
+                            <select class="form-input" id="currency" style="width: auto; display: inline-block;" onchange="actualizarMoneda()">
+                                <option value="PYG">Guaraníes (PYG)</option>
+                                <option value="USD">Dólares (USD)</option>
+                                <option value="EUR">Euros (EUR)</option>
+                                <option value="BRL">Reales (BRL)</option>
+                                <option value="ARS">Pesos Argentinos (ARS)</option>
+                            </select>
+                        </div>
+                        <div id="exchange-rate" style="display: inline-block;">
+                            <label style="margin-right: 10px;">Tipo de cambio (opcional):</label>
+                            <input type="number" class="form-input" id="exchange-rate-input" style="width: 100px; display: inline-block;" placeholder="1.00" step="0.0001" min="0" onchange="actualizarMoneda()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Condiciones de compra -->
+            <div class="section">
+                <div class="section-title">Condiciones de Compra</div>
+                
+                <div class="conditions-section">
+                    <div class="condition-item">
+                        <div class="condition-title">
+                            <span>📅</span>
+                            <span>1. Plazo de Entrega:</span>
+                        </div>
+                        <input type="text" class="form-input" id="plazo-entrega" placeholder="Ej: 15 días hábiles a partir de la fecha de orden">
+                    </div>
+                    
+                    <div class="condition-item">
+                        <div class="condition-title">
+                            <span>📍</span>
+                            <span>2. Lugar de Entrega:</span>
+                        </div>
+                        <input type="text" class="form-input" id="lugar-entrega" placeholder="Dirección donde se entregarán los productos o servicios">
+                    </div>
+                    
+                    <div class="condition-item">
+                        <div class="condition-title">
+                            <span>💰</span>
+                            <span>3. Condiciones de Pago:</span>
+                        </div>
+                        <textarea class="observations-textarea" id="condiciones-pago" placeholder="Especificar el método y términos de pago: crédito, transferencia, etc."></textarea>
+                    </div>
+                    
+                    <div class="condition-item">
+                        <div class="condition-title">
+                            <span>🛡️</span>
+                            <span>4. Garantía:</span>
+                        </div>
+                        <textarea class="observations-textarea" id="garantia" placeholder="Duración y condiciones de la garantía, si aplica"></textarea>
+                    </div>
+                    
+                    <div class="condition-item">
+                        <div class="condition-title">
+                            <span>📋</span>
+                            <span>5. Requisitos Normativos:</span>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <p style="font-size: 14px; color: #666; margin-bottom: 10px;">Seleccione las normas aplicables:</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px;">
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <input type="checkbox" id="iso-9001" checked>
+                                    <label for="iso-9001" style="font-size: 14px;">ISO 9001:2015</label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <input type="checkbox" id="iso-14001">
+                                    <label for="iso-14001" style="font-size: 14px;">ISO 14001:2015</label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <input type="checkbox" id="iso-45001">
+                                    <label for="iso-45001" style="font-size: 14px;">ISO 45001:2015</label>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea class="observations-textarea" id="requisitos-normativos" placeholder="Cualquier norma o especificación que el producto/servicio debe cumplir"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Aprobaciones -->
+            <div class="section">
+                <div class="section-title">Aprobaciones</div>
+                
+                <div class="approval-section">
+                    <div class="approval-grid">
+                        <div class="approval-block">
+                            <div class="approval-title">Emitido por:</div>
+                            <div class="form-field">
+                                <label class="form-label">Nombre:</label>
+                                <input type="text" class="form-input" id="nombre-emisor" placeholder="Nombre del responsable que emite la orden">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Cargo:</label>
+                                <input type="text" class="form-input" id="cargo-emisor" placeholder="Cargo del emisor">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Firma:</label>
+                                <div class="signature-line"></div>
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Fecha:</label>
+                                <input type="date" class="form-input" id="fecha-emisor">
+                            </div>
+                        </div>
+                        
+                        <div class="approval-block">
+                            <div class="approval-title">Aprobado por:</div>
+                            <div class="form-field">
+                                <label class="form-label">Nombre:</label>
+                                <input type="text" class="form-input" id="nombre-aprobador" placeholder="Nombre del aprobador">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Cargo:</label>
+                                <input type="text" class="form-input" id="cargo-aprobador" placeholder="Cargo del aprobador">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Firma:</label>
+                                <div class="signature-line"></div>
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Fecha:</label>
+                                <input type="date" class="form-input" id="fecha-aprobador">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Observaciones -->
+            <div class="section">
+                <div class="section-title">Observaciones Adicionales</div>
+                
+                <div class="observations-section">
+                    <textarea class="observations-textarea" id="observaciones" placeholder="Espacio para incluir cualquier observación o instrucción especial relacionada con la orden de compra."></textarea>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="save-btn" onclick="guardarOrden()">💾 Guardar Orden</button>
+                <button class="download-btn" onclick="descargarDocumento()">📥 Descargar Documento</button>
+                <button class="print-btn" onclick="imprimirDocumento()">📄 Imprimir Documento</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-018-SGC | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar fecha actual por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('fecha-emision').value = formattedDate;
+            document.getElementById('fecha-emisor').value = formattedDate;
+            document.getElementById('fecha-aprobador').value = formattedDate;
+            
+            // Generar número de OC automático
+            generarNumeroOC();
+            
+            // Inicializar campos editáveis
+            inicializarCamposEditables();
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">SISTEMA DE GESTIÓN DE CALIDAD</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Usando placeholder.");
+            };
+        });
+        
+        // Inicializar campos editáveis
+        function inicializarCamposEditables() {
+            const camposEditables = document.querySelectorAll('.editable-field');
+            camposEditables.forEach(campo => {
+                campo.addEventListener('click', function() {
+                    const campoActual = this;
+                    const valorOriginal = campoActual.textContent;
+                    const fieldName = campoActual.getAttribute('data-field');
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = valorOriginal;
+                    input.className = 'form-input';
+                    input.style.width = '100%';
+                    
+                    campoActual.textContent = '';
+                    campoActual.appendChild(input);
+                    input.focus();
+                    
+                    input.addEventListener('blur', function() {
+                        const nuevoValor = input.value;
+                        campoActual.textContent = nuevoValor;
+                        campoActual.setAttribute('data-print-value', nuevoValor);
+                    });
+                    
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            input.blur();
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Generar número de orden de compra
+        function generarNumeroOC() {
+            const timestamp = new Date().getTime();
+            const randomNum = Math.floor(Math.random() * 1000);
+            const ocNumber = `OC-SGC-${timestamp.toString().slice(-4)}-${randomNum.toString().padStart(3, '0')}`;
+            document.getElementById('numero-oc').value = ocNumber;
+        }
+        
+        // Variables para control de ítems
+        let itemCounter = 1;
+        
+        // Agregar nuevo ítem
+        function agregarItem() {
+            itemCounter++;
+            const itemsBody = document.getElementById('items-body');
+            
+            const newRow = document.createElement('tr');
+            newRow.className = 'item-row';
+            newRow.innerHTML = `
+                <td>${itemCounter}</td>
+                <td>
+                    <input type="text" class="form-input item-desc" placeholder="Descripción detallada del producto/servicio">
+                </td>
+                <td>
+                    <input type="number" class="form-input item-qty" min="1" value="1" onchange="calcularTotalItem(this)">
+                </td>
+                <td>
+                    <select class="form-input item-unit">
+                        <option value="">Seleccionar</option>
+                        <option value="unidad">Unidad</option>
+                        <option value="kg">Kilogramo (kg)</option>
+                        <option value="l">Litro (l)</option>
+                        <option value="m">Metro (m)</option>
+                        <option value="m2">Metro cuadrado (m²)</option>
+                        <option value="m3">Metro cúbico (m³)</option>
+                        <option value="hr">Hora (hr)</option>
+                        <option value="dia">Día</option>
+                        <option value="servicio">Servicio</option>
+                        <option value="paquete">Paquete</option>
+                        <option value="caja">Caja</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-input item-price" min="0" step="0.01" value="0" onchange="calcularTotalItem(this)">
+                </td>
+                <td>
+                    <div class="item-total">0.00</div>
+                    <input type="hidden" class="item-total-value" value="0">
+                </td>
+                <td>
+                    <button type="button" class="remove-item-btn" onclick="removerItem(this)" style="background-color: #e53e3e; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">X</button>
+                </td>
+            `;
+            
+            itemsBody.appendChild(newRow);
+        }
+        
+        // Remover ítem
+        function removerItem(button) {
+            const row = button.closest('tr');
+            if (document.querySelectorAll('.item-row').length > 1) {
+                row.remove();
+                reenumerarItems();
+                calcularTotalGeneral();
+            } else {
+                alert('Debe haber al menos un ítem en la orden.');
+            }
+        }
+        
+        // Reenumerar ítems después de eliminar
+        function reenumerarItems() {
+            const rows = document.querySelectorAll('.item-row');
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1;
+            });
+            itemCounter = rows.length;
+        }
+        
+        // Calcular total por ítem
+        function calcularTotalItem(input) {
+            const row = input.closest('tr');
+            const quantity = parseFloat(row.querySelector('.item-qty').value) || 0;
+            const price = parseFloat(row.querySelector('.item-price').value) || 0;
+            const total = quantity * price;
+            
+            const totalElement = row.querySelector('.item-total');
+            const totalValueInput = row.querySelector('.item-total-value');
+            
+            totalElement.textContent = total.toFixed(2);
+            totalValueInput.value = total.toFixed(2);
+            
+            calcularTotalGeneral();
+        }
+        
+        // Calcular total general
+        function calcularTotalGeneral() {
+            const totalValueInputs = document.querySelectorAll('.item-total-value');
+            let total = 0;
+            
+            totalValueInputs.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            
+            const currency = document.getElementById('currency').value;
+            const exchangeRate = parseFloat(document.getElementById('exchange-rate-input').value) || 1;
+            
+            let formattedTotal = total.toFixed(2);
+            
+            if (currency !== 'PYG' && exchangeRate !== 1) {
+                formattedTotal = (total * exchangeRate).toFixed(2);
+            }
+            
+            document.getElementById('total-general').textContent = formatearMoneda(formattedTotal, currency);
+        }
+        
+        // Formatear moneda
+        function formatearMoneda(valor, moneda) {
+            const simbolos = {
+                'PYG': 'Gs.',
+                'USD': '$',
+                'EUR': '€',
+                'BRL': 'R$',
+                'ARS': '$'
+            };
+            
+            const formato = {
+                'PYG': new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0, maximumFractionDigits: 0 }),
+                'USD': new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                'EUR': new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                'BRL': new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                'ARS': new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            };
+            
+            return `${simbolos[moneda]} ${formato[moneda].format(parseFloat(valor))}`;
+        }
+        
+        // Actualizar moneda
+        function actualizarMoneda() {
+            calcularTotalGeneral();
+        }
+        
+        // Actualizar requisitos normativos
+        function actualizarRequisitosNormativos() {
+            const iso9001 = document.getElementById('iso-9001').checked;
+            const iso14001 = document.getElementById('iso-14001').checked;
+            const iso45001 = document.getElementById('iso-45001').checked;
+            
+            let requisitos = '';
+            if (iso9001) requisitos += 'ISO 9001:2015 - Sistemas de Gestión de la Calidad\n';
+            if (iso14001) requisitos += 'ISO 14001:2015 - Sistemas de Gestión Ambiental\n';
+            if (iso45001) requisitos += 'ISO 45001:2015 - Sistemas de Gestión de Seguridad y Salud en el Trabajo\n';
+            
+            document.getElementById('requisitos-normativos').value = requisitos;
+        }
+        
+        // Asignar evento a checkboxes de normas
+        document.getElementById('iso-9001').addEventListener('change', actualizarRequisitosNormativos);
+        document.getElementById('iso-14001').addEventListener('change', actualizarRequisitosNormativos);
+        document.getElementById('iso-45001').addEventListener('change', actualizarRequisitosNormativos);
+        
+        // Función para guardar la orden
+        function guardarOrden() {
+            const proveedor = document.getElementById('proveedor').value;
+            const responsable = document.getElementById('responsable-compra').value;
+            const emisor = document.getElementById('nombre-emisor').value;
+            
+            if (!proveedor || !responsable || !emisor) {
+                alert('Por favor, complete los campos obligatorios: Proveedor, Responsable de la Compra y Nombre del Emisor.');
+                return;
+            }
+            
+            const datosOrden = {
+                informacionGeneral: {
+                    numeroOC: document.getElementById('numero-oc').value,
+                    fechaEmision: document.getElementById('fecha-emision').value,
+                    proveedor: proveedor,
+                    direccionProveedor: document.getElementById('direccion-proveedor').value,
+                    telefonoProveedor: document.getElementById('telefono-proveedor').value,
+                    emailProveedor: document.getElementById('email-proveedor').value,
+                    responsableCompra: responsable
+                },
+                items: [],
+                condiciones: {
+                    plazoEntrega: document.getElementById('plazo-entrega').value,
+                    lugarEntrega: document.getElementById('lugar-entrega').value,
+                    condicionesPago: document.getElementById('condiciones-pago').value,
+                    garantia: document.getElementById('garantia').value,
+                    requisitosNormativos: document.getElementById('requisitos-normativos').value
+                },
+                aprobaciones: {
+                    emitidoPor: {
+                        nombre: emisor,
+                        cargo: document.getElementById('cargo-emisor').value,
+                        fecha: document.getElementById('fecha-emisor').value
+                    },
+                    aprobadoPor: {
+                        nombre: document.getElementById('nombre-aprobador').value,
+                        cargo: document.getElementById('cargo-aprobador').value,
+                        fecha: document.getElementById('fecha-aprobador').value
+                    }
+                },
+                observaciones: document.getElementById('observaciones').value,
+                totalGeneral: document.getElementById('total-general').textContent
+            };
+            
+            document.querySelectorAll('.item-row').forEach(row => {
+                const item = {
+                    descripcion: row.querySelector('.item-desc').value,
+                    cantidad: row.querySelector('.item-qty').value,
+                    unidad: row.querySelector('.item-unit').value,
+                    precioUnitario: row.querySelector('.item-price').value,
+                    precioTotal: row.querySelector('.item-total').textContent
+                };
+                datosOrden.items.push(item);
+            });
+            
+            console.log('Datos de orden de compra SGC:', datosOrden);
+            
+            alert('✅ Orden de compra del SGC guardada correctamente.');
+            
+            // Guardar en localStorage
+            localStorage.setItem('ordenCompraSGC', JSON.stringify(datosOrden));
+        }
+        
+        // Descargar documento como HTML
+        function descargarDocumento() {
+            // Crear una copia del documento con los valores actuales
+            const docClone = document.getElementById('document-content').cloneNode(true);
+            
+            // Actualizar valores en la copia para mostrar los valores actuales
+            actualizarValoresEnCopia(docClone);
+            
+            // Crear el contenido HTML completo
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden de Compra SGC - ${document.getElementById('numero-oc').value}</title>
+    <style>
+        ${document.querySelector('style').textContent}
+    </style>
+</head>
+<body>
+    ${docClone.innerHTML}
+</body>
+</html>`;
+            
+            // Crear blob y descargar
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Orden_Compra_SGC_${document.getElementById('numero-oc').value}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📥 Documento descargado como HTML editable');
+        }
+        
+        // Actualizar valores en la copia del documento
+        function actualizarValoresEnCopia(clone) {
+            // Actualizar campos de texto
+            const campos = ['numero-oc', 'proveedor', 'responsable-compra', 'plazo-entrega', 'lugar-entrega'];
+            campos.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    const elementoCopia = clone.querySelector(`#${id}`);
+                    if (elementoCopia) {
+                        elementoCopia.value = input.value;
+                    }
+                }
+            });
+            
+            // Actualizar textareas
+            const textareas = ['condiciones-pago', 'garantia', 'requisitos-normativos', 'observaciones'];
+            textareas.forEach(id => {
+                const textarea = document.getElementById(id);
+                if (textarea) {
+                    const textareaCopia = clone.querySelector(`#${id}`);
+                    if (textareaCopia) {
+                        textareaCopia.value = textarea.value;
+                    }
+                }
+            });
+            
+            // Actualizar total general
+            const totalGeneral = document.getElementById('total-general');
+            const totalGeneralCopia = clone.querySelector('#total-general');
+            if (totalGeneral && totalGeneralCopia) {
+                totalGeneralCopia.textContent = totalGeneral.textContent;
+            }
+        }
+        
+        // Imprimir documento
+        function imprimirDocumento() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

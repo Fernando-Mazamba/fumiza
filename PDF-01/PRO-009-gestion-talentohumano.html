@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-009 Procedimiento de Gestión del Talento Humano</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .subsubsection-title {
+            color: #718096;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        
+        .procedure-sublist {
+            list-style-type: disc;
+            margin-left: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-sublist li {
+            margin-bottom: 8px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+        }
+        
+        .responsibility-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .definition-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .definition-list li:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .norma-badge {
+            display: inline-block;
+            background-color: #e6fffa;
+            color: #234e52;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 13px;
+            margin: 3px 3px 3px 0;
+            border-left: 3px solid #38b2ac;
+            white-space: nowrap;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .kpi-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .kpi-item {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 5px;
+            padding: 15px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 40px;
+            background-color: #edf2f7;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .action-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .edit-mode {
+            outline: 2px dashed #4299e1;
+            padding: 5px;
+            min-height: 20px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-bar {
+                display: none;
+            }
+            
+            .responsibility-table {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .responsibility-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .kpi-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-bar {
+                padding: 10px 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .action-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de acciones -->
+    <div class="action-bar">
+        <button class="action-btn" onclick="toggleEditMode()">
+            <span>✏️</span> Editar Documento
+        </button>
+        <button class="action-btn" onclick="downloadDocument()">
+            <span>⬇️</span> Descargar
+        </button>
+        <button class="action-btn" onclick="window.print()">
+            <span>🖨️</span> Imprimir
+        </button>
+    </div>
+    
+    <div class="document-container" id="docContainer">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Procedimiento de Gestión del Talento Humano</div>
+        <div class="doc-code">Código: PRO-009</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#definiciones" class="toc-link">Definiciones</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimiento-comun" class="toc-link">Procedimiento Común de Gestión del Talento Humano</a></li>
+                    <li class="toc-item"><a href="#seguimiento-evaluacion" class="toc-link">Seguimiento y Evaluación de la Gestión del Talento Humano</a></li>
+                    <li class="toc-item"><a href="#documentos-relacionados" class="toc-link">Documentos relacionados</a></li>
+                    <li class="toc-item"><a href="#referencias-normativas" class="toc-link">Referencias Normativas</a></li>
+                    <li class="toc-item"><a href="#historial-versiones" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                <div class="section-description">
+                    Establecer un procedimiento para la gestión eficiente del talento humano en la organización, asegurando la adquisición, desarrollo y retención de empleados competentes y motivados. Este procedimiento busca alinear los recursos humanos con los objetivos organizacionales, fomentando la mejora continua, el cumplimiento de los requisitos legales, y la satisfacción del cliente, en conformidad con los requisitos de la norma ISO 9001:2015.
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                <div class="section-description">
+                    Este procedimiento se aplica a todas las actividades relacionadas con la gestión del talento humano dentro de la organización, incluyendo la selección, capacitación, evaluación, bienestar y seguridad de los empleados. Abarca tanto a los empleados permanentes como temporales, y considera aspectos de calidad según los requisitos de la norma ISO 9001:2015.
+                </div>
+            </div>
+            
+            <!-- Sección 3: Definiciones -->
+            <div class="section" id="definiciones">
+                <div class="section-title">3. Definiciones</div>
+                <div class="section-description">
+                    <ul class="definition-list">
+                        <li><strong>Talento Humano:</strong> Conjunto de capacidades, habilidades y competencias que posee el personal de la organización para desempeñar sus tareas y contribuir a los objetivos estratégicos de la misma.</li>
+                        <li><strong>Competencia:</strong> Conjunto de conocimientos, habilidades, actitudes y comportamientos que permiten a una persona realizar eficazmente un trabajo o tarea.</li>
+                        <li><strong>Desempeño:</strong> Evaluación de cómo los empleados cumplen con las expectativas y objetivos establecidos por la organización.</li>
+                        <li><strong>Bienestar Laboral:</strong> Conjunto de condiciones y políticas que aseguran la salud, seguridad y motivación de los empleados en su entorno de trabajo.</li>
+                        <li><strong>Gestión del Desempeño:</strong> Proceso mediante el cual se evalúa y se retroalimenta el rendimiento de los empleados, alineando sus objetivos con los de la organización.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">4. Responsabilidades</div>
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Responsabilidades</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Alta Dirección</strong></td>
+                            <td>Establece la visión y los objetivos de la gestión del talento humano, garantiza los recursos necesarios y el liderazgo para el desarrollo y bienestar de los empleados.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Responsable de Talento Humano</strong></td>
+                            <td>Coordina las actividades relacionadas con la gestión del talento humano, incluyendo la contratación, capacitación, desarrollo y gestión de la seguridad laboral. Asegura la implementación de políticas de recursos humanos y el cumplimiento de las normativas aplicables, incluyendo los requisitos de la ISO 9001:2015.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Supervisores y Líderes de Equipo</strong></td>
+                            <td>Facilitan la integración y motivación del personal, colaboran en el proceso de evaluación del desempeño y brindan apoyo en el desarrollo de habilidades y competencias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Empleados</strong></td>
+                            <td>Participan activamente en su propio desarrollo profesional y en la mejora continua de la organización, cumpliendo con las políticas y procedimientos de calidad.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Procedimiento Común de Gestión del Talento Humano -->
+            <div class="section" id="procedimiento-comun">
+                <div class="section-title">5. Procedimiento Común de Gestión del Talento Humano</div>
+                
+                <div class="subsection-title">5.1 Reclutamiento y Selección</div>
+                <div class="section-description">
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li>El proceso de reclutamiento y selección se lleva a cabo de manera transparente y objetiva, garantizando que los candidatos seleccionados cuenten con las competencias necesarias para el puesto.</li>
+                        <li>Los criterios de selección se basan en las necesidades organizacionales, requisitos del puesto, y las competencias relacionadas con la calidad según los requisitos de la ISO 9001:2015.</li>
+                        <li>El proceso de selección incluye entrevistas, pruebas de habilidades y verificación de antecedentes laborales.</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">5.2 Capacitación y Desarrollo</div>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Se desarrolla un plan de capacitación anual que contempla las necesidades de formación en áreas clave para el desempeño de los empleados y la mejora continua en términos de calidad.</li>
+                            <li>Las capacitaciones incluyen:
+                                <ul style="list-style-type: circle; margin-left: 30px; margin-top: 10px;">
+                                    <li>Formación técnica relacionada con el puesto.</li>
+                                    <li>Formación en los requisitos del Sistema de Gestión de la Calidad según ISO 9001:2015.</li>
+                                    <li>Capacitación en procesos y procedimientos de calidad.</li>
+                                </ul>
+                            </li>
+                            <li>Se establecen planes de desarrollo individual (PDI) para cada empleado, con el fin de fomentar su crecimiento profesional y habilidades.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection-title">5.3 Evaluación del Desempeño</div>
+                    <div class="section-description">
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>El desempeño de los empleados se evalúa periódicamente, alineando las expectativas del personal con los objetivos organizacionales.</li>
+                            <li>Se utilizan herramientas de evaluación basadas en el análisis de metas alcanzadas, competencias y comportamiento en el trabajo.</li>
+                            <li>La retroalimentación del desempeño incluye aspectos sobre calidad y contribución al Sistema de Gestión de la Calidad, promoviendo un ambiente de mejora continua.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection-title">5.4 Gestión de la Salud y Seguridad en el Trabajo</div>
+                    <div class="section-description">
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>La organización se compromete a proporcionar un ambiente laboral seguro y saludable, cumpliendo con los requisitos legales aplicables.</li>
+                            <li>Los empleados reciben capacitación sobre prácticas de seguridad laboral, el uso adecuado de equipo de protección personal (EPP), y los procedimientos en caso de emergencias.</li>
+                            <li>Se realizan evaluaciones periódicas de los riesgos laborales y se implementan acciones preventivas y correctivas para evitar accidentes.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection-title">5.5 Bienestar Laboral y Clima Organizacional</div>
+                    <div class="section-description">
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>La organización implementa programas de bienestar que promueven la salud física y mental de los empleados, incluyendo actividades recreativas, apoyo psicológico y políticas de conciliación de vida laboral y personal.</li>
+                            <li>Se fomenta un ambiente laboral inclusivo, respetuoso y motivador, donde los empleados pueden desarrollarse de manera plena.</li>
+                            <li>El <strong>Responsable de Talento Humano</strong> lleva a cabo encuestas periódicas para medir la satisfacción de los empleados y gestiona iniciativas para mejorar el clima organizacional.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection-title">5.6 Retención del Talento</div>
+                    <div class="section-description">
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Para retener el talento clave, se implementan programas de reconocimiento y recompensa basados en el desempeño, contribución a los objetivos organizacionales y el cumplimiento de los estándares de calidad.</li>
+                            <li>Se establecen políticas claras de desarrollo profesional y oportunidades de promoción interna.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="subsection-title">5.7 Seguridad y Bienestar en la Salud</div>
+                    <div class="section-description">
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>La organización garantiza la implementación de medidas de seguridad en el entorno laboral, promoviendo el uso de equipos de protección personal (EPP) y condiciones adecuadas para el trabajo.</li>
+                            <li>Se cuenta con una política de gestión de la salud laboral que incluye chequeos periódicos de salud, programas de ergonomía y medidas preventivas para evitar enfermedades laborales.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Sección 6: Seguimiento y Evaluación de la Gestión del Talento Humano -->
+                <div class="section" id="seguimiento-evaluacion">
+                    <div class="section-title">6. Seguimiento y Evaluación de la Gestión del Talento Humano</div>
+                    
+                    <div class="subsection-title">6.1 Monitoreo de indicadores</div>
+                    <div class="section-description">
+                        <p>Se establecen indicadores claves de desempeño (KPIs) relacionados con la gestión del talento humano, tales como:</p>
+                        
+                        <div class="kpi-list">
+                            <div class="kpi-item">
+                                <strong>Tasa de rotación de empleados</strong>
+                            </div>
+                            <div class="kpi-item">
+                                <strong>Nivel de satisfacción de los empleados</strong>
+                            </div>
+                            <div class="kpi-item">
+                                <strong>Cumplimiento de los programas de formación</strong>
+                            </div>
+                            <div class="kpi-item">
+                                <strong>Desarrollo de competencias en calidad</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="subsection-title">6.2 Revisión y mejora</div>
+                    <div class="section-description">
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Este procedimiento se revisa de manera periódica como parte del proceso de mejora continua del Sistema de Gestión de la Calidad. La revisión está basada en los resultados obtenidos de las evaluaciones de desempeño, la retroalimentación de los empleados y el cumplimiento de los objetivos organizacionales.</li>
+                            <li>Las políticas y procedimientos se ajustan según los cambios en el entorno laboral y los requisitos de la norma ISO 9001:2015.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Sección 7: Documentos relacionados -->
+                <div class="section" id="documentos-relacionados">
+                    <div class="section-title">7. Documentos relacionados</div>
+                    <div class="section-description">
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li>Registro de Capacitación</li>
+                            <li>Evaluación del Desempeño</li>
+                            <li>Registro de Accidentes e Incidentes</li>
+                            <li>Política de Seguridad y Salud en el Trabajo</li>
+                            <li>Planes de Desarrollo Individual (PDI)</li>
+                            <li>Encuestas de Satisfacción del Empleado</li>
+                            <li>Registros de Competencia del Personal</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Sección 8: Referencias Normativas -->
+                <div class="section" id="referencias-normativas">
+                    <div class="section-title">8. Referencias Normativas</div>
+                    <div class="section-description">
+                        <span class="norma-badge">ISO 9001:2015</span>
+                    </div>
+                </div>
+                
+                <!-- Historial de versiones -->
+                <div class="version-history" id="historial-versiones">
+                    <div class="section-title">Historial de Versiones</div>
+                    <div class="table-container">
+                        <table class="version-table">
+                            <thead>
+                                <tr>
+                                    <th>Versión</th>
+                                    <th>Fecha</th>
+                                    <th>Asiento</th>
+                                    <th>Aprueba</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>000</td>
+                                    <td>01.12.2024</td>
+                                    <td>Original</td>
+                                    <td>CEO</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pie de página -->
+            <div class="footer">
+                <p>Código: PRO-009 | Revisión: 000 | Página 1 de 1</p>
+            </div>
+        </div>
+
+    <script>
+        // Variable para controlar el modo de edición
+        let isEditMode = false;
+        
+        // Función para alternar el modo de edición
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const contentElements = document.querySelectorAll('.content, .section-description, .doc-title, .doc-code, .org-name, .doc-info-item, .subsection-title, .section-title');
+            
+            contentElements.forEach(element => {
+                if (isEditMode) {
+                    element.setAttribute('contenteditable', 'true');
+                    element.classList.add('edit-mode');
+                } else {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('edit-mode');
+                }
+            });
+            
+            // Cambiar el texto del botón
+            const editBtn = document.querySelector('.action-bar button:first-child');
+            if (editBtn) {
+                editBtn.innerHTML = isEditMode ? '<span>💾</span> Finalizar Edición' : '<span>✏️</span> Editar Documento';
+            }
+        }
+        
+        // Función para descargar el documento
+        function downloadDocument() {
+            // Crear un blob con el HTML actual
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Crear un enlace para descargar
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'PRO-009-gestion-talentohumano-modificado.html';
+            
+            // Simular clic en el enlace
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica si el logo existe, caso contrario muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO SGC</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Se ha colocado un logo temporal.");
+                };
+            }
+        });
+    </script>
+</body>
+</html>

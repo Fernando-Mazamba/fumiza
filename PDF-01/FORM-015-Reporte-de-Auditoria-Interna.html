@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-015 Reporte de Auditoría Interna del SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .audit-header {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .audit-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .audit-field {
+            margin-bottom: 15px;
+        }
+        
+        .audit-label {
+            display: block;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .audit-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+            transition: all 0.3s;
+        }
+        
+        .audit-input.readonly {
+            background-color: #f8f9fa;
+            border-color: #e2e8f0;
+        }
+        
+        .audit-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .audit-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 100px;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+        
+        .audit-textarea.readonly {
+            background-color: #f8f9fa;
+            border-color: #e2e8f0;
+        }
+        
+        .findings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .findings-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+            white-space: nowrap;
+        }
+        
+        .findings-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .findings-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .iso-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .iso-9001 {
+            background-color: #bee3f8;
+            color: #2c5282;
+            border: 1px solid #90cdf4;
+        }
+        
+        .nonconformity-badge {
+            display: inline-block;
+            background-color: #fed7d7;
+            color: #c53030;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .opportunity-badge {
+            display: inline-block;
+            background-color: #fefcbf;
+            color: #975a16;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .performance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .performance-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .performance-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .risk-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .risk-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .summary-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .conclusions-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .signatures-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-block {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .signature-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .signature-field {
+            margin-bottom: 15px;
+        }
+        
+        .signature-line {
+            height: 1px;
+            background-color: #cbd5e0;
+            margin: 20px 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .edit-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .print-btn, .save-btn, .download-btn, .edit-btn, .cancel-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .download-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .edit-btn {
+            background-color: #ed8936;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #dd6b20;
+        }
+        
+        .cancel-btn {
+            background-color: #e53e3e;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #c53030;
+        }
+        
+        .save-btn.hidden, .cancel-btn.hidden, .edit-btn.hidden {
+            display: none;
+        }
+        
+        .edit-mode-indicator {
+            background-color: #fed7d7;
+            color: #9b2c2c;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { background-color: #fed7d7; }
+            50% { background-color: #feebc8; }
+            100% { background-color: #fed7d7; }
+        }
+        
+        .editable-content {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+        
+        .editable-content.readonly {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+        
+        .editable-content:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+            background-color: #fffde7;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .save-btn, .download-btn, .edit-btn, .cancel-btn, .edit-mode-indicator {
+                display: none;
+            }
+            
+            .findings-table, .performance-table, .risk-table {
+                page-break-inside: avoid;
+            }
+            
+            .audit-input, .audit-textarea {
+                border: 1px solid #999;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+            
+            .audit-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .findings-table, .performance-table, .risk-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .signature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-buttons {
+                flex-direction: column;
+            }
+            
+            .print-btn, .save-btn, .download-btn, .edit-btn, .cancel-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable-content readonly" id="issue-date">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable-content readonly" id="elaborated-by">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable-content readonly" id="approved-by">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable-content readonly" id="version">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Reporte de Auditoría Interna del Sistema de Gestión de la Calidad (SGC)</div>
+        <div class="doc-code">Código: <span class="editable-content readonly" id="doc-code">FORM-015</span></div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Indicador de modo edición -->
+            <div class="edit-mode-indicator" id="editModeIndicator">
+                <i class="fas fa-edit"></i>
+                MODO EDICIÓN ACTIVADO - Los campos ahora son editables
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <div class="edit-buttons">
+                    <button class="edit-btn" id="editBtn">
+                        <i class="fas fa-edit"></i>
+                        EDITAR REPORTE
+                    </button>
+                    <button class="save-btn hidden" id="saveBtn">
+                        <i class="fas fa-save"></i>
+                        GUARDAR CAMBIOS
+                    </button>
+                    <button class="cancel-btn hidden" id="cancelBtn">
+                        <i class="fas fa-times"></i>
+                        CANCELAR
+                    </button>
+                </div>
+                <div>
+                    <button class="download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i>
+                        DESCARGAR PDF
+                    </button>
+                    <button class="print-btn" onclick="window.print()">
+                        <i class="fas fa-print"></i>
+                        IMPRIMIR
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#introduccion" class="toc-link">Introducción</a></li>
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo de la Auditoría</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance de la Auditoría</a></li>
+                    <li class="toc-item"><a href="#metodologia" class="toc-link">Metodología de la Auditoría</a></li>
+                    <li class="toc-item"><a href="#hallazgos" class="toc-link">Hallazgos de la Auditoría</a></li>
+                    <li class="toc-item"><a href="#evaluacion" class="toc-link">Evaluación del Desempeño del SGC</a></li>
+                    <li class="toc-item"><a href="#riesgos" class="toc-link">Riesgos y Oportunidades Identificadas</a></li>
+                    <li class="toc-item"><a href="#resumen" class="toc-link">Resumen de la Auditoría</a></li>
+                    <li class="toc-item"><a href="#conclusiones" class="toc-link">Conclusiones y Recomendaciones</a></li>
+                    <li class="toc-item"><a href="#firmas" class="toc-link">Firmas</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Información de la auditoría -->
+            <div class="audit-header">
+                <div class="section-subtitle">Información General de la Auditoría</div>
+                <div class="audit-info-grid">
+                    <div>
+                        <div class="audit-field">
+                            <label class="audit-label">Organización Auditada:</label>
+                            <input type="text" class="audit-input readonly" id="organizacion" placeholder="Nombre de la organización" readonly>
+                        </div>
+                        <div class="audit-field">
+                            <label class="audit-label">Fecha de Auditoría:</label>
+                            <input type="date" class="audit-input readonly" id="fecha-auditoria" readonly>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="audit-field">
+                            <label class="audit-label">Auditor Líder:</label>
+                            <input type="text" class="audit-input readonly" id="auditor-lider" placeholder="Nombre del auditor líder" readonly>
+                        </div>
+                        <div class="audit-field">
+                            <label class="audit-label">Equipo Auditor:</label>
+                            <input type="text" class="audit-input readonly" id="equipo-auditor" placeholder="Nombres de los auditores" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="section" id="introduccion">
+                <div class="section-title">Introducción</div>
+                <div class="editable-content readonly" id="introduccion-text" contenteditable="false">
+                    Este informe de auditoría interna tiene como objetivo evaluar el desempeño y la conformidad del Sistema de Gestión de la Calidad (SGC) de la organización, conforme a los requisitos de la norma <strong>ISO 9001:2015</strong>.
+                </div>
+                <div class="editable-content readonly" id="introduccion-text-2" contenteditable="false" style="margin-top: 15px;">
+                    La auditoría se llevó a cabo con el fin de verificar el cumplimiento de los requisitos establecidos por la normativa, identificar áreas de mejora y asegurar que los procesos operativos estén alineados con los objetivos de calidad de la empresa.
+                </div>
+            </div>
+            
+            <!-- Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo de la Auditoría</div>
+                <div class="editable-content readonly" id="objetivo-text" contenteditable="false">
+                    El objetivo de esta auditoría es evaluar la <strong>conformidad, efectividad y desempeño</strong> del Sistema de Gestión de la Calidad (SGC) conforme a la normativa ISO 9001:2015, con el fin de:
+                </div>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li class="editable-content readonly" contenteditable="false" style="margin-bottom: 10px;">Identificar áreas de mejora en los procesos de calidad</li>
+                    <li class="editable-content readonly" contenteditable="false" style="margin-bottom: 10px;">Garantizar el cumplimiento de los requisitos normativos aplicables</li>
+                    <li class="editable-content readonly" contenteditable="false" style="margin-bottom: 10px;">Verificar la implementación efectiva de los procesos del SGC</li>
+                    <li class="editable-content readonly" contenteditable="false" style="margin-bottom: 10px;">Evaluar la eficacia de las acciones correctivas y preventivas implementadas</li>
+                    <li class="editable-content readonly" contenteditable="false">Proporcionar información objetiva para la toma de decisiones de la Dirección</li>
+                </ul>
+            </div>
+            
+            <!-- Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance de la Auditoría</div>
+                <div class="editable-content readonly" id="alcance-text" contenteditable="false">
+                    La auditoría cubre los procesos y áreas operativas del Sistema de Gestión de la Calidad (SGC) según los requisitos de la norma ISO 9001:2015.
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <div style="background-color: #ebf8ff; padding: 20px; border-radius: 5px; border-left: 4px solid #3182ce;">
+                        <div class="section-subtitle" style="border-left: none; padding-left: 0; margin-top: 0;">
+                            <span class="iso-badge iso-9001">ISO 9001:2015</span> Gestión de Calidad
+                        </div>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li class="editable-content readonly" contenteditable="false">Satisfacción del cliente y gestión de quejas</li>
+                            <li class="editable-content readonly" contenteditable="false">Control de procesos y productos</li>
+                            <li class="editable-content readonly" contenteditable="false">Mejora continua de la calidad</li>
+                            <li class="editable-content readonly" contenteditable="false">Gesti��n de no conformidades</li>
+                            <li class="editable-content readonly" contenteditable="false">Contexto de la organización y gestión de riesgos</li>
+                            <li class="editable-content readonly" contenteditable="false">Competencia y capacitación del personal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metodología -->
+            <div class="section" id="metodologia">
+                <div class="section-title">3. Metodología de la Auditoría</div>
+                <div class="editable-content readonly" id="metodologia-text" contenteditable="false">
+                    La auditoría se realizó mediante la siguiente metodología:
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+                        <div style="font-size: 36px; margin-bottom: 10px;">📄</div>
+                        <div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Revisión de Documentación</div>
+                        <div class="editable-content readonly" contenteditable="false" style="font-size: 14px;">Análisis de manuales, procedimientos, registros y auditorías previas del SGC</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+                        <div style="font-size: 36px; margin-bottom: 10px;">🗣️</div>
+                        <div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Entrevistas</div>
+                        <div class="editable-content readonly" contenteditable="false" style="font-size: 14px;">Entrevistas con personal clave para evaluar conocimiento y cumplimiento de procedimientos</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+                        <div style="font-size: 36px; margin-bottom: 10px;">👁️</div>
+                        <div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Observación Directa</div>
+                        <div class="editable-content readonly" contenteditable="false" style="font-size: 14px;">Inspección de procesos y actividades en el lugar de trabajo</div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+                        <div style="font-size: 36px; margin-bottom: 10px;">📊</div>
+                        <div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Muestreo de Registros</div>
+                        <div class="editable-content readonly" contenteditable="false" style="font-size: 14px;">Revisión de registros de calidad y cumplimiento de requisitos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hallazgos -->
+            <div class="section" id="hallazgos">
+                <div class="section-title">4. Hallazgos de la Auditoría</div>
+                <div class="editable-content readonly" id="hallazgos-text" contenteditable="false">
+                    Los siguientes hallazgos se identificaron durante la auditoría interna del SGC:
+                </div>
+                
+                <table class="findings-table">
+                    <thead>
+                        <tr>
+                            <th>Criterio Evaluado</th>
+                            <th>Observación</th>
+                            <th>Tipo de Hallazgo</th>
+                            <th>Acciones Correctivas Propuestas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="iso-badge iso-9001">ISO 9001</span><br>
+                                <strong>Gestión de Calidad</strong>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="observacion-1" style="min-height: 80px;" placeholder="Describir observaciones sobre la calidad y desempeño de procesos" readonly></textarea>
+                            </td>
+                            <td>
+                                <select class="audit-input readonly" id="tipo-hallazgo-1" style="width: 100%;" disabled>
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="nc">No Conformidad</option>
+                                    <option value="op">Oportunidad de Mejora</option>
+                                    <option value="co">Conformidad</option>
+                                </select>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="acciones-1" style="min-height: 80px;" placeholder="Proponer acciones correctivas y plazos" readonly></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="iso-badge iso-9001">ISO 9001</span><br>
+                                <strong>Contexto Organizacional</strong>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="observacion-2" style="min-height: 80px;" placeholder="Describir observaciones sobre el contexto de la organización" readonly></textarea>
+                            </td>
+                            <td>
+                                <select class="audit-input readonly" id="tipo-hallazgo-2" style="width: 100%;" disabled>
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="nc">No Conformidad</option>
+                                    <option value="op">Oportunidad de Mejora</option>
+                                    <option value="co">Conformidad</option>
+                                </select>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="acciones-2" style="min-height: 80px;" placeholder="Proponer acciones correctivas y plazos" readonly></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="iso-badge iso-9001">ISO 9001</span><br>
+                                <strong>Mejora Continua</strong>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="observacion-3" style="min-height: 80px;" placeholder="Describir observaciones sobre el sistema de mejora continua" readonly></textarea>
+                            </td>
+                            <td>
+                                <select class="audit-input readonly" id="tipo-hallazgo-3" style="width: 100%;" disabled>
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="nc">No Conformidad</option>
+                                    <option value="op">Oportunidad de Mejora</option>
+                                    <option value="co">Conformidad</option>
+                                </select>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="acciones-3" style="min-height: 80px;" placeholder="Proponer acciones correctivas y plazos" readonly></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Evaluación del desempeño -->
+            <div class="section" id="evaluacion">
+                <div class="section-title">5. Evaluación del Desempeño del SGC</div>
+                
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>Área evaluada</th>
+                            <th>Fortalezas identificadas</th>
+                            <th>Áreas de Mejora Identificadas</th>
+                            <th>Impacto en el Desempeño General</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="iso-badge iso-9001">ISO 9001</span><br>
+                                <strong>Gestión de Calidad</strong>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="fortaleza-1" style="min-height: 80px;" placeholder="Detalles de las fortalezas" readonly></textarea>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="mejora-1" style="min-height: 80px;" placeholder="Detalles de áreas de mejora" readonly></textarea>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="impacto-1" style="min-height: 80px;" placeholder="Evaluación del impacto en el desempeño global" readonly></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="iso-badge iso-9001">ISO 9001</span><br>
+                                <strong>Procesos Operativos</strong>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="fortaleza-2" style="min-height: 80px;" placeholder="Detalles de las fortalezas" readonly></textarea>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="mejora-2" style="min-height: 80px;" placeholder="Detalles de áreas de mejora" readonly></textarea>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="impacto-2" style="min-height: 80px;" placeholder="Evaluación del impacto en el desempeño global" readonly></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Riesgos y oportunidades -->
+            <div class="section" id="riesgos">
+                <div class="section-title">6. Riesgos y Oportunidades Identificadas</div>
+                
+                <table class="risk-table">
+                    <thead>
+                        <tr>
+                            <th>Riesgos identificados</th>
+                            <th>Oportunidades de mejora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="riesgo-1" style="min-height: 100px;" placeholder="Describir riesgos que podrían afectar el SGC" readonly></textarea>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="oportunidad-1" style="min-height: 100px;" placeholder="Describir oportunidades de mejora" readonly></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="riesgo-2" style="min-height: 100px;" placeholder="Ejemplo: falta de capacitación del personal en nuevos procedimientos" readonly></textarea>
+                            </td>
+                            <td>
+                                <textarea class="audit-textarea readonly" id="oportunidad-2" style="min-height: 100px;" placeholder="Ejemplo: implementar programa de formación continua y certificación" readonly></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Resumen -->
+            <div class="section" id="resumen">
+                <div class="section-title">7. Resumen de la Auditoría</div>
+                
+                <div class="summary-box">
+                    <div class="section-subtitle" style="border-left: none; padding-left: 0;">Evaluación General</div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label class="audit-label">Cumplimiento de Requisitos Normativos:</label>
+                        <textarea class="audit-textarea readonly" id="cumplimiento-normativo" placeholder="Evaluar el grado de cumplimiento con la norma ISO 9001:2015" readonly></textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label class="audit-label">Desempeño del Sistema de Gestión de la Calidad:</label>
+                        <textarea class="audit-textarea readonly" id="desempeno-sgc" placeholder="Evaluar si los procesos son efectivos y si se están logrando los objetivos de calidad" readonly></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="audit-label">Acciones Correctivas y de Mejoras:</label>
+                        <textarea class="audit-textarea readonly" id="acciones-resumen" placeholder="Resumen de acciones correctivas y mejoras propuestas" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Conclusiones y recomendaciones -->
+            <div class="section" id="conclusiones">
+                <div class="section-title">8. Conclusiones y Recomendaciones</div>
+                
+                <div class="conclusions-box">
+                    <div class="section-subtitle" style="border-left: none; padding-left: 0;">Conclusiones Generales</div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label class="audit-label">Estado del SGC:</label>
+                        <textarea class="audit-textarea readonly" id="estado-sgc" placeholder="El SGC está [cumpliendo/no cumpliendo] con los requisitos establecidos por la norma ISO 9001:2015" readonly></textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label class="audit-label">Acciones Requeridas:</label>
+                        <textarea class="audit-textarea readonly" id="acciones-requeridas" placeholder="Se requiere la implementación de [acciones correctivas/procesos de mejora] para abordar las áreas de no conformidad y aprovechar las oportunidades de mejora" readonly></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="audit-label">Recomendaciones para la Dirección:</label>
+                        <textarea class="audit-textarea readonly" id="recomendaciones-direccion" placeholder="Resumen de recomendaciones para mejorar la eficacia del SGC" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Firmas -->
+            <div class="section signatures-section" id="firmas">
+                <div class="section-title">9. Firmas</div>
+                
+                <div class="signature-grid">
+                    <div class="signature-block">
+                        <div class="signature-title">Auditor Líder</div>
+                        <div class="signature-field">
+                            <label class="audit-label">Nombre:</label>
+                            <input type="text" class="audit-input readonly" id="nombre-auditor-lider" placeholder="Nombre del auditor líder" readonly>
+                        </div>
+                        <div class="signature-field">
+                            <label class="audit-label">Firma:</label>
+                            <div class="signature-line"></div>
+                        </div>
+                        <div class="signature-field">
+                            <label class="audit-label">Fecha:</label>
+                            <input type="date" class="audit-input readonly" id="fecha-auditor-lider" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="signature-block">
+                        <div class="signature-title">Representante de la Dirección</div>
+                        <div class="signature-field">
+                            <label class="audit-label">Nombre:</label>
+                            <input type="text" class="audit-input readonly" id="nombre-direccion" placeholder="Nombre del representante de la Dirección" readonly>
+                        </div>
+                        <div class="signature-field">
+                            <label class="audit-label">Firma:</label>
+                            <div class="signature-line"></div>
+                        </div>
+                        <div class="signature-field">
+                            <label class="audit-label">Fecha:</label>
+                            <input type="date" class="audit-input readonly" id="fecha-direccion" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody id="version-history-body">
+                            <tr>
+                                <td><span class="editable-content readonly">000</span></td>
+                                <td><span class="editable-content readonly">01.12.2024</span></td>
+                                <td><span class="editable-content readonly">Original</span></td>
+                                <td><span class="editable-content readonly">CEO</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: <span class="editable-content readonly" id="footer-code">FORM-015</span> | Revisión: <span class="editable-content readonly" id="footer-revision">000</span> | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Variable para controlar el modo de edición
+        let isEditMode = false;
+        let originalData = {};
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            
+            // Establecer fechas por defecto
+            const fechaAuditoria = document.getElementById('fecha-auditoria');
+            const fechaAuditorLider = document.getElementById('fecha-auditor-lider');
+            const fechaDireccion = document.getElementById('fecha-direccion');
+            
+            if (fechaAuditoria && !fechaAuditoria.value) fechaAuditoria.value = formattedDate;
+            if (fechaAuditorLider && !fechaAuditorLider.value) fechaAuditorLider.value = formattedDate;
+            if (fechaDireccion && !fechaDireccion.value) fechaDireccion.value = formattedDate;
+            
+            // Verificar si el logo existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                };
+            }
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar botones
+            document.getElementById('editBtn').addEventListener('click', function() {
+                toggleEditMode(true);
+            });
+            
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                saveChanges();
+                toggleEditMode(false);
+            });
+            
+            document.getElementById('cancelBtn').addEventListener('click', function() {
+                restoreOriginalData();
+                toggleEditMode(false);
+            });
+            
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                downloadAsPDF();
+            });
+            
+            // Cargar datos guardados
+            loadSavedData();
+        });
+        
+        // Función para alternar modo edición
+        function toggleEditMode(enable) {
+            isEditMode = enable;
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const editIndicator = document.getElementById('editModeIndicator');
+            
+            if (enable) {
+                // Guardar datos originales antes de editar
+                saveOriginalData();
+                
+                // Cambiar botones
+                editBtn.classList.add('hidden');
+                saveBtn.classList.remove('hidden');
+                cancelBtn.classList.remove('hidden');
+                
+                // Mostrar indicador de modo edición
+                editIndicator.style.display = 'flex';
+                
+                // Hacer campos de entrada editables
+                const inputs = document.querySelectorAll('.audit-input.readonly, .audit-textarea.readonly');
+                inputs.forEach(input => {
+                    input.classList.remove('readonly');
+                    input.readOnly = false;
+                    if (input.disabled) input.disabled = false;
+                    input.style.backgroundColor = '#fffde7';
+                    input.style.borderColor = '#3182ce';
+                });
+                
+                // Hacer campos de selección editables
+                const selects = document.querySelectorAll('select.audit-input.readonly');
+                selects.forEach(select => {
+                    select.classList.remove('readonly');
+                    select.disabled = false;
+                    select.style.backgroundColor = '#fffde7';
+                    select.style.borderColor = '#3182ce';
+                });
+                
+                // Hacer contenido editable
+                const editableContents = document.querySelectorAll('.editable-content.readonly');
+                editableContents.forEach(content => {
+                    content.classList.remove('readonly');
+                    content.contentEditable = true;
+                    content.style.backgroundColor = '#fffde7';
+                    content.style.border = '1px solid #3182ce';
+                    content.style.padding = '8px 12px';
+                });
+                
+                // Hacer elementos de lista editables
+                const listItems = document.querySelectorAll('ul li.editable-content');
+                listItems.forEach(item => {
+                    item.contentEditable = true;
+                    item.style.backgroundColor = '#fffde7';
+                    item.style.border = '1px solid #e2e8f0';
+                    item.style.padding = '8px 12px';
+                    item.style.borderRadius = '4px';
+                    item.style.marginBottom = '8px';
+                });
+                
+                // Hacer elementos de texto en divs editables
+                const textDivs = document.querySelectorAll('.section p, .section div:not(.section-title):not(.section-subtitle)');
+                textDivs.forEach(div => {
+                    if (!div.classList.contains('editable-content') && 
+                        !div.classList.contains('section-title') && 
+                        !div.classList.contains('section-subtitle') &&
+                        !div.querySelector('input, select, textarea, button')) {
+                        div.contentEditable = true;
+                        div.style.backgroundColor = '#fffde7';
+                        div.style.border = '1px solid #3182ce';
+                        div.style.padding = '8px 12px';
+                        div.style.borderRadius = '4px';
+                        div.style.margin = '10px 0';
+                    }
+                });
+                
+            } else {
+                // Restaurar botones
+                editBtn.classList.remove('hidden');
+                saveBtn.classList.add('hidden');
+                cancelBtn.classList.add('hidden');
+                
+                // Ocultar indicador de modo edición
+                editIndicator.style.display = 'none';
+                
+                // Hacer campos de entrada de solo lectura
+                const inputs = document.querySelectorAll('.audit-input:not(.readonly), .audit-textarea:not(.readonly)');
+                inputs.forEach(input => {
+                    input.classList.add('readonly');
+                    input.readOnly = true;
+                    input.style.backgroundColor = '#f8f9fa';
+                    input.style.borderColor = '#e2e8f0';
+                });
+                
+                // Hacer campos de selección de solo lectura
+                const selects = document.querySelectorAll('select.audit-input:not(.readonly)');
+                selects.forEach(select => {
+                    select.classList.add('readonly');
+                    select.disabled = true;
+                    select.style.backgroundColor = '#f8f9fa';
+                    select.style.borderColor = '#e2e8f0';
+                });
+                
+                // Hacer contenido de solo lectura
+                const editableContents = document.querySelectorAll('.editable-content:not(.readonly)');
+                editableContents.forEach(content => {
+                    content.classList.add('readonly');
+                    content.contentEditable = false;
+                    content.style.backgroundColor = 'transparent';
+                    content.style.border = 'none';
+                    content.style.padding = '0';
+                });
+                
+                // Restaurar elementos de lista
+                const listItems = document.querySelectorAll('ul li.editable-content');
+                listItems.forEach(item => {
+                    item.contentEditable = false;
+                    item.style.backgroundColor = 'transparent';
+                    item.style.border = 'none';
+                    item.style.padding = '0 0 0 20px';
+                    item.style.marginBottom = '10px';
+                });
+                
+                // Restaurar elementos de texto
+                const textDivs = document.querySelectorAll('.section p[contenteditable="true"], .section div[contenteditable="true"]');
+                textDivs.forEach(div => {
+                    div.contentEditable = false;
+                    div.style.backgroundColor = 'transparent';
+                    div.style.border = 'none';
+                    div.style.padding = '0';
+                    div.style.margin = '15px 0';
+                });
+            }
+        }
+        
+        // Función para guardar datos originales
+        function saveOriginalData() {
+            originalData = {};
+            
+            // Guardar campos de entrada
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach((input, index) => {
+                if (input.type === 'select-one') {
+                    originalData[`input_${index}`] = input.value;
+                } else {
+                    originalData[`input_${index}`] = input.value;
+                }
+            });
+            
+            // Guardar contenido editable
+            const editableContents = document.querySelectorAll('.editable-content, .section p, .section div:not(.section-title):not(.section-subtitle):not(.action-buttons)');
+            editableContents.forEach((content, index) => {
+                originalData[`content_${index}`] = content.innerHTML;
+            });
+            
+            console.log('Datos originales guardados');
+        }
+        
+        // Función para restaurar datos originales
+        function restoreOriginalData() {
+            // Restaurar campos de entrada
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach((input, index) => {
+                const key = `input_${index}`;
+                if (originalData[key] !== undefined) {
+                    input.value = originalData[key];
+                }
+            });
+            
+            // Restaurar contenido editable
+            const editableContents = document.querySelectorAll('.editable-content, .section p, .section div:not(.section-title):not(.section-subtitle):not(.action-buttons)');
+            editableContents.forEach((content, index) => {
+                const key = `content_${index}`;
+                if (originalData[key] !== undefined) {
+                    content.innerHTML = originalData[key];
+                }
+            });
+            
+            console.log('Datos originales restaurados');
+        }
+        
+        // Función para guardar cambios
+        function saveChanges() {
+            // Validar campos obligatorios
+            const organizacion = document.getElementById('organizacion').value;
+            const auditorLider = document.getElementById('auditor-lider').value;
+            
+            if (!organizacion || !auditorLider) {
+                alert('Por favor, complete los campos obligatorios: Organización Auditada y Auditor Líder.');
+                return;
+            }
+            
+            // Crear objeto con datos del reporte
+            const reportData = {
+                informacionGeneral: {
+                    organizacion: organizacion,
+                    fechaAuditoria: document.getElementById('fecha-auditoria').value,
+                    auditorLider: auditorLider,
+                    equipoAuditor: document.getElementById('equipo-auditor').value
+                },
+                hallazgos: {
+                    observacion1: document.getElementById('observacion-1').value,
+                    tipo1: document.getElementById('tipo-hallazgo-1').value,
+                    acciones1: document.getElementById('acciones-1').value,
+                    observacion2: document.getElementById('observacion-2').value,
+                    tipo2: document.getElementById('tipo-hallazgo-2').value,
+                    acciones2: document.getElementById('acciones-2').value,
+                    observacion3: document.getElementById('observacion-3').value,
+                    tipo3: document.getElementById('tipo-hallazgo-3').value,
+                    acciones3: document.getElementById('acciones-3').value
+                },
+                evaluacion: {
+                    fortaleza1: document.getElementById('fortaleza-1').value,
+                    mejora1: document.getElementById('mejora-1').value,
+                    impacto1: document.getElementById('impacto-1').value,
+                    fortaleza2: document.getElementById('fortaleza-2').value,
+                    mejora2: document.getElementById('mejora-2').value,
+                    impacto2: document.getElementById('impacto-2').value
+                },
+                riesgos: {
+                    riesgo1: document.getElementById('riesgo-1').value,
+                    oportunidad1: document.getElementById('oportunidad-1').value,
+                    riesgo2: document.getElementById('riesgo-2').value,
+                    oportunidad2: document.getElementById('oportunidad-2').value
+                },
+                conclusiones: {
+                    cumplimiento: document.getElementById('cumplimiento-normativo').value,
+                    desempeno: document.getElementById('desempeno-sgc').value,
+                    acciones: document.getElementById('acciones-resumen').value,
+                    estado: document.getElementById('estado-sgc').value,
+                    accionesRequeridas: document.getElementById('acciones-requeridas').value,
+                    recomendaciones: document.getElementById('recomendaciones-direccion').value
+                },
+                firmas: {
+                    nombreAuditor: document.getElementById('nombre-auditor-lider').value,
+                    fechaAuditor: document.getElementById('fecha-auditor-lider').value,
+                    nombreDireccion: document.getElementById('nombre-direccion').value,
+                    fechaDireccion: document.getElementById('fecha-direccion').value
+                },
+                savedDate: new Date().toISOString()
+            };
+            
+            // Guardar en localStorage
+            localStorage.setItem('reporte-auditoria-sgc', JSON.stringify(reportData));
+            
+            alert('✅ Reporte de auditoría guardado correctamente. Los datos han sido registrados en el sistema.');
+            
+            console.log('Datos de auditoría guardados:', reportData);
+        }
+        
+        // Función para cargar datos guardados
+        function loadSavedData() {
+            const savedData = localStorage.getItem('reporte-auditoria-sgc');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                
+                // Cargar información general
+                if (data.informacionGeneral) {
+                    const info = data.informacionGeneral;
+                    
+                    if (info.organizacion) document.getElementById('organizacion').value = info.organizacion;
+                    if (info.fechaAuditoria) document.getElementById('fecha-auditoria').value = info.fechaAuditoria;
+                    if (info.auditorLider) document.getElementById('auditor-lider').value = info.auditorLider;
+                    if (info.equipoAuditor) document.getElementById('equipo-auditor').value = info.equipoAuditor;
+                }
+                
+                // Cargar hallazgos
+                if (data.hallazgos) {
+                    const hallazgos = data.hallazgos;
+                    
+                    if (hallazgos.observacion1) document.getElementById('observacion-1').value = hallazgos.observacion1;
+                    if (hallazgos.tipo1) document.getElementById('tipo-hallazgo-1').value = hallazgos.tipo1;
+                    if (hallazgos.acciones1) document.getElementById('acciones-1').value = hallazgos.acciones1;
+                    
+                    if (hallazgos.observacion2) document.getElementById('observacion-2').value = hallazgos.observacion2;
+                    if (hallazgos.tipo2) document.getElementById('tipo-hallazgo-2').value = hallazgos.tipo2;
+                    if (hallazgos.acciones2) document.getElementById('acciones-2').value = hallazgos.acciones2;
+                    
+                    if (hallazgos.observacion3) document.getElementById('observacion-3').value = hallazgos.observacion3;
+                    if (hallazgos.tipo3) document.getElementById('tipo-hallazgo-3').value = hallazgos.tipo3;
+                    if (hallazgos.acciones3) document.getElementById('acciones-3').value = hallazgos.acciones3;
+                }
+                
+                // Cargar firmas
+                if (data.firmas) {
+                    const firmas = data.firmas;
+                    
+                    if (firmas.nombreAuditor) document.getElementById('nombre-auditor-lider').value = firmas.nombreAuditor;
+                    if (firmas.fechaAuditor) document.getElementById('fecha-auditor-lider').value = firmas.fechaAuditor;
+                    if (firmas.nombreDireccion) document.getElementById('nombre-direccion').value = firmas.nombreDireccion;
+                    if (firmas.fechaDireccion) document.getElementById('fecha-direccion').value = firmas.fechaDireccion;
+                }
+                
+                console.log('Datos de auditoría cargados desde localStorage');
+            }
+        }
+        
+        // Función para descargar como PDF
+        function downloadAsPDF() {
+            // Validar campos obligatorios antes de descargar
+            const organizacion = document.getElementById('organizacion').value;
+            const auditorLider = document.getElementById('auditor-lider').value;
+            
+            if (!organizacion || !auditorLider) {
+                alert('Por favor, complete los campos obligatorios: Organización Auditada y Auditor Líder.');
+                return;
+            }
+            
+            const element = document.querySelector('.document-container');
+            const orgName = organizacion.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            const filename = `reporte_auditoria_sgc_${orgName}_${formattedDate}.pdf`;
+            
+            const opt = {
+                margin: [15, 15, 15, 15],
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            
+            // Mostrar mensaje de procesamiento
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERANDO PDF...';
+            downloadBtn.disabled = true;
+            
+            // Generar PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restaurar botón
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+                
+                alert(`PDF generado exitosamente: ${filename}`);
+            }).catch((error) => {
+                // Restaurar botón en caso de error
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+                console.error('Error generando PDF:', error);
+                alert('Error al generar el PDF. Intente nuevamente.');
+            });
+        }
+    </script>
+</body>
+</html>

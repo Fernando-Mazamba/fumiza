@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-014 Plan de Emergencia Climática - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4a90e2;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2c5282;
+        }
+        
+        .objective-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .scope-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin: 20px 0 20px 20px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .protocol-box {
+            background-color: #fefcbf;
+            border: 1px solid #d69e2e;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .protocol-title {
+            color: #744210;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .measurement-box {
+            background-color: #faf5ff;
+            border: 1px solid #9f7aea;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #805ad5;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Painel de controles de edição */
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4a90e2;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .protocol-box {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .controls-panel {
+                margin: 20px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Plan de Emergencia Climática</div>
+        <div class="doc-code">Código: DOC-014</div>
+        
+        <!-- Painel de controles de edição -->
+        <div class="controls-panel" id="controlsPanel">
+            <button class="edit-btn" id="editContentBtn">EDITAR CONTENIDO</button>
+            <button class="action-btn secondary" id="saveBtn">GUARDAR EN NAVEGADOR</button>
+            <button class="action-btn" id="exportBtn">DESCARGAR COMO HTML</button>
+            <button class="action-btn secondary" id="loadBtn">CARGAR EDICIONES GUARDADAS</button>
+            <button class="action-btn secondary" id="resetBtn">RESTAURAR ORIGINAL</button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura activo</span>
+        </div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido <span id="editIndicator0" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <ol class="toc-list editable" id="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo del Plan de Emergencia Climática</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance del Plan</a></li>
+                    <li class="toc-item"><a href="#responsables" class="toc-link">Responsables</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">Procedimiento del Plan de Emergencia Climática</a></li>
+                    <li class="toc-item"><a href="#medicion" class="toc-link">Medición y seguimiento</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo del Plan de Emergencia Climática <span id="editIndicator1" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="objective-box">
+                    <p class="editable" id="objetivo-texto">El objetivo de este plan es establecer procedimientos y medidas para la gestión de emergencias <strong>climáticas dentro de la organización</strong>, garantizando una respuesta rápida y eficaz ante fenómenos climáticos extremos (como tormentas, inundaciones, sequías, olas de calor, etc.), protegiendo la salud y seguridad de los empleados, la continuidad de los procesos y minimizando los impactos medioambientales negativos.</p>
+                </div>
+            </div>
+            
+            <!-- Sección Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance del Plan <span id="editIndicator2" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="scope-box">
+                    <p class="editable" id="alcance-texto1">Este plan cubre las acciones y medidas necesarias para hacer frente a eventos climáticos extremos que puedan afectar las operaciones de la organización, incluyendo:</p>
+                    <ul class="procedure-list editable" id="alcance-lista">
+                        <li><strong>Inundaciones, tormentas y huracanes.</strong></li>
+                        <li><strong>Olas de calor y sequías.</strong></li>
+                        <li><strong>Condiciones meteorológicas extremas</strong> que afectan a la seguridad laboral, la infraestructura y la cadena de suministro.</li>
+                        <li>Protección del personal y la infraestructura frente a condiciones climáticas adversas.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección Responsables -->
+            <div class="section" id="responsables">
+                <div class="section-title">3. Responsables <span id="editIndicator3" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th class="editable" id="responsable-columna">Responsable</th>
+                            <th class="editable" id="responsabilidad-columna">Responsabilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="responsable1">Alta Dirección</td>
+                            <td class="editable" id="responsabilidad1">Aprobar el plan de emergencia climática, asignar recursos y supervisar la implementación.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="responsable2">Responsable de Seguridad y Salud en el Trabajo</td>
+                            <td class="editable" id="responsabilidad2">Coordinar la implementación de las medidas de seguridad para los empleados durante emergencias climáticas.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="responsable3">Responsable de Medio Ambiente</td>
+                            <td class="editable" id="responsabilidad3">Asegurar que el plan contempla medidas para minimizar los impactos ambientales de los eventos climáticos.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="responsable4">Responsable de Logística</td>
+                            <td class="editable" id="responsabilidad4">Asegurar que la infraestructura y la cadena de suministro sean resilientes ante emergencias climáticas.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="responsable5">Todos los empleados</td>
+                            <td class="editable" id="responsabilidad5">Siga las instrucciones de seguridad durante los eventos climáticos y participe en simulacros de emergencia.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección Procedimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title">4. Procedimiento del Plan de Emergencia Climática <span id="editIndicator4" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="section-subtitle editable" id="subtitle41">4.1 Identificación de Riesgos Climáticos y Evaluación de Vulnerabilidades</div>
+                <ul class="procedure-list editable" id="procedimiento-lista1">
+                    <li>Realizar un análisis de riesgos climáticos que contemple los posibles impactos de <strong>fenómenos climáticos extremos</strong> sobre las operaciones, las personas y el entorno.</li>
+                    <li>Evaluar las vulnerabilidades de la infraestructura, la cadena de suministro y las <strong>operaciones clave</strong> que puedan verses afectadas por eventos como tormentas, sequías, inundaciones o olas de calor.</li>
+                </ul>
+                
+                <div class="section-subtitle editable" id="subtitle42">4.2 Medidas Preventivas y Preparación para Emergencias</div>
+                <ul class="procedure-list editable" id="procedimiento-lista2">
+                    <li><strong>Refuerzo de la infraestructura:</strong> Asegurar que las instalaciones y equipos sean capaces de soportar condiciones extremas. Esto puede incluir:
+                        <ul style="margin-left: 20px; margin-top: 10px; list-style-type: circle;" class="editable" id="sublista-infraestructura">
+                            <li>Mejoras en los sistemas de drenaje y protección contra inundaciones.</li>
+                            <li>Instalación de sistemas de energía de respaldo.</li>
+                            <li>Adopción de estructuras resistentes a tormentas y condiciones de calor extremo.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sistemas de monitoreo:</strong> Implementar sistemas de monitoreo meteorológico para la detección temprana de condiciones climáticas adversas y recibir alertas sobre eventos extremos.</li>
+                    <li><strong>Planificación de rutas seguras:</strong> Establecer rutas seguras para el desplazamiento del personal en caso de evacuación o para garantizar el transporte de mercancías en condiciones climáticas adversas.</li>
+                </ul>
+                
+                <div class="section-subtitle editable" id="subtitle43">4.3 Protocolos de Seguridad y Procedimientos de Acción</div>
+                
+                <div class="protocol-box editable" id="protocolo-calor">
+                    <div class="protocol-title editable" id="titulo-protocolo1">Olas de calor:</div>
+                    <ul class="procedure-list editable" id="lista-protocolo1">
+                        <li><strong>Instrucciones para el personal:</strong> Proporcionar equipo adecuado, como protector solar, ropa ligera y acceso a agua potable.</li>
+                        <li><strong>Pausas activas:</strong> Implementar pausas frecuentes y en áreas frescas para los empleados que trabajan al aire libre.</li>
+                        <li><strong>Plan de refrigeración:</strong> Asegúrese de que las áreas de trabajo estén acondicionadas con sistemas de refrigeración adecuados.</li>
+                    </ul>
+                </div>
+                
+                <div class="protocol-box editable" id="protocolo-tormentas">
+                    <div class="protocol-title editable" id="titulo-protocolo2">Tormentas e inundaciones:</div>
+                    <ul class="procedure-list editable" id="lista-protocolo2">
+                        <li><strong>Evacuación y refugio:</strong> Establecer procedimientos claros de evacuación y puntos de refugio dentro de las instalaciones.</li>
+                        <li><strong>Protección de equipos:</strong> Asegurar que los equipos y materiales críticos sean trasladados a áreas seguras o protegidas adecuadamente para evitar daños.</li>
+                    </ul>
+                </div>
+                
+                <div class="protocol-box editable" id="protocolo-sequias">
+                    <div class="protocol-title editable" id="titulo-protocolo3">Sequías:</div>
+                    <ul class="procedure-list editable" id="lista-protocolo3">
+                        <li><strong>Uso eficiente del agua:</strong> Implementar medidas para optimizar el uso del agua, como la instalación de sistemas de captación de agua de lluvia.</li>
+                        <li><strong>Monitoreo de fuentes de agua:</strong> Realizar seguimientos continuos sobre la disponibilidad de recursos hídricos esenciales.</li>
+                    </ul>
+                </div>
+                
+                <div class="section-subtitle editable" id="subtitle44">4.4 Formación y Capacitación</div>
+                <ul class="procedure-list editable" id="procedimiento-lista3">
+                    <li>Realizar entrenamientos periódicos para los empleados sobre cómo actuar en caso de emergencias climáticas (evacuación, medidas de protección, primeros auxilios).</li>
+                    <li><strong>Simulacros de emergencia:</strong> Programar simulacros regulares para asegurar que todos los empleados conozcan los procedimientos de seguridad y las rutas de evacuación.</li>
+                </ul>
+                
+                <div class="section-subtitle editable" id="subtitle45">4.5 Comunicación durante Emergencias Climáticas</div>
+                <ul class="procedure-list editable" id="procedimiento-lista4">
+                    <li><strong>Alertas tempranas:</strong> Implementar sistemas de comunicación para informar rápidamente a todo el personal sobre alertas climáticas y medidas a tomar (por ejemplo, SMS, correos electrónicos, aplicaciones móviles).</li>
+                    <li><strong>Puntos de contacto:</strong> Establecer un sistema de comunicación interna para mantener informados a todos los empleados durante un evento climático.</li>
+                    <li><strong>Comunicación con autoridades:</strong> Coordinar con las autoridades locales y organismos meteorológicos para recibir información y directrices adicionales.</li>
+                </ul>
+                
+                <div class="section-subtitle editable" id="subtitle46">4.6 Evaluación Post-emergencia</div>
+                <ul class="procedure-list editable" id="procedimiento-lista5">
+                    <li><strong>Evaluación de daños:</strong> Después de un evento climático, realice una evaluación exhaustiva de los daños materiales y las consecuencias sobre los procesos operativos.</li>
+                    <li><strong>Informe de incidentes:</strong> Documentar todas las acciones tomadas durante el evento, los resultados obtenidos y las lecciones aprendidas para mejorar las respuestas futuras.</li>
+                    <li><strong>Revisión del plan:</strong> Actualizar el plan de emergencia según los resultados de la evaluación post-emergencia y las experiencias adquiridas.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección Medición y seguimiento -->
+            <div class="section" id="medicion">
+                <div class="section-title">5. Medición y seguimiento <span id="editIndicator5" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="measurement-box">
+                    <div class="section-subtitle editable" id="subtitle51">5.1 Indicadores de Desempeño</div>
+                    <ul class="procedure-list editable" id="indicadores-lista">
+                        <li><strong>Tiempo de respuesta ante emergencias:</strong> Medir el tiempo de respuesta desde la detección del evento climático hasta la implementación de las medidas de emergencia.</li>
+                        <li><strong>Porcentaje de empleados evacuados de forma segura:</strong> Mide la eficiencia del proceso de evacuación y la seguridad de los empleados durante el evento.</li>
+                        <li><strong>Impacto ambiental mitigado:</strong> Evaluar los daños ambientales provocados por el evento y las medidas adoptadas para mitigarlos.</li>
+                    </ul>
+                </div>
+                
+                <div class="section-subtitle editable" id="subtitle52">5.2 Revisión anual</div>
+                <ul class="procedure-list editable" id="revision-lista">
+                    <li>Revisar y actualizar el plan de emergencia climática anual, considerando la experiencia adquirida, los cambios en las regulaciones y las mejores prácticas del sector.</li>
+                </ul>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones <span id="editIndicator6" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th class="editable" id="columna-version">Versión</th>
+                                <th class="editable" id="columna-fecha">Fecha</th>
+                                <th class="editable" id="columna-asiento">Asiento</th>
+                                <th class="editable" id="columna-aprueba">Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" id="version1">000</td>
+                                <td class="editable" id="fecha1">01.12.2024</td>
+                                <td class="editable" id="asiento1">Original</td>
+                                <td class="editable" id="aprueba1">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: DOC-014 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-014-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                document.getElementById('resetBtn').addEventListener('click', () => this.resetToOriginal());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Se detectaron ediciones guardadas. Use "CARGAR EDICIONES GUARDADAS" para cargarlas.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                        console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+                
+                // Configurar scroll suave para los enlaces del TOC
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESACTIVAR EDICIÓN';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo edición activo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTENIDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo lectura activo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Active el modo edición primero para poder guardar cambios.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('Las ediciones han sido guardadas en el navegador correctamente.');
+                } catch (error) {
+                    alert('Error al guardar las ediciones: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('No se encontraron ediciones guardadas en el navegador.');
+                    return;
+                }
+                
+                if (confirm('¿Cargar las ediciones guardadas? Esto sobrescribirá el contenido actual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Ediciones cargadas correctamente desde el navegador.');
+                    } catch (error) {
+                        alert('Error al cargar las ediciones: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-014-Plan-Emergencia-Climatica-SGC.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. Descargando...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todas las ediciones actuales.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Contenido original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

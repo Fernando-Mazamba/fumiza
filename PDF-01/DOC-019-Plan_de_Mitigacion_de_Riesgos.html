@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-019 Plan de Mitigación de Riesgos - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Painel de controles de edição */
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #718096;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .objective-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .objective-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .risk-categories {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .categories-list {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .category-item {
+            padding: 10px 15px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .risk-table th, .risk-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .risk-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        
+        .risk-high {
+            background-color: #fed7d7;
+            color: #9b2c2c;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .risk-medium {
+            background-color: #feebc8;
+            color: #744210;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .risk-low {
+            background-color: #c6f6d5;
+            color: #22543d;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .matrix-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .matrix-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            max-width: 500px;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .matrix-table th, .matrix-table td {
+            border: 1px solid #9ae6b4;
+            padding: 12px 15px;
+            text-align: center;
+        }
+        
+        .matrix-table th {
+            background-color: #38a169;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .emergency-plan {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .emergency-title {
+            color: #9b2c2c;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .emergency-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .emergency-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .emergency-list li:before {
+            content: "⚠";
+            color: #e53e3e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        /* Estilos para edição */
+        .editable {
+            min-height: 20px;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .add-risk-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        
+        .add-risk-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .add-risk-btn {
+                display: none;
+            }
+            
+            .table-container {
+                overflow-x: visible;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .categories-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .controls-panel {
+                margin: 20px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .categories-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Plan de Mitigación de Riesgos</div>
+        <div class="doc-code">Código: DOC-019</div>
+        
+        <!-- Painel de controles de edição -->
+        <div class="controls-panel" id="controlsPanel">
+            <button class="edit-btn" id="editContentBtn">EDITAR CONTENIDO</button>
+            <button class="action-btn secondary" id="saveBtn">GUARDAR EN NAVEGADOR</button>
+            <button class="action-btn" id="exportBtn">DESCARGAR COMO HTML</button>
+            <button class="action-btn secondary" id="loadBtn">CARGAR EDICIONES GUARDADAS</button>
+            <button class="action-btn secondary" id="resetBtn">RESTAURAR ORIGINAL</button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura activo</span>
+        </div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Objetivo -->
+            <div class="section">
+                <div class="objective-box">
+                    <div class="objective-title editable" id="objetivo-titulo">Objetivo del Plan</div>
+                    <p class="editable" id="objetivo-texto">El objetivo de este plan es identificar y evaluar los riesgos presentes en el entorno laboral, estableciendo medidas específicas para mitigarlos y prevenir que afecten la seguridad, la salud de los trabajadores o las operaciones de la empresa.</p>
+                </div>
+            </div>
+            
+            <!-- 1. Identificación de los Riesgos -->
+            <div class="section">
+                <div class="section-title">1. Identificación de los Riesgos <span id="editIndicator1" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <p class="editable" id="identificacion-texto">En esta sección, se identifican los riesgos más relevantes en el entorno de trabajo, considerando tanto los riesgos laborales como los ambientales, tecnológicos o de otro tipo.</p>
+                
+                <div class="risk-categories">
+                    <p class="editable" id="categorias-texto"><strong>Categorías de Riesgos:</strong></p>
+                    <ul class="categories-list editable" id="categorias-lista">
+                        <li class="category-item editable" id="categoria1">Riesgos físicos</li>
+                        <li class="category-item editable" id="categoria2">Riesgos químicos</li>
+                        <li class="category-item editable" id="categoria3">Riesgos biológicos</li>
+                        <li class="category-item editable" id="categoria4">Riesgos ergonómicos</li>
+                        <li class="category-item editable" id="categoria5">Riesgos psicosociales</li>
+                        <li class="category-item editable" id="categoria6">Riesgos ambientales</li>
+                    </ul>
+                </div>
+                
+                <button class="add-risk-btn" id="addRiskBtn1" style="display: none;">+ Añadir Nuevo Riesgo</button>
+                
+                <div class="table-container">
+                    <table class="risk-table" id="riskTable1">
+                        <thead>
+                            <tr>
+                                <th class="editable" id="columna-riesgo">Riesgo Identificado</th>
+                                <th class="editable" id="columna-categoria">Categoría</th>
+                                <th class="editable" id="columna-probabilidad">Probabilidad</th>
+                                <th class="editable" id="columna-impacto">Impacto</th>
+                                <th class="editable" id="columna-nivel">Nivel de Riesgo</th>
+                                <th class="editable" id="columna-area">Área Afectada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" id="riesgo1">Exposición a sustancias químicas</td>
+                                <td class="editable" id="categoria-riesgo1">Químico</td>
+                                <td class="editable" id="probabilidad1">Alta</td>
+                                <td class="editable" id="impacto1">Grave</td>
+                                <td><span class="risk-high editable" id="nivel1" contenteditable="false">Alto</span></td>
+                                <td class="editable" id="area1">Laboratorio</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo2">Estrés laboral</td>
+                                <td class="editable" id="categoria-riesgo2">Psicosocial</td>
+                                <td class="editable" id="probabilidad2">Media</td>
+                                <td class="editable" id="impacto2">Moderado</td>
+                                <td><span class="risk-medium editable" id="nivel2" contenteditable="false">Medio</span></td>
+                                <td class="editable" id="area2">Oficina</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo3">Caídas en superficies mojadas</td>
+                                <td class="editable" id="categoria-riesgo3">Físico</td>
+                                <td class="editable" id="probabilidad3">Alta</td>
+                                <td class="editable" id="impacto3">Grave</td>
+                                <td><span class="risk-high editable" id="nivel3" contenteditable="false">Alto</span></td>
+                                <td class="editable" id="area3">Pasillos</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo4">Daños por sobrecarga muscular</td>
+                                <td class="editable" id="categoria-riesgo4">Ergonómico</td>
+                                <td class="editable" id="probabilidad4">Media</td>
+                                <td class="editable" id="impacto4">Moderado</td>
+                                <td><span class="risk-medium editable" id="nivel4" contenteditable="false">Medio</span></td>
+                                <td class="editable" id="area4">Departamento A</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo5">Exposición a radiación</td>
+                                <td class="editable" id="categoria-riesgo5">Químico</td>
+                                <td class="editable" id="probabilidad5">Baja</td>
+                                <td class="editable" id="impacto5">Grave</td>
+                                <td><span class="risk-medium editable" id="nivel5" contenteditable="false">Medio</span></td>
+                                <td class="editable" id="area5">Área B</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 2. Evaluación de los Riesgos -->
+            <div class="section">
+                <div class="section-title">2. Evaluación de los Riesgos <span id="editIndicator2" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <p class="editable" id="evaluacion-texto">Una vez identificados los riesgos, es necesario evaluarlos en función de su probabilidad de ocurrir y su impacto potencial en la organización. Esto se puede hacer utilizando una matriz de riesgos.</p>
+                
+                <div class="matrix-box">
+                    <div class="matrix-title editable" id="matriz-titulo">Matriz de Evaluación de Riesgos</div>
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="editable" id="columna-probabilidad-matriz">Probabilidad</th>
+                                <th class="editable" id="columna-impacto-matriz">Impacto</th>
+                                <th class="editable" id="columna-nivel-matriz">Nivel de Riesgo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" id="probabilidad-alta">Alta</td>
+                                <td class="editable" id="impacto-grave">Grave</td>
+                                <td><span class="risk-high editable" id="nivel-alto" contenteditable="false">Alto</span></td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="probabilidad-media">Media</td>
+                                <td class="editable" id="impacto-moderado">Moderado</td>
+                                <td><span class="risk-medium editable" id="nivel-medio" contenteditable="false">Medio</span></td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="probabilidad-baja">Baja</td>
+                                <td class="editable" id="impacto-bajo">Bajo</td>
+                                <td><span class="risk-low editable" id="nivel-bajo" contenteditable="false">Bajo</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 3. Medidas de Mitigación -->
+            <div class="section">
+                <div class="section-title">3. Medidas de Mitigación <span id="editIndicator3" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <p class="editable" id="mitigacion-texto">Aquí se detallan las acciones específicas que se tomarán para mitigar cada uno de los riesgos identificados. Las medidas de mitigación pueden incluir tanto acciones preventivas como acciones correctivas.</p>
+                
+                <button class="add-risk-btn" id="addRiskBtn2" style="display: none;">+ Añadir Medida de Mitigación</button>
+                
+                <div class="table-container">
+                    <table class="risk-table" id="riskTable2">
+                        <thead>
+                            <tr>
+                                <th class="editable" id="columna-riesgo-mitigacion">Riesgo Identificado</th>
+                                <th class="editable" id="columna-medidas">Medidas de Mitigación</th>
+                                <th class="editable" id="columna-responsable">Responsable</th>
+                                <th class="editable" id="columna-plazo">Plazo de Implementación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" id="riesgo-mit1">Exposición a sustancias químicas</td>
+                                <td class="editable" id="medida1">Uso de equipos de protección personal (EPP)</td>
+                                <td class="editable" id="responsable1">Jefe de Seguridad</td>
+                                <td class="editable" id="plazo1">1 semana</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo-mit2">Estrés laboral</td>
+                                <td class="editable" id="medida2">Programas de manejo de estrés y apoyo psicológico</td>
+                                <td class="editable" id="responsable2">Departamento de RRHH</td>
+                                <td class="editable" id="plazo2">2 semanas</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo-mit3">Caídas en superficies mojadas</td>
+                                <td class="editable" id="medida3">Señales de advertencia y mejora de la limpieza</td>
+                                <td class="editable" id="responsable3">Supervisor de Mantenimiento</td>
+                                <td class="editable" id="plazo3">3 días</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo-mit4">Daños por sobrecarga muscular</td>
+                                <td class="editable" id="medida4">Revisión de estaciones de trabajo y ajustes ergonómicos</td>
+                                <td class="editable" id="responsable4">Departamento de Salud Ocupacional</td>
+                                <td class="editable" id="plazo4">1 mes</td>
+                            </tr>
+                            <tr>
+                                <td class="editable" id="riesgo-mit5">Exposición a radiación</td>
+                                <td class="editable" id="medida5">Instalación de barreras protectoras y monitoreo de niveles</td>
+                                <td class="editable" id="responsable5">Departamento Técnico</td>
+                                <td class="editable" id="plazo5">1 mes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 4. Monitoreo y Seguimiento -->
+            <div class="section">
+                <div class="section-title">4. Monitoreo y Seguimiento <span id="editIndicator4" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <p class="editable" id="monitoreo-texto">Es crucial realizar un seguimiento regular para asegurarse de que las medidas de mitigación sean efectivas y que los riesgos estén siendo gestionados adecuadamente. El responsable de monitoreo debe garantizar que las acciones preventivas y correctivas se lleven a cabo dentro de los plazos establecidos.</p>
+            </div>
+            
+            <!-- 5. Revisión y Mejora Continua -->
+            <div class="section">
+                <div class="section-title">5. Revisión y Mejora Continua <span id="editIndicator5" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <p class="editable" id="revision-texto">El plan de mitigación de riesgos debe ser revisado periódicamente para adaptarse a nuevos riesgos o cambios en las condiciones laborales. Esta revisión debe incluir la evaluación de la efectividad de las medidas implementadas, la identificación de nuevos riesgos y el ajuste de las acciones de mitigación.</p>
+            </div>
+            
+            <!-- 6. Plan de Acción en Caso de Emergencia -->
+            <div class="section">
+                <div class="section-title">6. Plan de Acción en Caso de Emergencia <span id="editIndicator6" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <p class="editable" id="emergencia-texto">Además del plan de mitigación de riesgos, se deben establecer procedimientos de emergencia en caso de que un riesgo se materialice.</p>
+                
+                <div class="emergency-plan">
+                    <div class="emergency-title editable" id="emergencia-titulo">Procedimientos de Emergencia</div>
+                    <ul class="emergency-list editable" id="emergencia-lista">
+                        <li>Planes de evacuación</li>
+                        <li>Entrenamientos regulares en seguridad</li>
+                        <li>Equipos de respuesta ante emergencias (bomberos, primeros auxilios)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones <span id="editIndicator7" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th class="editable" id="columna-version">Versión</th>
+                                <th class="editable" id="columna-fecha">Fecha</th>
+                                <th class="editable" id="columna-asiento">Asiento</th>
+                                <th class="editable" id="columna-aprueba">Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" id="version1">000</td>
+                                <td class="editable" id="fecha1">01.12.2024</td>
+                                <td class="editable" id="asiento1">Original</td>
+                                <td class="editable" id="aprueba1">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: DOC-019 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-019-edited-content';
+                this.originalContent = {};
+                this.riskCounter1 = 5;
+                this.riskCounter2 = 5;
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                document.getElementById('resetBtn').addEventListener('click', () => this.resetToOriginal());
+                document.getElementById('addRiskBtn1').addEventListener('click', () => this.addNewRisk(1));
+                document.getElementById('addRiskBtn2').addEventListener('click', () => this.addNewRisk(2));
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Se detectaron ediciones guardadas. Use "CARGAR EDICIONES GUARDADAS" para cargarlas.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                        console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                const addRiskBtns = document.querySelectorAll('.add-risk-btn');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESACTIVAR EDICIÓN';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo edición activo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                    // Mostrar botones para añadir riesgos
+                    addRiskBtns.forEach(btn => {
+                        btn.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTENIDO';
+                    editBtn.style.backgroundColor = '#4a5568';
+                    editStatus.textContent = 'Modo lectura activo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                    
+                    // Ocultar botones para añadir riesgos
+                    addRiskBtns.forEach(btn => {
+                        btn.style.display = 'none';
+                    });
+                }
+            }
+            
+            addNewRisk(tableType) {
+                if (!this.editMode) return;
+                
+                if (tableType === 1) {
+                    this.riskCounter1++;
+                    const table = document.getElementById('riskTable1').getElementsByTagName('tbody')[0];
+                    const newRow = table.insertRow();
+                    
+                    newRow.innerHTML = `
+                        <td class="editable" id="riesgo-new-${this.riskCounter1}">[Nuevo riesgo]</td>
+                        <td class="editable" id="categoria-riesgo-new-${this.riskCounter1}">[Categoría]</td>
+                        <td class="editable" id="probabilidad-new-${this.riskCounter1}">[Probabilidad]</td>
+                        <td class="editable" id="impacto-new-${this.riskCounter1}">[Impacto]</td>
+                        <td><span class="risk-medium editable" id="nivel-new-${this.riskCounter1}" contenteditable="false">Medio</span></td>
+                        <td class="editable" id="area-new-${this.riskCounter1}">[Área]</td>
+                    `;
+                    
+                    alert(`Nuevo riesgo añadido a la tabla de identificación. Complete la información.`);
+                } else if (tableType === 2) {
+                    this.riskCounter2++;
+                    const table = document.getElementById('riskTable2').getElementsByTagName('tbody')[0];
+                    const newRow = table.insertRow();
+                    
+                    newRow.innerHTML = `
+                        <td class="editable" id="riesgo-mit-new-${this.riskCounter2}">[Riesgo identificado]</td>
+                        <td class="editable" id="medida-new-${this.riskCounter2}">[Medida de mitigación]</td>
+                        <td class="editable" id="responsable-new-${this.riskCounter2}">[Responsable]</td>
+                        <td class="editable" id="plazo-new-${this.riskCounter2}">[Plazo]</td>
+                    `;
+                    
+                    alert(`Nueva medida de mitigación añadida. Complete la información.`);
+                }
+                
+                // Asegurar que los nuevos elementos sean editables
+                const newRows = document.querySelectorAll('tr:last-child .editable');
+                newRows.forEach(element => {
+                    element.setAttribute('contenteditable', 'true');
+                    element.classList.add('editing');
+                });
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Active el modo edición primero para poder guardar cambios.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                // Guardar también los contadores de riesgos
+                savedContent['riskCounter1'] = this.riskCounter1;
+                savedContent['riskCounter2'] = this.riskCounter2;
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('Las ediciones han sido guardadas en el navegador correctamente.');
+                } catch (error) {
+                    alert('Error al guardar las ediciones: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('No se encontraron ediciones guardadas en el navegador.');
+                    return;
+                }
+                
+                if (confirm('¿Cargar las ediciones guardadas? Esto sobrescribirá el contenido actual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        // Restaurar los contadores de riesgos
+                        if (savedContent['riskCounter1']) {
+                            this.riskCounter1 = savedContent['riskCounter1'];
+                        }
+                        if (savedContent['riskCounter2']) {
+                            this.riskCounter2 = savedContent['riskCounter2'];
+                        }
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Ediciones cargadas correctamente desde el navegador.');
+                    } catch (error) {
+                        alert('Error al cargar las ediciones: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover botones de añadir riesgo
+                const addRiskBtns = docClone.querySelectorAll('.add-risk-btn');
+                addRiskBtns.forEach(btn => {
+                    btn.remove();
+                });
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-019-Plan-Mitigacion-Riesgos-SGC.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. Descargando...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todas las ediciones actuales.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    this.riskCounter1 = 5;
+                    this.riskCounter2 = 5;
+                    alert('Contenido original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

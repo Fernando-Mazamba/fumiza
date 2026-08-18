@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-037 Plan de Acción para Riesgos - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .form-field {
+            margin-bottom: 20px;
+        }
+        
+        .field-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        
+        .field-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .field-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .field-input.underline {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            border-radius: 0;
+            padding: 10px 0;
+        }
+        
+        .textarea-field {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .radio-label {
+            cursor: pointer;
+        }
+        
+        .risk-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #e2e8f0;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .risk-category.selected {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .action-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .action-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .signature-area {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-field {
+            display: inline-block;
+            width: 48%;
+            margin-right: 4%;
+            vertical-align: top;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: #333;
+            margin-top: 60px;
+        }
+        
+        .risk-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .indicator-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        
+        .high-risk { background-color: #e53e3e; }
+        .medium-risk { background-color: #d69e2e; }
+        .low-risk { background-color: #38a169; }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .download-btn {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .edit-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .field-input.underline {
+                border-bottom: 1px solid #999;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .signature-field {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* Estilo para modo edição */
+        .editable {
+            border: 1px dashed #cbd5e0 !important;
+        }
+        
+        .editing-mode {
+            background-color: #f0fff4;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="documentContent">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        001
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Plan de Acción para Riesgos</div>
+        <div class="doc-code">Código: FORM-037</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <div style="counter-reset: section-counter;">
+            
+            <!-- Sección 1: Información General -->
+            <div class="section">
+                <div class="section-title">Información General</div>
+                
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="field-label">Nombre del Riesgo:</label>
+                        <input type="text" class="field-input editable" id="nombreRiesgo" placeholder="Descripción del riesgo identificado" value="">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Código del Riesgo:</label>
+                        <input type="text" class="field-input editable" id="codigoRiesgo" placeholder="Código o número de referencia" value="">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Ubicación:</label>
+                        <input type="text" class="field-input editable" id="ubicacionRiesgo" placeholder="Ubicación donde se identificó el riesgo" value="">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Responsable del Riesgo:</label>
+                        <input type="text" class="field-input editable" id="responsableRiesgo" placeholder="Nombre del responsable de la gestión del riesgo" value="">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Fecha de identificación:</label>
+                        <input type="text" class="field-input editable date-field" id="fechaIdentificacion" placeholder="DD/MM/AAAA" value="">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Fecha de evaluación:</label>
+                        <input type="text" class="field-input editable date-field" id="fechaEvaluacion" placeholder="DD/MM/AAAA" value="">
+                    </div>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Impacto esperado:</label>
+                    <textarea class="textarea-field editable" id="impactoEsperado" placeholder="Descripción breve del impacto que puede causar el riesgo"></textarea>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Descripción del Riesgo -->
+            <div class="section">
+                <div class="section-title">Descripción del Riesgo</div>
+                
+                <div class="form-field">
+                    <label class="field-label">Categoría del Riesgo:</label>
+                    <div id="categoriasRiesgo">
+                        <span class="risk-category" data-value="accidente">Riesgo de accidente</span>
+                        <span class="risk-category" data-value="ambiental">Riesgo ambiental</span>
+                        <span class="risk-category" data-value="seguridad">Riesgo de seguridad</span>
+                        <span class="risk-category" data-value="calidad">Riesgo de calidad</span>
+                        <span class="risk-category" data-value="operacional">Riesgo operacional</span>
+                        <span class="risk-category" data-value="financiero">Riesgo financiero</span>
+                    </div>
+                    <input type="text" class="field-input editable" id="otraCategoria" placeholder="Otra categoría (especificar)" style="margin-top: 10px;" value="">
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Causa principal del Riesgo:</label>
+                    <textarea class="textarea-field editable" id="causaPrincipal" placeholder="Descripción de la causa o factor que contribuye al riesgo"></textarea>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Efectos del Riesgo:</label>
+                    <textarea class="textarea-field editable" id="efectosRiesgo" placeholder="Enumerar los posibles efectos o consecuencias del riesgo"></textarea>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-field">
+                        <div class="form-section-title">Probabilidad de ocurrencia:</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="probabilidad-alta" name="probabilidad" value="Alta">
+                                <label for="probabilidad-alta" class="radio-label">
+                                    <span class="risk-indicator">
+                                        <span class="indicator-color high-risk"></span>
+                                        Alta
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="probabilidad-media" name="probabilidad" value="Media">
+                                <label for="probabilidad-media" class="radio-label">
+                                    <span class="risk-indicator">
+                                        <span class="indicator-color medium-risk"></span>
+                                        Media
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="probabilidad-baja" name="probabilidad" value="Baja">
+                                <label for="probabilidad-baja" class="radio-label">
+                                    <span class="risk-indicator">
+                                        <span class="indicator-color low-risk"></span>
+                                        Baja
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <div class="form-section-title">Severidad del Riesgo:</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="severidad-alta" name="severidad" value="Alta">
+                                <label for="severidad-alta" class="radio-label">
+                                    <span class="risk-indicator">
+                                        <span class="indicator-color high-risk"></span>
+                                        Alta
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="severidad-media" name="severidad" value="Media">
+                                <label for="severidad-media" class="radio-label">
+                                    <span class="risk-indicator">
+                                        <span class="indicator-color medium-risk"></span>
+                                        Media
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="severidad-baja" name="severidad" value="Baja">
+                                <label for="severidad-baja" class="radio-label">
+                                    <span class="risk-indicator">
+                                        <span class="indicator-color low-risk"></span>
+                                        Baja
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Acciones Correctivas y Preventivas -->
+            <div class="section">
+                <div class="section-title">Acciones Correctivas y Preventivas</div>
+                
+                <!-- Acción Correctiva -->
+                <div class="action-box">
+                    <div class="action-title">Acción Correctiva</div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Descripción de la Acción:</label>
+                        <textarea class="textarea-field editable" id="descripcionAccionCorrectiva" placeholder="Detallar la acción correctiva que se tomará para mitigar el riesgo"></textarea>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label class="field-label">Responsable:</label>
+                            <input type="text" class="field-input editable" id="responsableAccionCorrectiva" placeholder="Persona o equipo responsable de la implementación" value="">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Plazo de implementación:</label>
+                            <input type="text" class="field-input editable date-field" id="plazoAccionCorrectiva" placeholder="DD/MM/AAAA" value="">
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Recursos necesarios:</label>
+                        <textarea class="textarea-field editable" id="recursosAccionCorrectiva" placeholder="Recursos necesarios para implementar la acción"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Acción Preventiva -->
+                <div class="action-box">
+                    <div class="action-title">Acción Preventiva</div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Descripción de la Acción:</label>
+                        <textarea class="textarea-field editable" id="descripcionAccionPreventiva" placeholder="Detallar la acción preventiva para evitar que el riesgo ocurra nuevamente"></textarea>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label class="field-label">Responsable:</label>
+                            <input type="text" class="field-input editable" id="responsableAccionPreventiva" placeholder="Persona o equipo responsable de la acción preventiva" value="">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Plazo de implementación:</label>
+                            <input type="text" class="field-input editable date-field" id="plazoAccionPreventiva" placeholder="DD/MM/AAAA" value="">
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Recursos necesarios:</label>
+                        <textarea class="textarea-field editable" id="recursosAccionPreventiva" placeholder="Recursos necesarios para implementar la acción"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Plan de Monitoreo y Seguimiento -->
+            <div class="section">
+                <div class="section-title">Plan de Monitoreo y Seguimiento</div>
+                
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="field-label">Método de Monitoreo:</label>
+                        <select class="field-input editable" id="metodoMonitoreo">
+                            <option value="">Seleccionar método...</option>
+                            <option value="inspecciones">Inspecciones periódicas</option>
+                            <option value="informes">Informes de seguimiento</option>
+                            <option value="auditorias">Auditorías internas</option>
+                            <option value="revisiones">Revisiones de gestión</option>
+                            <option value="indicadores">Indicadores de desempeño</option>
+                            <option value="observaciones">Observaciones directas</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Responsable del Monitoreo:</label>
+                        <input type="text" class="field-input editable" id="responsableMonitoreo" placeholder="Persona o equipo responsable del seguimiento" value="">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Frecuencia del Monitoreo:</label>
+                        <select class="field-input editable" id="frecuenciaMonitoreo">
+                            <option value="">Seleccionar frecuencia...</option>
+                            <option value="diaria">Diaria</option>
+                            <option value="semanal">Semanal</option>
+                            <option value="quincenal">Quincenal</option>
+                            <option value="mensual">Mensual</option>
+                            <option value="trimestral">Trimestral</option>
+                            <option value="semestral">Semestral</option>
+                            <option value="anual">Anual</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Fecha de próxima evaluación:</label>
+                        <input type="text" class="field-input editable date-field" id="fechaProximaEvaluacion" placeholder="DD/MM/AAAA" value="">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Evaluación de la Eficiencia del Plan -->
+            <div class="section">
+                <div class="section-title">Evaluación de la Eficiencia del Plan</div>
+                
+                <div class="form-field">
+                    <label class="field-label">Criterios de éxito:</label>
+                    <textarea class="textarea-field editable" id="criteriosExito" placeholder="Criterios para medir la eficacia de la acción correctiva y preventiva"></textarea>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Resultados obtenidos:</label>
+                    <textarea class="textarea-field editable" id="resultadosObtenidos" placeholder="Resultados tras la implementación del plan, como reducción del riesgo o mitigación"></textarea>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Acciones adicionales necesarias:</label>
+                    <textarea class="textarea-field editable" id="accionesAdicionales" placeholder="Si es necesario, describir acciones adicionales para reducir aún más el riesgo"></textarea>
+                </div>
+                
+                <div class="signature-area">
+                    <div class="form-section-title">Firma del Responsable:</div>
+                    
+                    <div class="signature-field">
+                        <div class="signature-line"></div>
+                        <p style="margin-top: 5px; font-size: 14px; color: #666;">Firma del responsable</p>
+                    </div>
+                    
+                    <div class="signature-field">
+                        <label class="field-label">Nombre y cargo del responsable:</label>
+                        <input type="text" class="field-input underline editable" id="nombreCargoResponsable" placeholder="Nombre completo y cargo" value="">
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+            
+            <!-- Botones de ação -->
+            <div class="action-buttons">
+                <button class="btn edit-btn" id="toggleEditBtn">📝 Habilitar Edición</button>
+                <button class="btn download-btn" id="downloadBtn">💾 Descargar PDF</button>
+                <button class="btn print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-037 | Revisión: 001 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar campos de fecha
+            const dateFields = document.querySelectorAll('.date-field');
+            dateFields.forEach(field => {
+                field.addEventListener('focus', function() {
+                    this.type = 'date';
+                });
+                
+                field.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.type = 'text';
+                    }
+                });
+                
+                field.addEventListener('change', function() {
+                    if (this.value) {
+                        const date = new Date(this.value);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        this.value = `${day}/${month}/${year}`;
+                    }
+                });
+            });
+            
+            // Seleccionar categorías de riesgo
+            const riskCategories = document.querySelectorAll('.risk-category');
+            riskCategories.forEach(category => {
+                category.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    saveData();
+                });
+            });
+            
+            // Control de edição
+            const editBtn = document.getElementById('toggleEditBtn');
+            let editMode = false;
+            
+            editBtn.addEventListener('click', function() {
+                editMode = !editMode;
+                
+                if (editMode) {
+                    // Ativar modo edição
+                    this.textContent = '🔒 Deshabilitar Edición';
+                    this.classList.remove('edit-btn');
+                    this.classList.add('print-btn');
+                    
+                    // Habilitar todos os campos editáveis
+                    document.querySelectorAll('.editable').forEach(field => {
+                        field.removeAttribute('readonly');
+                        field.removeAttribute('disabled');
+                        field.classList.add('editing-mode');
+                    });
+                    
+                    // Habilitar radio buttons
+                    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                        radio.disabled = false;
+                    });
+                    
+                    // Habilitar selects
+                    document.querySelectorAll('select').forEach(select => {
+                        select.disabled = false;
+                    });
+                    
+                    // Adicionar classe ao container para indicar modo edição
+                    document.querySelector('.document-container').classList.add('editing-mode');
+                    
+                } else {
+                    // Desativar modo edição
+                    this.textContent = '📝 Habilitar Edición';
+                    this.classList.remove('print-btn');
+                    this.classList.add('edit-btn');
+                    
+                    // Remover classe de edição
+                    document.querySelectorAll('.editable').forEach(field => {
+                        field.classList.remove('editing-mode');
+                    });
+                    
+                    // Remover classe do container
+                    document.querySelector('.document-container').classList.remove('editing-mode');
+                }
+            });
+            
+            // Download como PDF
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            downloadBtn.addEventListener('click', function() {
+                // Verificar se as bibliotecas estão disponíveis
+                if (typeof html2canvas === 'undefined' || typeof jsPDF === 'undefined') {
+                    // Se não estiverem disponíveis, mostrar instruções discretas
+                    const message = document.createElement('div');
+                    message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #4a5568; color: white; padding: 15px; border-radius: 5px; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+                    message.innerHTML = `
+                        <p style="margin: 0 0 10px 0; font-weight: bold;">Para descargar como PDF:</p>
+                        <ol style="margin: 0; padding-left: 20px; font-size: 12px;">
+                            <li>Incluir estas librerías en tu HTML:</li>
+                            <li>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"&gt;&lt;/script&gt;</li>
+                            <li>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"&gt;&lt;/script&gt;</li>
+                        </ol>
+                        <button onclick="this.parentElement.remove()" style="margin-top: 10px; background: white; color: #4a5568; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Cerrar</button>
+                    `;
+                    document.body.appendChild(message);
+                    
+                    // Remover após 10 segundos
+                    setTimeout(() => {
+                        if (message.parentElement) {
+                            message.remove();
+                        }
+                    }, 10000);
+                    
+                    // Usar impressão como fallback
+                    setTimeout(() => {
+                        window.print();
+                    }, 100);
+                    
+                    return;
+                }
+                
+                // Desativar temporariamente o modo de edição para impressão
+                const wasEditMode = editMode;
+                if (editMode) {
+                    editMode = false;
+                    editBtn.click();
+                }
+                
+                // Usar html2canvas para capturar o conteúdo
+                html2canvas(document.querySelector('.document-container')).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    pdf.save('FORM-037-Plan-de-Accion-para-Riesgos.pdf');
+                    
+                    // Restaurar modo de edição se estava ativo
+                    if (wasEditMode) {
+                        setTimeout(() => {
+                            editMode = true;
+                            editBtn.click();
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Salvar dados localmente
+            function saveData() {
+                const formData = {
+                    nombreRiesgo: document.getElementById('nombreRiesgo').value,
+                    codigoRiesgo: document.getElementById('codigoRiesgo').value,
+                    ubicacionRiesgo: document.getElementById('ubicacionRiesgo').value,
+                    responsableRiesgo: document.getElementById('responsableRiesgo').value,
+                    fechaIdentificacion: document.getElementById('fechaIdentificacion').value,
+                    fechaEvaluacion: document.getElementById('fechaEvaluacion').value,
+                    impactoEsperado: document.getElementById('impactoEsperado').value,
+                    causaPrincipal: document.getElementById('causaPrincipal').value,
+                    efectosRiesgo: document.getElementById('efectosRiesgo').value,
+                    descripcionAccionCorrectiva: document.getElementById('descripcionAccionCorrectiva').value,
+                    responsableAccionCorrectiva: document.getElementById('responsableAccionCorrectiva').value,
+                    plazoAccionCorrectiva: document.getElementById('plazoAccionCorrectiva').value,
+                    recursosAccionCorrectiva: document.getElementById('recursosAccionCorrectiva').value,
+                    descripcionAccionPreventiva: document.getElementById('descripcionAccionPreventiva').value,
+                    responsableAccionPreventiva: document.getElementById('responsableAccionPreventiva').value,
+                    plazoAccionPreventiva: document.getElementById('plazoAccionPreventiva').value,
+                    recursosAccionPreventiva: document.getElementById('recursosAccionPreventiva').value,
+                    metodoMonitoreo: document.getElementById('metodoMonitoreo').value,
+                    responsableMonitoreo: document.getElementById('responsableMonitoreo').value,
+                    frecuenciaMonitoreo: document.getElementById('frecuenciaMonitoreo').value,
+                    fechaProximaEvaluacion: document.getElementById('fechaProximaEvaluacion').value,
+                    criteriosExito: document.getElementById('criteriosExito').value,
+                    resultadosObtenidos: document.getElementById('resultadosObtenidos').value,
+                    accionesAdicionales: document.getElementById('accionesAdicionales').value,
+                    nombreCargoResponsable: document.getElementById('nombreCargoResponsable').value
+                };
+                
+                // Salvar categorías seleccionadas
+                const categoriasSeleccionadas = [];
+                document.querySelectorAll('.risk-category.selected').forEach(cat => {
+                    categoriasSeleccionadas.push(cat.getAttribute('data-value'));
+                });
+                formData.categoriasSeleccionadas = categoriasSeleccionadas;
+                
+                localStorage.setItem('FORM-037-data', JSON.stringify(formData));
+            }
+            
+            // Carregar dados salvos
+            function loadData() {
+                const savedData = localStorage.getItem('FORM-037-data');
+                if (savedData) {
+                    const formData = JSON.parse(savedData);
+                    
+                    Object.keys(formData).forEach(key => {
+                        if (key === 'categoriasSeleccionadas') {
+                            // Restaurar categorías seleccionadas
+                            formData[key].forEach(catValue => {
+                                const catElement = document.querySelector(`.risk-category[data-value="${catValue}"]`);
+                                if (catElement) {
+                                    catElement.classList.add('selected');
+                                }
+                            });
+                        } else {
+                            const element = document.getElementById(key);
+                            if (element) {
+                                element.value = formData[key];
+                            }
+                        }
+                    });
+                }
+            }
+            
+            // Auto-salvar quando o usuário digita
+            document.querySelectorAll('.editable').forEach(field => {
+                field.addEventListener('input', saveData);
+            });
+            
+            // Carregar dados ao iniciar
+            loadData();
+            
+            // Calcular nivel de riesgo basado en probabilidad y severidad
+            const probabilidadRadios = document.querySelectorAll('input[name="probabilidad"]');
+            const severidadRadios = document.querySelectorAll('input[name="severidad"]');
+            
+            function calcularNivelRiesgo() {
+                let probabilidad = '';
+                let severidad = '';
+                
+                probabilidadRadios.forEach(radio => {
+                    if (radio.checked) probabilidad = radio.value;
+                });
+                
+                severidadRadios.forEach(radio => {
+                    if (radio.checked) severidad = radio.value;
+                });
+                
+                if (probabilidad && severidad) {
+                    saveData();
+                }
+            }
+            
+            probabilidadRadios.forEach(radio => {
+                radio.addEventListener('change', calcularNivelRiesgo);
+            });
+            
+            severidadRadios.forEach(radio => {
+                radio.addEventListener('change', calcularNivelRiesgo);
+            });
+            
+            // Salvar quando seleciona opções em select
+            document.querySelectorAll('select.editable').forEach(select => {
+                select.addEventListener('change', saveData);
+            });
+            
+            // Contador de secciones
+            document.querySelector('.content').style.counterReset = 'section-counter';
+            
+            // Inicializar tooltip para botões
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

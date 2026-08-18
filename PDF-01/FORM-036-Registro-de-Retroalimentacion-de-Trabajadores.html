@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-036 Registro de Retroalimentación de Trabajadores - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .objective-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .form-field {
+            margin-bottom: 25px;
+        }
+        
+        .field-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        
+        .field-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .field-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .field-input.underline {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            border-radius: 0;
+            padding: 10px 0;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .textarea-field {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+        }
+        
+        .signature-area {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-field {
+            display: inline-block;
+            width: 48%;
+            margin-right: 4%;
+            vertical-align: top;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: #333;
+            margin-top: 60px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .field-input.underline {
+                border-bottom: 1px solid #999;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .signature-field {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        001
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Registro de Retroalimentación de Trabajadores</div>
+        <div class="doc-code">Código: FORM-036</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Objetivo -->
+            <div class="objective-box">
+                <div class="objective-title">Objetivo:</div>
+                <p>Recoger las opiniones, sugerencias y preocupaciones de los trabajadores en relación con la seguridad y salud en el trabajo, así como con las condiciones laborales en general. Este registro ayudará al Comité de Seguridad y Salud en el Trabajo a mejorar las políticas y prácticas implementadas.</p>
+            </div>
+            
+            <!-- Sección 1: Información del Trabajador -->
+            <div class="section">
+                <div class="section-title">1. Información del Trabajador</div>
+                
+                <div class="form-field">
+                    <label class="field-label">Nombre del Trabajador:</label>
+                    <input type="text" class="field-input underline" placeholder="Ingrese su nombre completo">
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Departamento:</label>
+                    <input type="text" class="field-input underline" placeholder="Ingrese su departamento">
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Cargo:</label>
+                    <input type="text" class="field-input underline" placeholder="Ingrese su cargo">
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">Fecha de Retroalimentación:</label>
+                    <input type="text" class="field-input underline" placeholder="DD/MM/AAAA">
+                </div>
+            </div>
+            
+            <!-- Sección 2: Evaluación de la Seguridad y Salud en el Trabajo -->
+            <div class="section">
+                <div class="section-title">2. Evaluación de la Seguridad y Salud en el Trabajo</div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">¿Considera que las medidas de seguridad en su área de trabajo son suficientes?</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="suficientes-si" name="suficientes" value="Sí">
+                            <label for="suficientes-si">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="suficientes-no" name="suficientes" value="No">
+                            <label for="suficientes-no">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="suficientes-a-veces" name="suficientes" value="A veces">
+                            <label for="suficientes-a-veces">A veces</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">¿Se siente cómodo al reportar posibles riesgos o peligros en su lugar de trabajo?</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="comodo-si" name="comodo" value="Sí">
+                            <label for="comodo-si">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="comodo-no" name="comodo" value="No">
+                            <label for="comodo-no">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="comodo-a-veces" name="comodo" value="A veces">
+                            <label for="comodo-a-veces">A veces</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">¿Recibe capacitación adecuada sobre seguridad y salud en el trabajo?</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="capacitacion-si" name="capacitacion" value="Sí">
+                            <label for="capacitacion-si">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="capacitacion-no" name="capacitacion" value="No">
+                            <label for="capacitacion-no">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="capacitacion-a-veces" name="capacitacion" value="A veces">
+                            <label for="capacitacion-a-veces">A veces</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">¿Cree que los Equipos de Protección Individual (EPIs) proporcionados son adecuados para su trabajo?</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="epis-si" name="epis" value="Sí">
+                            <label for="epis-si">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="epis-no" name="epis" value="No">
+                            <label for="epis-no">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="epis-a-veces" name="epis" value="A veces">
+                            <label for="epis-a-veces">A veces</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">¿Ha experimentado algún incidente o accidente en el trabajo en los últimos 6 meses?</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="incidente-si" name="incidente" value="Sí">
+                            <label for="incidente-si">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="incidente-no" name="incidente" value="No">
+                            <label for="incidente-no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field" id="descripcion-incidente" style="display: none; margin-top: 20px;">
+                        <label class="field-label">Si la respuesta es "Sí", por favor, describa brevemente el incidente o accidente:</label>
+                        <textarea class="textarea-field" placeholder="Describa el incidente o accidente..."></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Sugerencias y Opiniones -->
+            <div class="section">
+                <div class="section-title">3. Sugerencias y Opiniones</div>
+                
+                <div class="form-field">
+                    <label class="field-label">¿Qué medidas considera que podrían mejorar la seguridad en su área de trabajo?</label>
+                    <textarea class="textarea-field" placeholder="Ingrese sus sugerencias..."></textarea>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">¿Qué acciones le gustaría que la empresa implementara para mejorar su bienestar laboral?</label>
+                    <textarea class="textarea-field" placeholder="Ingrese sus sugerencias..."></textarea>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">¿Está satisfecho con la comunicación de las políticas de seguridad en la empresa?</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="comunicacion-si" name="comunicacion" value="Sí">
+                            <label for="comunicacion-si">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="comunicacion-no" name="comunicacion" value="No">
+                            <label for="comunicacion-no">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="comunicacion-a-veces" name="comunicacion" value="A veces">
+                            <label for="comunicacion-a-veces">A veces</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-field">
+                    <label class="field-label">¿Tiene alguna otra sugerencia o comentario relacionado con la seguridad y salud en el trabajo?</label>
+                    <textarea class="textarea-field" placeholder="Ingrese sus comentarios..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Firma del Trabajador -->
+            <div class="section signature-area">
+                <div class="section-title">4. Firma del Trabajador</div>
+                
+                <div class="signature-field">
+                    <label class="field-label">Firma:</label>
+                    <div class="signature-line"></div>
+                    <p style="margin-top: 5px; font-size: 14px; color: #666;">Firma del trabajador</p>
+                </div>
+                
+                <div class="signature-field">
+                    <label class="field-label">Fecha:</label>
+                    <input type="text" class="field-input underline" placeholder="DD/MM/AAAA">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-036 | Revisión: 001 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+            
+            // Mostrar/ocultar descripción de incidente según selección
+            const incidenteSi = document.getElementById('incidente-si');
+            const incidenteNo = document.getElementById('incidente-no');
+            const descripcionIncidente = document.getElementById('descripcion-incidente');
+            
+            function toggleDescripcionIncidente() {
+                if (incidenteSi.checked) {
+                    descripcionIncidente.style.display = 'block';
+                } else {
+                    descripcionIncidente.style.display = 'none';
+                }
+            }
+            
+            incidenteSi.addEventListener('change', toggleDescripcionIncidente);
+            incidenteNo.addEventListener('change', toggleDescripcionIncidente);
+            
+            // Configurar campos de fecha con DatePicker
+            const dateFields = document.querySelectorAll('input[type="text"][placeholder*="DD/MM/AAAA"]');
+            dateFields.forEach(field => {
+                field.addEventListener('focus', function() {
+                    this.type = 'date';
+                    setTimeout(() => {
+                        this.showPicker?.();
+                    }, 100);
+                });
+                
+                field.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.type = 'text';
+                    }
+                });
+            });
+            
+            // Formatear fechas en modo de visualización
+            dateFields.forEach(field => {
+                field.addEventListener('change', function() {
+                    if (this.value) {
+                        const date = new Date(this.value);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        this.value = `${day}/${month}/${year}`;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

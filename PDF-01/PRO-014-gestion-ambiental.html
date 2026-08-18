@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-014 Gestión Ambiental - Evaluación de Impacto Ambiental - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2d5a27;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d5a27;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2d5a27;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f0f7ee;
+            border: 1px solid #c6e0b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2d5a27;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2d5a27;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2d5a27;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4c8c3a;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2d5a27;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection-title {
+            color: #2d5a27;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2d5a27;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." attr(data-subsection) " ";
+        }
+        
+        .subsubsection-title {
+            color: #2d5a27;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            padding-left: 20px;
+        }
+        
+        .subsubsection-title:before {
+            content: counter(section-counter) "." attr(data-subsection) "." attr(data-subsubsection) " ";
+        }
+        
+        .intro-text {
+            background-color: #f0f7ee;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2d5a27;
+            font-size: 16px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-title {
+            color: #2d5a27;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #2d5a27;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .definition-box {
+            background-color: #e8f4fd;
+            border: 1px solid #b6d7f2;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .definition-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f0f7ee;
+        }
+        
+        .highlight-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .highlight-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .annex-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #2d5a27;
+        }
+        
+        .annex-title {
+            color: #2d5a27;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 10px;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .matrix-table th, .matrix-table td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .matrix-table th {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .matrix-table tr:nth-child(even) {
+            background-color: #f0f7ee;
+        }
+        
+        .checklist-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .checklist-table th, .checklist-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .checklist-table th {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .checklist-table tr:nth-child(even) {
+            background-color: #f0f7ee;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2d5a27;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f0f7ee;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2d5a27;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4c8c3a;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .annex-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 2;
+            }
+            
+            .matrix-table {
+                font-size: 12px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+            
+            .matrix-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        001
+                    </div>
+                </div>
+</div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Guía para la Evaluación de Impacto Ambiental (EIA) y Determinación de Aspectos Ambientales e Impactos Asociados</div>
+        <div class="doc-code">Código: PRO-014</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#responsables" class="toc-link">Responsables</a></li>
+                    <li class="toc-item"><a href="#referencias" class="toc-link">Documentos de Referencia</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">Procedimiento Detallado</a></li>
+                    <li class="toc-item"><a href="#registros" class="toc-link">Registros</a></li>
+                    <li class="toc-item"><a href="#anexos" class="toc-link">Anexos</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="intro-text">
+                <p><strong>Esta guía establece el procedimiento estandarizado que la organización implementa y ejecuta para identificar, evaluar y gestionar los aspectos e impactos ambientales</strong>, en cumplimiento de la normativa ISO 14001:2015 y como parte integral del Sistema de Gestión Integrado (SGI).</p>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">Objetivo</div>
+                <div class="procedure-content">
+                    <p>Establecer un procedimiento estandarizado para identificar y evaluar los aspectos ambientales, determinar sus impactos asociados y establecer medidas de mitigación para minimizar los efectos adversos en el medio ambiente como parte del cumplimiento normativo y la mejora continua.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">Alcance</div>
+                <div class="procedure-content">
+                    <p>Este procedimiento se aplica a todas las actividades, procesos, productos o servicios de la organización que puedan tener un impacto en el medio ambiente, en todas sus fases: planeación, operación, mantenimiento y desmantelamiento, abarcando tanto las áreas internas de la organización como sus zonas de influencia.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Responsables -->
+            <div class="section" id="responsables">
+                <div class="section-title">Responsables</div>
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Responsabilidades</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Gerencia Ambiental</strong></td>
+                            <td>Responsable de la supervisión y aprobación final de los informes de evaluación de impacto ambiental (EIA).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Equipo de Evaluación Ambiental</strong></td>
+                            <td>Responsable de llevar a cabo la identificación de aspectos ambientales, realizar la evaluación de impactos y proponer las medidas de mitigación.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Líderes de Área</strong></td>
+                            <td>Colaborar en la identificación de aspectos ambientales en sus respectivos procesos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Documentos de Referencia -->
+            <div class="section" id="referencias">
+                <div class="section-title">Documentos de Referencia</div>
+                <div class="definition-box">
+                    <div class="procedure-content">
+                        <ul class="procedure-list">
+                            <li><strong>ISO 14001:2015</strong> - Sistemas de gestión ambiental.</li>
+                            <li><strong>ISO 14064 e ISO 14067</strong> - Cálculo de huella de carbono.</li>
+                            <li>Normativas locales y leyes ambientales vigentes.</li>
+                            <li>Manual de Políticas y Objetivos Ambientales de la Organización.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Procedimiento Detallado -->
+            <div class="section" id="procedimiento">
+                <div class="section-title">Procedimiento Detallado</div>
+                
+                <div class="intro-text">
+                    <p>La organización implementa sistemáticamente el siguiente procedimiento para garantizar una gestión ambiental proactiva y responsable.</p>
+                </div>
+                
+                <!-- 5.1 Identificación de Actividades y Procesos -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="1">Identificación de Actividades y Procesos</div>
+                    <div class="procedure-content">
+                        <p><strong>Revisión de Actividades:</strong></p>
+                        <ul class="procedure-list">
+                            <li>Identificar y listar todas las actividades, procesos, servicios y productos de la organización que puedan tener un impacto en el medio ambiente.</li>
+                            <li>Clasificar las actividades según su fase (producción, mantenimiento, transporte, desmantelamiento, etc.).</li>
+                        </ul>
+                        <p><strong>Selección de Límites:</strong></p>
+                        <ul class="procedure-list">
+                            <li>Definir los límites del estudio, considerando tanto las áreas de operación directa como aquellas que puedan verse afectadas indirectamente.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 5.2 Identificación de Aspectos Ambientales -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="2">Identificación de Aspectos Ambientales</div>
+                    <div class="procedure-content">
+                        <p><strong>Aspectos Directos e Indirectos:</strong></p>
+                        <ul class="procedure-list">
+                            <li><strong>Aspectos directos:</strong> Aquellos generados directamente por las actividades de la organización (emisiones, vertidos, generación de residuos).</li>
+                            <li><strong>Aspectos indirectos:</strong> Aquellos generados como resultado de actividades secundarias o relacionadas (por proveedores, contratistas o transporte).</li>
+                        </ul>
+                        <p><strong>Lista de Verificación de Aspectos Ambientales:</strong></p>
+                        <p>Utilizar herramientas como listas de verificación para asegurar que todos los posibles aspectos ambientales sean considerados.</p>
+                        <p><strong>Entre los aspectos a identificar están:</strong></p>
+                        <ul class="procedure-list">
+                            <li>Emisiones atmosféricas (CO₂, NOx, SOx, partículas).</li>
+                            <li>Uso de recursos naturales (agua, energía).</li>
+                            <li>Generación de residuos (sólidos, líquidos, peligrosos, no peligrosos).</li>
+                            <li>Vertidos y derrames (contaminación de suelos, aguas).</li>
+                            <li>Ruido.</li>
+                            <li>Afectación a la biodiversidad.</li>
+                            <li>Uso de productos químicos peligrosos.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 5.3 Evaluación de Impactos Ambientales -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="3">Evaluación de Impactos Ambientales</div>
+                    <div class="procedure-content">
+                        <p><strong>Determinación del Impacto Potencial:</strong></p>
+                        <p>Evaluar el impacto potencial de cada aspecto ambiental identificado. Este análisis se realiza considerando:</p>
+                        <ul class="procedure-list">
+                            <li><strong>Magnitud:</strong> Gravedad del impacto sobre el ambiente.</li>
+                            <li><strong>Alcance:</strong> Área geográfica o número de personas afectadas.</li>
+                            <li><strong>Duración:</strong> Si es un impacto temporal o permanente.</li>
+                            <li><strong>Probabilidad:</strong> Posibilidad de que ocurra el impacto.</li>
+                        </ul>
+                        <p><strong>Clasificación del Impacto:</strong></p>
+                        <ul class="procedure-list">
+                            <li>Impacto Negativo o Positivo.</li>
+                            <li>Impacto Directo o Indirecto.</li>
+                            <li>Impacto Temporal, Permanente o Cíclico.</li>
+                        </ul>
+                        <p>Utilizar una escala de evaluación, como baja, media o alta, para cuantificar la magnitud y probabilidad de cada impacto.</p>
+                    </div>
+                </div>
+                
+                <!-- 5.4 Uso de Matrices de Evaluación -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="4">Uso de Matrices de Evaluación</div>
+                    <div class="procedure-content">
+                        <p><strong>Matriz de Leopold o Similar:</strong></p>
+                        <p>Utilizar herramientas como la matriz de Leopold para relacionar las actividades con los impactos generados. La matriz incluye una columna para el aspecto ambiental y otra para el impacto asociado, con celdas que indican la magnitud, la probabilidad, y la duración del impacto.</p>
+                        <p><strong>Ejemplo de Matriz:</strong></p>
+                        <p>Llenar una matriz de aspectos ambientales e impactos asociados con los datos obtenidos en los pasos anteriores (ver sección previa para referencia).</p>
+                    </div>
+                </div>
+                
+                <!-- 5.5 Determinación de Medidas de Mitigación -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="5">Determinación de Medidas de Mitigación</div>
+                    <div class="procedure-content">
+                        <p><strong>Identificación de Medidas de Control:</strong></p>
+                        <ul class="procedure-list">
+                            <li>Proponer las medidas necesarias para prevenir, mitigar o compensar los impactos negativos identificados. Las medidas se alinean con las mejores prácticas ambientales y el cumplimiento normativo.</li>
+                        </ul>
+                        <p><strong>Las posibles medidas incluyen:</strong></p>
+                        <ul class="procedure-list">
+                            <li>Instalación de filtros de aire.</li>
+                            <li>Reciclaje y reutilización de materiales.</li>
+                            <li>Uso de energías renovables.</li>
+                            <li>Programas de reducción de residuos y reciclaje.</li>
+                            <li>Tratamiento de aguas residuales antes de su vertido.</li>
+                        </ul>
+                        <p><strong>Plan de Monitoreo Ambiental:</strong></p>
+                        <p>Establecer indicadores de control y un plan de monitoreo para evaluar el cumplimiento de las medidas de mitigación. Estos indicadores son medibles y verificables.</p>
+                    </div>
+                </div>
+                
+                <!-- 5.6 Informe de Evaluación de Impacto Ambiental -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="6">Informe de Evaluación de Impacto Ambiental</div>
+                    <div class="procedure-content">
+                        <p><strong>Estructura del Informe:</strong></p>
+                        <ul class="procedure-list">
+                            <li><strong>Resumen Ejecutivo:</strong> Breve resumen de los resultados de la EIA.</li>
+                            <li><strong>Descripción del Proyecto:</strong> Detalle del proyecto y sus fases.</li>
+                            <li><strong>Aspectos e Impactos Ambientales Identificados:</strong> Explicación detallada de los aspectos ambientales y sus impactos asociados.</li>
+                            <li><strong>Medidas de Mitigación:</strong> Descripción de las medidas propuestas para mitigar los impactos.</li>
+                            <li><strong>Plan de Monitoreo:</strong> Detalles del seguimiento de los impactos y la efectividad de las medidas de mitigación.</li>
+                        </ul>
+                        <p><strong>Aprobación del Informe:</strong></p>
+                        <p>El informe es revisado y aprobado por la Gerencia Ambiental antes de ser presentado a las autoridades competentes o partes interesadas.</p>
+                    </div>
+                </div>
+                
+                <!-- 5.7 Participación de las Partes Interesadas -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="7">Participación de las Partes Interesadas</div>
+                    <div class="procedure-content">
+                        <p><strong>Consulta Pública:</strong></p>
+                        <p>Organizar mecanismos de participación pública, donde la comunidad y otras partes interesadas puedan conocer los resultados de la EIA y proporcionar retroalimentación.</p>
+                        <p><strong>Incorporación de Comentarios:</strong></p>
+                        <p>Integrar los comentarios recibidos durante la consulta pública en el diseño final del proyecto o en la actualización de las medidas de mitigación.</p>
+                    </div>
+                </div>
+                
+                <!-- 5.8 Revisión y Actualización del Procedimiento -->
+                <div class="procedure-step">
+                    <div class="subsection-title" data-subsection="8">Revisión y Actualización del Procedimiento</div>
+                    <div class="procedure-content">
+                        <p><strong>Revisión Periódica:</strong></p>
+                        <p>Este procedimiento se revisa y actualiza regularmente (cada 3 años o según cambios significativos en la normativa o en las operaciones de la organización).</p>
+                        <p><strong>Mejora Continua:</strong></p>
+                        <p>Se incorporan los resultados del monitoreo ambiental y las lecciones aprendidas para mejorar el procedimiento y las prácticas de gestión ambiental de la organización.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Registros -->
+            <div class="section" id="registros">
+                <div class="section-title">Registros</div>
+                <div class="highlight-box">
+                    <div class="procedure-content">
+                        <ul class="procedure-list">
+                            <li>Lista de Verificación de Aspectos Ambientales.</li>
+                            <li>Matriz de Aspectos e Impactos Ambientales.</li>
+                            <li>Informes de Evaluación de Impacto Ambiental.</li>
+                            <li>Plan de Monitoreo Ambiental.</li>
+                            <li>Registros de participación ciudadana y consultas públicas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Anexos -->
+            <div class="section" id="anexos">
+                <div class="section-title">Anexos</div>
+                <div class="procedure-content">
+                    <p>La organización dispone de los siguientes anexos que complementan y facilitan la implementación de este procedimiento:</p>
+                    <ul class="procedure-list">
+                        <li><strong>Anexo 1:</strong> Ejemplo de matriz de aspectos ambientales e impactos.</li>
+                        <li><strong>Anexo 2:</strong> Lista de verificación para la identificación de aspectos ambientales.</li>
+                        <li><strong>Anexo 3:</strong> Guía para la consulta pública y participación ciudadana.</li>
+                        <li><strong>Anexo 4:</strong> Indicadores Ambientales</li>
+                    </ul>
+                </div>
+                
+                <!-- Anexo 1 -->
+                <div class="annex-container">
+                    <div class="annex-title">Anexo 1: Ejemplo de matriz de aspectos ambientales e impactos</div>
+                    <p><strong>Matriz de Aspectos Ambientales e Impactos Asociados</strong></p>
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th>Actividad / Proceso</th>
+                                <th>Aspecto Ambiental</th>
+                                <th>Impacto Potencial</th>
+                                <th>Impacto Positivo/Negativo</th>
+                                <th>Probabilidad</th>
+                                <th>Magnitud</th>
+                                <th>Temporalidad</th>
+                                <th>Mitigación Propuesta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Producción (Operación General)</td>
+                                <td>Consumo de energía eléctrica</td>
+                                <td>Agotamiento de recursos energéticos no renovables, emisiones de CO₂</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Alta</td>
+                                <td>Permanente</td>
+                                <td>Uso de energías renovables, optimización del consumo</td>
+                            </tr>
+                            <tr>
+                                <td>1. Producción (Operación General)</td>
+                                <td>Emisiones a la atmósfera (CO₂, NOx, SOx)</td>
+                                <td>Contaminación atmosférica, efecto invernadero, cambio climático</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Alta</td>
+                                <td>Permanente</td>
+                                <td>Instalación de filtros, energías limpias</td>
+                            </tr>
+                            <tr>
+                                <td>1. Producción (Operación General)</td>
+                                <td>Generación de ruido</td>
+                                <td>Afectación a la fauna, molestias a la comunidad</td>
+                                <td>Negativo</td>
+                                <td>Media</td>
+                                <td>Moderada</td>
+                                <td>Temporal</td>
+                                <td>Pantallas acústicas, límites de operación</td>
+                            </tr>
+                            <tr>
+                                <td>2. Gestión de residuos sólidos</td>
+                                <td>Generación de residuos peligrosos (químicos, solventes)</td>
+                                <td>Contaminación de suelos y aguas, afectación a la salud humana</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Alta</td>
+                                <td>Permanente</td>
+                                <td>Almacenamiento seguro, reciclaje, eliminación controlada</td>
+                            </tr>
+                            <tr>
+                                <td>2. Gestión de residuos sólidos</td>
+                                <td>Generación de residuos no peligrosos (papel, plástico)</td>
+                                <td>Incremento de la generación de residuos, sobrecarga de rellenos sanitarios</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Moderada</td>
+                                <td>Permanente</td>
+                                <td>Programas de reciclaje, minimización de residuos</td>
+                            </tr>
+                            <tr>
+                                <td>3. Uso del agua</td>
+                                <td>Consumo de agua potable</td>
+                                <td>Agotamiento de recursos hídricos</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Alta</td>
+                                <td>Permanente</td>
+                                <td>Reducción del consumo, reutilización de aguas grises</td>
+                            </tr>
+                            <tr>
+                                <td>3. Uso del agua</td>
+                                <td>Vertimiento de aguas residuales</td>
+                                <td>Contaminación de cuerpos de agua, eutrofización</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Alta</td>
+                                <td>Permanente</td>
+                                <td>Tratamiento de aguas residuales antes del vertido</td>
+                            </tr>
+                            <tr>
+                                <td>4. Transporte</td>
+                                <td>Emisiones de vehículos (CO₂, NOx, SOx)</td>
+                                <td>Contaminación atmosférica, cambio climático</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Alta</td>
+                                <td>Permanente</td>
+                                <td>Uso de vehículos eléctricos, optimización de rutas</td>
+                            </tr>
+                            <tr>
+                                <td>4. Transporte</td>
+                                <td>Consumo de combustibles fósiles</td>
+                                <td>Agotamiento de recursos no renovables</td>
+                                <td>Negativo</td>
+                                <td>Alta</td>
+                                <td>Alta</td>
+                                <td>Permanente</td>
+                                <td>Uso de combustibles alternativos, tecnologías eficientes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="subsection-title" data-subsection="0">Explicación de los Campos</div>
+                    <ul class="procedure-list">
+                        <li><strong>Actividad / Proceso:</strong> Se refiere a la actividad específica dentro de la organización que genera un aspecto ambiental (ej., producción, uso de agua, transporte).</li>
+                        <li><strong>Aspecto Ambiental:</strong> Describe el elemento de la actividad que puede tener un impacto en el ambiente (ej., consumo de energía, emisiones atmosféricas, residuos generados).</li>
+                        <li><strong>Impacto Potencial:</strong> Describe los efectos negativos o positivos sobre el medio ambiente asociados con el aspecto ambiental (ej., contaminación del aire, agotamiento de recursos).</li>
+                        <li><strong>Impacto Positivo/Negativo:</strong> Clasifica el impacto como positivo o negativo.</li>
+                        <li><strong>Probabilidad:</strong> Evalúa qué tan probable es que ocurra el impacto (Baja, Media, Alta).</li>
+                        <li><strong>Magnitud:</strong> Se refiere al nivel de gravedad del impacto en el ambiente (Baja, Moderada, Alta).</li>
+                        <li><strong>Temporalidad:</strong> Indica si el impacto es temporal, permanente, o intermitente.</li>
+                        <li><strong>Mitigación Propuesta:</strong> Propone las medidas para minimizar, eliminar, o compensar el impacto identificado.</li>
+                    </ul>
+                    
+                    <div class="subsection-title" data-subsection="0">Metodología para la Evaluación de Aspectos e Impactos</div>
+                    <p>Para evaluar la importancia de cada aspecto ambiental, se utilizan criterios como la magnitud, probabilidad, y temporalidad para priorizar la implementación de medidas de mitigación. Esta matriz proporciona una herramienta de diagnóstico clave dentro del proceso de Evaluación de Impacto Ambiental y puede ajustarse según las particularidades de cada empresa o industria.</p>
+                    <p>Este modelo de matriz puede adaptarse y ampliarse para ajustarse a la complejidad de cualquier empresa o proyecto.</p>
+                </div>
+                
+                <!-- Anexo 2 -->
+                <div class="annex-container">
+                    <div class="annex-title">Anexo 2: Lista de verificación para la identificación de aspectos ambientales</div>
+                    <p>Esta lista de verificación está diseñada para ayudar a identificar los aspectos ambientales asociados con las actividades, productos o servicios de una empresa. Cada ítem debe revisarse de manera detallada para asegurar una evaluación exhaustiva de los posibles aspectos ambientales.</p>
+                    
+                    <div class="subsubsection-title" data-subsection="1" data-subsubsection="1">1. Emisiones a la Atmósfera</div>
+                    <table class="checklist-table">
+                        <thead>
+                            <tr>
+                                <th>Pregunta</th>
+                                <th>Sí/No</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>¿La actividad genera emisiones de gases (CO₂, NOx, SOx, partículas)?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Se utilizan combustibles fósiles (diésel, gasolina, gas natural) para la generación de energía?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Hay emisiones fugitivas de polvo, solventes o químicos en la operación?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Se realizan operaciones que generan olores molestos o emisiones de compuestos orgánicos volátiles?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Se utilizan tecnologías de control de emisiones (filtros, catalizadores, etc.)?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="subsubsection-title" data-subsection="1" data-subsubsection="2">2. Consumo de Energía</div>
+                    <table class="checklist-table">
+                        <thead>
+                            <tr>
+                                <th>Pregunta</th>
+                                <th>Sí/No</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>¿Se utiliza energía eléctrica en el proceso productivo?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿La organización utiliza energías no renovables (diésel, gas, carbón)?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Se implementan medidas de eficiencia energética?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Se utiliza energía renovable (solar, eólica, biomasa)?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="subsubsection-title" data-subsection="1" data-subsubsection="3">3. Consumo y Contaminación de Agua</div>
+                    <table class="checklist-table">
+                        <thead>
+                            <tr>
+                                <th>Pregunta</th>
+                                <th>Sí/No</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>¿Se utiliza agua en los procesos productivos o de mantenimiento?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿El agua utilizada es de fuentes subterráneas, superficiales o de red pública?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Existen vertidos de aguas residuales industriales o domésticas?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Las aguas residuales son tratadas antes del vertido?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Se implementan medidas para reducir el consumo de agua (reutilización, reciclaje)?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="subsubsection-title" data-subsection="1" data-subsubsection="11">11. Impactos Sociales</div>
+                    <table class="checklist-table">
+                        <thead>
+                            <tr>
+                                <th>Pregunta</th>
+                                <th>Sí/No</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>¿Las actividades de la organización generan empleo local?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿Las operaciones afectan a la comunidad en términos de ruido, calidad del aire, agua o movilidad?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>¿La organización realiza consultas con la comunidad sobre los impactos ambientales y sociales?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="subsection-title" data-subsection="0">Conclusión de la Evaluación</div>
+                    <p>Al final de la lista, se debe incluir un resumen de los aspectos ambientales identificados y la severidad de sus impactos. Esto permitirá priorizar los riesgos ambientales más significativos y establecer un plan de acción para su mitigación.</p>
+                    <p>Esta lista de verificación asegura una cobertura amplia de los aspectos ambientales, ayudando a identificar los potenciales impactos de las actividades de la organización y establecer planes de mitigación y mejora ambiental.</p>
+                </div>
+                
+                <!-- Anexo 3 (Resumido) -->
+                <div class="annex-container">
+                    <div class="annex-title">Anexo 3: Guía para la consulta pública y participación ciudadana (Resumen)</div>
+                    <p><strong>1. Introducción:</strong> La consulta pública y la participación ciudadana son procesos fundamentales dentro de la Evaluación de Impacto Ambiental (EIA).</p>
+                    <p><strong>2. Objetivo:</strong> Facilitar la interacción entre la organización, el gobierno y la comunidad afectada o interesada en un proyecto.</p>
+                    <p><strong>3. Alcance:</strong> Se aplica a todos los proyectos que requieran una EIA y a aquellos con efectos significativos sobre la comunidad local o el medio ambiente.</p>
+                    <p><strong>4. Principios Básicos:</strong> Transparencia, Inclusividad, Accesibilidad, Equidad, Retroalimentación.</p>
+                    <p><strong>5. Fases del Proceso:</strong> Preparación, Ejecución, Integración de Resultados, Retroalimentación a la Comunidad.</p>
+                    <p><strong>6. Herramientas y Métodos:</strong> Reuniones presenciales, Encuestas, Buzones de sugerencias, Plataformas en línea, Paneles consultivos.</p>
+                </div>
+                
+                <!-- Anexo 4 (Resumido) -->
+                <div class="annex-container">
+                    <div class="annex-title">Anexo 4: Indicadores Ambientales (Resumen)</div>
+                    <p><strong>Indicadores ambientales:</strong> Calidad del aire, Consumo de agua, Vertimiento de aguas residuales, Consumo de energía, Generación de residuos, Ruido ambiental, Uso de recursos naturales, Biodiversidad.</p>
+                    <p><strong>Indicadores Sociales:</strong> Participación comunitaria, Satisfacción comunitaria, Impacto en la calidad de vida, Inclusión social, Transparencia y acceso a la información.</p>
+                    <p><strong>Indicadores del Proceso de Consulta Pública:</strong> Difusión, Frecuencia y tipo de participación, Documentación de las inquietudes, Impacto de la consulta pública, Monitoreo post-consulta.</p>
+                    <p><strong>Indicadores de Evaluación de Impacto Ambiental:</strong> Cumplimiento normativo, Medidas de mitigación implementadas, Monitoreo ambiental.</p>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-014 | Revisión: 001 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do contador de seções
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.counterReset = 'section-counter';
+            
+            // Configurar scroll suave para os links do TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar contador de subseções
+            const subsections = document.querySelectorAll('.subsection-title');
+            let currentSection = 0;
+            let subsectionCounter = 0;
+            
+            subsections.forEach((subsection) => {
+                const sectionNum = parseInt(subsection.getAttribute('data-subsection'));
+                if (sectionNum > currentSection) {
+                    currentSection = sectionNum;
+                    subsectionCounter = 1;
+                } else {
+                    subsectionCounter++;
+                }
+                subsection.setAttribute('data-subsection', subsectionCounter);
+            });
+            
+            // Configurar contador de subsubseções
+            const subsubsections = document.querySelectorAll('.subsubsection-title');
+            let currentSubsection = 0;
+            let subsubsectionCounter = 0;
+            let currentMainSection = 0;
+            
+            subsubsections.forEach((subsubsection) => {
+                const mainSection = parseInt(subsubsection.getAttribute('data-subsection'));
+                const subSection = parseInt(subsubsection.getAttribute('data-subsubsection'));
+                
+                if (mainSection !== currentMainSection) {
+                    currentMainSection = mainSection;
+                    subsubsectionCounter = 1;
+                } else if (subSection !== currentSubsection) {
+                    currentSubsection = subSection;
+                    subsubsectionCounter = 1;
+                } else {
+                    subsubsectionCounter++;
+                }
+                subsubsection.setAttribute('data-subsubsection', subsubsectionCounter);
+            });
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232d5a27" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-012 Gestión del Liderazgo - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .subsection {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        
+        .subsection-title {
+            color: #4a5568;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .definition-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .definition-title {
+            color: #276749;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .responsibilities-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .responsibilities-table th, .responsibilities-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .responsibilities-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .responsibilities-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3182ce;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .procedure-step-title {
+            color: #2d3748;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin: 15px 0 15px 20px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .leadership-section {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .leadership-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .evaluation-section {
+            background-color: #fefcbf;
+            border: 1px solid #d69e2e;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .evaluation-title {
+            color: #744210;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .documents-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .documents-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .documents-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .documents-list li:before {
+            content: "•";
+            color: #38a169;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .print-btn, .download-btn, .edit-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover, .download-btn:hover, .edit-btn:hover {
+            background-color: #718096;
+        }
+        
+        .download-btn {
+            background-color: #38a169;
+        }
+        
+        .download-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .edit-btn {
+            background-color: #d69e2e;
+        }
+        
+        .edit-btn:hover {
+            background-color: #b7791f;
+        }
+        
+        .edit-mode-active {
+            outline: 2px dashed #4299e1;
+            padding: 3px;
+            min-height: 20px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .download-btn, .edit-btn {
+                display: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 2;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+            
+            .responsibilities-table th,
+            .responsibilities-table td {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .responsibilities-table th {
+                border-bottom: none;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Gestión del Liderazgo y Revisión por la Dirección</div>
+        <div class="doc-code">Código: PRO-012</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="edit-btn" id="toggleEdit">✏️ Editar Documento</button>
+                <button class="download-btn" id="downloadBtn">📥 Descargar</button>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+            </div>
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">1. Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">2. Alcance</a></li>
+                    <li class="toc-item"><a href="#definiciones" class="toc-link">3. Definiciones</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">4. Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">5. Procedimiento de Gestión del Liderazgo y Revisión por la Dirección</a></li>
+                    <li class="toc-item"><a href="#evaluacion" class="toc-link">6. Evaluación de la Eficacia del Liderazgo</a></li>
+                    <li class="toc-item"><a href="#documentos" class="toc-link">7. Documentos relacionados</a></li>
+                    <li class="toc-item"><a href="#referencias" class="toc-link">8. Referencias Normativas</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                <p contenteditable="false">El objetivo de este procedimiento es asegurar que la alta dirección esté comprometida con la mejora continua del Sistema de Gestión de Calidad (SGC) y que se realicen revisiones periódicas para evaluar el desempeño y la efectividad del sistema en relación con los requisitos de calidad, conforme a la normativa ISO 9001:2015.</p>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                <p contenteditable="false">Este procedimiento aplica a todas las actividades relacionadas con la gestión del liderazgo y la revisión por la dirección dentro de la organización. Abarca la evaluación de los resultados del SGC, el análisis de su efectividad, y la toma de decisiones estratégicas para mejorar el desempeño organizacional en materia de calidad.</p>
+            </div>
+            
+            <!-- Sección 3: Definiciones -->
+            <div class="section" id="definiciones">
+                <div class="section-title">3. Definiciones</div>
+                <div class="definition-box">
+                    <div class="definition-title" contenteditable="false">Liderazgo</div>
+                    <p contenteditable="false">El compromiso de la alta dirección para guiar, motivar e inspirar a los empleados para lograr los objetivos estratégicos de la organización.</p>
+                    
+                    <div class="definition-title" contenteditable="false">Revisión por la Dirección</div>
+                    <p contenteditable="false">Proceso mediante el cual la alta dirección evalúa el desempeño del SGC para asegurar que sea adecuado, eficaz y alineado con los objetivos organizacionales.</p>
+                    
+                    <div class="definition-title" contenteditable="false">SGC</div>
+                    <p contenteditable="false">Sistema de Gestión de Calidad, conforme a los requisitos de la norma ISO 9001:2015.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">4. Responsabilidades</div>
+                <table class="responsibilities-table" contenteditable="false">
+                    <tr>
+                        <th>Alta Dirección</th>
+                        <td>Es responsable de la toma de decisiones estratégicas, el establecimiento de objetivos del SGC, la provisión de recursos necesarios y el liderazgo en el proceso de mejora continua. Además, debe liderar la revisión periódica del SGC.</td>
+                    </tr>
+                    <tr>
+                        <th>Responsable del SGC</th>
+                        <td>Coordina el proceso de revisión por la dirección, prepara los informes y asegura que la información relevante esté disponible para la alta dirección.</td>
+                    </tr>
+                    <tr>
+                        <th>Responsables de Procesos</th>
+                        <td>Proporcionan datos sobre el desempeño de sus áreas, colaboran en la identificación de oportunidades de mejora y contribuyen a la implementación de acciones correctivas y preventivas.</td>
+                    </tr>
+                    <tr>
+                        <th>Personal Operativo</th>
+                        <td>Colabora con los líderes de sus respectivos procesos para implementar las decisiones tomadas en la revisión por la dirección, asegurando que las acciones sean efectivas y alineadas con los objetivos del SGC.</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Procedimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title">5. Procedimiento de Gestión del Liderazgo y Revisión por la Dirección</div>
+                
+                <div class="procedure-step">
+                    <div class="procedure-step-title" contenteditable="false">5.1 Establecimiento de Objetivos Estratégicos</div>
+                    <ul class="procedure-list">
+                        <li contenteditable="false">La alta dirección establece los objetivos estratégicos de la organización, alineados con los requisitos del SGC. Estos objetivos son claros, medibles y están alineados con los aspectos de calidad.</li>
+                        <li contenteditable="false">Los objetivos son revisados y ajustados de manera continua para asegurar que sean alcanzables y que contribuyan a la mejora del desempeño organizacional.</li>
+                    </ul>
+                </div>
+                
+                <div class="procedure-step">
+                    <div class="procedure-step-title" contenteditable="false">5.2 Revisión Periódica del SGC</div>
+                    <ul class="procedure-list">
+                        <li contenteditable="false">La alta dirección lleva a cabo revisiones periódicas del SGC para evaluar su desempeño, identificar áreas de mejora y asegurar que el sistema esté alineado con los objetivos estratégicos de la organización.</li>
+                        <li contenteditable="false">Las revisiones por la dirección incluyen la evaluación de los siguientes aspectos:
+                            <ul class="procedure-list">
+                                <li contenteditable="false"><strong>Desempeño del SGC:</strong> Evaluación de la eficacia de las políticas, procedimientos y controles implementados en el SGC.</li>
+                                <li contenteditable="false"><strong>Cumplimiento de los requisitos legales:</strong> Verificación del cumplimiento de las normativas y regulaciones aplicables en calidad.</li>
+                                <li contenteditable="false"><strong>Resultados de auditorías internas:</strong> Revisión de los informes de auditoría interna para identificar no conformidades y oportunidades de mejora.</li>
+                                <li contenteditable="false"><strong>Indicadores de desempeño:</strong> Evaluación de indicadores clave como la satisfacción del cliente y el desempeño en calidad.</li>
+                                <li contenteditable="false"><strong>Oportunidades de mejora:</strong> Identificación de áreas en las que se pueden implementar cambios para mejorar la efectividad del SGC.</li>
+                                <li contenteditable="false"><strong>Acciones correctivas y preventivas:</strong> Análisis de las medidas tomadas para abordar no conformidades y la eficacia de las medidas implementadas.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="procedure-step">
+                    <div class="procedure-step-title" contenteditable="false">5.3 Preparación de la Revisión por la Dirección</div>
+                    <ul class="procedure-list">
+                        <li contenteditable="false">El Responsable del SGC prepara un informe detallado que contiene la información relevante sobre el desempeño del SGC, los resultados de auditorías internas, las mediciones de desempeño, y las acciones correctivas o preventivas implementadas.</li>
+                        <li contenteditable="false">Este informe es presentado a la alta dirección antes de la reunión de revisión, para que la dirección pueda tomar decisiones informadas.</li>
+                    </ul>
+                </div>
+                
+                <div class="procedure-step">
+                    <div class="procedure-step-title" contenteditable="false">5.4 Realización de la Revisión por la Dirección</div>
+                    <ul class="procedure-list">
+                        <li contenteditable="false">La reunión de revisión por la dirección se lleva a cabo a intervalos regulares, al menos una vez al año, o más frecuentemente si las circunstancias lo requieren.</li>
+                        <li contenteditable="false">Durante la reunión, la alta dirección revisa el informe preparado por el responsable del SGC y toma decisiones sobre la mejora del sistema, el ajuste de los objetivos y la asignación de recursos necesarios para implementar mejoras.</li>
+                        <li contenteditable="false">Se establecen acciones concretas, responsables y plazos para implementar los cambios acordados.</li>
+                    </ul>
+                </div>
+                
+                <div class="procedure-step">
+                    <div class="procedure-step-title" contenteditable="false">5.5 Documentación de la Revisión por la Dirección</div>
+                    <ul class="procedure-list">
+                        <li contenteditable="false">El resultado de la revisión por la dirección es documentado, incluyendo:
+                            <ul class="procedure-list">
+                                <li contenteditable="false">Las decisiones estratégicas tomadas.</li>
+                                <li contenteditable="false">Las acciones de mejora aprobadas.</li>
+                                <li contenteditable="false">Los recursos necesarios para implementar las mejoras.</li>
+                                <li contenteditable="false">El seguimiento de las decisiones tomadas en la revisión anterior.</li>
+                            </ul>
+                        </li>
+                        <li contenteditable="false">Este registro es mantenido y está disponible para futuras auditorías y revisiones.</li>
+                    </ul>
+                </div>
+                
+                <div class="procedure-step">
+                    <div class="procedure-step-title" contenteditable="false">5.6 Seguimiento de la Implementación de las Decisiones</div>
+                    <ul class="procedure-list">
+                        <li contenteditable="false">Después de la revisión por la dirección, se realiza un seguimiento de la implementación de las decisiones y acciones aprobadas. El responsable del SGC es el encargado de coordinar y monitorear el progreso de la implementación.</li>
+                        <li contenteditable="false">Se establecen plazos para evaluar la efectividad de las implementaciones y asegurarse de que los objetivos establecidos se están cumpliendo.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Evaluación de la eficacia -->
+            <div class="section" id="evaluacion">
+                <div class="section-title">6. Evaluación de la Eficacia del Liderazgo</div>
+                <div class="evaluation-section">
+                    <div class="evaluation-title" contenteditable="false">Indicadores de Efectividad del Liderazgo</div>
+                    <p contenteditable="false">La efectividad del liderazgo es evaluada a través de indicadores clave que permiten medir el compromiso y la dirección estratégica de la alta dirección:</p>
+                    <ul class="procedure-list">
+                        <li contenteditable="false"><strong>Nivel de compromiso de la alta dirección:</strong> Grado de involucramiento y dedicación de la alta dirección con la mejora continua del SGC.</li>
+                        <li contenteditable="false"><strong>Comunicación efectiva:</strong> Calidad y frecuencia de la comunicación entre la dirección y los empleados, asegurando que los objetivos y expectativas sean claros.</li>
+                        <li contenteditable="false"><strong>Satisfacción de las partes interesadas:</strong> Resultados de encuestas y evaluaciones de satisfacción de clientes, empleados, proveedores y otras partes interesadas.</li>
+                        <li contenteditable="false"><strong>Logro de objetivos:</strong> Grado de cumplimiento de los objetivos estratégicos y de desempeño establecidos para el SGC.</li>
+                        <li contenteditable="false"><strong>Implementación de mejoras:</strong> Efectividad en la implementación de acciones de mejora derivadas de las revisiones por la dirección.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Documentos relacionados -->
+            <div class="section" id="documentos">
+                <div class="section-title">7. Documentos relacionados</div>
+                <div class="documents-section">
+                    <ul class="documents-list">
+                        <li contenteditable="false">Informe de Revisión por la Dirección</li>
+                        <li contenteditable="false">Registro de Acciones Correctivas y Preventivas</li>
+                        <li contenteditable="false">Plan de Mejora Continua</li>
+                        <li contenteditable="false">Acta de la Reunión de Revisión por la Dirección</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 8: Referencias normativas -->
+            <div class="section" id="referencias">
+                <div class="section-title">8. Referencias Normativas</div>
+                <div class="documents-section">
+                    <ul class="documents-list">
+                        <li contenteditable="false">ISO 9001:2015 - Sistema de Gestión de la Calidad</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table" contenteditable="false">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-012 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let isEditMode = false;
+            const editBtn = document.getElementById('toggleEdit');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const editableElements = document.querySelectorAll('[contenteditable="false"], .doc-info-item');
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA ORGANIZACIÓN</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                };
+            }
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter';
+            
+            // Función para alternar modo de edición
+            editBtn.addEventListener('click', function() {
+                isEditMode = !isEditMode;
+                
+                editableElements.forEach(element => {
+                    if (element.hasAttribute('contenteditable')) {
+                        element.contentEditable = isEditMode;
+                    } else {
+                        element.contentEditable = isEditMode;
+                    }
+                    
+                    if (isEditMode) {
+                        element.classList.add('edit-mode-active');
+                    } else {
+                        element.classList.remove('edit-mode-active');
+                    }
+                });
+                
+                // También hacer editables las celdas de la tabla
+                const tableCells = document.querySelectorAll('.responsibilities-table td, .version-table td');
+                tableCells.forEach(cell => {
+                    cell.contentEditable = isEditMode;
+                    if (isEditMode) {
+                        cell.classList.add('edit-mode-active');
+                    } else {
+                        cell.classList.remove('edit-mode-active');
+                    }
+                });
+                
+                // También hacer editables los elementos de las listas
+                const listItems = document.querySelectorAll('.procedure-list li, .documents-list li');
+                listItems.forEach(item => {
+                    item.contentEditable = isEditMode;
+                    if (isEditMode) {
+                        item.classList.add('edit-mode-active');
+                    } else {
+                        item.classList.remove('edit-mode-active');
+                    }
+                });
+                
+                // También hacer editables los títulos de los pasos del procedimiento
+                const stepTitles = document.querySelectorAll('.procedure-step-title, .definition-title, .evaluation-title, .leadership-title');
+                stepTitles.forEach(title => {
+                    title.contentEditable = isEditMode;
+                    if (isEditMode) {
+                        title.classList.add('edit-mode-active');
+                    } else {
+                        title.classList.remove('edit-mode-active');
+                    }
+                });
+                
+                // Actualizar texto del botón
+                if (isEditMode) {
+                    editBtn.innerHTML = '💾 Guardar Cambios';
+                    editBtn.style.backgroundColor = '#38a169';
+                    downloadBtn.disabled = true;
+                    downloadBtn.style.opacity = '0.6';
+                    downloadBtn.style.cursor = 'not-allowed';
+                    alert('Modo de edición activado. Haga clic en cualquier texto para editarlo. No olvide guardar los cambios descargando el documento.');
+                } else {
+                    editBtn.innerHTML = '✏️ Editar Documento';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    downloadBtn.disabled = false;
+                    downloadBtn.style.opacity = '1';
+                    downloadBtn.style.cursor = 'pointer';
+                    alert('Modo de edición desactivado. Recuerde descargar el documento para guardar los cambios.');
+                }
+            });
+            
+            // Función para descargar el documento
+            downloadBtn.addEventListener('click', function() {
+                if (isEditMode) {
+                    alert('Por favor, salga del modo de edición antes de descargar el documento.');
+                    return;
+                }
+                
+                // Obtener el HTML del documento
+                const documentHTML = document.documentElement.outerHTML;
+                
+                // Crear un blob con el contenido HTML
+                const blob = new Blob([documentHTML], { type: 'text/html' });
+                
+                // Crear un enlace para descargar
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-012-Gestiondelliderazgo_editado.html';
+                
+                // Simular clic en el enlace
+                document.body.appendChild(a);
+                a.click();
+                
+                // Limpiar
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+                
+                alert('Documento descargado como "PRO-012-Gestiondelliderazgo_editado.html"');
+            });
+        });
+    </script>
+</body>
+</html>

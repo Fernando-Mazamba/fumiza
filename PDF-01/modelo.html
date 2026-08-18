@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODELO-SGC - Modelo Editável para Documentos SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Cabeçalho */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Título do documento */
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Painel de controle */
+        .control-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .edit-btn { background-color: #2c5282; color: white; }
+        .edit-btn:hover { background-color: #1a365d; }
+        
+        .save-btn { background-color: #38a169; color: white; }
+        .save-btn:hover { background-color: #276749; }
+        
+        .export-btn { background-color: #d69e2e; color: white; }
+        .export-btn:hover { background-color: #b7791f; }
+        
+        .reset-btn { background-color: #718096; color: white; }
+        .reset-btn:hover { background-color: #4a5568; }
+        
+        .clear-btn { background-color: #e53e3e; color: white; }
+        .clear-btn:hover { background-color: #c53030; }
+        
+        /* Conteúdo principal */
+        .content {
+            padding: 30px 40px;
+            min-height: 500px;
+        }
+        
+        /* Elementos editáveis */
+        .editable {
+            min-height: 50px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px dashed transparent;
+            border-radius: 5px;
+            transition: all 0.3s;
+            outline: none;
+        }
+        
+        .editable:hover {
+            border-color: #cbd5e0;
+            background-color: #f7fafc;
+        }
+        
+        .editing .editable {
+            border-color: #4299e1;
+            background-color: #ebf8ff;
+        }
+        
+        .editable:focus {
+            border-color: #3182ce;
+            background-color: #bee3f8;
+            border-style: solid;
+        }
+        
+        /* Estilos de tipografia */
+        .section-title {
+            color: #2c5282;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2c5282;
+        }
+        
+        .paragraph {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        /* Listas */
+        .list-container {
+            margin: 15px 0 15px 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        
+        .numbered-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        
+        .numbered-list li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        
+        /* Tabelas */
+        .table-container {
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .custom-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #1a365d;
+        }
+        
+        .custom-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .custom-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        /* Caixas especiais */
+        .info-box {
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #1890ff;
+        }
+        
+        .warning-box {
+            background-color: #fff9e6;
+            border: 1px solid #ffd591;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #faad14;
+        }
+        
+        .success-box {
+            background-color: #f6ffed;
+            border: 1px solid #b7eb8f;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #52c41a;
+        }
+        
+        /* Rodapé */
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Barra de status */
+        .status-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #2c5282;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .status-bar.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .status-bar.error { background-color: #e53e3e; }
+        .status-bar.success { background-color: #38a169; }
+        .status-bar.warning { background-color: #d69e2e; }
+        
+        /* Botão para adicionar elementos */
+        .add-element-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #2c5282;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+        }
+        
+        .add-element-btn:hover {
+            background-color: #1a365d;
+            transform: scale(1.1);
+        }
+        
+        /* Menu de elementos */
+        .element-menu {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            padding: 15px;
+            z-index: 1000;
+            display: none;
+            min-width: 200px;
+        }
+        
+        .element-menu.show {
+            display: block;
+        }
+        
+        .element-menu-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s;
+        }
+        
+        .element-menu-item:hover {
+            background-color: #f7fafc;
+        }
+        
+        /* Responsividade */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .control-panel, .add-element-btn, .element-menu {
+                display: none !important;
+            }
+            
+            .editable {
+                border: none !important;
+                background-color: transparent !important;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .control-panel {
+                flex-direction: column;
+                align-items: stretch;
+                margin: 20px;
+            }
+            
+            .control-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .subsection-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="documentContainer">
+        <!-- Cabeçalho com logo e informações -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo da Organização" class="logo" id="logoImg">
+            </div>
+            <div class="org-info">
+                <div class="org-name editable" id="orgName">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable" id="issueDate">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable" id="preparedBy">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable" id="approvedBy">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable" id="version">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title editable" id="docTitle">NOMBRE DEL DOCUMENTO</div>
+        <div class="doc-code editable" id="docCode">Código: <span id="docCodeValue">DOC-XXX</span></div>
+        
+        <!-- Painel de controle -->
+        <div class="control-panel" id="controlPanel">
+            <button class="control-btn edit-btn" id="editBtn">
+                <span>✏️</span> EDITAR CONTENIDO
+            </button>
+            <button class="control-btn save-btn" id="saveBtn">
+                <span>💾</span> GUARDAR
+            </button>
+            <button class="control-btn export-btn" id="exportBtn">
+                <span>📤</span> EXPORTAR HTML
+            </button>
+            <button class="control-btn reset-btn" id="resetBtn">
+                <span>🔄</span> RESTAURAR
+            </button>
+            <button class="control-btn clear-btn" id="clearBtn">
+                <span>🗑️</span> LIMPIAR TODO
+            </button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura</span>
+        </div>
+        
+        <!-- Área de conteúdo editável -->
+        <div class="content" id="contentArea">
+            <!-- Tudo aqui é editável -->
+            <div class="editable" id="contentSection1" data-type="paragraph">
+                <h1 class="section-title editable" data-type="title">1. INTRODUCCIÓN</h1>
+                <p class="paragraph editable" data-type="text">Este es un párrafo de ejemplo. Puede editarlo haciendo clic en él.</p>
+            </div>
+            
+            <div class="editable" id="contentSection2" data-type="paragraph">
+                <h2 class="subsection-title editable" data-type="subtitle">1.1 Propósito</h2>
+                <p class="paragraph editable" data-type="text">Describe el propósito de este documento aquí.</p>
+            </div>
+            
+            <div class="editable" id="contentSection3" data-type="list">
+                <h2 class="subsection-title editable" data-type="subtitle">1.2 Alcance</h2>
+                <ul class="bullet-list editable" data-type="list">
+                    <li>Elemento de lista 1</li>
+                    <li>Elemento de lista 2</li>
+                    <li>Elemento de lista 3</li>
+                </ul>
+            </div>
+            
+            <div class="editable" id="contentSection4" data-type="table">
+                <h2 class="subsection-title editable" data-type="subtitle">2. DEFINICIONES</h2>
+                <div class="table-container">
+                    <table class="custom-table editable" data-type="table">
+                        <thead>
+                            <tr>
+                                <th>Término</th>
+                                <th>Definición</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ejemplo 1</td>
+                                <td>Definición del ejemplo 1</td>
+                            </tr>
+                            <tr>
+                                <td>Ejemplo 2</td>
+                                <td>Definición del ejemplo 2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="editable" id="contentSection5" data-type="box">
+                <div class="info-box editable" data-type="box">
+                    <strong>Nota importante:</strong> Esta es una caja de información. Puede usarla para resaltar información importante.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p class="editable" id="footerText">Código: <span id="footerCode">DOC-XXX</span> | Revisión: <span id="revision">000</span> | Página 1 de 1</p>
+        </div>
+    </div>
+    
+    <!-- Botão para adicionar elementos -->
+    <button class="add-element-btn" id="addElementBtn">+</button>
+    
+    <!-- Menu de elementos -->
+    <div class="element-menu" id="elementMenu">
+        <div class="element-menu-item" data-type="title">
+            <span>📝</span> Título de Sección
+        </div>
+        <div class="element-menu-item" data-type="subtitle">
+            <span>📋</span> Subtítulo
+        </div>
+        <div class="element-menu-item" data-type="text">
+            <span>📄</span> Párrafo de Texto
+        </div>
+        <div class="element-menu-item" data-type="list">
+            <span>📋</span> Lista con Viñetas
+        </div>
+        <div class="element-menu-item" data-type="numbered-list">
+            <span>🔢</span> Lista Numerada
+        </div>
+        <div class="element-menu-item" data-type="table">
+            <span>📊</span> Tabla
+        </div>
+        <div class="element-menu-item" data-type="info-box">
+            <span>💡</span> Caja de Información
+        </div>
+        <div class="element-menu-item" data-type="warning-box">
+            <span>⚠️</span> Caja de Advertencia
+        </div>
+        <div class="element-menu-item" data-type="success-box">
+            <span>✅</span> Caja de Éxito
+        </div>
+        <div class="element-menu-item" data-type="divider">
+            <span>➖</span> Línea Divisoria
+        </div>
+    </div>
+    
+    <!-- Barra de status -->
+    <div class="status-bar" id="statusBar"></div>
+
+    <script>
+        // Sistema de Gerenciamento de Documentos SGC
+        class SGCdocumentEditor {
+            constructor() {
+                this.isEditing = false;
+                this.originalContent = {};
+                this.currentDocCode = 'DOC-XXX';
+                this.storageKey = 'sgc_template_blank';
+                this.init();
+            }
+            
+            init() {
+                // Salvar conteúdo original
+                this.saveOriginalContent();
+                
+                // Configurar elementos DOM
+                this.editBtn = document.getElementById('editBtn');
+                this.saveBtn = document.getElementById('saveBtn');
+                this.exportBtn = document.getElementById('exportBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.clearBtn = document.getElementById('clearBtn');
+                this.addElementBtn = document.getElementById('addElementBtn');
+                this.elementMenu = document.getElementById('elementMenu');
+                this.statusBar = document.getElementById('statusBar');
+                this.editStatus = document.getElementById('editStatus');
+                this.contentArea = document.getElementById('contentArea');
+                
+                // Configurar eventos
+                this.setupEventListeners();
+                
+                // Configurar logo
+                this.setupLogo();
+                
+                // Carregar conteúdo salvo se existir
+                this.loadSavedContent();
+                
+                this.showStatus('Modelo SGC cargado. Clique em "EDITAR CONTENIDO" para começar.', 'success');
+            }
+            
+            setupEventListeners() {
+                // Botões principais
+                this.editBtn.addEventListener('click', () => this.toggleEditMode());
+                this.saveBtn.addEventListener('click', () => this.saveDocument());
+                this.exportBtn.addEventListener('click', () => this.exportToHTML());
+                this.resetBtn.addEventListener('click', () => this.resetToOriginal());
+                this.clearBtn.addEventListener('click', () => this.clearAllContent());
+                this.addElementBtn.addEventListener('click', () => this.toggleElementMenu());
+                
+                // Menu de elementos
+                document.querySelectorAll('.element-menu-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const type = e.currentTarget.getAttribute('data-type');
+                        this.addNewElement(type);
+                        this.hideElementMenu();
+                    });
+                });
+                
+                // Fechar menu ao clicar fora
+                document.addEventListener('click', (e) => {
+                    if (!this.elementMenu.contains(e.target) && e.target !== this.addElementBtn) {
+                        this.hideElementMenu();
+                    }
+                });
+                
+                // Atualizar código do documento no rodapé
+                const docCodeValue = document.getElementById('docCodeValue');
+                const footerCode = document.getElementById('footerCode');
+                
+                docCodeValue.addEventListener('input', () => {
+                    const newCode = docCodeValue.textContent.trim();
+                    footerCode.textContent = newCode;
+                    this.currentDocCode = newCode;
+                    this.storageKey = `sgc_document_${newCode}`;
+                });
+            }
+            
+            setupLogo() {
+                const logoImg = document.getElementById('logoImg');
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO ORGANIZACIÓN</text></svg>';
+                };
+            }
+            
+            saveOriginalContent() {
+                const editables = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editables.forEach((element, index) => {
+                    const id = element.id || `element_${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.isEditing = !this.isEditing;
+                const editables = document.querySelectorAll('.editable');
+                
+                if (this.isEditing) {
+                    // Ativar modo edição
+                    document.body.classList.add('editing');
+                    this.editBtn.innerHTML = '<span>🚫</span> SALIR DE EDICIÓN';
+                    this.editBtn.classList.remove('edit-btn');
+                    this.editBtn.classList.add('clear-btn');
+                    this.editStatus.textContent = 'Modo edición';
+                    this.editStatus.style.color = '#d69e2e';
+                    
+                    // Tornar elementos editáveis
+                    editables.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                    });
+                    
+                    this.showStatus('Modo edición ativado. Você pode editar todo o conteúdo.', 'success');
+                } else {
+                    // Desativar modo edição
+                    document.body.classList.remove('editing');
+                    this.editBtn.innerHTML = '<span>✏️</span> EDITAR CONTENIDO';
+                    this.editBtn.classList.remove('clear-btn');
+                    this.editBtn.classList.add('edit-btn');
+                    this.editStatus.textContent = 'Modo lectura';
+                    this.editStatus.style.color = '#666';
+                    
+                    // Remover atributo contenteditable
+                    editables.forEach(element => {
+                        element.removeAttribute('contenteditable');
+                    });
+                    
+                    this.showStatus('Modo edição desativado.', 'info');
+                }
+            }
+            
+            saveDocument() {
+                if (!this.isEditing) {
+                    this.showStatus('Ative o modo edição antes de salvar.', 'warning');
+                    return;
+                }
+                
+                try {
+                    // Coletar todo o conteúdo editável
+                    const editables = document.querySelectorAll('.editable');
+                    const contentData = {};
+                    
+                    editables.forEach((element, index) => {
+                        const id = element.id || `element_${index}`;
+                        contentData[id] = element.innerHTML;
+                    });
+                    
+                    // Salvar código do documento
+                    contentData.docCode = this.currentDocCode;
+                    
+                    // Salvar no LocalStorage
+                    localStorage.setItem(this.storageKey, JSON.stringify(contentData));
+                    
+                    this.showStatus('Documento salvo com sucesso no navegador.', 'success');
+                } catch (error) {
+                    this.showStatus('Erro ao salvar documento: ' + error.message, 'error');
+                    console.error('Erro ao salvar:', error);
+                }
+            }
+            
+            loadSavedContent() {
+                try {
+                    const savedData = localStorage.getItem(this.storageKey);
+                    if (savedData) {
+                        const contentData = JSON.parse(savedData);
+                        
+                        // Restaurar elementos editáveis
+                        for (const [id, content] of Object.entries(contentData)) {
+                            if (id !== 'docCode') {
+                                const element = document.getElementById(id);
+                                if (element) {
+                                    element.innerHTML = content;
+                                }
+                            }
+                        }
+                        
+                        // Atualizar código do documento se salvo
+                        if (contentData.docCode) {
+                            const docCodeValue = document.getElementById('docCodeValue');
+                            const footerCode = document.getElementById('footerCode');
+                            
+                            docCodeValue.textContent = contentData.docCode;
+                            footerCode.textContent = contentData.docCode;
+                            this.currentDocCode = contentData.docCode;
+                            this.storageKey = `sgc_document_${contentData.docCode}`;
+                        }
+                        
+                        this.showStatus('Conteúdo carregado do armazenamento local.', 'success');
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar conteúdo salvo:', error);
+                }
+            }
+            
+            exportToHTML() {
+                try {
+                    // Criar clone do documento
+                    const docClone = document.documentElement.cloneNode(true);
+                    
+                    // Remover elementos de controle
+                    const controlPanel = docClone.querySelector('.control-panel');
+                    const addElementBtn = docClone.querySelector('.add-element-btn');
+                    const elementMenu = docClone.querySelector('.element-menu');
+                    const statusBar = docClone.querySelector('.status-bar');
+                    
+                    if (controlPanel) controlPanel.remove();
+                    if (addElementBtn) addElementBtn.remove();
+                    if (elementMenu) elementMenu.remove();
+                    if (statusBar) statusBar.remove();
+                    
+                    // Remover atributos de edição
+                    const editables = docClone.querySelectorAll('.editable');
+                    editables.forEach(element => {
+                        element.removeAttribute('contenteditable');
+                        element.removeAttribute('data-type');
+                    });
+                    
+                    // Remover scripts
+                    const scripts = docClone.querySelectorAll('script');
+                    scripts.forEach(script => script.remove());
+                    
+                    // Remover event listeners
+                    const styleElement = docClone.querySelector('style');
+                    if (styleElement) {
+                        const originalStyles = styleElement.textContent;
+                        styleElement.textContent = originalStyles.replace(
+                            /\.editable\s*{[^}]*}/g, 
+                            '.editable { min-height: auto; padding: 0; border: none !important; background: transparent !important; }'
+                        );
+                    }
+                    
+                    // Obter código do documento para nome do arquivo
+                    const docCodeValue = docClone.querySelector('#docCodeValue');
+                    const code = docCodeValue ? docCodeValue.textContent.trim() : 'SGC-DOC';
+                    
+                    // Criar blob e baixar
+                    const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                    const blob = new Blob([htmlContent], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${code}_${this.getCurrentDate()}.html`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    this.showStatus(`Documento exportado como ${a.download}`, 'success');
+                } catch (error) {
+                    this.showStatus('Erro ao exportar documento: ' + error.message, 'error');
+                    console.error('Erro ao exportar:', error);
+                }
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todos los cambios.')) {
+                    const editables = document.querySelectorAll('.editable');
+                    
+                    editables.forEach((element, index) => {
+                        const id = element.id || `element_${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    this.showStatus('Conteúdo restaurado ao original.', 'success');
+                }
+            }
+            
+            clearAllContent() {
+                if (confirm('¿Limpiar todo el contenido? Esta acción no se puede deshacer.')) {
+                    const editables = document.querySelectorAll('.editable:not(#docCodeValue):not(#footerCode):not(#revision)');
+                    
+                    editables.forEach(element => {
+                        if (element.tagName === 'TABLE') {
+                            // Limpar tabela mantendo estrutura
+                            const tbody = element.querySelector('tbody');
+                            if (tbody) {
+                                tbody.innerHTML = '<tr><td>Contenido</td><td>Descripción</td></tr>';
+                            }
+                        } else if (element.classList.contains('bullet-list') || 
+                                 element.classList.contains('numbered-list')) {
+                            // Limpar lista mantendo um item
+                            element.innerHTML = '<li>Nuevo elemento</li>';
+                        } else if (element.classList.contains('section-title') || 
+                                 element.classList.contains('subsection-title')) {
+                            // Manter títulos com texto padrão
+                            if (element.classList.contains('section-title')) {
+                                element.textContent = 'Nueva Sección';
+                            } else {
+                                element.textContent = 'Nuevo Subtítulo';
+                            }
+                        } else if (element.classList.contains('info-box') || 
+                                 element.classList.contains('warning-box') || 
+                                 element.classList.contains('success-box')) {
+                            // Limpar caixas
+                            element.innerHTML = '<strong>Contenido:</strong> Edite este texto.';
+                        } else {
+                            // Limpar outros elementos
+                            element.innerHTML = '<p>Edite este contenido.</p>';
+                        }
+                    });
+                    
+                    this.showStatus('Todo el contenido ha sido limpiado.', 'success');
+                }
+            }
+            
+            toggleElementMenu() {
+                if (this.elementMenu.classList.contains('show')) {
+                    this.hideElementMenu();
+                } else {
+                    this.showElementMenu();
+                }
+            }
+            
+            showElementMenu() {
+                this.elementMenu.classList.add('show');
+                this.addElementBtn.innerHTML = '×';
+                this.addElementBtn.style.transform = 'rotate(45deg)';
+            }
+            
+            hideElementMenu() {
+                this.elementMenu.classList.remove('show');
+                this.addElementBtn.innerHTML = '+';
+                this.addElementBtn.style.transform = 'rotate(0deg)';
+            }
+            
+            addNewElement(type) {
+                if (!this.isEditing) {
+                    this.showStatus('Ative o modo edição para adicionar elementos.', 'warning');
+                    return;
+                }
+                
+                const contentArea = this.contentArea;
+                const newId = `element_${Date.now()}`;
+                let newElement;
+                
+                switch(type) {
+                    case 'title':
+                        newElement = document.createElement('h1');
+                        newElement.className = 'section-title editable';
+                        newElement.setAttribute('data-type', 'title');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.textContent = 'NUEVA SECCIÓN';
+                        break;
+                        
+                    case 'subtitle':
+                        newElement = document.createElement('h2');
+                        newElement.className = 'subsection-title editable';
+                        newElement.setAttribute('data-type', 'subtitle');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.textContent = 'Nuevo Subtítulo';
+                        break;
+                        
+                    case 'text':
+                        newElement = document.createElement('div');
+                        newElement.className = 'editable';
+                        newElement.setAttribute('data-type', 'paragraph');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.innerHTML = '<p class="paragraph">Escriba su texto aquí.</p>';
+                        break;
+                        
+                    case 'list':
+                        newElement = document.createElement('div');
+                        newElement.className = 'editable';
+                        newElement.setAttribute('data-type', 'list');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.innerHTML = '<ul class="bullet-list"><li>Elemento de lista 1</li><li>Elemento de lista 2</li></ul>';
+                        break;
+                        
+                    case 'numbered-list':
+                        newElement = document.createElement('div');
+                        newElement.className = 'editable';
+                        newElement.setAttribute('data-type', 'list');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.innerHTML = '<ol class="numbered-list"><li>Elemento 1</li><li>Elemento 2</li></ol>';
+                        break;
+                        
+                    case 'table':
+                        newElement = document.createElement('div');
+                        newElement.className = 'editable';
+                        newElement.setAttribute('data-type', 'table');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.innerHTML = `
+                            <div class="table-container">
+                                <table class="custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Columna 1</th>
+                                            <th>Columna 2</th>
+                                            <th>Columna 3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Dato 1</td>
+                                            <td>Dato 2</td>
+                                            <td>Dato 3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dato 4</td>
+                                            <td>Dato 5</td>
+                                            <td>Dato 6</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'info-box':
+                        newElement = document.createElement('div');
+                        newElement.className = 'info-box editable';
+                        newElement.setAttribute('data-type', 'box');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.innerHTML = '<strong>Información:</strong> Este es un cuadro de información. Edite este texto.';
+                        break;
+                        
+                    case 'warning-box':
+                        newElement = document.createElement('div');
+                        newElement.className = 'warning-box editable';
+                        newElement.setAttribute('data-type', 'box');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.innerHTML = '<strong>Advertencia:</strong> Este es un cuadro de advertencia. Edite este texto.';
+                        break;
+                        
+                    case 'success-box':
+                        newElement = document.createElement('div');
+                        newElement.className = 'success-box editable';
+                        newElement.setAttribute('data-type', 'box');
+                        newElement.setAttribute('contenteditable', 'true');
+                        newElement.id = newId;
+                        newElement.innerHTML = '<strong>Éxito:</strong> Este es un cuadro de éxito. Edite este texto.';
+                        break;
+                        
+                    case 'divider':
+                        newElement = document.createElement('hr');
+                        newElement.style.margin = '30px 0';
+                        newElement.style.border = 'none';
+                        newElement.style.borderTop = '2px solid #e2e8f0';
+                        break;
+                }
+                
+                if (newElement) {
+                    contentArea.appendChild(newElement);
+                    newElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Destacar novo elemento
+                    newElement.style.backgroundColor = '#fff9e6';
+                    setTimeout(() => {
+                        newElement.style.backgroundColor = '';
+                    }, 2000);
+                    
+                    this.showStatus(`Elemento ${type} agregado correctamente.`, 'success');
+                }
+            }
+            
+            showStatus(message, type = 'success') {
+                this.statusBar.textContent = message;
+                this.statusBar.className = 'status-bar';
+                this.statusBar.classList.add(type);
+                this.statusBar.classList.add('show');
+                
+                setTimeout(() => {
+                    this.statusBar.classList.remove('show');
+                }, 3000);
+            }
+            
+            getCurrentDate() {
+                const now = new Date();
+                const day = String(now.getDate()).padStart(2, '0');
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const year = now.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+        }
+        
+        // Inicializar editor quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.sgcEditor = new SGCdocumentEditor();
+            
+            // Expor funções úteis globalmente
+            window.saveSGCdocument = () => window.sgcEditor.saveDocument();
+            window.exportSGCdocument = () => window.sgcEditor.exportToHTML();
+            window.clearSGCdocument = () => window.sgcEditor.clearAllContent();
+        });
+    </script>
+</body>
+</html>

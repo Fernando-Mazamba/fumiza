@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FICHA DE CONTROL DE EXTINTORES - FOR-MAN-01</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: #e53e3e;
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            border-bottom: 5px solid #c53030;
+        }
+        
+        .main-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+        
+        .year-container {
+            display: inline-block;
+            background-color: white;
+            color: #e53e3e;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 22px;
+            margin-top: 10px;
+            border: 2px solid #c53030;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .fire-extinguisher-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .info-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            border-top: 4px solid #e53e3e;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-title {
+            color: #e53e3e;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #fed7d7;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 24px;
+        }
+        
+        .responsibility-section {
+            margin-bottom: 25px;
+        }
+        
+        .responsibility-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .responsible-person {
+            background-color: #fed7d7;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #9b2c2c;
+            margin-bottom: 15px;
+            display: inline-block;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .task-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .task-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .task-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            background-color: #38a169;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .maintenance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .maintenance-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .maintenance-monthly {
+            border-top: 4px solid #3182ce;
+        }
+        
+        .maintenance-annual {
+            border-top: 4px solid #38a169;
+        }
+        
+        .maintenance-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .maintenance-monthly .maintenance-title {
+            color: #3182ce;
+        }
+        
+        .maintenance-annual .maintenance-title {
+            color: #38a169;
+        }
+        
+        .control-table-container {
+            margin: 40px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .table-title {
+            background-color: #4a5568;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .control-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .control-table th, .control-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .control-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        
+        .control-table td {
+            min-width: 50px;
+        }
+        
+        .month-header {
+            background-color: #e53e3e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .year-cell {
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+        
+        .check-cell {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .check-cell:hover {
+            background-color: #f0fff4;
+        }
+        
+        .check-cell.checked:after {
+            content: "✓";
+            color: #38a169;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #666;
+            margin-top: 30px;
+        }
+        
+        .document-code {
+            font-weight: bold;
+            color: #e53e3e;
+            font-size: 16px;
+        }
+        
+        .print-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            float: right;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover {
+            background-color: #c53030;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .check-cell {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .maintenance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fire-extinguisher-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .main-title {
+                font-size: 26px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .control-table {
+                font-size: 12px;
+            }
+            
+            .control-table th, .control-table td {
+                padding: 8px 10px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .control-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="document-container">
+        <!-- Encabezado -->
+        <div class="header">
+            <div class="main-title">EXTINTOR DE INCENDIO</div>
+            <div class="subtitle">Ficha de Control y Mantenimiento</div>
+            <div class="subtitle">Código: <strong>FOR-MAN-01</strong></div>
+            <div class="year-container">AÑO: 2025</div>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Información del extintor -->
+            <div class="fire-extinguisher-info">
+                <div class="info-card">
+                    <div class="card-title">
+                        <i class="fas fa-fire-extinguisher"></i>
+                        INFORMACIÓN DEL EXTINTOR
+                    </div>
+                    <div class="responsibility-section">
+                        <div class="responsible-person">Responsable: Servicios Generales</div>
+                        <p><strong>Tipo:</strong> Polvo químico ABC</p>
+                        <p><strong>Capacidad:</strong> 6 kg / 9 kg</p>
+                        <p><strong>Ubicación:</strong> [Área/Departamento específico]</p>
+                        <p><strong>Nº de Serie:</strong> [Número de serie del extintor]</p>
+                        <p><strong>Fecha de fabricación:</strong> [Fecha]</p>
+                        <p><strong>Próxima recarga:</strong> [Fecha]</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        REGISTRO DE INSPECCIONES
+                    </div>
+                    <div class="responsibility-section">
+                        <div class="responsible-person">Última inspección: [Fecha]</div>
+                        <p><strong>Estado actual:</strong> ✅ Operativo / ⚠️ Necesita atención</p>
+                        <p><strong>Presión del manómetro:</strong> En zona verde</p>
+                        <p><strong>Sellos de seguridad:</strong> Intactos</p>
+                        <p><strong>Accesibilidad:</strong> Libre de obstáculos</p>
+                        <p><strong>Señalización:</strong> Visible y legible</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mantenimiento Mensual y Anual -->
+            <div class="maintenance-grid">
+                <div class="maintenance-card maintenance-monthly">
+                    <div class="maintenance-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        MANTENIMIENTO MENSUAL
+                    </div>
+                    <div class="responsibility-section">
+                        <div class="responsible-person">Responsable: Servicios Generales</div>
+                        <ul class="task-list">
+                            <li>Verificar seguro de extintores</li>
+                            <li>Verificar presión del cilindro</li>
+                            <li>Inspeccionar manguera y boquilla</li>
+                            <li>Comprobar estado físico del extintor</li>
+                            <li>Verificar señalización y accesibilidad</li>
+                            <li>Registrar inspección en planilla</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="maintenance-card maintenance-annual">
+                    <div class="maintenance-title">
+                        <i class="fas fa-calendar-check"></i>
+                        MANTENIMIENTO ANUAL
+                    </div>
+                    <div class="responsibility-section">
+                        <div class="responsible-person">Responsable: [Nombre del responsable]</div>
+                        <ul class="task-list">
+                            <li>Vaciar polvo químico del extintor</li>
+                            <li>Realizar prueba hidrostática (cada 5 años)</li>
+                            <li>Recargar o reemplazar agente extintor</li>
+                            <li>Reemplazar juntas y sellos si es necesario</li>
+                            <li>Verificar etiquetas y fechas de caducidad</li>
+                            <li>Actualizar registro de mantenimiento</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabla de control mensual -->
+            <div class="control-table-container">
+                <div class="table-title">CONTROL MENSUAL DE INSPECCIÓN - AÑO 2025</div>
+                <div class="table-scroll">
+                    <table class="control-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">MES</th>
+                                <th colspan="4">INSPECCIÓN MENSUAL</th>
+                                <th rowspan="2">OBSERVACIONES / FIRMA</th>
+                            </tr>
+                            <tr>
+                                <th>Seguro</th>
+                                <th>Presión</th>
+                                <th>Accesibilidad</th>
+                                <th>Estado General</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="month-header">ENERO</td>
+                                <td class="check-cell checked"></td>
+                                <td class="check-cell checked"></td>
+                                <td class="check-cell checked"></td>
+                                <td class="check-cell checked"></td>
+                                <td>OK - Responsable: S. Generales</td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">FEBRERO</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">MARZO</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">ABRIL</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">MAYO</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">JUNIO</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">JULIO</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">AGOSTO</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">SEPTIEMBRE</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">OCTUBRE</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">NOVIEMBRE</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="month-header">DICIEMBRE</td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td class="check-cell"></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Instrucciones de uso -->
+            <div class="info-card">
+                <div class="card-title">
+                    <i class="fas fa-info-circle"></i>
+                    INSTRUCCIONES DE USO (P.A.S.)
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="text-align: center; padding: 15px; background-color: #fed7d7; border-radius: 8px;">
+                        <div style="font-size: 32px; color: #e53e3e; margin-bottom: 10px;">P</div>
+                        <div style="font-weight: bold; color: #9b2c2c;">PULL</div>
+                        <div>Jalar el seguro</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background-color: #fed7d7; border-radius: 8px;">
+                        <div style="font-size: 32px; color: #e53e3e; margin-bottom: 10px;">A</div>
+                        <div style="font-weight: bold; color: #9b2c2c;">AIM</div>
+                        <div>Apunta a la base del fuego</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background-color: #fed7d7; border-radius: 8px;">
+                        <div style="font-size: 32px; color: #e53e3e; margin-bottom: 10px;">S</div>
+                        <div style="font-weight: bold; color: #9b2c2c;">SQUEEZE</div>
+                        <div>Aprieta la palanca</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background-color: #fed7d7; border-radius: 8px;">
+                        <div style="font-size: 32px; color: #e53e3e; margin-bottom: 10px;">S</div>
+                        <div style="font-weight: bold; color: #9b2c2c;">SWEEP</div>
+                        <div>Barre de lado a lado</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                IMPRIMIR FICHA
+            </button>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p><span class="document-code">FOR-MAN-01</span> | Ficha de Control de Extintores | Año: 2025</p>
+            <p>Sistema de Gestión Integrado (SGI) - Seguridad y Salud en el Trabajo</p>
+        </div>
+    </div>
+
+    <script>
+        // Hacer las celdas de verificación clickeables
+        document.querySelectorAll('.check-cell').forEach(cell => {
+            cell.addEventListener('click', function() {
+                this.classList.toggle('checked');
+            });
+        });
+        
+        // Configurar fecha actual para observaciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const monthNames = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+                              "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
+            
+            const currentMonth = monthNames[today.getMonth()];
+            
+            // Marcar automáticamente el mes actual si estamos en 2025
+            if (today.getFullYear() === 2025) {
+                const currentMonthCells = document.querySelectorAll('.month-header');
+                currentMonthCells.forEach(cell => {
+                    if (cell.textContent === currentMonth) {
+                        // Marcar la fila completa
+                        const row = cell.parentElement;
+                        const checkCells = row.querySelectorAll('.check-cell');
+                        checkCells.forEach(checkCell => {
+                            if (!checkCell.classList.contains('checked')) {
+                                checkCell.classList.add('checked');
+                            }
+                        });
+                        
+                        // Actualizar observaciones
+                        const observationCell = row.querySelector('td:last-child');
+                        if (observationCell && observationCell.textContent === '') {
+                            observationCell.textContent = `Inspección ${today.getDate()}/${today.getMonth()+1}/2025 - OK`;
+                        }
+                    }
+                });
+            }
+            
+            // Añadir funcionalidad para generar PDF
+            const printBtn = document.querySelector('.print-btn');
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>

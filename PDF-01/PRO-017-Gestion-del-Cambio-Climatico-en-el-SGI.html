@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-017 Gestión del Cambio Climático en el SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5c3e;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5c3e;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5c3e;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5c3e;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2c5c3e;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4a8c6d;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5c3e;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #1e3c2a;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 10px;
+            border-left: 4px solid #2c5c3e;
+        }
+        
+        .subsection-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c5c3e;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #2c5c3e;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .nested-list {
+            list-style-type: none;
+            margin: 10px 0 15px 30px;
+        }
+        
+        .nested-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .nested-list li:before {
+            content: "○";
+            color: #4a8c6d;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .responsibility-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .guidelines-container {
+            margin: 25px 0;
+        }
+        
+        .guideline-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .guideline-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .goal-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .goal-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .kpi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 30px;
+        }
+        
+        .kpi-table th, .kpi-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .kpi-table th {
+            background-color: #2c5c3e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5c3e;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5c3e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            text-align: right;
+            padding: 0 40px 20px;
+        }
+        
+        .print-btn, .download-btn {
+            background-color: #2c5c3e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover, .download-btn:hover {
+            background-color: #4a8c6d;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px;
+            transition: border 0.3s;
+        }
+        
+        .editable:hover {
+            border: 1px dashed #4a8c6d;
+            background-color: #f9f9f9;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .download-btn {
+                display: none;
+            }
+            
+            .editable {
+                border: none;
+            }
+            
+            .editable:hover {
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                text-align: center;
+                padding: 0 20px 20px;
+            }
+            
+            .print-btn, .download-btn {
+                margin: 5px;
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Gestión del Cambio Climático en el Sistema de Gestión de la Calidad</div>
+        <div class="doc-code">Código: PRO-017</div>
+        
+        <!-- Botões de ação -->
+        <div class="action-buttons">
+            <button class="download-btn" onclick="downloadDocument()">💾 Descargar Documento</button>
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+        </div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">1. Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">2. Alcance</a></li>
+                    <li class="toc-item"><a href="#definiciones" class="toc-link">3. Definiciones</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">4. Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#directrices" class="toc-link">5. Directrices para la Gestión del Cambio Climático</a></li>
+                    <li class="toc-item"><a href="#metas" class="toc-link">6. Metas e Indicadores</a></li>
+                    <li class="toc-item"><a href="#monitoreo" class="toc-link">7. Monitoreo y Revisión</a></li>
+                    <li class="toc-item"><a href="#documentacion" class="toc-link">8. Documentación Relacionada</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                <div class="content-text editable">
+                    Este documento tiene como objetivo establecer directrices claras y consistentes para la gestión de los impactos del cambio climático dentro del Sistema de Gestión de la Calidad (SGC), asegurando que la organización:
+                </div>
+                <ul class="bullet-list">
+                    <li class="editable">Comprenda y mitigue los impactos del cambio climático sobre sus operaciones y desempeño.</li>
+                    <li class="editable">Adopte prácticas sostenibles según los requisitos de las normas <strong>ISO 9001</strong>, <strong>ISO 14001</strong> e <strong>ISO 45001</strong>.</li>
+                    <li class="editable">Contribuya proactivamente a reducir los efectos del cambio climático en el medio ambiente y en la salud y seguridad de los trabajadores.</li>
+                    <li class="editable">Promueva la mejora continua en la adaptación y mitigación de los efectos del cambio climático a lo largo de sus operaciones.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                <div class="content-text editable">
+                    Este documento se aplica a todos los procesos, actividades y operaciones de la organización que puedan verse afectadas por el cambio climático. La gestión será integrada al SGC, abarcando las áreas de calidad, medio ambiente, y seguridad y salud en el trabajo.
+                </div>
+            </div>
+            
+            <!-- Sección 3: Definiciones -->
+            <div class="section" id="definiciones">
+                <div class="section-title">3. Definiciones</div>
+                <div class="guidelines-container">
+                    <div class="guideline-item editable">
+                        <div class="guideline-title">Cambio Climático</div>
+                        <p>Alteraciones en el clima global o regional causadas principalmente por la actividad humana, resultando en cambios en los patrones de temperatura, precipitación y eventos climáticos extremos.</p>
+                    </div>
+                    
+                    <div class="guideline-item editable">
+                        <div class="guideline-title">Mitigación</div>
+                        <p>Conjunto de acciones y estrategias para reducir o prevenir las emisiones de gases de efecto invernadero (GEI) y limitar el calentamiento global.</p>
+                    </div>
+                    
+                    <div class="guideline-item editable">
+                        <div class="guideline-title">Adaptación</div>
+                        <p>Procesos y acciones para ajustar los sistemas y procesos para manejar los impactos negativos del cambio climático.</p>
+                    </div>
+                    
+                    <div class="guideline-item editable">
+                        <div class="guideline-title">Cambio Climático en el SGC</div>
+                        <p>La integración de las acciones de mitigación y adaptación a las normas de calidad, medio ambiente y seguridad en el trabajo, con el fin de lograr la sostenibilidad y resiliencia de la organización.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">4. Responsabilidades</div>
+                
+                <div class="responsibility-box editable">
+                    <div class="responsibility-title">Alta Dirección:</div>
+                    <ul class="bullet-list">
+                        <li>Aprobar la Política de Gestión del Cambio Climático.</li>
+                        <li>Establecer los objetivos y metas de reducción de emisiones de GEI y adaptación al cambio climático.</li>
+                        <li>Garantizar los recursos necesarios para la implementación y mantenimiento de las acciones relacionadas con el cambio climático.</li>
+                    </ul>
+                </div>
+                
+                <div class="responsibility-box editable">
+                    <div class="responsibility-title">Responsable del SGC:</div>
+                    <ul class="bullet-list">
+                        <li>Coordinar la implementación de la Política de Gestión del Cambio Climático dentro del SGC.</li>
+                        <li>Integrar las acciones climáticas en las prácticas de gestión de calidad, medio ambiente y seguridad en el trabajo.</li>
+                        <li>Realizar auditorías y revisiones periódicas de las acciones climáticas dentro del SGC.</li>
+                    </ul>
+                </div>
+                
+                <div class="responsibility-box editable">
+                    <div class="responsibility-title">Responsables de Procesos:</div>
+                    <ul class="bullet-list">
+                        <li>Identificar los riesgos y oportunidades relacionadas con el cambio climático dentro de sus procesos y operaciones.</li>
+                        <li>Implementar prácticas de mitigación y adaptación en sus actividades diarias.</li>
+                    </ul>
+                </div>
+                
+                <div class="responsibility-box editable">
+                    <div class="responsibility-title">Todos los Empleados:</div>
+                    <ul class="bullet-list">
+                        <li>Cumplir con las políticas y directrices establecidas para la gestión del cambio climático.</li>
+                        <li>Participar activamente en entrenamientos y acciones relacionadas con la sostenibilidad.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Directrices -->
+            <div class="section" id="directrices">
+                <div class="section-title">5. Directrices para la Gestión del Cambio Climático</div>
+                
+                <div class="subsection-title">5.1 Evaluación de Impactos Climáticos</div>
+                <div class="content-text editable">
+                    Identificación de riesgos y oportunidades relacionadas con los impactos del cambio climático en las operaciones de la organización.
+                </div>
+                <ul class="nested-list">
+                    <li class="editable"><strong>Riesgos de impactos negativos:</strong> Ejemplo: fallas en procesos debido a condiciones climáticas extremas, como inundaciones o sequías.</li>
+                    <li class="editable"><strong>Oportunidades de adaptación:</strong> Ejemplo: adopción de tecnologías más eficientes y sostenibles para reducir la huella de carbono.</li>
+                </ul>
+                
+                <div class="subsection-title">5.2 Mitigación de las Emisiones de Gases de Efecto Invernadero (GEI)</div>
+                <div class="content-text editable">
+                    Establecimiento de metas de reducción de emisiones de GEI alineadas con los objetivos globales (ej.: metas del Acuerdo de París).
+                </div>
+                <div class="content-text editable">
+                    Implementación de acciones de mitigación:
+                </div>
+                <ul class="nested-list">
+                    <li class="editable"><strong>Eficiencia energética:</strong> Adoptar tecnologías y prácticas que aumenten la eficiencia en el consumo de energía.</li>
+                    <li class="editable"><strong>Uso de energías renovables:</strong> Implementar fuentes de energía limpias y renovables, como solar y eólica.</li>
+                    <li class="editable"><strong>Gestión de residuos:</strong> Mejorar el proceso de gestión de residuos, reduciendo la generación y aumentando el reciclaje.</li>
+                </ul>
+                
+                <div class="subsection-title">5.3 Adaptación al Cambio Climático</div>
+                <ul class="bullet-list">
+                    <li class="editable"><strong>Evaluación de vulnerabilidad</strong> de las operaciones, identificando puntos críticos que pueden verse afectados por condiciones climáticas extremas.</li>
+                    <li class="editable"><strong>Plan de acción de adaptación:</strong>
+                        <ul class="nested-list">
+                            <li class="editable">Desarrollo de infraestructuras resilientes (ej.: protección contra inundaciones o tormentas).</li>
+                            <li class="editable">Adopción de medidas para proteger la salud y seguridad de los trabajadores contra eventos climáticos adversos.</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="subsection-title">5.4 Integración con el SGC</div>
+                <ul class="bullet-list">
+                    <li class="editable"><strong>Integración con el Sistema de Gestión Ambiental (ISO 14001):</strong> La gestión del cambio climático será tratada como parte de la política ambiental, con enfoque en sostenibilidad y reducción de impactos ambientales.</li>
+                    <li class="editable"><strong>Integración con el Sistema de Gestión de Seguridad y Salud en el Trabajo (ISO 45001):</strong> El impacto del cambio climático sobre la salud y seguridad laboral será monitoreado y tratado mediante medidas preventivas, asegurando la protección de los empleados.</li>
+                </ul>
+                
+                <div class="subsection-title">5.5 Educación y Concientización</div>
+                <ul class="bullet-list">
+                    <li class="editable"><strong>Capacitación continua</strong> para todos los niveles de la organización sobre las implicaciones del cambio climático y las acciones de mitigación y adaptación.</li>
+                    <li class="editable"><strong>Concientización y compromiso</strong> de los empleados para reducir el impacto ambiental y mejorar las prácticas de seguridad relacionadas con el cambio climático.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 6: Metas e Indicadores -->
+            <div class="section" id="metas">
+                <div class="section-title">6. Metas e Indicadores</div>
+                
+                <div class="content-text editable">
+                    Las metas deben ser SMART (Específicas, Medibles, Alcanzables, Relevantes y con Tiempo determinado). Ejemplos de metas:
+                </div>
+                
+                <div class="goal-box editable">
+                    <div class="goal-title">Ejemplos de Metas</div>
+                    <ul class="bullet-list">
+                        <li><strong>Meta de reducción de emisiones:</strong> Reducir las emisiones de CO2 en un 20% hasta 2025.</li>
+                        <li><strong>Meta de eficiencia energética:</strong> Aumentar la eficiencia energética en un 15% hasta 2025.</li>
+                        <li><strong>Meta de adaptación:</strong> Implementar medidas de protección contra eventos climáticos extremos en el 100% de las unidades de la organización hasta 2026.</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Indicadores de Desempeño:</div>
+                <table class="kpi-table editable">
+                    <thead>
+                        <tr>
+                            <th>Indicador</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Reducción en las emisiones de GEI por unidad de producción</td>
+                            <td>Medición del impacto ambiental por unidad producida</td>
+                        </tr>
+                        <tr>
+                            <td>Porcentaje de áreas de riesgo climático mitigadas</td>
+                            <td>Evaluación del progreso en la mitigación de riesgos climáticos</td>
+                        </tr>
+                        <tr>
+                            <td>Satisfacción de los empleados con las condiciones laborales</td>
+                            <td>Especialmente relacionadas con eventos climáticos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 7: Monitoreo y Revisión -->
+            <div class="section" id="monitoreo">
+                <div class="section-title">7. Monitoreo y Revisión</div>
+                
+                <div class="subsection-title">7.1 Monitoreo</div>
+                <ul class="bullet-list editable">
+                    <li>Auditorías internas para garantizar que las prácticas y políticas de gestión climática se implementen correctamente.</li>
+                    <li>Revisiones periódicas de las metas climáticas y adaptación al cambio, con la participación de la alta dirección.</li>
+                </ul>
+                
+                <div class="subsection-title">7.2 Evaluación</div>
+                <div class="content-text editable">
+                    Evaluación de los impactos de las acciones de mitigación y adaptación implementadas, ajustando las estrategias según sea necesario para alcanzar los objetivos establecidos.
+                </div>
+            </div>
+            
+            <!-- Sección 8: Documentación Relacionada -->
+            <div class="section" id="documentacion">
+                <div class="section-title">8. Documentación Relacionada</div>
+                <ul class="bullet-list editable">
+                    <li>Política Ambiental.</li>
+                    <li>Plan de Acción de Mitigación de GEI.</li>
+                    <li>Plan de Adaptación al Cambio Climático.</li>
+                    <li>Informes de Desempeño Climático.</li>
+                    <li>Registros de Capacitación y Concientización Climática.</li>
+                </ul>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table editable">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td contenteditable="true">000</td>
+                                <td contenteditable="true">01.12.2024</td>
+                                <td contenteditable="true">Original</td>
+                                <td contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-017 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar elementos editables
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hacer todos los elementos con clase 'editable' editables al hacer doble clic
+            const editableElements = document.querySelectorAll('.editable');
+            
+            editableElements.forEach(element => {
+                // Si el elemento no es una tabla o lista, hacerlo editable
+                if (!element.matches('table') && !element.matches('ul') && !element.matches('ol')) {
+                    element.setAttribute('contenteditable', 'true');
+                }
+                
+                // Agregar evento de doble clic para edición
+                element.addEventListener('dblclick', function(e) {
+                    if (this.matches('table') || this.matches('ul') || this.matches('ol')) {
+                        // Para tablas y listas, activar edición en celdas/items hijos
+                        const childElements = this.querySelectorAll('td, li, p, div:not(.guideline-title):not(.responsibility-title):not(.goal-title)');
+                        childElements.forEach(child => {
+                            child.setAttribute('contenteditable', 'true');
+                            child.style.border = '1px dashed #4a8c6d';
+                            child.style.padding = '5px';
+                            child.style.minHeight = '20px';
+                        });
+                        
+                        // Mostrar mensaje de ayuda
+                        alert('Ahora puede editar los elementos de esta tabla/lista. Haga clic fuera para guardar.');
+                    }
+                });
+                
+                // Guardar cambios al perder el foco
+                element.addEventListener('blur', function() {
+                    console.log('Contenido actualizado:', this.innerHTML);
+                });
+            });
+            
+            // Verifica si el logo existe, caso contrário muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5c3e" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Adicionar funcionalidade de edição aos títulos das seções
+            const sectionTitles = document.querySelectorAll('.section-title, .subsection-title, .toc-title, .guideline-title, .responsibility-title, .goal-title');
+            sectionTitles.forEach(title => {
+                title.classList.add('editable');
+                title.setAttribute('contenteditable', 'true');
+            });
+        });
+        
+        // Función para descargar el documento
+        function downloadDocument() {
+            // Obtener el HTML completo del documento
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Crear un blob con el contenido HTML
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Crear un enlace para descargar
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = 'PRO-017-Gestion-del-Cambio-Climatico-en-el-SGC.html';
+            
+            // Simular clic en el enlace
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            // Mostrar mensaje de confirmación
+            alert('Documento descargado como "PRO-017-Gestion-del-Cambio-Climatico-en-el-SGC.html"');
+        }
+    </script>
+</body>
+</html>

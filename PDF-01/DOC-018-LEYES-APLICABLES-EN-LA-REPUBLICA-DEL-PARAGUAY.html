@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-018 Leyes Aplicables en Honduras - SGC FUMIZA S. de R.L.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .edit-tools {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .tool-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .tool-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn {
+            background-color: #3182ce;
+        }
+        
+        .download-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 50%, #2a6fdb 100%);
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #d4a843;
+        }
+        
+        .org-subname {
+            font-size: 16px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0b2b5c;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #d4a843;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .note-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #d4a843;
+            font-size: 15px;
+        }
+        
+        .laws-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 14px;
+        }
+        
+        .laws-table th {
+            background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 100%);
+            color: white;
+            font-weight: bold;
+            padding: 15px 12px;
+            text-align: left;
+            vertical-align: top;
+            border: 1px solid #ddd;
+        }
+        
+        .laws-table td {
+            padding: 12px 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        
+        .laws-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .laws-table tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .authority-section {
+            margin: 25px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d4a843;
+            color: #0b2b5c;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #0b2b5c;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #d4e8f7 100%);
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #2a6fdb;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #d4a843;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        
+        .signature-line {
+            margin-top: 60px;
+            border-top: 1px solid #333;
+            width: 300px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .signature-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0b2b5c;
+        }
+        
+        .signature-title {
+            font-style: italic;
+            color: #666;
+        }
+        
+        .print-btn {
+            background: linear-gradient(135deg, #0b2b5c 0%, #1a4a8a 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background: linear-gradient(135deg, #1a4a8a 0%, #2a6fdb 100%);
+        }
+        
+        .editable {
+            border: 1px dashed #cbd5e0;
+            padding: 2px;
+            min-height: 20px;
+        }
+        
+        .editable:focus {
+            outline: 2px solid #2a6fdb;
+            background-color: #ebf8ff;
+        }
+        
+        .edit-mode .editable {
+            border: 1px dashed #3182ce !important;
+        }
+        
+        .add-row-btn {
+            background: linear-gradient(135deg, #0b2b5c 0%, #2a6fdb 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 12px;
+            display: none;
+        }
+        
+        .edit-mode .add-row-btn {
+            display: inline-block;
+        }
+        
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #38a169;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: fadeInOut 3s ease-in-out;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-10px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .edit-tools, .add-row-btn {
+                display: none;
+            }
+            
+            .laws-table {
+                page-break-inside: auto;
+            }
+            
+            .laws-table tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            
+            .editable {
+                border: none !important;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .laws-table {
+                font-size: 13px;
+            }
+            
+            .laws-table th, .laws-table td {
+                padding: 10px 8px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .laws-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .signature-line {
+                width: 200px;
+            }
+            
+            .edit-tools {
+                flex-direction: column;
+                top: 5px;
+                right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="document-container">
+        <!-- Barra de herramientas de edición -->
+        <div class="edit-tools" id="edit-tools">
+            <button class="tool-btn edit-btn" id="edit-btn">
+                <span>✏️</span> Editar
+            </button>
+            <button class="tool-btn save-btn" id="save-btn" style="display: none;">
+                <span>💾</span> Guardar
+            </button>
+            <button class="tool-btn download-btn" id="download-btn">
+                <span>⬇️</span> Descargar
+            </button>
+        </div>
+        
+        <!-- Cabecera con logo e informaciones de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="../Logotipo/Logo.png" alt="Logo de FUMIZA S. de R.L." class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name" id="org-name" contenteditable="false">FUMIZA S. de R.L.</div>
+                <div class="org-subname">Sistema de Gestión de la Calidad · ISO 9001:2015</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable" id="fecha-emision" contenteditable="false">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable" id="elabora" contenteditable="false">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable" id="aprueba" contenteditable="false">Gerente General</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable" id="version" contenteditable="false">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title" id="doc-title" contenteditable="false">Leyes Aplicables en la República de Honduras</div>
+        <div class="doc-code">Código: <span class="editable" id="doc-codigo" contenteditable="false">DOC-018</span></div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Nota importante -->
+            <div class="note-box">
+                <p id="nota-importante" contenteditable="false"><strong>Nota importante:</strong> La presente lista no abarca todos los elementos posibles y podrían existir otras normativas que no están incluidas en ella. La organización mantiene un monitoreo continuo de los cambios legislativos para asegurar el cumplimiento integral.</p>
+            </div>
+            
+            <!-- Sección principal -->
+            <div class="section">
+                <div class="section-title" id="section-title" contenteditable="false">Marco Normativo Aplicable al Sistema de Gestión de la Calidad</div>
+                
+                <p id="intro-parrafo" contenteditable="false">La organización identifica, mantiene y cumple con el marco normativo aplicable a sus actividades de Manejo Integrado de Plagas, desinfección, control de fauna y consultoría ambiental, garantizando el cumplimiento legal en todas sus operaciones. A continuación se presenta el listado de leyes y regulaciones relevantes:</p>
+                
+                <!-- Secretaría de Ambiente y Recursos Naturales (MiAMBIENTE) -->
+                <div class="authority-section" id="miambiente-title" contenteditable="false">Secretaría de Ambiente y Recursos Naturales (MiAMBIENTE)</div>
+                
+                <table class="laws-table" id="miambiente-table">
+                    <thead>
+                        <tr>
+                            <th width="20%" contenteditable="false">Nombre de la Ley / Normativa</th>
+                            <th width="25%" contenteditable="false">Artículos/Capítulos Relevantes</th>
+                            <th width="30%" contenteditable="false">Observaciones</th>
+                            <th width="25%" contenteditable="false">Aplicación en la Organización</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="false"><strong>Ley General del Ambiente</strong><br>Decreto 104-93</td>
+                            <td contenteditable="false">Art. 1 a 15: Disposiciones generales sobre protección ambiental.</td>
+                            <td contenteditable="false">Establece el marco legal para la protección del ambiente y los recursos naturales.</td>
+                            <td contenteditable="false">Regula la protección y preservación del ambiente en las operaciones de fumigación y control de plagas.</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false"><strong>Ley de Evaluación de Impacto Ambiental</strong><br>Decreto 51-97</td>
+                            <td contenteditable="false">Art. 1 a 12: Requisitos para la evaluación de impacto ambiental.</td>
+                            <td contenteditable="false">Regula la obligatoriedad de realizar estudios de impacto ambiental para proyectos específicos.</td>
+                            <td contenteditable="false">Aplicable a proyectos de control de plagas que requieran evaluación de impacto ambiental.</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false"><strong>Reglamento de Control de Plaguicidas</strong><br>Acuerdo 1268-2013</td>
+                            <td contenteditable="false">Capítulos 1 a 8: Registro, uso y manejo de plaguicidas.</td>
+                            <td contenteditable="false">Regula el registro, comercialización y uso de productos fitosanitarios y plaguicidas.</td>
+                            <td contenteditable="false">Aplica al uso de productos químicos para control de plagas y fumigación.</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false"><strong>Reglamento de Gestión de Residuos Sólidos</strong><br>Acuerdo 1094-2012</td>
+                            <td contenteditable="false">Capítulos 1 a 5: Manejo y disposición de residuos.</td>
+                            <td contenteditable="false">Establece normas para la gestión de residuos sólidos y peligrosos.</td>
+                            <td contenteditable="false">Aplica a la gestión de residuos generados en servicios de fumigación y control de plagas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="add-row-btn" data-table="miambiente-table">+ Agregar Ley a MiAMBIENTE</button>
+                
+                <!-- Secretaría de Salud -->
+                <div class="authority-section" id="salud-title" contenteditable="false">Secretaría de Salud (SESAL)</div>
+                
+                <table class="laws-table" id="salud-table">
+                    <thead>
+                        <tr>
+                            <th width="20%" contenteditable="false">Nombre de la Ley / Normativa</th>
+                            <th width="25%" contenteditable="false">Artículos/Capítulos Relevantes</th>
+                            <th width="30%" contenteditable="false">Observaciones</th>
+                            <th width="25%" contenteditable="false">Aplicación en la Organización</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="false"><strong>Código de Salud</strong><br>Decreto 65-91</td>
+                            <td contenteditable="false">Capítulo I: Disposiciones generales sobre salud ocupacional y control sanitario.</td>
+                            <td contenteditable="false">Regula las condiciones de salud, seguridad en el trabajo y control sanitario.</td>
+                            <td contenteditable="false">Aplica a servicios de fumigación, desinfección y control de plagas.</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false"><strong>Reglamento de Salud Ocupacional</strong><br>Acuerdo 123-2013</td>
+                            <td contenteditable="false">Capítulos 1 a 8: Normas de seguridad y salud en el trabajo.</td>
+                            <td contenteditable="false">Establece las normas mínimas de seguridad y salud ocupacional.</td>
+                            <td contenteditable="false">Aplica a la seguridad del personal técnico en operaciones de fumigación y desinfección.</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false"><strong>Reglamento de Desinfección y Saneamiento</strong><br>Acuerdo 55-2008</td>
+                            <td contenteditable="false">Capítulos 1 a 5: Normas para procesos de desinfección.</td>
+                            <td contenteditable="false">Regula los protocolos de desinfección y saneamiento ambiental.</td>
+                            <td contenteditable="false">Aplica a los servicios de desinfección y sanitización prestados por la organización.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="add-row-btn" data-table="salud-table">+ Agregar Ley a SESAL</button>
+                
+                <!-- Secretaría de Trabajo y Seguridad Social -->
+                <div class="authority-section" id="trabajo-title" contenteditable="false">Secretaría de Trabajo y Seguridad Social (SETRASS)</div>
+                
+                <table class="laws-table" id="trabajo-table">
+                    <thead>
+                        <tr>
+                            <th width="20%" contenteditable="false">Nombre de la Ley / Normativa</th>
+                            <th width="25%" contenteditable="false">Artículos/Capítulos Relevantes</th>
+                            <th width="30%" contenteditable="false">Observaciones</th>
+                            <th width="25%" contenteditable="false">Aplicación en la Organización</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="false"><strong>Código del Trabajo</strong><br>Decreto 189-59</td>
+                            <td contenteditable="false">Art. 1 a 50: Disposiciones generales sobre relaciones laborales.</td>
+                            <td contenteditable="false">Normativa fundamental que regula las relaciones laborales en Honduras.</td>
+                            <td contenteditable="false">Regula las condiciones laborales, contratos y derechos de los trabajadores.</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false"><strong>Ley de Seguridad Social</strong><br>Decreto 140-2015</td>
+                            <td contenteditable="false">Art. 1 a 20: Régimen de seguridad social y prestaciones.</td>
+                            <td contenteditable="false">Regula el sistema de seguridad social y prestaciones laborales.</td>
+                            <td contenteditable="false">Aplica a las prestaciones de seguridad social del personal.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="add-row-btn" data-table="trabajo-table">+ Agregar Ley a SETRASS</button>
+                
+                <!-- Servicio Nacional de Sanidad Agropecuaria (SENASA) -->
+                <div class="authority-section" id="senasa-title" contenteditable="false">Servicio Nacional de Sanidad Agropecuaria (SENASA)</div>
+                
+                <table class="laws-table" id="senasa-table">
+                    <thead>
+                        <tr>
+                            <th width="20%" contenteditable="false">Nombre de la Ley / Normativa</th>
+                            <th width="25%" contenteditable="false">Artículos/Capítulos Relevantes</th>
+                            <th width="30%" contenteditable="false">Observaciones</th>
+                            <th width="25%" contenteditable="false">Aplicación en la Organización</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="false"><strong>Ley de Sanidad Agropecuaria</strong><br>Decreto 157-94</td>
+                            <td contenteditable="false">Art. 1 a 20: Control de plagas y enfermedades agropecuarias.</td>
+                            <td contenteditable="false">Regula el control de plagas y enfermedades en el sector agropecuario.</td>
+                            <td contenteditable="false">Aplica a servicios de control de plagas en el sector agrícola y pecuario.</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false"><strong>Reglamento de Plaguicidas</strong><br>Acuerdo 251-2006</td>
+                            <td contenteditable="false">Capítulos 1 a 6: Registro y manejo de plaguicidas.</td>
+                            <td contenteditable="false">Establece requisitos para el registro y manejo de plaguicidas.</td>
+                            <td contenteditable="false">Aplica al manejo y aplicación de productos fitosanitarios en servicios de fumigación.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="add-row-btn" data-table="senasa-table">+ Agregar Ley a SENASA</button>
+                
+                <!-- Nota adicional -->
+                <div class="highlight-box">
+                    <p id="nota-adicional" contenteditable="false"><strong>Nota adicional sobre cumplimiento normativo:</strong> Existen más leyes y regulaciones que aplican a los procesos desarrollados por la organización. Estas normativas son gestionadas de manera directa por los asesores contables, jurídicos y comerciales de manera pertinente, integrando sus requisitos en el Sistema de Gestión de la Calidad.</p>
+                </div>
+                
+                <!-- Declaración de cumplimiento -->
+                <div class="note-box">
+                    <p id="declaracion-cumplimiento" contenteditable="false"><strong>Declaración de Cumplimiento:</strong> La organización se compromete a mantener actualizado este listado de normativas aplicables, revisándolo periódicamente y asegurando el cumplimiento de todos los requisitos legales y regulatorios en sus operaciones de Manejo Integrado de Plagas, desinfección, control de fauna y consultoría ambiental. Este compromiso es parte integral de nuestro Sistema de Gestión de la Calidad y de nuestra política de responsabilidad legal y ambiental.</p>
+                </div>
+                
+                <!-- Botón de impresión -->
+                <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+                
+                <!-- Firma -->
+                <div class="signature-section">
+                    <div class="signature-line"></div>
+                    <div class="signature-name" id="firma-nombre" contenteditable="false">Ing. Allan Izaguirre Velásquez</div>
+                    <div class="signature-title" id="firma-cargo" contenteditable="false">Gerente General</div>
+                    <div class="signature-title" id="firma-empresa" contenteditable="false">FUMIZA S. de R.L.</div>
+                </div>
+                
+                <!-- Historial de versiones -->
+                <div class="version-history">
+                    <div class="section-title" id="historial-title" contenteditable="false">Historial de Versiones</div>
+                    <div class="table-container">
+                        <table class="version-table" id="version-table">
+                            <thead>
+                                <tr>
+                                    <th contenteditable="false">Versión</th>
+                                    <th contenteditable="false">Fecha</th>
+                                    <th contenteditable="false">Asiento</th>
+                                    <th contenteditable="false">Aprueba</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="version-1" contenteditable="false">000</td>
+                                    <td id="date-1" contenteditable="false">01.12.2024</td>
+                                    <td id="asiento-1" contenteditable="false">Original - Listado de leyes aplicables</td>
+                                    <td id="aprueba-1" contenteditable="false">Gerente General</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: <span class="editable" id="footer-codigo" contenteditable="false">DOC-018</span> | Revisión: <span class="editable" id="footer-revision" contenteditable="false">000</span> | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Elementos DOM
+        const editBtn = document.getElementById('edit-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const documentContainer = document.getElementById('document-container');
+        const editables = document.querySelectorAll('[contenteditable="false"]');
+        const addRowButtons = document.querySelectorAll('.add-row-btn');
+        
+        // Estado de edición
+        let isEditMode = false;
+        let originalContent = {};
+        
+        // Activar modo de edición
+        function activateEditMode() {
+            isEditMode = true;
+            documentContainer.classList.add('edit-mode');
+            
+            // Activar contenteditable en todos los elementos editables
+            editables.forEach(element => {
+                element.contentEditable = 'true';
+                element.classList.add('editable');
+            });
+            
+            // Mostrar/ocultar botones
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'flex';
+            
+            // Guardar contenido original
+            saveOriginalContent();
+            
+            // Mostrar mensaje
+            showMessage('Modo edición activado. Haz clic en cualquier texto para editarlo.');
+        }
+        
+        // Desactivar modo de edición
+        function deactivateEditMode() {
+            isEditMode = false;
+            documentContainer.classList.remove('edit-mode');
+            
+            // Desactivar contenteditable
+            editables.forEach(element => {
+                element.contentEditable = 'false';
+                element.classList.remove('editable');
+            });
+            
+            // Mostrar/ocultar botones
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+        }
+        
+        // Guardar contenido original
+        function saveOriginalContent() {
+            originalContent = {};
+            editables.forEach(element => {
+                const id = element.id || Math.random().toString(36);
+                originalContent[id] = element.innerHTML;
+            });
+        }
+        
+        // Restaurar contenido original
+        function restoreOriginalContent() {
+            editables.forEach(element => {
+                const id = element.id;
+                if (id && originalContent[id]) {
+                    element.innerHTML = originalContent[id];
+                }
+            });
+        }
+        
+        // Guardar cambios
+        function saveChanges() {
+            deactivateEditMode();
+            
+            // Guardar en localStorage
+            saveToLocalStorage();
+            
+            // Mostrar mensaje
+            showMessage('Cambios guardados exitosamente.');
+        }
+        
+        // Guardar en localStorage
+        function saveToLocalStorage() {
+            const contentData = {};
+            
+            editables.forEach(element => {
+                const id = element.id;
+                if (id) {
+                    contentData[id] = element.innerHTML;
+                }
+            });
+            
+            localStorage.setItem('doc-018-content-fumiza', JSON.stringify(contentData));
+        }
+        
+        // Cargar desde localStorage
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('doc-018-content-fumiza');
+            
+            if (savedData) {
+                const contentData = JSON.parse(savedData);
+                
+                editables.forEach(element => {
+                    const id = element.id;
+                    if (id && contentData[id]) {
+                        element.innerHTML = contentData[id];
+                    }
+                });
+            }
+        }
+        
+        // Descargar documento
+        function downloadDocument() {
+            // Crear un clon del documento para limpiar atributos de edición
+            const clone = documentContainer.cloneNode(true);
+            
+            // Remover atributos de edición del clon
+            clone.querySelectorAll('[contenteditable]').forEach(element => {
+                element.removeAttribute('contenteditable');
+                element.classList.remove('editable');
+            });
+            
+            // Remover barra de herramientas del clon
+            const editTools = clone.querySelector('.edit-tools');
+            if (editTools) editTools.remove();
+            
+            // Remover botones de agregar filas
+            clone.querySelectorAll('.add-row-btn').forEach(btn => btn.remove());
+            
+            // Remover scripts del clon
+            const scripts = clone.querySelectorAll('script');
+            scripts.forEach(script => script.remove());
+            
+            // Crear el HTML completo para descargar
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${document.title}</title>
+    <style>
+        ${document.querySelector('style').innerHTML}
+        
+        /* Remover estilos de edición para el archivo descargado */
+        .edit-tools, .add-row-btn, .editable, .edit-mode .editable {
+            display: none !important;
+        }
+        
+        .editable:focus {
+            outline: none !important;
+            background-color: transparent !important;
+        }
+    </style>
+</head>
+<body>
+    ${clone.innerHTML}
+</body>
+</html>`;
+            
+            // Crear blob y descargar
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'DOC-018-Leyes-Aplicables-Honduras-FUMIZA.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Mostrar mensaje
+            showMessage('Documento descargado exitosamente.');
+        }
+        
+        // Mostrar mensaje temporal
+        function showMessage(message) {
+            // Remover mensaje anterior si existe
+            const existingMsg = document.querySelector('.status-message');
+            if (existingMsg) existingMsg.remove();
+            
+            // Crear nuevo mensaje
+            const msg = document.createElement('div');
+            msg.className = 'status-message';
+            msg.textContent = message;
+            msg.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #38a169;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                animation: fadeInOut 3s ease-in-out;
+            `;
+            
+            document.body.appendChild(msg);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                if (msg.parentNode) msg.parentNode.removeChild(msg);
+            }, 3000);
+        }
+        
+        // Agregar fila a una tabla
+        function addTableRow(tableId) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            const tbody = table.querySelector('tbody');
+            const newRow = document.createElement('tr');
+            
+            // Número de columnas basado en la tabla
+            const cols = table.querySelector('thead tr').children.length;
+            
+            for (let i = 0; i < cols; i++) {
+                const td = document.createElement('td');
+                td.contentEditable = 'true';
+                td.classList.add('editable');
+                td.innerHTML = '<em>Nueva ley... (editar)</em>';
+                newRow.appendChild(td);
+            }
+            
+            tbody.appendChild(newRow);
+            
+            // Hacer scroll a la nueva fila
+            newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Enfocar la primera celda
+            setTimeout(() => {
+                const firstCell = newRow.querySelector('td');
+                if (firstCell) firstCell.focus();
+            }, 100);
+        }
+        
+        // Event Listeners
+        editBtn.addEventListener('click', activateEditMode);
+        saveBtn.addEventListener('click', saveChanges);
+        downloadBtn.addEventListener('click', downloadDocument);
+        
+        // Configurar botones para agregar filas
+        addRowButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tableId = this.getAttribute('data-table');
+                addTableRow(tableId);
+            });
+        });
+        
+        // Verificar si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%230b2b5c" dy="5">FUMIZA S. de R.L.</text></svg>';
+                console.log("Logo no encontrado en ../Logotipo/Logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+        }
+        
+        // Cargar contenido guardado al iniciar
+        window.addEventListener('DOMContentLoaded', function() {
+            loadFromLocalStorage();
+            
+            // Configurar animación para mensajes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeInOut {
+                    0% { opacity: 0; transform: translateY(-10px); }
+                    15% { opacity: 1; transform: translateY(0); }
+                    85% { opacity: 1; transform: translateY(0); }
+                    100% { opacity: 0; transform: translateY(-10px); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+        
+        // Atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's' && isEditMode) {
+                e.preventDefault();
+                saveChanges();
+            }
+            
+            if (e.key === 'Escape' && isEditMode) {
+                deactivateEditMode();
+                restoreOriginalContent();
+                showMessage('Edición cancelada. Se restauró el contenido original.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-001 - Control de Información Documentada - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .control-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .control-btn:hover {
+            background-color: #718096;
+        }
+        
+        .edit-mode {
+            background-color: #3182ce;
+        }
+        
+        .edit-mode:hover {
+            background-color: #2c5282;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step::before {
+            content: counter(step-counter) ".";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .procedure-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .reference-box {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .reference-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls, .print-btn {
+                display: none;
+            }
+            
+            .procedure-step {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .controls {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+        
+        [contenteditable="true"] {
+            outline: 2px dashed #3182ce;
+            padding: 5px;
+            margin: -5px;
+            border-radius: 3px;
+            min-height: 20px;
+        }
+        
+        [contenteditable="true"]:focus {
+            outline: 2px solid #3182ce;
+            background-color: #ebf8ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="editableDocument">
+        <!-- Controles de edición e download -->
+        <div class="controls">
+            <button class="control-btn edit-mode" id="toggleEdit">
+                <span>✏️</span> Editar Documento
+            </button>
+            <button class="control-btn" id="downloadBtn">
+                <span>⬇️</span> Descargar Documento
+            </button>
+        </div>
+        
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Control de Información Documentada</div>
+        <div class="doc-code">Código: PRO-001</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">Procedimiento</a></li>
+                    <li class="toc-item"><a href="#control-registros" class="toc-link">Control de Registros</a></li>
+                    <li class="toc-item"><a href="#auditoria" class="toc-link">Auditoría y Revisión</a></li>
+                    <li class="toc-item"><a href="#documentacion" class="toc-link">Documentación Relacionada</a></li>
+                    <li class="toc-item"><a href="#referencias" class="toc-link">Referencias Normativas</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                
+                <div class="objective-box">
+                    <div class="objective-title">Propósito del Procedimiento</div>
+                    <p><strong>El propósito de este procedimiento es garantizar el control adecuado de toda la información documentada que forma parte del Sistema de Gestión de la Calidad (SGC)</strong>, conforme a los requisitos de la normativa ISO 9001:2015. Esto incluye la creación, revisión, actualización, distribución, almacenamiento, protección y disposición de la documentación.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                
+                <p>Este procedimiento aplica a todos los documentos controlados dentro de la organización, incluidos los documentos internos y externos que sean necesarios para el funcionamiento eficaz del sistema de gestión de la calidad. Esto incluye políticas, manuales, procedimientos, registros, instrucciones operativas, formularios, y cualquier otro documento que sea relevante para el Sistema de Gestión de la Calidad.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Ámbito de aplicación:</strong> Todas las áreas y procesos de la organización que formen parte del Sistema de Gestión de la Calidad (SGC).</p>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">3. Responsabilidades</div>
+                
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Responsabilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Responsable de Calidad</strong></td>
+                            <td>Asegura el cumplimiento de este procedimiento en todas las áreas de la organización, así como la revisión y aprobación de la documentación del Sistema de Gestión de la Calidad.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Responsables de Área</strong></td>
+                            <td>Velan por que los documentos y registros de sus respectivas áreas sean adecuados, actualizados y controlados según los requisitos del SGC.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personal Administrativo</strong></td>
+                            <td>Encargado de la distribución, archivo y control físico de los documentos y registros del Sistema de Gestión de la Calidad.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Auditores Internos</strong></td>
+                            <td>Verifican la conformidad de los documentos y su correcta gestión durante las auditorías internas del Sistema de Gestión de la Calidad.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Procedimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title">4. Procedimiento</div>
+                
+                <p>La organización implementa los siguientes pasos para el control de información documentada:</p>
+                
+                <div class="procedure-container">
+                    <div class="procedure-step">
+                        <div class="procedure-title">Creación de Documentos</div>
+                        <div class="procedure-content">
+                            <p>Los documentos se crean o modifican por el responsable de cada área conforme a los requisitos del Sistema de Gestión de la Calidad. El responsable asegura que los documentos sean adecuados para el uso previsto y contengan información relevante, precisa y clara.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Revisión y Aprobación</div>
+                        <div class="procedure-content">
+                            <p>Todos los documentos se revisan y aprueban antes de su emisión. Las revisiones y aprobaciones son realizadas por la persona o grupo designado según el tipo de documento (ej. responsable de calidad, jefe de operaciones, etc.).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Control de Cambios</div>
+                        <div class="procedure-content">
+                            <p>Todo cambio realizado en un documento se registra y refleja en la versión actualizada del mismo. Se mantiene un historial de revisiones para asegurar trazabilidad, indicando la fecha del cambio, la descripción de la modificación y la persona responsable.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Identificación y Formato</div>
+                        <div class="procedure-content">
+                            <p>Cada documento controlado se identifica con un código, título, número de versión, fecha de emisión y, cuando sea aplicable, la fecha de caducidad o revisión. El formato de los documentos es uniforme, fácil de usar y accesible para el personal correspondiente.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Distribución y Acceso</div>
+                        <div class="procedure-content">
+                            <p>Los documentos controlados se distribuyen y son accesibles solo a las personas que los necesiten para realizar sus tareas. Los documentos se distribuyen en formato electrónico o físico según lo requiera el proceso, asegurando que las versiones actuales sean las que se encuentren en circulación.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Almacenamiento</div>
+                        <div class="procedure-content">
+                            <p>Los documentos se almacenan de manera segura para evitar su daño, pérdida o acceso no autorizado. Los documentos electrónicos se almacenan en un sistema de gestión de documentos seguro, y los documentos físicos se guardan en lugares con acceso restringido y controlado.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Protección de la Información</div>
+                        <div class="procedure-content">
+                            <p>La documentación se protege contra pérdidas, daños, alteraciones o accesos no autorizados. Esto se logra mediante la implementación de copias de seguridad, controles de acceso, protección física, y procedimientos de seguridad informática.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Disposición de Documentos</div>
+                        <div class="procedure-content">
+                            <p>Los documentos obsoletos, innecesarios o fuera de uso se eliminan de manera segura y responsable. Para los documentos obsoletos, se mantiene un registro de su disposición para garantizar la trazabilidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Control de Registros -->
+            <div class="section" id="control-registros">
+                <div class="section-title">5. Control de Registros</div>
+                
+                <div class="highlight-box">
+                    <p><strong>Requisitos de Registro:</strong> Los registros generados como parte del Sistema de Gestión de la Calidad deben ser legibles, fácilmente identificables y accesibles. Los registros son documentos que contienen evidencia de la conformidad con los requisitos y de las actividades realizadas.</p>
+                    
+                    <p><strong>Retención de Registros:</strong> Los registros se conservan durante un período de tiempo determinado, conforme a los requisitos legales, normativos o los períodos definidos por la organización. Los registros se almacenan de forma segura y son accesibles durante el período de retención.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Auditoría y Revisión -->
+            <div class="section" id="auditoria">
+                <div class="section-title">6. Auditoría y Revisión</div>
+                
+                <p>Este procedimiento se revisa periódicamente para asegurar su eficacia y su adecuación a la normativa ISO 9001:2015, así como a cualquier cambio en los procesos, legislación o requisitos de la organización. Las auditorías internas se realizan de acuerdo con el plan de auditoría anual para verificar la correcta aplicación de este procedimiento.</p>
+                
+                <div class="reference-box">
+                    <div class="reference-title">Frecuencia de Revisión</div>
+                    <p>El procedimiento se revisa al menos una vez al año o cuando se produzcan cambios significativos en el sistema de gestión o en la normativa aplicable.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Documentación Relacionada -->
+            <div class="section" id="documentacion">
+                <div class="section-title">7. Documentación Relacionada</div>
+                
+                <ul class="procedure-list">
+                    <li>Manual del Sistema de Gestión de la Calidad</li>
+                    <li>Procedimiento de Auditoría Interna</li>
+                    <li>Procedimiento de Control de Cambios</li>
+                    <li>Procedimiento de Gestión de Registros</li>
+                    <li>Política de Calidad</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 8: Referencias Normativas -->
+            <div class="section" id="referencias">
+                <div class="section-title">8. Referencias Normativas</div>
+                
+                <div class="reference-box">
+                    <div class="reference-title">Normas de Referencia</div>
+                    <ul class="procedure-list">
+                        <li><strong>ISO 9001:2015</strong> - Sistema de Gestión de la Calidad</li>
+                        <li>Requisitos legales aplicables en materia de gestión documental</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-001 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let isEditMode = false;
+            const editableDoc = document.getElementById('editableDocument');
+            const toggleEditBtn = document.getElementById('toggleEdit');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter';
+            document.body.style.counterReset = 'step-counter';
+            
+            // Verifica si el logo existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA ORGANIZACIÓN</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                };
+            }
+            
+            // Función para alternar modo de edición
+            toggleEditBtn.addEventListener('click', function() {
+                isEditMode = !isEditMode;
+                
+                if (isEditMode) {
+                    // Activar modo edición
+                    editableDoc.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, td, th, span, div:not(.controls)').forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                    });
+                    toggleEditBtn.innerHTML = '<span>💾</span> Guardar y Salir';
+                    toggleEditBtn.classList.add('edit-mode');
+                    alert('Modo de edición activado. Puede editar cualquier texto en el documento.');
+                } else {
+                    // Desactivar modo edición
+                    editableDoc.querySelectorAll('[contenteditable="true"]').forEach(element => {
+                        element.removeAttribute('contenteditable');
+                    });
+                    toggleEditBtn.innerHTML = '<span>✏️</span> Editar Documento';
+                    toggleEditBtn.classList.remove('edit-mode');
+                    alert('Modo de edición desactivado. Los cambios se han guardado temporalmente.');
+                }
+            });
+            
+            // Función para descargar el documento
+            downloadBtn.addEventListener('click', function() {
+                // Crear un blob con el contenido HTML actual
+                const htmlContent = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-001 - Control de Información Documentada - SGC</title>
+    <style>
+        ${document.querySelector('style').textContent}
+    </style>
+</head>
+<body>
+    ${editableDoc.outerHTML.replace('id="editableDocument"', '').replace(/contenteditable="true"/g, '')}
+</body>
+</html>`;
+                
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                // Crear enlace de descarga
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-001-Control-Informacion-Documentada-SGC.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento descargado exitosamente como PRO-001-Control-Informacion-Documentada-SGC.html');
+            });
+            
+            // Asegurar que los botones de control no sean editables
+            document.querySelectorAll('.control-btn').forEach(btn => {
+                btn.setAttribute('contenteditable', 'false');
+            });
+        });
+    </script>
+</body>
+</html>

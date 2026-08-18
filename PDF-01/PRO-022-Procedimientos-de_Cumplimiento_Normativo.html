@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-022 Procedimientos de Cumplimiento Normativo - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4c1d95;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4c1d95;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4c1d95;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4c1d95;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4c1d95;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4c1d95;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #7c3aed;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4c1d95;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .subsection-title {
+            color: #4c1d95;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .objective-box {
+            background-color: #f5f3ff;
+            border: 1px solid #c4b5fd;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #8b5cf6;
+        }
+        
+        .objective-title {
+            color: #5b21b6;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #4c1d95;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-container {
+            margin: 25px 0;
+        }
+        
+        .responsibility-item {
+            background-color: #f5f3ff;
+            border: 1px solid #ddd6fe;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #7c3aed;
+        }
+        
+        .responsibility-title {
+            color: #4c1d95;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .regulation-box {
+            background-color: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .regulation-title {
+            color: #0369a1;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .regulation-category {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        .regulation-category-title {
+            color: #1e40af;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .procedure-title {
+            color: #4c1d95;
+            font-size: 18px;
+            font-weight: bold;
+            flex: 1;
+        }
+        
+        .procedure-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .procedure-detail {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .procedure-detail-title {
+            color: #5b21b6;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .reporting-box {
+            background-color: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .reporting-title {
+            color: #92400e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .reporting-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .reporting-detail {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .consequences-box {
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .consequences-title {
+            color: #991b1b;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .records-box {
+            background-color: #f8f9fa;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .records-title {
+            color: #374151;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4c1d95;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4c1d95;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 20px 0 30px;
+        }
+        
+        .print-btn, .download-btn, .save-btn {
+            background-color: #4c1d95;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover, .download-btn:hover, .save-btn:hover {
+            background-color: #7c3aed;
+        }
+        
+        .download-btn {
+            background-color: #10b981;
+        }
+        
+        .download-btn:hover {
+            background-color: #34d399;
+        }
+        
+        .save-btn {
+            background-color: #3b82f6;
+        }
+        
+        .save-btn:hover {
+            background-color: #60a5fa;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px;
+            transition: border 0.3s;
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editable:hover, .editable:focus {
+            border: 1px dashed #7c3aed;
+            background-color: #f9f9f9;
+        }
+        
+        .edit-notice {
+            background-color: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #0369a1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .editable {
+                border: none;
+            }
+            
+            .editable:hover, .editable:focus {
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .procedure-details,
+            .reporting-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .procedure-header {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .print-btn, .download-btn, .save-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable" contenteditable="true">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable" contenteditable="true">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable" contenteditable="true">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable" contenteditable="true">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title editable" contenteditable="true">Procedimientos de Cumplimiento Normativo</div>
+        <div class="doc-code editable" contenteditable="true">Código: PRO-022</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Botones de acción -->
+            <div class="edit-notice">
+                <strong>📝 Documento completamente editable:</strong> Haga doble clic en cualquier texto para editarlo. Use los botones abajo para guardar o descargar el documento.
+            </div>
+            
+            <div class="action-buttons">
+                <button class="save-btn" id="saveBtn">💾 Guardar Cambios</button>
+                <button class="download-btn" id="downloadBtn">⬇️ Descargar Documento</button>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+            </div>
+            
+            <!-- Objetivo del Procedimiento -->
+            <div class="objective-box">
+                <div class="objective-title editable" contenteditable="true">Objetivo del Procedimiento</div>
+                <div class="content-text editable" contenteditable="true">
+                    El objetivo de este procedimiento es garantizar que la organización cumpla con todas las leyes, regulaciones, normativas y estándares aplicables en su industria, minimizando el riesgo de sanciones, demandas legales y daños a la reputación de la organización.
+                </div>
+            </div>
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title editable" contenteditable="true">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#alcance" class="toc-link">1. Alcance</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">2. Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#identificacion" class="toc-link">3. Identificación de Normativas Aplicables</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">4. Procedimiento para el Cumplimiento</a></li>
+                    <li class="toc-item"><a href="#reporte" class="toc-link">5. Procedimiento de Reporte de Incumplimientos</a></li>
+                    <li class="toc-item"><a href="#documentacion" class="toc-link">6. Documentación y Registro</a></li>
+                    <li class="toc-item"><a href="#revision" class="toc-link">7. Revisión y Mejora Continua</a></li>
+                    <li class="toc-item"><a href="#consecuencias" class="toc-link">8. Consecuencias del Incumplimiento</a></li>
+                    <li class="toc-item"><a href="#aprobacion" class="toc-link">9. Aprobación y Vigencia</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title editable" contenteditable="true">1. Alcance</div>
+                <div class="content-text editable" contenteditable="true">
+                    Este procedimiento aplica a todas las áreas de la organización, incluyendo departamentos operativos, financieros, de recursos humanos, comerciales y de seguridad. Abarca todas las normativas locales, nacionales e internacionales que afectan la operación de la organización.
+                </div>
+            </div>
+            
+            <!-- Sección 2: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title editable" contenteditable="true">2. Responsabilidades</div>
+                
+                <div class="responsibility-container">
+                    <div class="responsibility-item">
+                        <div class="responsibility-title editable" contenteditable="true">Responsable de Cumplimiento Normativo</div>
+                        <p class="editable" contenteditable="true">Persona encargada de liderar y supervisar el cumplimiento de las regulaciones y coordinar todas las actividades relacionadas con el cumplimiento normativo dentro de la organización.</p>
+                    </div>
+                    
+                    <div class="responsibility-item">
+                        <div class="responsibility-title editable" contenteditable="true">Departamento Legal</div>
+                        <p class="editable" contenteditable="true">Responsable de interpretar las leyes y normativas y proporcionar asesoramiento legal a la organización.</p>
+                    </div>
+                    
+                    <div class="responsibility-item">
+                        <div class="responsibility-title editable" contenteditable="true">Gerentes y Supervisores</div>
+                        <p class="editable" contenteditable="true">Deben asegurar que sus equipos comprendan y cumplan con las regulaciones aplicables.</p>
+                    </div>
+                    
+                    <div class="responsibility-item">
+                        <div class="responsibility-title editable" contenteditable="true">Todos los empleados</div>
+                        <p class="editable" contenteditable="true">Tienen la responsabilidad de seguir las normativas aplicables y de reportar cualquier incumplimiento.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Identificación de Normativas -->
+            <div class="section" id="identificacion">
+                <div class="section-title editable" contenteditable="true">3. Identificación de Normativas Aplicables</div>
+                <div class="content-text editable" contenteditable="true">
+                    Se debe realizar una revisión exhaustiva para identificar las normativas relevantes que se aplican a la organización, entre ellas pueden incluirse:
+                </div>
+                
+                <div class="regulation-box">
+                    <div class="regulation-title editable" contenteditable="true">Categorías de Normativas Aplicables</div>
+                    
+                    <div class="regulation-category">
+                        <div class="regulation-category-title editable" contenteditable="true">Legislación laboral</div>
+                        <p class="editable" contenteditable="true">Leyes sobre condiciones de trabajo, seguridad laboral, derechos de los empleados, etc.</p>
+                    </div>
+                    
+                    <div class="regulation-category">
+                        <div class="regulation-category-title editable" contenteditable="true">Regulaciones medioambientales</div>
+                        <p class="editable" contenteditable="true">Normas sobre manejo de residuos, emisiones contaminantes, uso de recursos naturales, etc.</p>
+                    </div>
+                    
+                    <div class="regulation-category">
+                        <div class="regulation-category-title editable" contenteditable="true">Normativas fiscales y financieras</div>
+                        <p class="editable" contenteditable="true">Requisitos sobre declaración de impuestos, auditorías, y control financiero.</p>
+                    </div>
+                    
+                    <div class="regulation-category">
+                        <div class="regulation-category-title editable" contenteditable="true">Normas de calidad</div>
+                        <p class="editable" contenteditable="true">Estándares específicos de calidad en los productos o servicios ofrecidos.</p>
+                    </div>
+                    
+                    <div class="regulation-category">
+                        <div class="regulation-category-title editable" contenteditable="true">Normas de seguridad y salud ocupacional</div>
+                        <p class="editable" contenteditable="true">Reglas relacionadas con la protección de los trabajadores en el lugar de trabajo.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Procedimiento para el Cumplimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title editable" contenteditable="true">4. Procedimiento para el Cumplimiento</div>
+                <div class="content-text editable" contenteditable="true">
+                    Los procedimientos específicos para asegurar el cumplimiento de las normativas incluyen:
+                </div>
+                
+                <div class="procedure-container">
+                    <div class="procedure-item">
+                        <div class="procedure-header">
+                            <div class="procedure-title editable" contenteditable="true">4.1 Monitoreo y Actualización de las Normativas</div>
+                        </div>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Acción</div>
+                                <p class="editable" contenteditable="true">Mantener un sistema actualizado de todas las normativas y regulaciones que afectan la organización.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Responsable</div>
+                                <p class="editable" contenteditable="true">Departamento Legal y Responsable de Cumplimiento Normativo.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Plazo</div>
+                                <p class="editable" contenteditable="true">Continuo, revisión periódica de las actualizaciones normativas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-item">
+                        <div class="procedure-header">
+                            <div class="procedure-title editable" contenteditable="true">4.2 Capacitación y Sensibilización</div>
+                        </div>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Acción</div>
+                                <p class="editable" contenteditable="true">Desarrollar e implementar programas de capacitación periódica para todos los empleados sobre las normativas aplicables.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Responsable</div>
+                                <p class="editable" contenteditable="true">Recursos Humanos y Responsable de Cumplimiento Normativo.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Plazo</div>
+                                <p class="editable" contenteditable="true">Anual o según se requiera por nuevas normativas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-item">
+                        <div class="procedure-header">
+                            <div class="procedure-title editable" contenteditable="true">4.3 Auditoría Interna</div>
+                        </div>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Acción</div>
+                                <p class="editable" contenteditable="true">Realizar auditorías internas para evaluar el cumplimiento normativo en las diferentes áreas de la organización.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Responsable</div>
+                                <p class="editable" contenteditable="true">Departamento de Auditoría y Responsable de Cumplimiento Normativo.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Plazo</div>
+                                <p class="editable" contenteditable="true">Trimestral o semestral.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-item">
+                        <div class="procedure-header">
+                            <div class="procedure-title editable" contenteditable="true">4.4 Evaluación de Cumplimiento</div>
+                        </div>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Acción</div>
+                                <p class="editable" contenteditable="true">Evaluar periódicamente el cumplimiento de las normativas a través de informes y análisis de riesgos.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Responsable</div>
+                                <p class="editable" contenteditable="true">Responsable de Cumplimiento Normativo.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Plazo</div>
+                                <p class="editable" contenteditable="true">Mensual o según sea necesario.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-item">
+                        <div class="procedure-header">
+                            <div class="procedure-title editable" contenteditable="true">4.5 Implementación de Medidas Correctivas</div>
+                        </div>
+                        <div class="procedure-details">
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Acción</div>
+                                <p class="editable" contenteditable="true">Si se detecta un incumplimiento, se deben tomar medidas correctivas de manera inmediata.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Responsable</div>
+                                <p class="editable" contenteditable="true">Gerentes de las áreas afectadas y Responsable de Cumplimiento Normativo.</p>
+                            </div>
+                            <div class="procedure-detail">
+                                <div class="procedure-detail-title editable" contenteditable="true">Plazo</div>
+                                <p class="editable" contenteditable="true">Inmediato o según gravedad del incumplimiento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Procedimiento de Reporte -->
+            <div class="section" id="reporte">
+                <div class="section-title editable" contenteditable="true">5. Procedimiento de Reporte de Incumplimientos</div>
+                <div class="content-text editable" contenteditable="true">
+                    Los empleados deben poder reportar cualquier incumplimiento de las normativas sin temor a represalias. El procedimiento incluye:
+                </div>
+                
+                <div class="reporting-box">
+                    <div class="reporting-title editable" contenteditable="true">Mecanismos de Reporte de Incumplimientos</div>
+                    <div class="reporting-details">
+                        <div class="reporting-detail">
+                            <div class="procedure-detail-title editable" contenteditable="true">Canales de Reporte</div>
+                            <p class="editable" contenteditable="true">Línea telefónica confidencial, correo electrónico específico o plataforma en línea.</p>
+                        </div>
+                        <div class="reporting-detail">
+                            <div class="procedure-detail-title editable" contenteditable="true">Responsable</div>
+                            <p class="editable" contenteditable="true">Departamento de Recursos Humanos y Responsable de Cumplimiento Normativo.</p>
+                        </div>
+                        <div class="reporting-detail">
+                            <div class="procedure-detail-title editable" contenteditable="true">Plazo</div>
+                            <p class="editable" contenteditable="true">El informe debe ser recibido y registrado inmediatamente, y se debe iniciar una investigación en un plazo de 48 horas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Documentación y Registro -->
+            <div class="section" id="documentacion">
+                <div class="section-title editable" contenteditable="true">6. Documentación y Registro</div>
+                <div class="records-box">
+                    <div class="records-title editable" contenteditable="true">Gestión de Documentación de Cumplimiento</div>
+                    <div class="content-text editable" contenteditable="true">
+                        Es fundamental mantener registros detallados sobre todas las actividades de cumplimiento, incluyendo auditorías, capacitaciones, informes de cumplimiento, y acciones correctivas. Estos registros deben ser almacenados de forma segura y accesible para futuras revisiones.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Revisión y Mejora Continua -->
+            <div class="section" id="revision">
+                <div class="section-title editable" contenteditable="true">7. Revisión y Mejora Continua</div>
+                <div class="content-text editable" contenteditable="true">
+                    El procedimiento de cumplimiento normativo debe ser revisado de forma periódica para garantizar que siga siendo efectivo. Las revisiones deben ser realizadas al menos una vez al año, o con mayor frecuencia si se producen cambios significativos en las normativas o en el entorno legal.
+                </div>
+            </div>
+            
+            <!-- Sección 8: Consecuencias del Incumplimiento -->
+            <div class="section" id="consecuencias">
+                <div class="section-title editable" contenteditable="true">8. Consecuencias del Incumplimiento</div>
+                <div class="consequences-box">
+                    <div class="consequences-title editable" contenteditable="true">Impacto del Incumplimiento Normativo</div>
+                    <div class="content-text editable" contenteditable="true">
+                        El incumplimiento de las normativas puede llevar a sanciones legales, daños a la reputación de la organización, multas económicas y otras repercusiones graves. Es importante que todos los empleados comprendan las consecuencias de no cumplir con las normativas establecidas.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 9: Aprobación y Vigencia -->
+            <div class="section" id="aprobacion">
+                <div class="section-title editable" contenteditable="true">9. Aprobación y Vigencia</div>
+                <div class="content-text editable" contenteditable="true">
+                    Este procedimiento entra en vigor a partir de su aprobación por la dirección de la organización y debe ser implementado en todas las áreas de la organización.
+                </div>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title editable" contenteditable="true">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th class="editable" contenteditable="true">Versión</th>
+                                <th class="editable" contenteditable="true">Fecha</th>
+                                <th class="editable" contenteditable="true">Asiento</th>
+                                <th class="editable" contenteditable="true">Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" contenteditable="true">000</td>
+                                <td class="editable" contenteditable="true">01.12.2024</td>
+                                <td class="editable" contenteditable="true">Original</td>
+                                <td class="editable" contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p class="editable" contenteditable="true">Código: PRO-022 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar elementos editables
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Documento cargado y listo para edición');
+            
+            // Verificar si el logo existe, si no mostrar un placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234c1d95" dy="5">SGC - LOGO</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Se ha colocado un logo temporal.");
+            };
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar botón de descarga
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                // Obtener el contenido completo del documento
+                const content = document.documentElement.outerHTML;
+                
+                // Crear un blob con el contenido HTML
+                const blob = new Blob([content], { type: 'text/html' });
+                
+                // Crear un enlace para descargar el archivo
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'PRO-022-Procedimientos-de_Cumplimiento_Normativo-SGC.html';
+                a.click();
+                
+                URL.revokeObjectURL(a.href);
+                
+                // Notificar al usuario
+                alert('Documento descargado como: PRO-022-Procedimientos-de_Cumplimiento_Normativo-SGC.html');
+            });
+            
+            // Configurar botón de guardar cambios
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                // Aquí normalmente se enviarían los datos a un servidor
+                // Por ahora, simplemente notificamos al usuario
+                alert('Los cambios han sido guardados localmente. Para guardar permanentemente, descargue el documento actualizado.');
+                
+                // Podríamos usar localStorage para guardar temporalmente
+                try {
+                    // Guardar el contenido HTML en localStorage
+                    const content = document.documentElement.outerHTML;
+                    localStorage.setItem('documento_sgc_pro_022', content);
+                    console.log('Cambios guardados en localStorage');
+                } catch (e) {
+                    console.log('No se pudo guardar en localStorage:', e);
+                }
+            });
+            
+            // Cargar desde localStorage si existe
+            try {
+                const savedContent = localStorage.getItem('documento_sgc_pro_022');
+                if (savedContent) {
+                    if (confirm('¿Desea cargar la versión guardada anteriormente?')) {
+                        // Reemplazar el documento con la versión guardada
+                        document.open();
+                        document.write(savedContent);
+                        document.close();
+                    }
+                }
+            } catch (e) {
+                console.log('No se pudo cargar desde localStorage:', e);
+            }
+            
+            // Mejorar la experiencia de edición
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                // Guardar el contenido original
+                const originalContent = element.innerHTML;
+                
+                // Configurar eventos para mejorar la edición
+                element.addEventListener('focus', function() {
+                    this.style.backgroundColor = '#f0f9ff';
+                    this.style.border = '2px solid #3b82f6';
+                });
+                
+                element.addEventListener('blur', function() {
+                    this.style.backgroundColor = '';
+                    this.style.border = '';
+                    
+                    // Si el contenido cambió, guardar en localStorage
+                    if (this.innerHTML !== originalContent) {
+                        try {
+                            localStorage.setItem('documento_sgc_pro_022', document.documentElement.outerHTML);
+                        } catch (e) {
+                            console.log('Error al guardar cambios:', e);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

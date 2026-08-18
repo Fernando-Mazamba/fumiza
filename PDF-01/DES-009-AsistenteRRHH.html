@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DES-009 Descriptor de Cargo | Asistente de RRHH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+            width: 30%;
+        }
+        
+        .responsibility-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+            width: 70%;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .bullet-list {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 8px;
+        }
+        
+        .numbered-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .numbered-list li {
+            margin-bottom: 8px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .kpi-section {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 5px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .kpi-title {
+            color: #22543d;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #c6f6d5;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .responsibility-table {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .responsibility-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Descriptor de Cargo | Asistente de RRHH</div>
+        <div class="doc-code">Código: DES-009</div>
+        
+        <!-- Panel de controles de edición -->
+        <div class="controls-panel" id="controlsPanel">
+            <button class="edit-btn" id="editContentBtn">EDITAR CONTENIDO</button>
+            <button class="action-btn secondary" id="saveBtn">GUARDAR EN NAVEGADOR</button>
+            <button class="action-btn" id="exportBtn">EXPORTAR COMO HTML</button>
+            <button class="action-btn secondary" id="loadBtn">CARGAR EDICIONES GUARDADAS</button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura activo</span>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content" id="mainContent">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo del Cargo</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades Principales</a></li>
+                    <li class="toc-item"><a href="#requisitos" class="toc-link">Requisitos del Cargo</a></li>
+                    <li class="toc-item"><a href="#relaciones" class="toc-link">Relaciones Organizacionales</a></li>
+                    <li class="toc-item"><a href="#kpi" class="toc-link">Indicadores de Desempeño (KPI)</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo del Cargo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo del Cargo <span id="editIndicator1" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="objetivo-description">
+                    El Asistente de Recursos Humanos es responsable de apoyar en la ejecución de las actividades administrativas del departamento de recursos humanos. Su principal objetivo es colaborar en los procesos de contratación, bienestar, capacitación, administración de nómina y otros servicios relacionados con la gestión del talento humano, garantizando el cumplimiento de los procedimientos establecidos y alineándose con las normas ISO.
+                </div>
+            </div>
+            
+            <!-- Sección 2: Responsabilidades Principales -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">2. Responsabilidades Principales <span id="editIndicator2" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="subsection-title">Apoyo en la Gestión de Personal:</div>
+                <ul class="bullet-list editable" id="responsabilidades-gestion">
+                    <li>Asistir en el proceso de reclutamiento y selección de personal, publicando vacantes, organizando entrevistas y realizando entrevistas preliminares.</li>
+                    <li>Ayudar en la integración de nuevos empleados, gestionando la entrega de documentos y presentaciones necesarias para su incorporación.</li>
+                    <li>Mantener actualizados los registros de empleados y bases de datos personales.</li>
+                </ul>
+                
+                <div class="subsection-title">Administración de Nómina y Beneficios:</div>
+                <ul class="bullet-list editable" id="responsabilidades-nomina">
+                    <li>Apoyar en la gestión y revisión de la nómina, asegurando la correcta liquidación de salarios, bonificaciones y otros beneficios.</li>
+                    <li>Gestionar los beneficios corporativos, tales como seguros, vales de comida, entre otros, y asegurar su correcta distribución y entrega a los empleados.</li>
+                </ul>
+                
+                <div class="subsection-title">Capacitación y Desarrollo:</div>
+                <ul class="bullet-list editable" id="responsabilidades-capacitacion">
+                    <li>Asistir en la coordinación de programas de capacitación, inscripciones y seguimiento de la participación de los empleados.</li>
+                    <li>Colaborar en la creación de informes y registros sobre las actividades de desarrollo y formación del personal.</li>
+                </ul>
+                
+                <div class="subsection-title">Cumplimiento de Normativas y Procedimientos:</div>
+                <ul class="bullet-list editable" id="responsabilidades-cumplimiento">
+                    <li>Asegurar que los procesos y documentos relacionados con recursos humanos cumplan con las políticas internas y las normas de calidad y seguridad laboral.</li>
+                    <li>Asistir en la elaboración y distribución de documentos relacionados con las políticas de la empresa, incluyendo manuales y actualizaciones normativas.</li>
+                    <li>Participar en el seguimiento de las políticas de salud y seguridad en el trabajo, asegurando el cumplimiento de las normas ISO.</li>
+                </ul>
+                
+                <div class="subsection-title">Soporte Administrativo en Clima Laboral y Bienestar:</div>
+                <ul class="bullet-list editable" id="responsabilidades-soporte">
+                    <li>Apoyar en la implementación de programas de bienestar, actividades recreativas y otros beneficios que favorecen el clima laboral.</li>
+                    <li>Gestionar las solicitudes de permisos, licencias y otras gestiones administrativas de los empleados.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 3: Requisitos del Cargo -->
+            <div class="section" id="requisitos">
+                <div class="section-title">3. Requisitos del Cargo <span id="editIndicator3" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="subsection-title">Formación Académica:</div>
+                <ul class="bullet-list editable" id="requisitos-formacion">
+                    <li>Título de Técnico o Universitario en Administración de Empresas, Psicología, Derecho, Recursos Humanos o áreas afines.</li>
+                    <li>Formación complementaria en gestión de recursos humanos, legislación laboral, o administración de personal (deseable).</li>
+                </ul>
+                
+                <div class="subsection-title">Experiencia:</div>
+                <ul class="bullet-list editable" id="requisitos-experiencia">
+                    <li>Experiencia previa de 1 a 2 años en cargos administrativos, preferentemente en el área de recursos humanos.</li>
+                    <li>Conocimiento básico de la normativa laboral y procedimientos administrativos en recursos humanos.</li>
+                </ul>
+                
+                <div class="subsection-title">Habilidades:</div>
+                <ol class="numbered-list editable" id="requisitos-habilidades">
+                    <li>Capacidad para organizar y gestionar múltiples tareas de manera eficiente.</li>
+                    <li>Habilidades de comunicación efectiva, tanto verbal como escrita.</li>
+                    <li>Proactividad y disposición para aprender y apoyar en diferentes áreas del departamento.</li>
+                    <li>Habilidad para gestionar información confidencial de manera discreta.</li>
+                    <li>Atención al detalle y capacidad para seguir los procedimientos establecidos.</li>
+                </ol>
+                
+                <div class="subsection-title">Conocimientos Técnicos:</div>
+                <ul class="bullet-list editable" id="requisitos-conocimientos">
+                    <li>Conocimiento básico de legislación laboral y normativa relacionada con recursos humanos.</li>
+                    <li>Manejo de herramientas informáticas (Microsoft Office, sistemas de gestión de RRHH).</li>
+                    <li>Conocimiento básico en la gestión de nómina y beneficios.</li>
+                    <li>Familiaridad con los procedimientos de selección y capacitación de personal.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 4: Relaciones Organizacionales -->
+            <div class="section" id="relaciones">
+                <div class="section-title">4. Relaciones Organizacionales <span id="editIndicator4" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="relaciones-description">
+                    El Asistente de RRHH trabaja en estrecha colaboración con el Gerente de RRHH y otros miembros del equipo de recursos humanos, así como con diferentes departamentos dentro de la organización.
+                </div>
+                
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo de Relación</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="relacion-interna">Colaboración interna</td>
+                            <td class="editable" id="relacion-interna-desc">Colabora con otros departamentos en la gestión de procesos administrativos relacionados con el personal.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="relacion-soporte">Soporte a empleados</td>
+                            <td class="editable" id="relacion-soporte-desc">Brinda apoyo directo a los empleados en temas administrativos relacionados con recursos humanos, como licencias, permisos y documentos.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="relacion-externa">Interacción externa</td>
+                            <td class="editable" id="relacion-externa-desc">En algunos casos, interactúa con proveedores externos de servicios de recursos humanos, como capacitaciones, proveedores de beneficios, etc.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Indicadores de Desempeño (KPI) -->
+            <div class="kpi-section" id="kpi">
+                <div class="kpi-title">5. Indicadores de Desempeño (KPI) <span id="editIndicator5" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <ul class="bullet-list editable" id="kpi-lista">
+                    <li><strong>Cumplimiento de procesos administrativos:</strong> Grado de eficiencia en la ejecución de las tareas administrativas de recursos humanos dentro de los plazos establecidos.</li>
+                    <li><strong>Satisfacción de los empleados:</strong> Evaluación de la satisfacción de los empleados en relación con los procesos administrativos gestionados.</li>
+                    <li><strong>Precisión en la gestión de nómina:</strong> Nivel de precisión en la liquidación de salarios, beneficios y compensaciones.</li>
+                    <li><strong>Cumplimiento de políticas internas:</strong> Porcentaje de cumplimiento de las normativas internas y de seguridad laboral.</li>
+                    <li><strong>Eficiencia en la capacitación:</strong> Número de capacitaciones organizadas y efectividad de las mismas en relación con el desarrollo del personal.</li>
+                </ul>
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">6. Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td class="editable" id="historial-asiento">Original</td>
+                                <td class="editable" id="historial-aprueba">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: DES-009 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DES-009-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Se detectaron ediciones guardadas. Use "CARGAR EDICIONES GUARDADAS" para cargarlas.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                        console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+                
+                // Configurar scroll suave para los enlaces del TOC
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESACTIVAR EDICIÓN';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo edición activo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTENIDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo lectura activo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Active el modo edición primero para poder guardar cambios.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('Las ediciones han sido guardadas en el navegador correctamente.');
+                } catch (error) {
+                    alert('Error al guardar las ediciones: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('No se encontraron ediciones guardadas en el navegador.');
+                    return;
+                }
+                
+                if (confirm('¿Cargar las ediciones guardadas? Esto sobrescribirá el contenido actual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Ediciones cargadas correctamente desde el navegador.');
+                    } catch (error) {
+                        alert('Error al cargar las ediciones: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DES-009-Asistente-RRHH-Editado.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. Descargando...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todas las ediciones actuales.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Contenido original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

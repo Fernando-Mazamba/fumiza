@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCS-006 Gestión del Cliente - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .document-editable {
+            outline: 2px dashed #3182ce;
+            outline-offset: -2px;
+        }
+        
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .control-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .edit-mode {
+            background-color: #38a169;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #3182ce;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3182ce;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "👥";
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #3182ce;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+            color: #3182ce;
+        }
+        
+        .section-subtitle {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .intro-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .process-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 1px solid #90cdf4;
+        }
+        
+        .process-matrix th {
+            background-color: #3182ce;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #90cdf4;
+        }
+        
+        .process-matrix td {
+            padding: 15px;
+            border: 1px solid #90cdf4;
+            vertical-align: top;
+        }
+        
+        .process-matrix .input-cell {
+            background-color: #bee3f8;
+        }
+        
+        .process-matrix .procedure-cell {
+            background-color: #ebf8ff;
+        }
+        
+        .process-matrix .output-cell {
+            background-color: #bee3f8;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "▶";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .resource-card {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .resource-title {
+            color: #2c5282;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #90cdf4;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #90cdf4;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #3182ce;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .indicator-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .indicator-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .calculation-box {
+            background-color: #c6f6d5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+        
+        .formula {
+            font-family: 'Cambria', 'Times New Roman', serif;
+            font-size: 16px;
+            color: #22543d;
+        }
+        
+        .tolerance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .tolerance-item {
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .tolerable {
+            background-color: #c6f6d5;
+            border: 1px solid #38a169;
+        }
+        
+        .marginal {
+            background-color: #feebc8;
+            border: 1px solid #dd6b20;
+        }
+        
+        .not-acceptable {
+            background-color: #fed7d7;
+            border: 1px solid #e53e3e;
+        }
+        
+        .tolerance-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tolerance-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .risk-opportunity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 25px 0;
+        }
+        
+        .risk-section {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            padding: 25px;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .opportunity-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .risk-title, .opportunity-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .risk-title {
+            color: #742a2a;
+        }
+        
+        .opportunity-title {
+            color: #276749;
+        }
+        
+        .customer-experience-card {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border: 1px solid #90cdf4;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .experience-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .experience-title:before {
+            content: "⭐";
+            margin-right: 10px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #3182ce;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #3182ce;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #ebf8ff;
+            border-top: 1px solid #90cdf4;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        [contenteditable="true"] {
+            outline: 1px solid #3182ce;
+            background-color: rgba(49, 130, 206, 0.05);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .controls {
+                display: none;
+            }
+            
+            .process-matrix {
+                page-break-inside: avoid;
+            }
+            
+            [contenteditable="true"] {
+                outline: none;
+                background-color: transparent;
+                padding: 0;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .risk-opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-matrix {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .controls {
+                flex-direction: column;
+                right: 10px;
+                top: 10px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tolerance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Controles de edição e download -->
+    <div class="controls">
+        <button class="control-btn" id="editToggle">
+            <span>✏️</span> <span id="editText">Editar Documento</span>
+        </button>
+        <button class="control-btn" id="downloadBtn">
+            <span>⬇️</span> Descargar
+        </button>
+        <button class="control-btn" id="resetBtn">
+            <span>🔄</span> Restablecer
+        </button>
+    </div>
+
+    <div class="document-container" id="documentContainer">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable" data-id="issueDate">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable" data-id="preparedBy">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable" data-id="approvedBy">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable" data-id="version">001</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title editable" data-id="docTitle">Proceso de Gestión del Cliente</div>
+        <div class="doc-code editable" data-id="docCode">Código: PCS-006</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo del Proceso</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance del Proceso</a></li>
+                    <li class="toc-item"><a href="#matriz" class="toc-link">Matriz del Proceso</a></li>
+                    <li class="toc-item"><a href="#recursos" class="toc-link">Recursos del Proceso</a></li>
+                    <li class="toc-item"><a href="#seguimiento" class="toc-link">Seguimiento e Indicadores</a></li>
+                    <li class="toc-item"><a href="#riesgos" class="toc-link">Análisis de Riesgos</a></li>
+                    <li class="toc-item"><a href="#oportunidades" class="toc-link">Análisis de Oportunidades</a></li>
+                    <li class="toc-item"><a href="#referencia" class="toc-link">Documentación de Referencia</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">Objetivo del Proceso</div>
+                <div class="intro-box">
+                    <p class="editable" data-id="objectiveText">El objetivo del proceso de Gestión del Cliente es <strong>maximizar la satisfacción del cliente</strong> y fortalecer la relación de <strong>la organización</strong> con sus clientes, asegurando una experiencia positiva en cada interacción. Este proceso garantiza una gestión estructurada de las solicitudes, quejas y necesidades de los clientes, cumpliendo con los estándares de calidad y fomentando la mejora continua en los servicios ofrecidos.</p>
+                    <p class="editable" data-id="strategicGoal"><strong>Meta estratégica:</strong> Lograr y mantener un índice de satisfacción del cliente superior al 90% y establecer relaciones de largo plazo con al menos el 80% de nuestros clientes principales.</p>
+                </div>
+                
+                <div class="customer-experience-card">
+                    <div class="experience-title editable" data-id="experienceTitle">Compromiso con la Excelencia en el Servicio</div>
+                    <p class="editable" data-id="commitmentText">La organización se compromete a:</p>
+                    <ul class="procedure-list">
+                        <li class="editable" data-id="commitment1">Atender todas las solicitudes en un plazo máximo de 24 horas</li>
+                        <li class="editable" data-id="commitment2">Resolver el 95% de las quejas en un plazo máximo de 72 horas</li>
+                        <li class="editable" data-id="commitment3">Realizar seguimiento post-servicio al 100% de los clientes</li>
+                        <li class="editable" data-id="commitment4">Implementar al menos el 80% de las sugerencias de mejora recibidas</li>
+                        <li class="editable" data-id="commitment5">Mantener una tasa de retención de clientes superior al 85%</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">Alcance del Proceso</div>
+                <p class="editable" data-id="scopeText">El proceso de Gestión del Cliente se aplica a <strong>todas las interacciones</strong> entre <strong>la organización</strong> y sus clientes, desde el primer contacto hasta el servicio postventa. Este proceso integral incluye:</p>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="scope1Title">Captación de Clientes</div>
+                        <p class="editable" data-id="scope1Text">Identificación de potenciales clientes y gestión de oportunidades de negocio iniciales.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="scope2Title">Atención de Solicitudes</div>
+                        <p class="editable" data-id="scope2Text">Gestión profesional de consultas, requerimientos y propuestas de servicio.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="scope3Title">Gestión de Quejas y Reclamos</div>
+                        <p class="editable" data-id="scope3Text">Recepción, análisis y resolución sistemática de incidencias reportadas por clientes.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="scope4Title">Seguimiento Post-Servicio</div>
+                        <p class="editable" data-id="scope4Text">Evaluación de satisfacción y fortalecimiento de relaciones post-entrega.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="scope5Title">Fidelización de Clientes</div>
+                        <p class="editable" data-id="scope5Text">Implementación de programas para retener clientes y promover su lealtad.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="scope6Title">Mejora Continua</div>
+                        <p class="editable" data-id="scope6Text">Análisis de retroalimentación para optimizar constantemente la experiencia del cliente.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Matriz del Proceso -->
+            <div class="section" id="matriz">
+                <div class="section-title">Matriz del Proceso</div>
+                
+                <table class="process-matrix">
+                    <thead>
+                        <tr>
+                            <th>ENTRADAS</th>
+                            <th>PROCEDIMIENTOS (ACTIVIDADES)</th>
+                            <th>SALIDAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="input-cell editable" data-id="input1">
+                                <strong>Requisitos del cliente y expectativas</strong>
+                            </td>
+                            <td class="procedure-cell" rowspan="5">
+                                <ol class="procedure-list">
+                                    <li class="editable" data-id="procedure1">
+                                        <strong>Identificación de Necesidades y Expectativas:</strong> Recopilación de información relevante para entender los requisitos específicos del cliente.
+                                    </li>
+                                    <li class="editable" data-id="procedure2">
+                                        <strong>Atención de Solicitudes y Propuestas:</strong> Generación y envío de propuestas de servicios detalladas y adaptadas a las necesidades del cliente.
+                                    </li>
+                                    <li class="editable" data-id="procedure3">
+                                        <strong>Gestión de Quejas y Reclamos:</strong> Recepción, análisis y resolución de quejas de clientes mediante un sistema de registro y seguimiento de incidencias.
+                                    </li>
+                                    <li class="editable" data-id="procedure4">
+                                        <strong>Encuestas de Satisfacción:</strong> Realización de encuestas post-servicio para medir la satisfacción del cliente en relación a la calidad y efectividad del servicio recibido.
+                                    </li>
+                                    <li class="editable" data-id="procedure5">
+                                        <strong>Programa de Fidelización del Cliente:</strong> Implementación de acciones de fidelización, como descuentos y promociones para clientes recurrentes.
+                                    </li>
+                                    <li class="editable" data-id="procedure6">
+                                        <strong>Análisis de Feedback y Oportunidades de Mejora:</strong> Análisis de la retroalimentación del cliente para identificar y aplicar mejoras en los servicios.
+                                    </li>
+                                </ol>
+                            </td>
+                            <td class="output-cell editable" data-id="output1">
+                                <strong>Registro de Necesidades del Cliente:</strong> Documentación de requerimientos específicos.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-cell editable" data-id="input2">
+                                <strong>Política de calidad y objetivos de satisfacción</strong>
+                            </td>
+                            <td class="output-cell editable" data-id="output2">
+                                <strong>Propuestas de Servicios Personalizados:</strong> Propuestas alineadas con los objetivos de calidad.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-cell editable" data-id="input3">
+                                <strong>Solicitudes y quejas del cliente</strong>
+                            </td>
+                            <td class="output-cell editable" data-id="output3">
+                                <strong>Informe de Resolución de Quejas:</strong> Documento con el estado de resolución y acciones tomadas.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-cell editable" data-id="input4">
+                                <strong>Datos de servicio y resultados de satisfacción</strong>
+                            </td>
+                            <td class="output-cell editable" data-id="output4">
+                                <strong>Informe de Satisfacción del Cliente:</strong> Evaluación de satisfacción y áreas de mejora.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-cell editable" data-id="input5">
+                                <strong>Políticas de fidelización y seguimiento post-servicio</strong>
+                            </td>
+                            <td class="output-cell editable" data-id="output5">
+                                <strong>Reporte de Fidelización:</strong> Registro de beneficios otorgados y seguimiento de clientes fidelizados.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input-cell"></td>
+                            <td class="procedure-cell"></td>
+                            <td class="output-cell editable" data-id="output6">
+                                <strong>Informe de Oportunidades de Mejora:</strong> Propuestas de optimización en la gestión del cliente.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Recursos -->
+            <div class="section" id="recursos">
+                <div class="section-title">Recursos del Proceso</div>
+                
+                <div class="section-subtitle">Recursos Requeridos</div>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="resource1Title">Recursos Humanos</div>
+                        <p class="editable" data-id="resource1Text">Personal capacitado en atención al cliente, gestión de quejas, seguimiento post-servicio, técnicas de comunicación efectiva y resolución de conflictos. Equipos multidisciplinarios para atender todas las dimensiones de la relación con el cliente.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="resource2Title">Recursos Tecnológicos</div>
+                        <p class="editable" data-id="resource2Text">Sistema de Gestión de Relaciones con Clientes (CRM), herramientas de encuestas de satisfacción, plataformas de comunicación multicanal, software de análisis de datos y sistemas de seguimiento de incidencias.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="resource3Title">Recursos Materiales</div>
+                        <p class="editable" data-id="resource3Text">Material de marketing corporativo, documentación de políticas de servicio, formatos estandarizados de atención, equipos de comunicación y materiales de soporte para atención al cliente.</p>
+                    </div>
+                </div>
+                
+                <div class="section-subtitle">Responsables del Proceso</div>
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th>Responsable</th>
+                            <th>Función Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" data-id="responsible1Title"><strong>Responsable de Atención al Cliente</strong></td>
+                            <td class="editable" data-id="responsible1Text">Coordina todas las interacciones con los clientes, supervisa el cumplimiento de los estándares de servicio y reporta a la dirección.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" data-id="responsible2Title"><strong>Departamento Comercial</strong></td>
+                            <td class="editable" data-id="responsible2Text">Encargado de la captación de clientes, seguimiento de oportunidades de negocio, negociación y cierre de contratos.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" data-id="responsible3Title"><strong>Alta Gerencia</strong></td>
+                            <td class="editable" data-id="responsible3Text">Supervisa los objetivos de satisfacción y fidelización, aprueba estrategias de mejora en la experiencia del cliente y asigna los recursos necesarios.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" data-id="responsible4Title"><strong>Equipo de Soporte Técnico</strong></td>
+                            <td class="editable" data-id="responsible4Text">Atiende consultas técnicas, resuelve incidencias operativas y proporciona asesoramiento especializado a los clientes.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" data-id="responsible5Title"><strong>Coordinador de Calidad</strong></td>
+                            <td class="editable" data-id="responsible5Text">Monitorea los indicadores de satisfacción, analiza las quejas recurrentes y propone mejoras en los procesos de atención.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Seguimiento -->
+            <div class="section" id="seguimiento">
+                <div class="section-title">Seguimiento e Indicadores</div>
+                
+                <div class="section-subtitle">Indicadores Principales del Proceso</div>
+                
+                <div class="indicator-box">
+                    <div class="indicator-title editable" data-id="indicatorTitle">Índice de Satisfacción del Cliente (ISC)</div>
+                    <p class="editable" data-id="indicatorPurpose"><strong>Propósito:</strong> Mide el nivel de satisfacción del cliente en función de los resultados de las encuestas post-servicio.</p>
+                    
+                    <div class="calculation-box">
+                        <div class="formula editable" data-id="formula">
+                            ISC = (Puntuación Total Obtenida / Puntuación Máxima Posible) × 100
+                        </div>
+                    </div>
+                    
+                    <div class="section-subtitle">Niveles de Tolerancia</div>
+                    <div class="tolerance-grid">
+                        <div class="tolerance-item tolerable">
+                            <div class="tolerance-label editable" data-id="tolerance1Label">TOLERABLE (ACEPTABLE)</div>
+                            <div class="tolerance-value editable" data-id="tolerance1Value">≥ 85%</div>
+                            <div class="editable" data-id="tolerance1Desc" style="font-size: 14px; margin-top: 5px;">Excelente satisfacción</div>
+                        </div>
+                        
+                        <div class="tolerance-item marginal">
+                            <div class="tolerance-label editable" data-id="tolerance2Label">MARGINAL</div>
+                            <div class="tolerance-value editable" data-id="tolerance2Value">70% - 84%</div>
+                            <div class="editable" data-id="tolerance2Desc" style="font-size: 14px; margin-top: 5px;">Requiere mejoras</div>
+                        </div>
+                        
+                        <div class="tolerance-item not-acceptable">
+                            <div class="tolerance-label editable" data-id="tolerance3Label">NO ACEPTABLE</div>
+                            <div class="tolerance-value editable" data-id="tolerance3Value">&lt; 70%</div>
+                            <div class="editable" data-id="tolerance3Desc" style="font-size: 14px; margin-top: 5px;">Acción inmediata</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-subtitle">Justificación</div>
+                    <p class="editable" data-id="justificationText">Un nivel de satisfacción superior al 85% indica que los productos y servicios de <strong>la organización</strong> cumplen o superan las expectativas del cliente. Un nivel marginal (70% - 84%) sugiere que, aunque la mayoría de los clientes están satisfechos, existen oportunidades de mejora. Una satisfacción inferior al 70% implica la necesidad de revisar los procesos de servicio y adoptar acciones correctivas inmediatas para elevar la calidad.</p>
+                    
+                    <div class="section-subtitle">Fuente de Datos</div>
+                    <ul class="procedure-list" style="margin-top: 15px;">
+                        <li class="editable" data-id="dataSource1"><strong>Encuestas de satisfacción post-servicio:</strong> Resultados obtenidos directamente del cliente.</li>
+                        <li class="editable" data-id="dataSource2"><strong>Reportes de atención al cliente:</strong> Documentación de quejas, solicitudes y resolución de incidencias.</li>
+                        <li class="editable" data-id="dataSource3"><strong>Análisis de redes sociales y comentarios online:</strong> Percepción pública de la marca y servicios.</li>
+                    </ul>
+                    
+                    <div class="section-subtitle">Frecuencia de Evaluación</div>
+                    <p class="editable" data-id="evaluationFrequency">Trimestral, coincidiendo con las revisiones de desempeño para evaluar el nivel de satisfacción y ajustar estrategias de fidelización.</p>
+                    
+                    <div class="section-subtitle">Plan de Acción para No Conformidades</div>
+                    <p class="editable" data-id="actionPlanIntro">Si el ISC se encuentra en el rango No Aceptable (&lt;70%), el equipo de atención al cliente debe:</p>
+                    <ol class="procedure-list" style="margin-top: 10px;">
+                        <li class="editable" data-id="action1">Realizar una revisión exhaustiva de los procesos de atención y resolución de quejas.</li>
+                        <li class="editable" data-id="action2">Implementar programas de capacitación para mejorar las habilidades de atención al cliente.</li>
+                        <li class="editable" data-id="action3">Realizar ajustes en las políticas de servicio para asegurar que se cumplan las expectativas de calidad y servicio del cliente.</li>
+                        <li class="editable" data-id="action4">Establecer un comité de crisis para atender las áreas más críticas identificadas.</li>
+                    </ol>
+                </div>
+                
+                <div class="section-subtitle">Otros Indicadores Clave</div>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="kpi1Title">Índice de Resolución de Quejas (IRQ)</div>
+                        <p class="editable" data-id="kpi1Desc">Evalúa la eficiencia en la resolución de quejas y la mejora de la experiencia del cliente. <strong>Meta:</strong> ≥ 95% de quejas resueltas en 72 horas.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="kpi2Title">Tasa de Retención de Clientes</div>
+                        <p class="editable" data-id="kpi2Desc">Mide el porcentaje de clientes que continúan utilizando nuestros servicios. <strong>Meta:</strong> ≥ 85% de retención anual.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="kpi3Title">Tiempo de Respuesta a Solicitudes</div>
+                        <p class="editable" data-id="kpi3Desc">Evalúa la rapidez en la atención a consultas. <strong>Meta:</strong> 100% de respuestas en menos de 24 horas.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-title editable" data-id="kpi4Title">Net Promoter Score (NPS)</div>
+                        <p class="editable" data-id="kpi4Desc">Mide la disposición de los clientes a recomendar nuestros servicios. <strong>Meta:</strong> NPS ≥ 50 puntos.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Análisis de Riesgos -->
+            <div class="section" id="riesgos">
+                <div class="section-title">Análisis y Evaluación de Riesgos del Proceso</div>
+                
+                <div class="risk-opportunity-grid">
+                    <div class="risk-section">
+                        <div class="risk-title">RIESGOS IDENTIFICADOS</div>
+                        
+                        <div class="section-subtitle editable" data-id="risk1Title">Riesgo de Insatisfacción del Cliente</div>
+                        <p class="editable" data-id="risk1Desc"><strong>Descripción:</strong> La falta de atención a las quejas o un bajo nivel de servicio puede generar insatisfacción, pérdida de clientes, daño reputacional y disminución de ingresos.</p>
+                        <p class="editable" data-id="risk1Prob"><strong>Probabilidad:</strong> Media | <strong>Impacto:</strong> Alto</p>
+                        <p class="editable" data-id="risk1Controls"><strong>Controles:</strong> Sistema de gestión de quejas, capacitación continua, monitoreo constante de satisfacción.</p>
+                        
+                        <div class="section-subtitle editable" data-id="risk2Title">Riesgo de Mala Gestión de Incidencias</div>
+                        <p class="editable" data-id="risk2Desc"><strong>Descripción:</strong> Una gestión inadecuada de quejas e incidencias puede afectar negativamente la reputación de <strong>la organización</strong> y su relación con los clientes, generando publicidad negativa.</p>
+                        <p class="editable" data-id="risk2Prob"><strong>Probabilidad:</strong> Baja | <strong>Impacto:</strong> Alto</p>
+                        <p class="editable" data-id="risk2Controls"><strong>Controles:</strong> Procedimientos estandarizados, sistema de escalamiento, auditorías periódicas.</p>
+                        
+                        <div class="section-subtitle editable" data-id="risk3Title">Riesgo de Pérdida de Clientes Valiosos</div>
+                        <p class="editable" data-id="risk3Desc"><strong>Descripción:</strong> La falta de programas de fidelización efectivos puede llevar a la pérdida de clientes estratégicos hacia la competencia.</p>
+                        <p class="editable" data-id="risk3Prob"><strong>Probabilidad:</strong> Media | <strong>Impacto:</strong> Medio</p>
+                        <p class="editable" data-id="risk3Controls"><strong>Controles:</strong> Programas de fidelización segmentados, análisis de valor del cliente, comunicación personalizada.</p>
+                    </div>
+                    
+                    <!-- Sección 7: Oportunidades -->
+                    <div class="opportunity-section" id="oportunidades">
+                        <div class="opportunity-title">OPORTUNIDADES IDENTIFICADAS</div>
+                        
+                        <div class="section-subtitle editable" data-id="opp1Title">Mejora en la Experiencia del Cliente</div>
+                        <p class="editable" data-id="opp1Desc"><strong>Descripción:</strong> Implementar herramientas de retroalimentación en tiempo real para ajustar el servicio según las necesidades y expectativas del cliente.</p>
+                        <p class="editable" data-id="opp1Benefit"><strong>Beneficio esperado:</strong> Incremento del 15% en satisfacción del cliente.</p>
+                        <p class="editable" data-id="opp1Actions"><strong>Acciones:</strong> Implementación de encuestas instantáneas, análisis de sentimiento en redes sociales, chatbots inteligentes.</p>
+                        
+                        <div class="section-subtitle editable" data-id="opp2Title">Programa de Fidelización Avanzado</div>
+                        <p class="editable" data-id="opp2Desc"><strong>Descripción:</strong> Desarrollar un sistema integral de beneficios para clientes recurrentes que aumente su lealtad y promueva referencias.</p>
+                        <p class="editable" data-id="opp2Benefit"><strong>Beneficio esperado:</strong> Incremento del 20% en retención de clientes.</p>
+                        <p class="editable" data-id="opp2Actions"><strong>Acciones:</strong> Programa de puntos, beneficios exclusivos, eventos para clientes, reconocimientos especiales.</p>
+                        
+                        <div class="section-subtitle editable" data-id="opp3Title">Digitalización del Seguimiento Post-Servicio</div>
+                        <p class="editable" data-id="opp3Desc"><strong>Descripción:</strong> Integrar un sistema automatizado para el seguimiento y evaluación de la satisfacción, permitiendo análisis en tiempo real y acciones más rápidas.</p>
+                        <p class="editable" data-id="opp3Benefit"><strong>Beneficio esperado:</strong> Reducción del 40% en tiempo de procesamiento de feedback.</p>
+                        <p class="editable" data-id="opp3Actions"><strong>Acciones:</strong> CRM avanzado, automatización de encuestas, dashboards de análisis predictivo.</p>
+                        
+                        <div class="section-subtitle editable" data-id="opp4Title">Personalización Masiva de Servicios</div>
+                        <p class="editable" data-id="opp4Desc"><strong>Descripción:</strong> Utilizar análisis de datos para ofrecer servicios altamente personalizados que anticipen las necesidades de los clientes.</p>
+                        <p class="editable" data-id="opp4Benefit"><strong>Beneficio esperado:</strong> Incremento del 25% en valor de vida del cliente.</p>
+                        <p class="editable" data-id="opp4Actions"><strong>Acciones:</strong> Segmentación avanzada, propuestas personalizadas, recomendaciones inteligentes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 8: Documentación de Referencia -->
+            <div class="section" id="referencia">
+                <div class="section-title">Documentación de Referencia</div>
+                
+                <div class="intro-box">
+                    <div class="section-subtitle">Normas Internacionales</div>
+                    <ul class="procedure-list">
+                        <li class="editable" data-id="norm1"><strong>ISO 9001:2015</strong> - Sistemas de Gestión de la Calidad (Cláusula 8.2: Determinación de los requisitos para los productos y servicios)</li>
+                        <li class="editable" data-id="norm2"><strong>ISO 10001:2018</strong> - Gestión de la calidad - Satisfacción del cliente - Directrices para códigos de conducta</li>
+                        <li class="editable" data-id="norm3"><strong>ISO 10002:2018</strong> - Gestión de la calidad - Satisfacción del cliente - Directrices para el tratamiento de las reclamaciones</li>
+                        <li class="editable" data-id="norm4"><strong>ISO 10003:2018</strong> - Gestión de la calidad - Satisfacción del cliente - Directrices para la resolución de disputas</li>
+                    </ul>
+                    
+                    <div class="section-subtitle">Documentación Interna del SGC</div>
+                    <ul class="procedure-list">
+                        <li class="editable" data-id="internalDoc1">Política de Servicio al Cliente de la organización</li>
+                        <li class="editable" data-id="internalDoc2">Manual de Procedimientos de Atención al Cliente</li>
+                        <li class="editable" data-id="internalDoc3">Protocolo de Gestión de Quejas y Reclamaciones</li>
+                        <li class="editable" data-id="internalDoc4">Procedimiento de Encuestas de Satisfacción</li>
+                        <li class="editable" data-id="internalDoc5">Programa de Fidelización de Clientes</li>
+                        <li class="editable" data-id="internalDoc6">Formatos de Registro de Interacciones con Clientes</li>
+                    </ul>
+                    
+                    <div class="section-subtitle">Herramientas y Tecnologías</div>
+                    <ul class="procedure-list">
+                        <li class="editable" data-id="tool1">Sistema de Gestión de Relaciones con Clientes (CRM)</li>
+                        <li class="editable" data-id="tool2">Plataforma de Encuestas y Feedback</li>
+                        <li class="editable" data-id="tool3">Herramientas de Análisis de Sentimiento</li>
+                        <li class="editable" data-id="tool4">Sistemas de Comunicación Multicanal</li>
+                        <li class="editable" data-id="tool5">Dashboards de Indicadores de Satisfacción</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" data-id="version1Num">001</td>
+                                <td class="editable" data-id="version1Date">01.12.2024</td>
+                                <td class="editable" data-id="version1Note">Original</td>
+                                <td class="editable" data-id="version1Approval">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p class="editable" data-id="footerText">Código: PCS-006 | Revisión: 001 | Página 1 de 1 | Proceso: Gestión del Cliente</p>
+        </div>
+    </div>
+
+    <script>
+        // Guardar estado original do documento
+        const originalState = document.documentElement.innerHTML;
+        
+        // Estado de edição
+        let isEditing = false;
+        const editToggle = document.getElementById('editToggle');
+        const editText = document.getElementById('editText');
+        const documentContainer = document.getElementById('documentContainer');
+        
+        // Alternar modo de edição
+        editToggle.addEventListener('click', function() {
+            isEditing = !isEditing;
+            
+            if (isEditing) {
+                // Ativar modo edição
+                documentContainer.classList.add('document-editable');
+                editToggle.classList.add('edit-mode');
+                editText.textContent = 'Guardar Edición';
+                
+                // Tornar todos os elementos editáveis
+                document.querySelectorAll('.editable').forEach(element => {
+                    element.setAttribute('contenteditable', 'true');
+                });
+                
+                // Mostrar mensagem de ajuda
+                showNotification('Modo de edição activado. Haz clic en cualquier texto para editar.', 'info');
+            } else {
+                // Desativar modo edição
+                documentContainer.classList.remove('document-editable');
+                editToggle.classList.remove('edit-mode');
+                editText.textContent = 'Editar Documento';
+                
+                // Remover editável de todos os elementos
+                document.querySelectorAll('.editable').forEach(element => {
+                    element.removeAttribute('contenteditable');
+                });
+                
+                // Mostrar mensagem de confirmação
+                showNotification('Cambios guardados.', 'success');
+                
+                // Salvar no localStorage
+                saveToLocalStorage();
+            }
+        });
+        
+        // Função para descargar documento
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Criar um blob com o conteúdo HTML
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Criar link de descarga
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PCS-006-Gestion-del-Cliente-SGC.html';
+            
+            // Adicionar ao documento e clicar
+            document.body.appendChild(a);
+            a.click();
+            
+            // Limpar
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Documento descargado correctamente.', 'success');
+        });
+        
+        // Função para restablecer documento ao original
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            if (confirm('¿Estás seguro de que quieres restablecer el documento a su estado original? Se perderán todos los cambios no guardados.')) {
+                document.documentElement.innerHTML = originalState;
+                showNotification('Documento restablecido al estado original.', 'info');
+            }
+        });
+        
+        // Salvar no localStorage
+        function saveToLocalStorage() {
+            const editableElements = document.querySelectorAll('.editable');
+            const savedContent = {};
+            
+            editableElements.forEach(element => {
+                const id = element.getAttribute('data-id');
+                if (id) {
+                    savedContent[id] = element.innerHTML;
+                }
+            });
+            
+            localStorage.setItem('pcs006-saved-content', JSON.stringify(savedContent));
+        }
+        
+        // Carregar do localStorage
+        function loadFromLocalStorage() {
+            const savedContent = localStorage.getItem('pcs006-saved-content');
+            
+            if (savedContent) {
+                const content = JSON.parse(savedContent);
+                
+                Object.keys(content).forEach(id => {
+                    const element = document.querySelector(`[data-id="${id}"]`);
+                    if (element) {
+                        element.innerHTML = content[id];
+                    }
+                });
+                
+                showNotification('Cambios previos cargados.', 'info');
+            }
+        }
+        
+        // Mostrar notificação
+        function showNotification(message, type) {
+            // Remover notificação anterior se existir
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Criar notificação
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            // Estilos para notificação
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: ${type === 'success' ? '#38a169' : '#3182ce'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                z-index: 1001;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.querySelector('button').style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+                padding: 0;
+                margin: 0;
+            `;
+            
+            // Adicionar estilos de animação
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+                    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                }
+                .notification button:hover { opacity: 0.8; }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remover após 5 segundos
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+        
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter';
+            
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica si el logo existe, caso contrário muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="70" viewBox="0 0 160 70"><rect width="160" height="70" fill="white"/><text x="80" y="35" font-family="Arial" font-size="10" text-anchor="middle" fill="%232c5282" dy="5">LOGO ORGANIZACIÓN</text></svg>';
+                    console.log("Logo no encontrado. Se muestra placeholder.");
+                };
+            }
+            
+            // Mejorar visualización de la matriz en dispositivos móviles
+            const processMatrix = document.querySelector('.process-matrix');
+            if (processMatrix && window.innerWidth < 1024) {
+                const cells = processMatrix.querySelectorAll('td, th');
+                cells.forEach(cell => {
+                    cell.style.minWidth = '200px';
+                });
+            }
+            
+            // Adicionar interacción a las tarjetas de recursos
+            const resourceCards = document.querySelectorAll('.resource-card');
+            resourceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Carregar conteúdo salvo do localStorage
+            loadFromLocalStorage();
+            
+            // Substituir todas as referências de SGI para SGC
+            replaceSGIToSGC();
+        });
+        
+        // Função para substituir SGI por SGC
+        function replaceSGIToSGC() {
+            const elements = document.querySelectorAll('*:not(script):not(style)');
+            
+            elements.forEach(element => {
+                if (element.childNodes.length === 1 && element.childNodes[0].nodeType === Node.TEXT_NODE) {
+                    const text = element.textContent;
+                    if (text.includes('SGI') && !text.includes('ESGC')) {
+                        element.textContent = text.replace(/SGI/g, 'SGC');
+                    }
+                }
+            });
+            
+            // Substituir no título
+            document.title = document.title.replace('SGI', 'SGC');
+        }
+        
+        // Permitir tecla Esc para sair do modo de edição
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isEditing) {
+                editToggle.click();
+            }
+        });
+    </script>
+</body>
+</html>

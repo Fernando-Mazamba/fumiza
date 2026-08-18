@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-043 Registro de Trazabilidad - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 10px;
+            break-inside: avoid;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        
+        .traceability-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .traceability-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            text-align: left;
+            padding: 15px;
+            width: 30%;
+        }
+        
+        .traceability-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .traceability-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .field-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 15px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .field-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .field-input.underline {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            border-radius: 0;
+            padding: 10px 0;
+        }
+        
+        .textarea-field {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+        }
+        
+        .signature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        
+        .signature-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .signature-table td {
+            padding: 20px 15px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            vertical-align: top;
+        }
+        
+        .signature-line {
+            width: 80%;
+            height: 1px;
+            background-color: #333;
+            margin: 50px auto 10px;
+        }
+        
+        .materials-section {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .materials-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .add-button {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-button:hover {
+            background-color: #2f855a;
+        }
+        
+        .remove-button {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .remove-button:hover {
+            background-color: #c53030;
+        }
+        
+        .observations-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .observations-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 30px 0 20px;
+        }
+        
+        .print-btn, .save-btn, .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .download-btn {
+            background-color: #805ad5;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        .editable-field {
+            position: relative;
+            cursor: pointer;
+            border-bottom: 1px dashed #cbd5e0;
+            min-height: 24px;
+            padding: 2px 0;
+        }
+        
+        .editable-field:hover {
+            background-color: #f7fafc;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .save-btn, .download-btn {
+                display: none;
+            }
+            
+            .toc {
+                display: none;
+            }
+            
+            .add-button, .remove-button {
+                display: none;
+            }
+            
+            .editable-field {
+                border-bottom: none;
+                cursor: default;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .traceability-table th,
+            .traceability-table td {
+                display: block;
+                width: 100%;
+                padding: 10px;
+            }
+            
+            .traceability-table th {
+                background-color: #e2e8f0;
+                color: #4a5568;
+                border-bottom: none;
+            }
+            
+            .traceability-table tr {
+                margin-bottom: 15px;
+                display: block;
+                border: 1px solid #e2e8f0;
+                border-radius: 5px;
+            }
+            
+            .signature-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="document-content">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable-field" data-field="fecha-emision" data-print-value="01.12.2024">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable-field" data-field="elabora" data-print-value="ESGC">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable-field" data-field="aprueba" data-print-value="CEO">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable-field" data-field="version" data-print-value="001">001</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Registro de Trazabilidad</div>
+        <div class="doc-code">Código: FORM-043-SGC</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <body style="counter-reset: section-counter;">
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#informacion-general" class="toc-link">Información General del Producto o Servicio</a></li>
+                    <li class="toc-item"><a href="#identificacion-materiales" class="toc-link">Identificación de Materias Primas / Componentes</a></li>
+                    <li class="toc-item"><a href="#proceso-produccion" class="toc-link">Proceso de Producción o Prestación del Servicio</a></li>
+                    <li class="toc-item"><a href="#control-almacenamiento" class="toc-link">Control de Almacenamiento</a></li>
+                    <li class="toc-item"><a href="#distribucion-transporte" class="toc-link">Distribución y Transporte</a></li>
+                    <li class="toc-item"><a href="#informacion-cliente" class="toc-link">Información de Cliente Final</a></li>
+                    <li class="toc-item"><a href="#observaciones" class="toc-link">Observaciones</a></li>
+                    <li class="toc-item"><a href="#firmas-aprobacion" class="toc-link">Firmas de Aprobación</a></li>
+                    <li class="toc-item"><a href="#historial-versiones" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Información General del Producto o Servicio -->
+            <div class="section" id="informacion-general">
+                <div class="section-title">Información General del Producto o Servicio</div>
+                
+                <div class="table-container">
+                    <table class="traceability-table">
+                        <tr>
+                            <th>Número de Registro</th>
+                            <td>
+                                <input type="text" class="field-input" id="numero-registro" placeholder="Código único de trazabilidad">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Nombre del Producto/Servicio</th>
+                            <td>
+                                <input type="text" class="field-input" id="nombre-producto" placeholder="Nombre del producto o servicio">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Número de Lote/Serie</th>
+                            <td>
+                                <input type="text" class="field-input" id="numero-lote" placeholder="Número de lote o serie asignado al producto">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Fabricación</th>
+                            <td>
+                                <input type="date" class="field-input" id="fecha-fabricacion">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Entrega al Cliente</th>
+                            <td>
+                                <input type="date" class="field-input" id="fecha-entrega-cliente">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Proveedor</th>
+                            <td>
+                                <input type="text" class="field-input" id="proveedor" placeholder="Nombre del proveedor que entregó los materiales">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Número de Orden de Compra/Contrato</th>
+                            <td>
+                                <input type="text" class="field-input" id="numero-orden" placeholder="Número de orden o contrato relacionado con la compra">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Identificación de Materias Primas / Componentes -->
+            <div class="section" id="identificacion-materiales">
+                <div class="section-title">Identificación de Materias Primas / Componentes (si aplica)</div>
+                
+                <div class="materials-section" id="materials-container">
+                    <div class="materials-title">Materiales / Componentes Utilizados</div>
+                    
+                    <div class="table-container">
+                        <table class="traceability-table materials-table">
+                            <thead>
+                                <tr>
+                                    <th>Materia Prima / Componente</th>
+                                    <th>Número de Lote / Referencia</th>
+                                    <th>Proveedor</th>
+                                    <th>Fecha de Recepción</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="materials-body">
+                                <tr class="material-row">
+                                    <td>
+                                        <input type="text" class="field-input material-desc" placeholder="Descripción del material o componente">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="field-input material-lote" placeholder="Número de lote o referencia">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="field-input material-proveedor" placeholder="Nombre del proveedor">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="field-input material-fecha">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="remove-button">✕</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <button type="button" class="add-button" id="add-material">
+                        <span>+</span> Agregar Material / Componente
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Proceso de Producción o Prestación del Servicio -->
+            <div class="section" id="proceso-produccion">
+                <div class="section-title">Proceso de Producción o Prestación del Servicio</div>
+                
+                <div class="table-container">
+                    <table class="traceability-table">
+                        <tr>
+                            <th>Etapa del Proceso</th>
+                            <td>
+                                <input type="text" class="field-input" id="etapa-proceso" placeholder="Descripción de la etapa del proceso">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Número de Control del Proceso</th>
+                            <td>
+                                <input type="text" class="field-input" id="numero-control" placeholder="Número o código de control asignado">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Inicio del Proceso</th>
+                            <td>
+                                <input type="date" class="field-input" id="fecha-inicio-proceso">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Finalización del Proceso</th>
+                            <td>
+                                <input type="date" class="field-input" id="fecha-fin-proceso">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Resultado del Control de Calidad</th>
+                            <td>
+                                <textarea class="textarea-field" id="resultado-calidad" placeholder="Resultado de las pruebas o inspecciones de calidad"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Control de Almacenamiento -->
+            <div class="section" id="control-almacenamiento">
+                <div class="section-title">Control de Almacenamiento</div>
+                
+                <div class="table-container">
+                    <table class="traceability-table">
+                        <tr>
+                            <th>Ubicación de Almacenamiento</th>
+                            <td>
+                                <input type="text" class="field-input" id="ubicacion-almacen" placeholder="Ubicación del producto almacenado">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Almacenaje</th>
+                            <td>
+                                <input type="date" class="field-input" id="fecha-almacenaje">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Estado del Producto</th>
+                            <td>
+                                <select class="field-input" id="estado-producto">
+                                    <option value="">Seleccionar estado...</option>
+                                    <option value="listo">Listo para enviar</option>
+                                    <option value="espera">En espera</option>
+                                    <option value="revision">En revisión</option>
+                                    <option value="cuarentena">En cuarentena</option>
+                                    <option value="rechazado">Rechazado</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Número de Registro de Inspección</th>
+                            <td>
+                                <input type="text" class="field-input" id="numero-inspeccion" placeholder="Número de registro de inspección">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Distribución y Transporte -->
+            <div class="section" id="distribucion-transporte">
+                <div class="section-title">Distribución y Transporte</div>
+                
+                <div class="table-container">
+                    <table class="traceability-table">
+                        <tr>
+                            <th>Modo de Transporte</th>
+                            <td>
+                                <select class="field-input" id="modo-transporte">
+                                    <option value="">Seleccionar modo...</option>
+                                    <option value="camion">Camión</option>
+                                    <option value="barco">Barco</option>
+                                    <option value="avion">Avión</option>
+                                    <option value="ferrocarril">Ferrocarril</option>
+                                    <option value="courier">Servicio de courier</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Nombre del Transportista</th>
+                            <td>
+                                <input type="text" class="field-input" id="nombre-transportista" placeholder="Nombre de la empresa o persona responsable">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Envío</th>
+                            <td>
+                                <input type="date" class="field-input" id="fecha-envio">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Número de Tracking (si aplica)</th>
+                            <td>
+                                <input type="text" class="field-input" id="numero-tracking" placeholder="Número de seguimiento del envío">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Estado del Producto al Entregar</th>
+                            <td>
+                                <textarea class="textarea-field" id="estado-entrega" placeholder="Condición en la que el producto fue entregado"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Información de Cliente Final -->
+            <div class="section" id="informacion-cliente">
+                <div class="section-title">Información de Cliente Final</div>
+                
+                <div class="table-container">
+                    <table class="traceability-table">
+                        <tr>
+                            <th>Nombre del Cliente</th>
+                            <td>
+                                <input type="text" class="field-input" id="nombre-cliente" placeholder="Nombre o razón social del cliente">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Dirección del Cliente</th>
+                            <td>
+                                <textarea class="textarea-field" id="direccion-cliente" placeholder="Dirección completa del cliente"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Número de Orden de Cliente</th>
+                            <td>
+                                <input type="text" class="field-input" id="orden-cliente" placeholder="Número de la orden o contrato del cliente">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Recepción del Producto</th>
+                            <td>
+                                <input type="date" class="field-input" id="fecha-recepcion-cliente">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Firma del Cliente</th>
+                            <td>
+                                <div class="signature-line" style="width: 60%; margin: 30px auto 10px;"></div>
+                                <p style="text-align: center; font-size: 14px; color: #666;">Firma del cliente o representante</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Observaciones -->
+            <div class="section" id="observaciones">
+                <div class="section-title">Observaciones</div>
+                
+                <div class="observations-box">
+                    <div class="observations-title">Observaciones Adicionales</div>
+                    <textarea class="textarea-field" id="observaciones-texto" placeholder="Cualquier observación o comentario adicional sobre el producto o servicio" style="min-height: 120px;"></textarea>
+                </div>
+            </div>
+            
+            <!-- Sección 8: Firmas de Aprobación -->
+            <div class="section" id="firmas-aprobacion">
+                <div class="section-title">Firmas de Aprobación</div>
+                
+                <div class="table-container">
+                    <table class="signature-table">
+                        <thead>
+                            <tr>
+                                <th>Cargo/Responsable</th>
+                                <th>Firma</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Responsable de Producción</td>
+                                <td>
+                                    <div class="signature-line"></div>
+                                    <p style="font-size: 14px; color: #666;">Firma del responsable de producción</p>
+                                </td>
+                                <td>
+                                    <input type="date" class="field-input" id="fecha-produccion">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Responsable de Calidad</td>
+                                <td>
+                                    <div class="signature-line"></div>
+                                    <p style="font-size: 14px; color: #666;">Firma del responsable de calidad</p>
+                                </td>
+                                <td>
+                                    <input type="date" class="field-input" id="fecha-calidad">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Responsable de Logística/Transporte</td>
+                                <td>
+                                    <div class="signature-line"></div>
+                                    <p style="font-size: 14px; color: #666;">Firma del responsable de logística</p>
+                                </td>
+                                <td>
+                                    <input type="date" class="field-input" id="fecha-logistica">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Responsable de Almacén</td>
+                                <td>
+                                    <div class="signature-line"></div>
+                                    <p style="font-size: 14px; color: #666;">Firma del responsable de almacén</p>
+                                </td>
+                                <td>
+                                    <input type="date" class="field-input" id="fecha-almacen">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="save-btn" onclick="guardarRegistro()">💾 Guardar Registro</button>
+                <button class="download-btn" onclick="descargarDocumento()">📥 Descargar Documento</button>
+                <button class="print-btn" onclick="imprimirDocumento()">📄 Imprimir Documento</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial-versiones">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </body>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-043-SGC | Revisión: 001 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar fecha actual por defecto
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            
+            // Configurar fechas predeterminadas
+            document.getElementById('fecha-fabricacion').value = formattedDate;
+            document.getElementById('fecha-entrega-cliente').value = formattedDate;
+            document.getElementById('fecha-inicio-proceso').value = formattedDate;
+            document.getElementById('fecha-fin-proceso').value = formattedDate;
+            document.getElementById('fecha-almacenaje').value = formattedDate;
+            document.getElementById('fecha-envio').value = formattedDate;
+            document.getElementById('fecha-recepcion-cliente').value = formattedDate;
+            document.getElementById('fecha-produccion').value = formattedDate;
+            document.getElementById('fecha-calidad').value = formattedDate;
+            document.getElementById('fecha-logistica').value = formattedDate;
+            document.getElementById('fecha-almacen').value = formattedDate;
+            
+            // Generar automáticamente número de registro si está vacío
+            const registroField = document.getElementById('numero-registro');
+            if (registroField && !registroField.value) {
+                const timestamp = new Date().getTime();
+                const randomNum = Math.floor(Math.random() * 10000);
+                registroField.value = `TRZ-SGC-${timestamp.toString().slice(-6)}-${randomNum.toString().padStart(4, '0')}`;
+            }
+            
+            // Inicializar campos editáveis
+            inicializarCamposEditables();
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">SISTEMA DE GESTIÓN DE CALIDAD</text></svg>';
+                console.log("Logo no encontrado. Usando placeholder.");
+            };
+            
+            // Funcionalidad para agregar materiales/componentes
+            const addMaterialBtn = document.getElementById('add-material');
+            const materialsBody = document.getElementById('materials-body');
+            
+            addMaterialBtn.addEventListener('click', function() {
+                const newRow = document.createElement('tr');
+                newRow.className = 'material-row';
+                newRow.innerHTML = `
+                    <td>
+                        <input type="text" class="field-input material-desc" placeholder="Descripción del material o componente">
+                    </td>
+                    <td>
+                        <input type="text" class="field-input material-lote" placeholder="Número de lote o referencia">
+                    </td>
+                    <td>
+                        <input type="text" class="field-input material-proveedor" placeholder="Nombre del proveedor">
+                    </td>
+                    <td>
+                        <input type="date" class="field-input material-fecha">
+                    </td>
+                    <td>
+                        <button type="button" class="remove-button">✕</button>
+                    </td>
+                `;
+                
+                materialsBody.appendChild(newRow);
+                
+                // Configurar botón de eliminar
+                const removeBtn = newRow.querySelector('.remove-button');
+                removeBtn.addEventListener('click', function() {
+                    newRow.remove();
+                });
+            });
+            
+            // Configurar botones de eliminar existentes
+            document.querySelectorAll('.remove-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('tr').remove();
+                });
+            });
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Contador de secciones
+            document.body.style.counterReset = 'section-counter';
+        });
+        
+        // Inicializar campos editables
+        function inicializarCamposEditables() {
+            const camposEditables = document.querySelectorAll('.editable-field');
+            camposEditables.forEach(campo => {
+                campo.addEventListener('click', function() {
+                    const campoActual = this;
+                    const valorOriginal = campoActual.textContent;
+                    const fieldName = campoActual.getAttribute('data-field');
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = valorOriginal;
+                    input.className = 'field-input';
+                    input.style.width = '100%';
+                    input.style.marginTop = '5px';
+                    
+                    campoActual.textContent = '';
+                    campoActual.appendChild(input);
+                    input.focus();
+                    
+                    input.addEventListener('blur', function() {
+                        const nuevoValor = input.value;
+                        campoActual.textContent = nuevoValor;
+                        campoActual.setAttribute('data-print-value', nuevoValor);
+                    });
+                    
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            input.blur();
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Guardar registro
+        function guardarRegistro() {
+            const numeroRegistro = document.getElementById('numero-registro').value;
+            const nombreProducto = document.getElementById('nombre-producto').value;
+            const numeroLote = document.getElementById('numero-lote').value;
+            
+            if (!numeroRegistro || !nombreProducto || !numeroLote) {
+                alert('Por favor, complete los campos obligatorios: Número de Registro, Nombre del Producto/Servicio y Número de Lote/Serie.');
+                return;
+            }
+            
+            // Recopilar datos de materiales
+            const materiales = [];
+            document.querySelectorAll('.material-row').forEach(row => {
+                const material = {
+                    descripcion: row.querySelector('.material-desc').value,
+                    lote: row.querySelector('.material-lote').value,
+                    proveedor: row.querySelector('.material-proveedor').value,
+                    fechaRecepcion: row.querySelector('.material-fecha').value
+                };
+                materiales.push(material);
+            });
+            
+            const datosRegistro = {
+                informacionGeneral: {
+                    numeroRegistro: numeroRegistro,
+                    nombreProducto: nombreProducto,
+                    numeroLote: numeroLote,
+                    fechaFabricacion: document.getElementById('fecha-fabricacion').value,
+                    fechaEntregaCliente: document.getElementById('fecha-entrega-cliente').value,
+                    proveedor: document.getElementById('proveedor').value,
+                    numeroOrden: document.getElementById('numero-orden').value
+                },
+                materiales: materiales,
+                procesoProduccion: {
+                    etapaProceso: document.getElementById('etapa-proceso').value,
+                    numeroControl: document.getElementById('numero-control').value,
+                    fechaInicio: document.getElementById('fecha-inicio-proceso').value,
+                    fechaFin: document.getElementById('fecha-fin-proceso').value,
+                    resultadoCalidad: document.getElementById('resultado-calidad').value
+                },
+                almacenamiento: {
+                    ubicacion: document.getElementById('ubicacion-almacen').value,
+                    fechaAlmacenaje: document.getElementById('fecha-almacenaje').value,
+                    estadoProducto: document.getElementById('estado-producto').value,
+                    numeroInspeccion: document.getElementById('numero-inspeccion').value
+                },
+                distribucion: {
+                    modoTransporte: document.getElementById('modo-transporte').value,
+                    nombreTransportista: document.getElementById('nombre-transportista').value,
+                    fechaEnvio: document.getElementById('fecha-envio').value,
+                    numeroTracking: document.getElementById('numero-tracking').value,
+                    estadoEntrega: document.getElementById('estado-entrega').value
+                },
+                cliente: {
+                    nombre: document.getElementById('nombre-cliente').value,
+                    direccion: document.getElementById('direccion-cliente').value,
+                    ordenCliente: document.getElementById('orden-cliente').value,
+                    fechaRecepcion: document.getElementById('fecha-recepcion-cliente').value
+                },
+                observaciones: document.getElementById('observaciones-texto').value,
+                firmas: {
+                    fechaProduccion: document.getElementById('fecha-produccion').value,
+                    fechaCalidad: document.getElementById('fecha-calidad').value,
+                    fechaLogistica: document.getElementById('fecha-logistica').value,
+                    fechaAlmacen: document.getElementById('fecha-almacen').value
+                },
+                metadatos: {
+                    fechaEmision: document.querySelector('[data-field="fecha-emision"]').textContent,
+                    elabora: document.querySelector('[data-field="elabora"]').textContent,
+                    aprueba: document.querySelector('[data-field="aprueba"]').textContent,
+                    version: document.querySelector('[data-field="version"]').textContent
+                }
+            };
+            
+            console.log('Datos del registro de trazabilidad SGC:', datosRegistro);
+            
+            // Guardar en localStorage
+            localStorage.setItem('registroTrazabilidadSGC', JSON.stringify(datosRegistro));
+            
+            alert('✅ Registro de trazabilidad guardado correctamente en el sistema SGC.');
+        }
+        
+        // Descargar documento como HTML
+        function descargarDocumento() {
+            // Crear una copia del documento
+            const docClone = document.getElementById('document-content').cloneNode(true);
+            
+            // Actualizar valores en la copia
+            actualizarValoresEnCopia(docClone);
+            
+            // Crear el contenido HTML completo
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Trazabilidad SGC - ${document.getElementById('numero-registro').value || 'Sin registro'}</title>
+    <style>
+        ${document.querySelector('style').textContent}
+        
+        /* Ocultar botones en la versión descargada */
+        .action-buttons {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    ${docClone.innerHTML}
+    <script>
+        // Script mínimo para funcionalidad básica
+        document.addEventListener('DOMContentLoaded', function() {
+            // Deshabilitar edición en campos editables
+            document.querySelectorAll('.editable-field').forEach(campo => {
+                campo.style.cursor = 'default';
+                campo.onclick = null;
+            });
+            
+            // Deshabilitar funcionalidad de agregar/eliminar materiales
+            document.querySelectorAll('.add-button, .remove-button').forEach(button => {
+                button.style.display = 'none';
+            });
+            
+            console.log('Documento de trazabilidad SGC cargado - ${new Date().toLocaleDateString()}');
+        });
+    <\/script>
+</body>
+</html>`;
+            
+            // Crear blob y descargar
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Registro_Trazabilidad_SGC_${document.getElementById('numero-registro').value || 'SGC'}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📥 Documento descargado como HTML editable');
+        }
+        
+        // Actualizar valores en la copia del documento
+        function actualizarValoresEnCopia(clone) {
+            // Actualizar campos de entrada principales
+            const camposPrincipales = [
+                'numero-registro', 'nombre-producto', 'numero-lote', 'proveedor', 'numero-orden',
+                'etapa-proceso', 'numero-control', 'ubicacion-almacen', 'numero-inspeccion',
+                'nombre-transportista', 'numero-tracking', 'nombre-cliente', 'orden-cliente'
+            ];
+            
+            camposPrincipales.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    const elementoCopia = clone.querySelector(`#${id}`);
+                    if (elementoCopia && input.value) {
+                        elementoCopia.value = input.value;
+                    }
+                }
+            });
+            
+            // Actualizar fechas
+            const fechas = [
+                'fecha-fabricacion', 'fecha-entrega-cliente', 'fecha-inicio-proceso', 'fecha-fin-proceso',
+                'fecha-almacenaje', 'fecha-envio', 'fecha-recepcion-cliente', 'fecha-produccion',
+                'fecha-calidad', 'fecha-logistica', 'fecha-almacen'
+            ];
+            
+            fechas.forEach(id => {
+                const input = document.getElementById(id);
+                if (input && input.value) {
+                    const elementoCopia = clone.querySelector(`#${id}`);
+                    if (elementoCopia) {
+                        // Formatear fecha para visualización
+                        const fecha = new Date(input.value);
+                        const dia = fecha.getDate().toString().padStart(2, '0');
+                        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+                        const año = fecha.getFullYear();
+                        elementoCopia.value = `${dia}/${mes}/${año}`;
+                    }
+                }
+            });
+            
+            // Actualizar selects
+            const selects = ['estado-producto', 'modo-transporte'];
+            selects.forEach(id => {
+                const select = document.getElementById(id);
+                if (select) {
+                    const selectCopia = clone.querySelector(`#${id}`);
+                    if (selectCopia && select.value) {
+                        selectCopia.value = select.value;
+                    }
+                }
+            });
+            
+            // Actualizar textareas
+            const textareas = ['resultado-calidad', 'estado-entrega', 'direccion-cliente', 'observaciones-texto'];
+            textareas.forEach(id => {
+                const textarea = document.getElementById(id);
+                if (textarea) {
+                    const textareaCopia = clone.querySelector(`#${id}`);
+                    if (textareaCopia && textarea.value) {
+                        textareaCopia.value = textarea.value;
+                    }
+                }
+            });
+            
+            // Actualizar materiales
+            const materialesCopia = clone.getElementById('materials-body');
+            if (materialesCopia) {
+                materialesCopia.innerHTML = '';
+                
+                document.querySelectorAll('.material-row').forEach(row => {
+                    const newRow = document.createElement('tr');
+                    newRow.className = 'material-row';
+                    newRow.innerHTML = `
+                        <td>${row.querySelector('.material-desc').value || ''}</td>
+                        <td>${row.querySelector('.material-lote').value || ''}</td>
+                        <td>${row.querySelector('.material-proveedor').value || ''}</td>
+                        <td>${row.querySelector('.material-fecha').value || ''}</td>
+                        <td></td>
+                    `;
+                    materialesCopia.appendChild(newRow);
+                });
+            }
+            
+            // Actualizar campos editables
+            const camposEditables = clone.querySelectorAll('.editable-field');
+            camposEditables.forEach(campo => {
+                const fieldName = campo.getAttribute('data-field');
+                const originalCampo = document.querySelector(`[data-field="${fieldName}"]`);
+                if (originalCampo) {
+                    campo.textContent = originalCampo.textContent;
+                    campo.setAttribute('data-print-value', originalCampo.textContent);
+                }
+            });
+        }
+        
+        // Imprimir documento
+        function imprimirDocumento() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

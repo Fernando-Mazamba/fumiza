@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-RRHH-05 Solicitud de Vacaciones - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .vacation-request {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        .request-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .request-text .blank {
+            display: inline-block;
+            min-width: 200px;
+            border-bottom: 1px solid #333;
+            margin: 0 5px;
+            text-align: center;
+            padding-bottom: 5px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .form-field {
+            margin-bottom: 25px;
+        }
+        
+        .field-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-size: 16px;
+        }
+        
+        .field-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .field-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .field-input.underline {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            border-radius: 0;
+            padding: 10px 0;
+            background-color: transparent;
+        }
+        
+        .signature-area {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .signature-box {
+            text-align: center;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: #333;
+            margin: 40px auto 10px;
+        }
+        
+        .signature-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .closing-text {
+            text-align: center;
+            font-style: italic;
+            margin: 40px 0 30px;
+            font-size: 17px;
+            color: #4a5568;
+        }
+        
+        .vacation-period {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .period-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .period-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .version-history {
+            margin-top: 60px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .download-btn {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .edit-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .field-input.underline {
+                border-bottom: 1px solid #999;
+            }
+            
+            .request-text .blank {
+                border-bottom: 1px solid #666;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .vacation-request {
+                padding: 15px;
+            }
+            
+            .request-text {
+                font-size: 16px;
+            }
+            
+            .request-text .blank {
+                min-width: 150px;
+                margin: 0 3px;
+            }
+            
+            .form-grid, .signature-grid, .period-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        
+        /* Estilos para modo edición */
+        .editable {
+            border: 1px dashed #cbd5e0 !important;
+        }
+        
+        .editing-mode {
+            background-color: #f0fff4;
+        }
+        
+        .readonly {
+            background-color: #f7fafc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="documentContent">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        001
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Solicitud de Vacaciones</div>
+        <div class="doc-code">Código: FORM-RRHH-05</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <div class="vacation-request">
+                <!-- Información básica -->
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="field-label">Fecha:</label>
+                        <input type="text" class="field-input editable date-field" id="fecha-solicitud" placeholder="DD/MM/AAAA">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Área:</label>
+                        <input type="text" class="field-input editable" id="area-departamento" placeholder="Nombre del área/departamento">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Jefe/Gerente:</label>
+                        <input type="text" class="field-input editable" id="jefe-gerente" placeholder="Nombre del jefe o gerente">
+                    </div>
+                </div>
+                
+                <!-- Texto de la solicitud con campos en blanco -->
+                <div class="request-text">
+                    Yo 
+                    <span class="blank">
+                        <input type="text" class="field-input underline editable" id="nombre-trabajador-texto" placeholder="Nombre del trabajador" style="width: 100%; text-align: center;">
+                    </span>
+                    solicito por este medio el usufructo de mis vacaciones correspondientes al periodo 
+                    <span class="blank">
+                        <input type="text" class="field-input underline editable" id="periodo-vacaciones" placeholder="Ej: 2024-2025" style="width: 100%; text-align: center;">
+                    </span>
+                    desde la fecha 
+                    <span class="blank">
+                        <input type="text" class="field-input underline editable date-field" id="desde-fecha" placeholder="DD/MM/AAAA" style="width: 100%; text-align: center;">
+                    </span>
+                    al 
+                    <span class="blank">
+                        <input type="text" class="field-input underline editable date-field" id="hasta-fecha" placeholder="DD/MM/AAAA" style="width: 100%; text-align: center;">
+                    </span>
+                    volviendo a mis actividades normales el día 
+                    <span class="blank">
+                        <input type="text" class="field-input underline editable date-field" id="retorno-fecha" placeholder="DD/MM/AAAA" style="width: 100%; text-align: center;">
+                    </span>
+                </div>
+                
+                <div class="closing-text">
+                    Me despido cordialmente.
+                </div>
+                
+                <!-- Información del trabajador -->
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="field-label">Nombre del trabajador:</label>
+                        <input type="text" class="field-input editable" id="nombre-trabajador" placeholder="Nombre completo del trabajador">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Cédula de Identidad (C.I.):</label>
+                        <input type="text" class="field-input editable" id="cedula-identidad" placeholder="Número de cédula de identidad">
+                    </div>
+                </div>
+                
+                <!-- Período de vacaciones -->
+                <div class="vacation-period">
+                    <div class="period-title">Resumen del Período de Vacaciones</div>
+                    <div class="period-grid">
+                        <div class="form-field">
+                            <label class="field-label">Fecha de inicio:</label>
+                            <input type="text" class="field-input editable date-field" id="fecha-inicio" placeholder="DD/MM/AAAA">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Fecha de fin:</label>
+                            <input type="text" class="field-input editable date-field" id="fecha-fin" placeholder="DD/MM/AAAA">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Fecha de retorno:</label>
+                            <input type="text" class="field-input editable date-field" id="fecha-retorno" placeholder="DD/MM/AAAA">
+                        </div>
+                    </div>
+                    
+                    <div class="form-field" style="margin-top: 20px;">
+                        <label class="field-label">Días de vacaciones solicitados:</label>
+                        <input type="text" class="field-input readonly" id="dias-vacaciones" placeholder="Número de días" readonly>
+                    </div>
+                </div>
+                
+                <!-- Firmas -->
+                <div class="signature-area">
+                    <div class="signature-grid">
+                        <div class="signature-box">
+                            <div class="signature-line"></div>
+                            <div class="signature-label">Firma del trabajador</div>
+                        </div>
+                        
+                        <div class="signature-box">
+                            <div class="signature-line"></div>
+                            <div class="signature-label">Autorizado por</div>
+                            <input type="text" class="field-input editable" id="autorizado-por" placeholder="Nombre del autorizador" style="margin-top: 10px; text-align: center;">
+                        </div>
+                    </div>
+                    
+                    <div class="signature-grid" style="margin-top: 40px;">
+                        <div class="signature-box">
+                            <div class="signature-line"></div>
+                            <div class="signature-label">Jefe/Gerente del área</div>
+                        </div>
+                        
+                        <div class="signature-box">
+                            <div class="signature-line"></div>
+                            <div class="signature-label">Recursos Humanos</div>
+                            <input type="text" class="field-input editable" id="recursos-humanos" placeholder="Nombre RRHH" style="margin-top: 10px; text-align: center;">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Botones de ação -->
+                <div class="action-buttons">
+                    <button class="btn edit-btn" id="toggleEditBtn">📝 Habilitar Edición</button>
+                    <button class="btn download-btn" id="downloadBtn">💾 Descargar PDF</button>
+                    <button class="btn print-btn" onclick="window.print()">📄 Imprimir Solicitud</button>
+                </div>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-RRHH-05 | Revisión: 001 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar campos de fecha
+            const dateFields = document.querySelectorAll('.date-field');
+            dateFields.forEach(field => {
+                field.addEventListener('focus', function() {
+                    this.type = 'date';
+                });
+                
+                field.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.type = 'text';
+                    }
+                });
+                
+                field.addEventListener('change', function() {
+                    if (this.value) {
+                        const date = new Date(this.value);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        this.value = `${day}/${month}/${year}`;
+                        
+                        // Calcular días de vacaciones si es necesario
+                        calcularDiasVacaciones();
+                        sincronizarFechas();
+                    }
+                });
+            });
+            
+            // Sincronizar campos de nombre
+            const nombreTrabajador = document.getElementById('nombre-trabajador');
+            const nombreTexto = document.getElementById('nombre-trabajador-texto');
+            
+            nombreTrabajador.addEventListener('input', function() {
+                nombreTexto.value = nombreTrabajador.value;
+                saveData();
+            });
+            
+            nombreTexto.addEventListener('input', function() {
+                nombreTrabajador.value = nombreTexto.value;
+                saveData();
+            });
+            
+            // Sincronizar campos de fecha
+            function sincronizarFechas() {
+                const fechaInicio = document.getElementById('fecha-inicio');
+                const fechaFin = document.getElementById('fecha-fin');
+                const fechaRetorno = document.getElementById('fecha-retorno');
+                
+                // Sincronizar con campos del texto
+                const desdeFecha = document.getElementById('desde-fecha');
+                const hastaFecha = document.getElementById('hasta-fecha');
+                const retornoFecha = document.getElementById('retorno-fecha');
+                
+                if (fechaInicio && desdeFecha && fechaInicio.value) {
+                    desdeFecha.value = fechaInicio.value;
+                }
+                
+                if (fechaFin && hastaFecha && fechaFin.value) {
+                    hastaFecha.value = fechaFin.value;
+                }
+                
+                if (fechaRetorno && retornoFecha && fechaRetorno.value) {
+                    retornoFecha.value = fechaRetorno.value;
+                }
+                
+                calcularDiasVacaciones();
+                saveData();
+            }
+            
+            // Sincronizar en ambas direcciones
+            document.getElementById('fecha-inicio').addEventListener('input', function() {
+                document.getElementById('desde-fecha').value = this.value;
+                calcularDiasVacaciones();
+                saveData();
+            });
+            
+            document.getElementById('fecha-fin').addEventListener('input', function() {
+                document.getElementById('hasta-fecha').value = this.value;
+                calcularDiasVacaciones();
+                saveData();
+            });
+            
+            document.getElementById('fecha-retorno').addEventListener('input', function() {
+                document.getElementById('retorno-fecha').value = this.value;
+                saveData();
+            });
+            
+            document.getElementById('desde-fecha').addEventListener('input', function() {
+                document.getElementById('fecha-inicio').value = this.value;
+                calcularDiasVacaciones();
+                saveData();
+            });
+            
+            document.getElementById('hasta-fecha').addEventListener('input', function() {
+                document.getElementById('fecha-fin').value = this.value;
+                calcularDiasVacaciones();
+                saveData();
+            });
+            
+            document.getElementById('retorno-fecha').addEventListener('input', function() {
+                document.getElementById('fecha-retorno').value = this.value;
+                saveData();
+            });
+            
+            // Calcular días de vacaciones
+            function calcularDiasVacaciones() {
+                const fechaInicio = document.getElementById('fecha-inicio');
+                const fechaFin = document.getElementById('fecha-fin');
+                const diasVacaciones = document.getElementById('dias-vacaciones');
+                
+                if (fechaInicio.value && fechaFin.value) {
+                    try {
+                        // Convertir fechas a formato válido
+                        const inicioParts = fechaInicio.value.split('/');
+                        const finParts = fechaFin.value.split('/');
+                        
+                        if (inicioParts.length === 3 && finParts.length === 3) {
+                            const inicioDate = new Date(`${inicioParts[2]}-${inicioParts[1]}-${inicioParts[0]}`);
+                            const finDate = new Date(`${finParts[2]}-${finParts[1]}-${finParts[0]}`);
+                            
+                            // Calcular diferencia en días
+                            const diffTime = Math.abs(finDate - inicioDate);
+                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                            
+                            if (!isNaN(diffDays) && diffDays > 0) {
+                                diasVacaciones.value = `${diffDays} días`;
+                                saveData();
+                            }
+                        }
+                    } catch (e) {
+                        // Error silencioso
+                    }
+                }
+            }
+            
+            // Control de edição
+            const editBtn = document.getElementById('toggleEditBtn');
+            let editMode = false;
+            
+            editBtn.addEventListener('click', function() {
+                editMode = !editMode;
+                
+                if (editMode) {
+                    // Ativar modo edição
+                    this.textContent = '🔒 Deshabilitar Edición';
+                    this.classList.remove('edit-btn');
+                    this.classList.add('print-btn');
+                    
+                    // Habilitar todos os campos editáveis
+                    document.querySelectorAll('.editable').forEach(field => {
+                        field.removeAttribute('readonly');
+                        field.removeAttribute('disabled');
+                        field.classList.add('editing-mode');
+                    });
+                    
+                    // Adicionar classe ao container para indicar modo edição
+                    document.querySelector('.document-container').classList.add('editing-mode');
+                    
+                } else {
+                    // Desativar modo edição
+                    this.textContent = '📝 Habilitar Edición';
+                    this.classList.remove('print-btn');
+                    this.classList.add('edit-btn');
+                    
+                    // Remover classe de edição
+                    document.querySelectorAll('.editable').forEach(field => {
+                        field.classList.remove('editing-mode');
+                    });
+                    
+                    // Remover classe do container
+                    document.querySelector('.document-container').classList.remove('editing-mode');
+                }
+            });
+            
+            // Download como PDF
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            downloadBtn.addEventListener('click', function() {
+                // Verificar se as bibliotecas estão disponíveis
+                if (typeof html2canvas === 'undefined' || typeof jsPDF === 'undefined') {
+                    // Mostrar mensagem discreta
+                    const message = document.createElement('div');
+                    message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #4a5568; color: white; padding: 15px; border-radius: 5px; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 300px;';
+                    message.innerHTML = `
+                        <p style="margin: 0 0 10px 0; font-weight: bold;">Para descargar como PDF:</p>
+                        <div style="font-size: 12px; line-height: 1.4;">
+                            <p style="margin: 0 0 5px 0;">Agregar estas librerías:</p>
+                            <code style="display: block; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 11px;">
+                                &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"&gt;&lt;/script&gt;
+                            </code>
+                            <code style="display: block; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 3px; margin-bottom: 10px; font-size: 11px;">
+                                &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"&gt;&lt;/script&gt;
+                            </code>
+                        </div>
+                        <button onclick="this.parentElement.remove()" style="background: white; color: #4a5568; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 12px;">Cerrar</button>
+                    `;
+                    document.body.appendChild(message);
+                    
+                    // Remover após 10 segundos
+                    setTimeout(() => {
+                        if (message.parentElement) {
+                            message.remove();
+                        }
+                    }, 10000);
+                    
+                    // Usar impressão como fallback
+                    setTimeout(() => {
+                        window.print();
+                    }, 100);
+                    
+                    return;
+                }
+                
+                // Desativar temporariamente o modo de edição para impressão
+                const wasEditMode = editMode;
+                if (editMode) {
+                    editMode = false;
+                    editBtn.click();
+                }
+                
+                // Usar html2canvas para capturar o conteúdo
+                html2canvas(document.querySelector('.document-container')).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    pdf.save('FORM-RRHH-05-Solicitud-de-Vacaciones.pdf');
+                    
+                    // Restaurar modo de edição se estava ativo
+                    if (wasEditMode) {
+                        setTimeout(() => {
+                            editMode = true;
+                            editBtn.click();
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Salvar dados localmente
+            function saveData() {
+                const formData = {
+                    fechaSolicitud: document.getElementById('fecha-solicitud').value,
+                    areaDepartamento: document.getElementById('area-departamento').value,
+                    jefeGerente: document.getElementById('jefe-gerente').value,
+                    nombreTrabajador: document.getElementById('nombre-trabajador').value,
+                    nombreTrabajadorTexto: document.getElementById('nombre-trabajador-texto').value,
+                    periodoVacaciones: document.getElementById('periodo-vacaciones').value,
+                    desdeFecha: document.getElementById('desde-fecha').value,
+                    hastaFecha: document.getElementById('hasta-fecha').value,
+                    retornoFecha: document.getElementById('retorno-fecha').value,
+                    cedulaIdentidad: document.getElementById('cedula-identidad').value,
+                    fechaInicio: document.getElementById('fecha-inicio').value,
+                    fechaFin: document.getElementById('fecha-fin').value,
+                    fechaRetorno: document.getElementById('fecha-retorno').value,
+                    diasVacaciones: document.getElementById('dias-vacaciones').value,
+                    autorizadoPor: document.getElementById('autorizado-por').value,
+                    recursosHumanos: document.getElementById('recursos-humanos').value
+                };
+                
+                localStorage.setItem('FORM-RRHH-05-data', JSON.stringify(formData));
+            }
+            
+            // Carregar dados salvos
+            function loadData() {
+                const savedData = localStorage.getItem('FORM-RRHH-05-data');
+                if (savedData) {
+                    const formData = JSON.parse(savedData);
+                    
+                    Object.keys(formData).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = formData[key];
+                        }
+                    });
+                }
+            }
+            
+            // Auto-salvar quando o usuário digita
+            document.querySelectorAll('.editable').forEach(field => {
+                field.addEventListener('input', saveData);
+            });
+            
+            // Establecer fecha actual por defecto
+            const fechaSolicitud = document.getElementById('fecha-solicitud');
+            if (fechaSolicitud && !fechaSolicitud.value) {
+                const hoy = new Date();
+                const dia = String(hoy.getDate()).padStart(2, '0');
+                const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+                const año = hoy.getFullYear();
+                fechaSolicitud.value = `${dia}/${mes}/${año}`;
+                saveData();
+            }
+            
+            // Establecer periodo actual por defecto
+            const periodoVacaciones = document.getElementById('periodo-vacaciones');
+            if (periodoVacaciones && !periodoVacaciones.value) {
+                const hoy = new Date();
+                const añoActual = hoy.getFullYear();
+                const añoSiguiente = añoActual + 1;
+                periodoVacaciones.value = `${añoActual}-${añoSiguiente}`;
+                saveData();
+            }
+            
+            // Carregar dados ao iniciar
+            loadData();
+            
+            // Calcular días de vacaciones al cargar
+            calcularDiasVacaciones();
+            
+            // Inicializar tooltip para botões
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

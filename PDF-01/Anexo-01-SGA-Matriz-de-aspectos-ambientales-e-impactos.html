@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexo 01 - Matriz de Aspectos Ambientales e Impactos - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2d5a27;
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d5a27;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2d5a27;
+            margin: 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        /* Controles de edición */
+        .edit-controls {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .edit-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .export-btn {
+            background-color: #d69e2e;
+        }
+        
+        .export-btn:hover {
+            background-color: #b7791f;
+        }
+        
+        .import-btn {
+            background-color: #718096;
+        }
+        
+        .import-btn:hover {
+            background-color: #4a5568;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        /* Estilos para modo edición */
+        .editable {
+            min-height: 50px;
+            padding: 15px;
+            border: 2px dashed transparent;
+            transition: border-color 0.3s;
+            border-radius: 3px;
+        }
+        
+        .editable:hover {
+            border-color: #cbd5e0;
+        }
+        
+        .editing .editable {
+            border-color: #4299e1;
+            background-color: #ebf8ff;
+        }
+        
+        .editing .editable:focus {
+            outline: none;
+            border-color: #3182ce;
+            background-color: #bee3f8;
+        }
+        
+        /* Estilos específicos para tabla */
+        .matrix-container {
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+        }
+        
+        .matrix-table th {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: bold;
+            padding: 15px 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+        }
+        
+        .matrix-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .matrix-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .matrix-table tr:hover {
+            background-color: #e8f5e8;
+        }
+        
+        .impact-positive {
+            color: #2d5a27;
+            font-weight: bold;
+            background-color: #e8f5e8;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        
+        .impact-negative {
+            color: #c53030;
+            font-weight: bold;
+            background-color: #fed7d7;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        
+        .probability-high {
+            color: #c53030;
+            font-weight: bold;
+        }
+        
+        .probability-medium {
+            color: #d69e2e;
+            font-weight: bold;
+        }
+        
+        .probability-low {
+            color: #38a169;
+            font-weight: bold;
+        }
+        
+        .magnitude-high {
+            color: #c53030;
+            font-weight: bold;
+        }
+        
+        .magnitude-medium {
+            color: #d69e2e;
+            font-weight: bold;
+        }
+        
+        .magnitude-low {
+            color: #38a169;
+            font-weight: bold;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            color: #2d5a27;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .explanation-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #2d5a27;
+        }
+        
+        .explanation-title {
+            color: #2d5a27;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .explanation-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .explanation-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .explanation-list li:before {
+            content: "•";
+            color: #2d5a27;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .methodology-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2d5a27;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2d5a27;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .print-btn {
+            background-color: #2d5a27;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #22561e;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #38a169;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 300px;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.error {
+            background-color: #e53e3e;
+        }
+        
+        .notification.info {
+            background-color: #3182ce;
+        }
+        
+        .page-break {
+            page-break-before: always;
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 2px solid #2d5a27;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .edit-controls {
+                display: none;
+            }
+            
+            .editable {
+                border: none !important;
+                background-color: transparent !important;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .matrix-table {
+                page-break-inside: avoid;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .matrix-table {
+                font-size: 12px;
+            }
+            
+            .matrix-table th, .matrix-table td {
+                padding: 8px 10px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .edit-controls {
+                position: static;
+                margin-bottom: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .matrix-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="documentContainer">
+        <!-- Controles de edición -->
+        <div class="edit-controls">
+            <button class="edit-btn" id="editBtn">
+                <span>✏️</span> EDITAR CONTENIDO
+            </button>
+            <button class="edit-btn save-btn" id="saveBtn">
+                <span>💾</span> GUARDAR
+            </button>
+            <button class="edit-btn export-btn" id="exportBtn">
+                <span>📤</span> EXPORTAR HTML
+            </button>
+            <button class="edit-btn import-btn" id="importBtn">
+                <span>📥</span> CARGAR HTML
+            </button>
+            <input type="file" id="fileInput" class="file-input" accept=".html">
+        </div>
+        
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo" id="logoImg">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span id="current-date">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title" id="docTitle">Matriz de Aspectos Ambientales e Impactos Asociados</div>
+        <div class="doc-code" id="docCode">Código: <span id="docCodeValue">ANEXO-01</span></div>
+        
+        <!-- Conteúdo principal (editável) -->
+        <div class="content" id="contentArea">
+            <!-- Página 1 (completa) -->
+            <div class="section">
+                <div class="section-title editable" id="matrixTitle">Matriz de Aspectos Ambientales e Impactos Asociados</div>
+                
+                <div class="matrix-container">
+                    <table class="matrix-table editable" id="environmentalMatrix">
+                        <thead>
+                            <tr>
+                                <th>Actividad / Proceso</th>
+                                <th>Aspecto Ambiental</th>
+                                <th>Impacto Potencial</th>
+                                <th>Impacto Positivo/Negativo</th>
+                                <th>Probabilidad</th>
+                                <th>Magnitud</th>
+                                <th>Temporalidad</th>
+                                <th>Mitigación Propuesta / Potenciación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Página 1: Producción (Operación General) -->
+                            <tr>
+                                <td rowspan="7">1. Producción (Operación General)</td>
+                                <td>Consumo de energía eléctrica</td>
+                                <td>Agotamiento de recursos energéticos no renovables, emisiones de CO₂</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Uso de energías renovables, optimización del consumo</td>
+                            </tr>
+                            <tr>
+                                <td>Implementación de energías renovables</td>
+                                <td>Reducción significativa de gases de efecto invernadero y dependencia energética</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Expansión de uso de energías limpias y renovables</td>
+                            </tr>
+                            <tr>
+                                <td>Emisiones a la atmósfera (CO₂, NOx, SOx)</td>
+                                <td>Contaminación atmosférica, efecto invernadero, cambio climático</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Instalación de filtros, energías limpias</td>
+                            </tr>
+                            <tr>
+                                <td>Innovación tecnológica en procesos</td>
+                                <td>Mejora en eficiencia y reducción del consumo de materiales</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Promover HD en tecnologías limpias</td>
+                            </tr>
+                            <tr>
+                                <td>Generación de ruido</td>
+                                <td>Afectación a la fauna, molestias a la comunidad</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Temporal</td>
+                                <td>Pantallas acústicas, límites de operación</td>
+                            </tr>
+                            <tr>
+                                <td>Creación de barreras acústicas naturales</td>
+                                <td>Conservación y promoción de biodiversidad local</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-low">Baja</span></td>
+                                <td><span class="magnitude-low">Baja</span></td>
+                                <td>Permanente</td>
+                                <td>Plantación de árboles y zonas verdes</td>
+                            </tr>
+                            <tr>
+                                <td>Generación de calor residual</td>
+                                <td>Alteración de microclimas locales</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-low">Baja</span></td>
+                                <td><span class="magnitude-low">Baja</span></td>
+                                <td>Temporal</td>
+                                <td>Recuperación de calor para procesos industriales</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Página 2 -->
+            <div class="page-break">
+                <div class="matrix-container">
+                    <table class="matrix-table editable">
+                        <tbody>
+                            <!-- Página 2: Gestión de residuos sólidos (continúa) -->
+                            <tr>
+                                <td rowspan="6">2. Gestión de residuos sólidos</td>
+                                <td>Aprovechamiento de calor residual</td>
+                                <td>Uso eficiente de energía en otros procesos, ahorro energético</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Temporal</td>
+                                <td>Sistemas de cogeneración o reutilización del calor</td>
+                            </tr>
+                            <tr>
+                                <td>Generación de residuos peligrosos (químicos, solventes)</td>
+                                <td>Contaminación de suelos y aguas, afectación a la salud humana</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Almacenamiento seguro, reciclaje, eliminación controlada</td>
+                            </tr>
+                            <tr>
+                                <td>Programas de reciclaje comunitarios</td>
+                                <td>Generación de empleo local y concienciación ambiental</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Fomentar alianzas con cooperativas y educación</td>
+                            </tr>
+                            <tr>
+                                <td>Generación de residuos no peligrosos (papel, plástico)</td>
+                                <td>Incremento de residuos, sobrecarga de rellenos sanitarios</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Programas de reciclaje, minimización de residuos</td>
+                            </tr>
+                            <tr>
+                                <td>Reutilización creativa de materiales</td>
+                                <td>Desarrollo de productos sustentables y economía circular</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Incentivar proyectos de diseño sostenible</td>
+                            </tr>
+                            <tr>
+                                <td>Consumo de agua potable</td>
+                                <td>Agotamiento de recursos hídricos</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Reducción del consumo, reutilización de aguas grises</td>
+                            </tr>
+                            
+                            <!-- Página 2: Uso del agua -->
+                            <tr>
+                                <td rowspan="4">3. Uso del agua</td>
+                                <td>Implementación de sistemas de captación de agua de lluvia</td>
+                                <td>Aumento de la disponibilidad hídrica y disminución de presión sobre acuíferos</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Instalación de sistemas de captación en instalaciones</td>
+                            </tr>
+                            <tr>
+                                <td>Vertimiento de aguas residuales</td>
+                                <td>Contaminación de cuerpos de agua, eutrofización</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Tratamiento de aguas residuales antes del vertido</td>
+                            </tr>
+                            <tr>
+                                <td>Promoción de prácticas agrícolas sostenibles</td>
+                                <td>Mejor mantenimiento de la calidad del suelo y ciclos hídricos</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Capacitación en buenas prácticas agrícolas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Página 3 -->
+            <div class="page-break">
+                <div class="matrix-container">
+                    <table class="matrix-table editable">
+                        <tbody>
+                            <!-- Página 3: Transporte -->
+                            <tr>
+                                <td rowspan="4">4. Transporte</td>
+                                <td>Emisiones de vehículos (CO₂, NOx, SOx)</td>
+                                <td>Contaminación atmosférica, cambio climático</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Uso de vehículos eléctricos, optimización de rutas</td>
+                            </tr>
+                            <tr>
+                                <td>Uso de vehículos eléctricos y bicicletas</td>
+                                <td>Disminución del tráfico vehicular y mejora en salud pública</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Creación de infraestructura para transporte limpio</td>
+                            </tr>
+                            <tr>
+                                <td>Consumo de combustibles fósiles</td>
+                                <td>Agotamiento de recursos no renovables</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Uso de combustibles alternativos, tecnologías eficientes</td>
+                            </tr>
+                            <tr>
+                                <td>Optimización logística</td>
+                                <td>Reducción de tiempos de entrega y costos operativos</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Implementación de software de gestión logística</td>
+                            </tr>
+                            
+                            <!-- Página 3: Mantenimiento de equipos -->
+                            <tr>
+                                <td rowspan="3">5. Mantenimiento de equipos</td>
+                                <td>Uso de productos químicos</td>
+                                <td>Contaminación del aire, suelos y aguas</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Temporal</td>
+                                <td>Uso de productos biodegradables, manejo adecuado</td>
+                            </tr>
+                            <tr>
+                                <td>Capacitación en manejo de productos biodegradables</td>
+                                <td>Mayor seguridad laboral y reducción de impactos ambientales</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Temporal</td>
+                                <td>Programas de formación continua</td>
+                            </tr>
+                            <tr>
+                                <td>Uso eficiente de recursos en mantenimiento</td>
+                                <td>Menor generación de residuos y ahorro en costos</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Temporal</td>
+                                <td>Auditorías periódicas de consumo y residuos</td>
+                            </tr>
+                            
+                            <!-- Página 3: Almacenamiento de materiales -->
+                            <tr>
+                                <td rowspan="2">6. Almacenamiento de materiales</td>
+                                <td>Riesgo de derrames de materiales peligrosos</td>
+                                <td>Contaminación del suelo y cuerpos de agua, afectación a la biodiversidad</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Temporal</td>
+                                <td>Contención secundaria, medidas de prevención</td>
+                            </tr>
+                            <tr>
+                                <td>Implementación de sistemas de monitoreo</td>
+                                <td>Prevención efectiva de accidentes y derrames</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Inversión en tecnologías de detección temprana</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Página 4 -->
+            <div class="page-break">
+                <div class="matrix-container">
+                    <table class="matrix-table editable">
+                        <tbody>
+                            <!-- Página 4: Operaciones de carga/descarga -->
+                            <tr>
+                                <td rowspan="2">7. Operaciones de carga/descarga</td>
+                                <td>Almacenamiento organizado y etiquetado</td>
+                                <td>Facilita gestión eficiente y reducción de pérdidas</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Protocolos de gestión y capacitación del personal</td>
+                            </tr>
+                            <tr>
+                                <td>Emisiones fugitivas de polvo</td>
+                                <td>Afectación a la calidad del aire, impacto en la salud respiratoria</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Temporal</td>
+                                <td>Sistemas de control de polvo, encapsulamiento</td>
+                            </tr>
+                            
+                            <!-- Página 4: Uso de materias primas -->
+                            <tr>
+                                <td rowspan="7">8. Uso de materias primas</td>
+                                <td>Automatización de procesos</td>
+                                <td>Mayor seguridad, reducción de errores y tiempos de operación</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Inversión en tecnologías automatizadas</td>
+                            </tr>
+                            <tr>
+                                <td>Derrames accidentales de mercancías</td>
+                                <td>Contaminación de suelos y aguas</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Temporal</td>
+                                <td>Planes de contingencia y respuesta rápida</td>
+                            </tr>
+                            <tr>
+                                <td>Programas de seguridad y bienestar laboral</td>
+                                <td>Mejora en condiciones de trabajo y reducción de accidentes</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Implementar políticas de seguridad y salud ocupacional</td>
+                            </tr>
+                            <tr>
+                                <td>Consumo de recursos naturales</td>
+                                <td>Agotamiento de recursos, pérdida de biodiversidad</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Uso de materias primas recicladas o sostenibles</td>
+                            </tr>
+                            <tr>
+                                <td>Uso de materiales certificados sostenibles</td>
+                                <td>Conservación de ecosistemas y acceso a mercados responsables</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-high">Alta</span></td>
+                                <td><span class="magnitude-high">Alta</span></td>
+                                <td>Permanente</td>
+                                <td>Fomento de certificaciones ambientales</td>
+                            </tr>
+                            <tr>
+                                <td>Generación de subproductos</td>
+                                <td>Incremento de residuos, impacto sobre el suelo</td>
+                                <td><span class="impact-negative">Negativo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Reutilización de subproductos, economía circular</td>
+                            </tr>
+                            <tr>
+                                <td>Desarrollo de proveedores locales</td>
+                                <td>Fortalecimiento económico regional y reducción de huella logística</td>
+                                <td><span class="impact-positive">Positivo</span></td>
+                                <td><span class="probability-medium">Media</span></td>
+                                <td><span class="magnitude-medium">Moderada</span></td>
+                                <td>Permanente</td>
+                                <td>Promover compras locales y alianzas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Explicación de los Campos (Página 5 del PDF) -->
+            <div class="page-break">
+                <div class="explanation-box editable" id="fieldExplanation">
+                    <div class="explanation-title">Explicación de los Campos</div>
+                    <ol class="explanation-list">
+                        <li><strong>Actividad / Proceso:</strong> Se refiere a la actividad específica dentro de la empresa que genera un aspecto ambiental (ej., producción, uso de agua, transporte).</li>
+                        <li><strong>Aspecto Ambiental:</strong> Describe el elemento de la actividad que puede tener un impacto en el ambiente (ej., consumo de energía, emisiones atmosféricas, residuos generados).</li>
+                        <li><strong>Impacto Potencial:</strong> Describe los efectos negativos o positivos sobre el medio ambiente asociados con el aspecto ambiental (ej., contaminación del aire, agotamiento de recursos).</li>
+                        <li><strong>Impacto Positivo/Negativo:</strong> Clasifica el impacto como positivo o negativo.</li>
+                        <li><strong>Probabilidad:</strong> Evalúa qué tan probable es que ocurra el impacto (Baja, Media, Alta).</li>
+                        <li><strong>Magnitud:</strong> Se refiere al nivel de gravedad del impacto en el ambiente (Baja, Moderada, Alta).</li>
+                        <li><strong>Temporalidad:</strong> Indica si el impacto es temporal, permanente, o intermitente.</li>
+                        <li><strong>Mitigación Propuesta:</strong> Propone las medidas para minimizar, eliminar, o compensar el impacto identificado.</li>
+                    </ol>
+                </div>
+                
+                <!-- Metodología (Página 5 del PDF) -->
+                <div class="methodology-box editable" id="methodologySection">
+                    <div class="explanation-title">Metodología para la Evaluación de Aspectos e Impactos</div>
+                    <p>Para evaluar la importancia de cada aspecto ambiental, se pueden utilizar criterios como la magnitud, probabilidad, y temporalidad para priorizar la implementación de medidas de mitigación. Esta matriz proporciona una herramienta de diagnóstico clave dentro del proceso de Evaluación de Impacto Ambiental y puede ajustarse según las particularidades de cada empresa o industria.</p>
+                </div>
+            </div>
+            
+            <!-- Historial de Versiones (Página 5 del PDF) -->
+            <div class="version-history" id="historial">
+                <div class="section-title editable" id="versionTitle">Historial de Versiones</div>
+                <div class="table-container editable" id="versionTable">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                            <!-- Filas vacías del PDF -->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p id="footerText">Código: <span id="footerCode">ANEXO-01</span> | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+    
+    <!-- Notificación -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Variables globales
+        let isEditing = false;
+        let currentDocCode = 'ANEXO-01';
+        let storageKey = 'sgi_document_ANEXO-01';
+        
+        // Elementos DOM
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const importBtn = document.getElementById('importBtn');
+        const fileInput = document.getElementById('fileInput');
+        const contentArea = document.getElementById('contentArea');
+        const docTitle = document.getElementById('docTitle');
+        const docCode = document.getElementById('docCodeValue');
+        const footerCode = document.getElementById('footerCode');
+        const notification = document.getElementById('notification');
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar logo
+            const logoImg = document.getElementById('logoImg');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232d5a27" dy="5">LOGO ORGANIZACIÓN</text></svg>';
+            };
+            
+            // Configurar fecha (siempre 01.12.2024 según requisito)
+            document.getElementById('current-date').textContent = '01.12.2024';
+            
+            // Cargar documento guardado si existe
+            loadSavedDocument();
+            
+            // Configurar eventos
+            editBtn.addEventListener('click', toggleEditMode);
+            saveBtn.addEventListener('click', saveDocument);
+            exportBtn.addEventListener('click', exportToHTML);
+            importBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', importFromHTML);
+            
+            // Configurar todas las tablas como editables
+            setupAllTables();
+        });
+        
+        // Configurar edición de todas las tablas
+        function setupAllTables() {
+            const allTables = document.querySelectorAll('.matrix-table');
+            allTables.forEach(table => {
+                // Añadir clase editable a todas las celdas de la tabla
+                const tableCells = table.querySelectorAll('td');
+                tableCells.forEach(cell => {
+                    // No hacer editables las celdas con rowspan (primera columna)
+                    if (!cell.hasAttribute('rowspan')) {
+                        cell.classList.add('editable');
+                    }
+                });
+            });
+        }
+        
+        // Alternar modo edición
+        function toggleEditMode() {
+            isEditing = !isEditing;
+            
+            if (isEditing) {
+                // Activar modo edición
+                contentArea.classList.add('editing');
+                editBtn.innerHTML = '<span>🚫</span> CANCELAR EDICIÓN';
+                editBtn.style.backgroundColor = '#e53e3e';
+                
+                // Hacer todos los elementos editables
+                const editableElements = contentArea.querySelectorAll('.editable');
+                editableElements.forEach(element => {
+                    element.setAttribute('contenteditable', 'true');
+                    
+                    // Para celdas de tabla con clases específicas, mantener el formato
+                    if (element.classList.contains('impact-positive') || 
+                        element.classList.contains('impact-negative') ||
+                        element.classList.contains('probability-high') ||
+                        element.classList.contains('probability-medium') ||
+                        element.classList.contains('probability-low') ||
+                        element.classList.contains('magnitude-high') ||
+                        element.classList.contains('magnitude-medium') ||
+                        element.classList.contains('magnitude-low')) {
+                        // Mantener el texto sin las etiquetas span al editar
+                        const originalText = element.textContent;
+                        element.innerHTML = originalText;
+                    }
+                });
+                
+                showNotification('Modo edición activado. Puede editar el contenido de la tabla y texto.', 'info');
+            } else {
+                // Desactivar modo edición
+                contentArea.classList.remove('editing');
+                editBtn.innerHTML = '<span>✏️</span> EDITAR CONTENIDO';
+                editBtn.style.backgroundColor = '#3182ce';
+                
+                // Quitar atributo contenteditable y restaurar formato
+                const editableElements = contentArea.querySelectorAll('.editable');
+                editableElements.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    
+                    // Restaurar formato para celdas especiales
+                    restoreCellFormatting(element);
+                });
+                
+                showNotification('Modo edición desactivado.', 'info');
+            }
+        }
+        
+        // Restaurar formato de celdas especiales
+        function restoreCellFormatting(cell) {
+            const text = cell.textContent.trim();
+            
+            // Restaurar formato de impacto
+            if (text.toLowerCase() === 'positivo') {
+                cell.innerHTML = '<span class="impact-positive">Positivo</span>';
+            } else if (text.toLowerCase() === 'negativo') {
+                cell.innerHTML = '<span class="impact-negative">Negativo</span>';
+            }
+            
+            // Restaurar formato de probabilidad
+            else if (text.toLowerCase() === 'alta') {
+                // Verificar si es columna de probabilidad o magnitud
+                const parentRow = cell.parentElement;
+                const cells = parentRow.children;
+                let isProbabilityColumn = false;
+                
+                // Buscar el índice de la celda
+                for (let i = 0; i < cells.length; i++) {
+                    if (cells[i] === cell) {
+                        // Asumir que probabilidad es la 4ta columna (índice 3 después del header)
+                        if (i === 4) { // Probabilidad
+                            cell.innerHTML = '<span class="probability-high">Alta</span>';
+                        } else if (i === 5) { // Magnitud
+                            cell.innerHTML = '<span class="magnitude-high">Alta</span>';
+                        }
+                        break;
+                    }
+                }
+            } else if (text.toLowerCase() === 'media') {
+                const parentRow = cell.parentElement;
+                const cells = parentRow.children;
+                
+                for (let i = 0; i < cells.length; i++) {
+                    if (cells[i] === cell) {
+                        if (i === 4) { // Probabilidad
+                            cell.innerHTML = '<span class="probability-medium">Media</span>';
+                        } else if (i === 5) { // Magnitud
+                            cell.innerHTML = '<span class="magnitude-medium">Moderada</span>';
+                        }
+                        break;
+                    }
+                }
+            } else if (text.toLowerCase() === 'baja') {
+                const parentRow = cell.parentElement;
+                const cells = parentRow.children;
+                
+                for (let i = 0; i < cells.length; i++) {
+                    if (cells[i] === cell) {
+                        if (i === 4) { // Probabilidad
+                            cell.innerHTML = '<span class="probability-low">Baja</span>';
+                        } else if (i === 5) { // Magnitud
+                            cell.innerHTML = '<span class="magnitude-low">Baja</span>';
+                        }
+                        break;
+                    }
+                }
+            } else if (text.toLowerCase() === 'moderada') {
+                cell.innerHTML = '<span class="magnitude-medium">Moderada</span>';
+            }
+        }
+        
+        // Guardar documento en LocalStorage
+        function saveDocument() {
+            if (!isEditing) {
+                showNotification('Active el modo edición antes de guardar.', 'error');
+                return;
+            }
+            
+            try {
+                // Primero desactivar edición temporalmente para capturar contenido
+                const wasEditing = isEditing;
+                if (wasEditing) {
+                    toggleEditMode();
+                }
+                
+                // Recopilar contenido de todas las tablas
+                const allTables = document.querySelectorAll('.matrix-table');
+                const tablesData = {};
+                
+                allTables.forEach((table, index) => {
+                    tablesData[`table_${index}`] = table.innerHTML;
+                });
+                
+                // Recopilar otros elementos editables
+                const otherEditableElements = contentArea.querySelectorAll('.editable:not(.matrix-table)');
+                const otherData = {};
+                
+                otherEditableElements.forEach((element, index) => {
+                    const id = element.id || `editable_${index}`;
+                    otherData[id] = element.innerHTML;
+                });
+                
+                // Combinar todos los datos
+                const contentData = {
+                    ...tablesData,
+                    ...otherData,
+                    docTitle: docTitle.textContent,
+                    docCode: docCode.textContent
+                };
+                
+                // Guardar en LocalStorage
+                localStorage.setItem(storageKey, JSON.stringify(contentData));
+                
+                // Reactivar edición si estaba activa
+                if (wasEditing) {
+                    setTimeout(() => toggleEditMode(), 100);
+                }
+                
+                showNotification('Documento guardado correctamente en el navegador.', 'success');
+            } catch (error) {
+                showNotification('Error al guardar el documento: ' + error.message, 'error');
+                console.error('Error al guardar:', error);
+            }
+        }
+        
+        // Cargar documento guardado
+        function loadSavedDocument() {
+            try {
+                const savedData = localStorage.getItem(storageKey);
+                if (savedData) {
+                    const contentData = JSON.parse(savedData);
+                    
+                    // Restaurar contenido de las tablas
+                    const allTables = document.querySelectorAll('.matrix-table');
+                    allTables.forEach((table, index) => {
+                        const tableKey = `table_${index}`;
+                        if (contentData[tableKey]) {
+                            table.innerHTML = contentData[tableKey];
+                        }
+                    });
+                    
+                    // Restaurar otros elementos editables
+                    for (const [key, content] of Object.entries(contentData)) {
+                        if (!key.startsWith('table_') && key !== 'docTitle' && key !== 'docCode') {
+                            const element = document.getElementById(key);
+                            if (element) {
+                                element.innerHTML = content;
+                            } else {
+                                // Buscar por clase o crear nuevo elemento si no existe
+                                const elements = document.querySelectorAll(`[id*="${key}"]`);
+                                if (elements.length > 0) {
+                                    elements[0].innerHTML = content;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Restaurar título y código si existen
+                    if (contentData.docTitle) {
+                        docTitle.textContent = contentData.docTitle;
+                    }
+                    
+                    if (contentData.docCode) {
+                        docCode.textContent = contentData.docCode;
+                        footerCode.textContent = contentData.docCode;
+                        currentDocCode = contentData.docCode;
+                        storageKey = `sgi_document_${contentData.docCode}`;
+                    }
+                    
+                    // Reconfigurar tablas después de cargar
+                    setupAllTables();
+                    
+                    showNotification('Documento cargado desde almacenamiento local.', 'info');
+                }
+            } catch (error) {
+                console.error('Error al cargar documento guardado:', error);
+            }
+        }
+        
+        // Exportar a archivo HTML
+        function exportToHTML() {
+            try {
+                // Crear clon del documento
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover funcionalidades de edición del clon
+                const editControls = docClone.querySelector('.edit-controls');
+                if (editControls) editControls.remove();
+                
+                const editableElements = docClone.querySelectorAll('.editable');
+                editableElements.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editable');
+                });
+                
+                // Obtener código del documento
+                const docCodeValue = docCode.textContent || 'ANEXO-01';
+                
+                // Crear blob y descargar
+                const htmlContent = docClone.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${docCodeValue}_Matriz_Ambiental_Completa_${getCurrentDateForFilename()}.html`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification(`Documento exportado como ${a.download}`, 'success');
+            } catch (error) {
+                showNotification('Error al exportar el documento: ' + error.message, 'error');
+                console.error('Error al exportar:', error);
+            }
+        }
+        
+        // Importar desde archivo HTML
+        function importFromHTML(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parser = new DOMParser();
+                    const importedDoc = parser.parseFromString(e.target.result, 'text/html');
+                    
+                    // Extraer contenido de todas las tablas
+                    const importedTables = importedDoc.querySelectorAll('.matrix-table');
+                    const currentTables = document.querySelectorAll('.matrix-table');
+                    
+                    importedTables.forEach((importedTable, index) => {
+                        if (currentTables[index]) {
+                            currentTables[index].innerHTML = importedTable.innerHTML;
+                        }
+                    });
+                    
+                    // Extraer otros elementos editables
+                    const editableElements = contentArea.querySelectorAll('.editable:not(.matrix-table)');
+                    
+                    editableElements.forEach(element => {
+                        const id = element.id;
+                        if (id) {
+                            const importedElement = importedDoc.getElementById(id);
+                            if (importedElement) {
+                                element.innerHTML = importedElement.innerHTML;
+                            }
+                        }
+                    });
+                    
+                    // Extraer título y código del documento
+                    const importedTitle = importedDoc.getElementById('docTitle');
+                    if (importedTitle) {
+                        docTitle.textContent = importedTitle.textContent;
+                    }
+                    
+                    const importedCode = importedDoc.getElementById('docCodeValue');
+                    if (importedCode) {
+                        const newCode = importedCode.textContent;
+                        docCode.textContent = newCode;
+                        footerCode.textContent = newCode;
+                        currentDocCode = newCode;
+                        storageKey = `sgi_document_${newCode}`;
+                    }
+                    
+                    // Reconfigurar tablas
+                    setupAllTables();
+                    
+                    // Limpiar input de archivo
+                    fileInput.value = '';
+                    
+                    showNotification('Documento importado correctamente.', 'success');
+                } catch (error) {
+                    showNotification('Error al importar el documento: ' + error.message, 'error');
+                    console.error('Error al importar:', error);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        // Mostrar notificación
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = 'notification';
+            notification.classList.add(type);
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Obtener fecha actual para nombre de archivo
+        function getCurrentDateForFilename() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+        
+        // Función para cambiar el código del documento
+        function changeDocumentCode(newCode) {
+            docCode.textContent = newCode;
+            footerCode.textContent = newCode;
+            currentDocCode = newCode;
+            storageKey = `sgi_document_${newCode}`;
+        }
+        
+        // Función para añadir nueva fila a la primera tabla
+        function addNewRow() {
+            const firstTable = document.querySelector('.matrix-table');
+            if (firstTable) {
+                const tbody = firstTable.querySelector('tbody');
+                const newRow = document.createElement('tr');
+                
+                newRow.innerHTML = `
+                    <td class="editable">Nueva Actividad</td>
+                    <td class="editable">Nuevo Aspecto Ambiental</td>
+                    <td class="editable">Nuevo Impacto Potencial</td>
+                    <td class="editable"><span class="impact-negative">Negativo</span></td>
+                    <td class="editable"><span class="probability-medium">Media</span></td>
+                    <td class="editable"><span class="magnitude-medium">Moderada</span></td>
+                    <td class="editable">Temporal</td>
+                    <td class="editable">Nueva medida de mitigación</td>
+                `;
+                
+                tbody.appendChild(newRow);
+                showNotification('Nueva fila añadida a la matriz.', 'info');
+            }
+        }
+        
+        // Exponer funciones globalmente
+        window.changeDocumentCode = changeDocumentCode;
+        window.saveDocument = saveDocument;
+        window.loadSavedDocument = loadSavedDocument;
+        window.addNewRow = addNewRow;
+    </script>
+</body>
+</html>

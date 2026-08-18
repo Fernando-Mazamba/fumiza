@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSC-004-SGE - Sistema de Gestión Integrado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .process-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .process-matrix th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+            width: 33.33%;
+        }
+        
+        .process-matrix td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+            width: 33.33%;
+        }
+        
+        .process-matrix tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .bullet-list {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 8px;
+        }
+        
+        .energy-section {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 5px;
+            padding: 25px;
+            margin-top: 25px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .energy-title {
+            color: #22543d;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #c6f6d5;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .indicator-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .indicator-table th, .indicator-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .indicator-table th {
+            background-color: #e2e8f0;
+        }
+        
+        .formula-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+        
+        .energy-factor-box {
+            background-color: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .process-matrix {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .process-matrix {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        001
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Procedimiento de Gestión de la Energía (SGE)</div>
+        <div class="doc-code">Código: PSC-004 | SGE</div>
+        
+        <!-- Panel de controles de edición -->
+        <div class="controls-panel" id="controlsPanel">
+            <button class="edit-btn" id="editContentBtn">EDITAR CONTENIDO</button>
+            <button class="action-btn secondary" id="saveBtn">GUARDAR EN NAVEGADOR</button>
+            <button class="action-btn" id="exportBtn">EXPORTAR COMO HTML</button>
+            <button class="action-btn secondary" id="loadBtn">CARGAR EDICIONES GUARDADAS</button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura activo</span>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content" id="mainContent">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo del Proceso</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance del Proceso</a></li>
+                    <li class="toc-item"><a href="#matriz" class="toc-link">Matriz del Proceso</a></li>
+                    <li class="toc-item"><a href="#recursos" class="toc-link">Recursos del Proceso</a></li>
+                    <li class="toc-item"><a href="#seguimiento" class="toc-link">Seguimiento e Indicadores</a></li>
+                    <li class="toc-item"><a href="#riesgos" class="toc-link">Análisis de Riesgos</a></li>
+                    <li class="toc-item"><a href="#oportunidades" class="toc-link">Análisis de Oportunidades</a></li>
+                    <li class="toc-item"><a href="#factores" class="toc-link">Factores de Energía Significativos</a></li>
+                    <li class="toc-item"><a href="#referencia" class="toc-link">Documentación de Referencia</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo del Proceso <span id="editIndicator1" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="objetivo-contenido">
+                    El objetivo del proceso de Gestión de la Energía (SGE) es establecer, implementar, mantener y mejorar un sistema de gestión energética conforme a la norma ISO 50001:2018. Este proceso busca optimizar el uso de la energía en todas las operaciones de la organización, reduciendo el consumo energético, minimizando los costos asociados y disminuyendo el impacto ambiental, al tiempo que se mejora el desempeño energético de manera continua.
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance del Proceso <span id="editIndicator2" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="alcance-contenido">
+                    Este proceso se aplica a todas las actividades, instalaciones y equipos que consumen energía dentro de la organización, incluyendo procesos productivos, edificios administrativos, sistemas de climatización, iluminación, equipos eléctricos, maquinaria industrial y sistemas de transporte interno. El alcance abarca todas las áreas operativas donde se identifiquen consumos energéticos significativos.
+                </div>
+            </div>
+            
+            <!-- Sección 3: Matriz del Proceso -->
+            <div class="section" id="matriz">
+                <div class="section-title">3. Matriz del Proceso <span id="editIndicator3" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description">
+                    La siguiente matriz describe el flujo del proceso de Gestión de la Energía:
+                </div>
+                
+                <table class="process-matrix">
+                    <thead>
+                        <tr>
+                            <th>ENTRADAS</th>
+                            <th>PROCEDIMIENTOS (ACTIVIDADES)</th>
+                            <th>SALIDAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="matriz-entrada-1">
+                                Política energética y objetivos de SGE
+                            </td>
+                            <td class="editable" id="matriz-actividad-1">
+                                <strong>Revisión Energética Inicial:</strong> Realizar análisis del consumo energético actual, identificación de áreas de uso significativo de energía (AUSE) y establecimiento de línea base energética.
+                            </td>
+                            <td class="editable" id="matriz-salida-1">
+                                <strong>Informe de Revisión Energética:</strong> Documento con análisis de consumos, AUSE identificadas y línea base establecida.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="matriz-entrada-2">
+                                Datos históricos de consumo energético
+                            </td>
+                            <td class="editable" id="matriz-actividad-2">
+                                <strong>Monitoreo y Medición de Energía:</strong> Implementar sistema de medición para seguimiento continuo de consumos energéticos en AUSE identificadas.
+                            </td>
+                            <td class="editable" id="matriz-salida-2">
+                                <strong>Registros de Medición Energética:</strong> Datos periódicos de consumo energético por fuente y área.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="matriz-entrada-3">
+                                Requisitos legales y normativos energéticos
+                            </td>
+                            <td class="editable" id="matriz-actividad-3">
+                                <strong>Identificación y Evaluación de Oportunidades de Mejora:</strong> Analizar datos para identificar oportunidades de ahorro energético y establecer planes de acción.
+                            </td>
+                            <td class="editable" id="matriz-salida-3">
+                                <strong>Plan de Acción Energético:</strong> Documento con oportunidades identificadas y acciones de mejora planificadas.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="matriz-entrada-4">
+                                Resultados de auditorías energéticas previas
+                            </td>
+                            <td class="editable" id="matriz-actividad-4">
+                                <strong>Implementación de Medidas de Eficiencia Energética:</strong> Ejecutar mejoras identificadas, como optimización de procesos, mantenimiento preventivo, sustitución de equipos y cambios operativos.
+                            </td>
+                            <td class="editable" id="matriz-salida-4">
+                                <strong>Informes de Implementación:</strong> Evidencia de implementación de medidas de eficiencia energética.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="matriz-entrada-5">
+                                Expectativas de partes interesadas
+                            </td>
+                            <td class="editable" id="matriz-actividad-5">
+                                <strong>Revisión por la Dirección y Mejora Continua:</strong> Evaluar desempeño energético, revisar objetivos y políticas, y definir acciones de mejora continua.
+                            </td>
+                            <td class="editable" id="matriz-salida-5">
+                                <strong>Acta de Revisión por la Dirección:</strong> Documentación de decisiones y acciones de mejora establecidas.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Recursos -->
+            <div class="section" id="recursos">
+                <div class="section-title">4. Recursos del Proceso <span id="editIndicator4" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="subsection-title">4.1 Recursos Necesarios</div>
+                <div class="section-description editable" id="recursos-contenido">
+                    Para la ejecución del proceso de Gestión de la Energía se requiere:
+                </div>
+                <ul class="bullet-list editable" id="recursos-lista">
+                    <li><strong>Recursos Humanos:</strong> Equipo de gestión energética, personal capacitado en eficiencia energética y responsables de áreas operativas.</li>
+                    <li><strong>Recursos Tecnológicos:</strong> Sistemas de medición y monitoreo energético (medidores, sensores, software de gestión), equipos de análisis energético.</li>
+                    <li><strong>Recursos Materiales:</strong> Equipos de eficiencia energética (iluminación LED, motores de alta eficiencia, sistemas de control), materiales para aislamiento térmico.</li>
+                    <li><strong>Recursos Financieros:</strong> Presupuesto asignado para inversiones en eficiencia energética, auditorías y capacitación.</li>
+                </ul>
+                
+                <div class="subsection-title">4.2 Responsables</div>
+                <ul class="bullet-list editable" id="responsables-lista">
+                    <li><strong>Responsable de SGE (Energía):</strong> Lidera la implementación del sistema de gestión energética, coordina el equipo energético y reporta a la dirección.</li>
+                    <li><strong>Equipo de Gestión Energética:</strong> Grupo multidisciplinario responsable de implementar medidas de eficiencia y monitorear el desempeño energético.</li>
+                    <li><strong>Supervisores de Área:</strong> Implementan medidas de eficiencia energética en sus respectivas áreas operativas y reportan consumos.</li>
+                    <li><strong>Alta Gerencia:</strong> Establece la política energética, aprueba recursos y objetivos, y revisa el desempeño del SGE.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 5: Seguimiento e Indicadores -->
+            <div class="section" id="seguimiento">
+                <div class="section-title">5. Seguimiento e Indicadores <span id="editIndicator5" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                <div class="section-description editable" id="seguimiento-contenido">
+                    El proceso de SGE incluye los siguientes mecanismos de seguimiento y medición:
+                </div>
+                
+                <ul class="bullet-list editable" id="seguimiento-lista">
+                    <li><strong>Consumo Energético Total (kWh/año):</strong> Medición del consumo total de energía por tipo de fuente (eléctrica, térmica, combustible).</li>
+                    <li><strong>Intensidad Energética (kWh/unidad producida):</strong> Relación entre consumo energético y unidad de producción o servicio.</li>
+                    <li><strong>Indicador de Desempeño Energético (EnPI):</strong> Medida del desempeño energético normalizado según variables relevantes.</li>
+                    <li><strong>Auditorías Energéticas Periódicas:</strong> Evaluación sistemática del uso de la energía y oportunidades de mejora.</li>
+                </ul>
+                
+                <div class="subsection-title">5.1 Indicadores Clave de Desempeño</div>
+                
+                <div class="section-description editable" id="indicador-descripcion">
+                    <strong>Indicador de Reducción de Consumo Energético (IRCE)</strong><br>
+                    (Mide el desempeño del Proceso PSC-004 - SGE)
+                </div>
+                
+                <div class="formula-box editable" id="indicador-formula">
+                    <strong>Fórmula de Cálculo:</strong><br>
+                    IRCE = [(Consumo Base - Consumo Actual) / Consumo Base] × 100%<br>
+                    Donde:<br>
+                    - Consumo Base: Consumo energético del período de referencia (línea base)<br>
+                    - Consumo Actual: Consumo energético del período actual
+                </div>
+                
+                <table class="indicator-table">
+                    <thead>
+                        <tr>
+                            <th>Valor Obtenido</th>
+                            <th>Clasificación</th>
+                            <th>Interpretación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" id="indicador-valor-1">≥ 10% de reducción anual</td>
+                            <td class="editable" id="indicador-clasificacion-1">Excelente</td>
+                            <td class="editable" id="indicador-interpretacion-1">El SGE es altamente efectivo, superando expectativas.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="indicador-valor-2">5% - 9.9% de reducción</td>
+                            <td class="editable" id="indicador-clasificacion-2">Satisfactorio</td>
+                            <td class="editable" id="indicador-interpretacion-2">El SGE cumple con los objetivos establecidos.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="indicador-valor-3">0% - 4.9% de reducción</td>
+                            <td class="editable" id="indicador-clasificacion-3">Marginal</td>
+                            <td class="editable" id="indicador-interpretacion-3">Se requieren ajustes y mejoras en el SGE.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" id="indicador-valor-4">Aumento en el consumo</td>
+                            <td class="editable" id="indicador-clasificacion-4">No Aceptable</td>
+                            <td class="editable" id="indicador-interpretacion-4">Revisión inmediata del SGE y acciones correctivas urgentes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 6: Análisis de Riesgos -->
+            <div class="section" id="riesgos">
+                <div class="section-title">6. Análisis y Evaluación de Riesgos del Proceso <span id="editIndicator6" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="riesgos-contenido">
+                    Se han identificado los siguientes riesgos principales asociados al proceso de Gestión de la Energía:
+                </div>
+                <ul class="bullet-list editable" id="riesgos-lista">
+                    <li><strong>Riesgo de Incremento de Costos Energéticos:</strong> Fluctuaciones en precios de energía que impacten la rentabilidad de operaciones.</li>
+                    <li><strong>Riesgo de No Cumplimiento Normativo:</strong> Incumplimiento de regulaciones energéticas, ambientales o de eficiencia energética.</li>
+                    <li><strong>Riesgo de Fallas en Equipos Críticos:</strong> Equipos energéticos obsoletos o mal mantenidos que generen interrupciones operativas.</li>
+                    <li><strong>Riesgo de Falta de Competencias:</strong> Personal no capacitado en gestión energética que no implemente correctamente las medidas de eficiencia.</li>
+                    <li><strong>Riesgo Tecnológico:</strong> Sistemas de medición y control energético inadecuados o desactualizados.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 7: Análisis de Oportunidades -->
+            <div class="section" id="oportunidades">
+                <div class="section-title">7. Análisis y Evaluación de Oportunidades del Proceso <span id="editIndicator7" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="oportunidades-contenido">
+                    Se han identificado las siguientes oportunidades de mejora para el proceso de SGE:
+                </div>
+                <ul class="bullet-list editable" id="oportunidades-lista">
+                    <li><strong>Optimización de Procesos Energéticos:</strong> Identificación y mejora de procesos con mayor consumo energético.</li>
+                    <li><strong>Implementación de Tecnologías de Eficiencia Energética:</strong> Renovación de equipos por versiones más eficientes (motores, iluminación, climatización).</li>
+                    <li><strong>Integración de Energías Renovables:</strong> Incorporación de sistemas de generación renovable (solar, eólica) para autoconsumo.</li>
+                    <li><strong>Sistemas de Gestión Energética Avanzados:</strong> Implementación de software especializado para monitoreo y análisis energético en tiempo real.</li>
+                    <li><strong>Certificación ISO 50001:</strong> Obtención de certificación que demuestre compromiso con la gestión energética y proporcione ventaja competitiva.</li>
+                    <li><strong>Programas de Incentivos y Subvenciones:</strong> Acceso a financiamiento público para proyectos de eficiencia energética.</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 8: Factores de Energía Significativos -->
+            <div class="section" id="factores">
+                <div class="section-title">8. Factores de Energía Significativos (FES) <span id="editIndicator8" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="factores-contenido">
+                    Según la norma ISO 50001, se han identificado los siguientes Factores de Energía Significativos que afectan el consumo y desempeño energético:
+                </div>
+                
+                <div class="energy-factor-box editable" id="fes-1">
+                    <strong>Factores Relacionados con Variables Operativas:</strong>
+                    <ul class="bullet-list">
+                        <li>Horas de operación de equipos y procesos</li>
+                        <li>Cargas de producción (volumen, tipo de producto)</li>
+                        <li>Condiciones ambientales (temperatura, humedad)</li>
+                        <li>Disponibilidad de materias primas</li>
+                    </ul>
+                </div>
+                
+                <div class="energy-factor-box editable" id="fes-2">
+                    <strong>Factores Relacionados con el Mantenimiento:</strong>
+                    <ul class="bullet-list">
+                        <li>Estado de equipos y sistemas energéticos</li>
+                        <li>Frecuencia y calidad del mantenimiento preventivo</li>
+                        <li>Calibración de instrumentos de medición</li>
+                        <li>Eficiencia de sistemas de transmisión y distribución</li>
+                    </ul>
+                </div>
+                
+                <div class="energy-factor-box editable" id="fes-3">
+                    <strong>Factores Relacionados con el Comportamiento:</strong>
+                    <ul class="bullet-list">
+                        <li>Concienciación y capacitación del personal</li>
+                        <li>Cultura organizacional hacia la eficiencia energética</li>
+                        <li>Procedimientos de operación estandarizados</li>
+                        <li>Prácticas de cierre y encendido de equipos</li>
+                    </ul>
+                </div>
+                
+                <div class="energy-factor-box editable" id="fes-4">
+                    <strong>Factores Externos:</strong>
+                    <ul class="bullet-list">
+                        <li>Precios y tarifas energéticas</li>
+                        <li>Disponibilidad y calidad del suministro energético</li>
+                        <li>Requisitos legales y regulatorios</li>
+                        <li>Cambios tecnológicos en el mercado</li>
+                    </ul>
+                </div>
+                
+                <div class="energy-section">
+                    <div class="energy-title">Metodología para el Control de Factores de Energía Significativos</div>
+                    <div class="section-description editable" id="metodologia-fes">
+                        Para cada FES identificado, se establecen los siguientes controles:
+                    </div>
+                    <ul class="bullet-list editable" id="metodologia-lista">
+                        <li><strong>Monitoreo Continuo:</strong> Seguimiento periódico de variables operativas relacionadas con cada FES.</li>
+                        <li><strong>Establecimiento de Límites Operativos:</strong> Definición de rangos aceptables para variables que afectan el consumo energético.</li>
+                        <li><strong>Procedimientos Operativos:</strong> Documentación de prácticas óptimas para operación y mantenimiento.</li>
+                        <li><strong>Capacitación Específica:</strong> Formación del personal sobre cómo sus acciones afectan el consumo energético.</li>
+                        <li><strong>Revisión Periódica:</strong> Evaluación regular de la efectividad de los controles establecidos.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 9: Documentación de Referencia -->
+            <div class="section" id="referencia">
+                <div class="section-title">9. Documentación de Referencia <span id="editIndicator9" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="referencia-contenido">
+                    La siguiente documentación es de referencia para la implementación y mantenimiento del proceso de Gestión de la Energía:
+                </div>
+                <ul class="bullet-list editable" id="referencia-lista">
+                    <li><strong>ISO 50001:2018:</strong> Sistemas de gestión de la energía - Requisitos con orientación para su uso.</li>
+                    <li><strong>ISO 50002:</strong> Auditorías energéticas - Requisitos con orientación para su uso.</li>
+                    <li><strong>ISO 50006:</strong> Medición del desempeño energético mediante indicadores de desempeño energético (EnPI) y líneas de base energética (EnB).</li>
+                    <li><strong>Política Energética de la organización.</strong></li>
+                    <li><strong>Manual de Gestión de la Energía (SGE).</strong></li>
+                    <li><strong>Legislación nacional y local en materia de eficiencia energética y energías renovables.</strong></li>
+                    <li><strong>Reglamentos de instalaciones térmicas y eléctricas.</strong></li>
+                </ul>
+            </div>
+            
+            <!-- Sección 10: Historial de Versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">10. Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td class="editable" id="historial-fecha-1">01.12.2024</td>
+                                <td class="editable" id="historial-asiento-1">Creación inicial del procedimiento SGE conforme a ISO 50001</td>
+                                <td class="editable" id="historial-aprueba-1">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: PSC-004 | SGE | Revisión: 001 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'PSC-004-SGE-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Se detectaron ediciones guardadas. Use "CARGAR EDICIONES GUARDADAS" para cargarlas.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                        console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+                
+                // Configurar scroll suave para los enlaces del TOC
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESACTIVAR EDICIÓN';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo edición activo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTENIDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo lectura activo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Active el modo edición primero para poder guardar cambios.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('Las ediciones han sido guardadas en el navegador correctamente.');
+                } catch (error) {
+                    alert('Error al guardar las ediciones: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('No se encontraron ediciones guardadas en el navegador.');
+                    return;
+                }
+                
+                if (confirm('¿Cargar las ediciones guardadas? Esto sobrescribirá el contenido actual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Ediciones cargadas correctamente desde el navegador.');
+                    } catch (error) {
+                        alert('Error al cargar las ediciones: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PSC-004-SGE-Procedimiento-Gestion-Energia.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. Descargando...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todas las ediciones actuales.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Contenido original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-015 Plan de Emergencia Resumido - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #b91c1c;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #b91c1c;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #b91c1c;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #b91c1c;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #b91c1c;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #b91c1c;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #dc2626;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #b91c1c;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection-title {
+            color: #b91c1c;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #b91c1c;
+        }
+        
+        .subsubsection-title {
+            color: #7f1d1d;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+        }
+        
+        .intro-text {
+            background-color: #fef2f2;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #b91c1c;
+            font-size: 16px;
+        }
+        
+        .emergency-plan {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #b91c1c;
+        }
+        
+        .emergency-title {
+            color: #b91c1c;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .objective-box {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .objective-title {
+            color: #b91c1c;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .actions-container {
+            margin: 25px 0;
+        }
+        
+        .immediate-actions, .posterior-actions, .long-term-actions, .corrective-actions {
+            margin-bottom: 25px;
+        }
+        
+        .actions-title {
+            color: #7f1d1d;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #fecaca;
+        }
+        
+        .actions-list {
+            list-style-type: none;
+        }
+        
+        .actions-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .actions-list li:before {
+            content: "•";
+            color: #b91c1c;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 10px;
+        }
+        
+        .laws-container {
+            background-color: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .laws-title {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .laws-list {
+            list-style-type: none;
+        }
+        
+        .laws-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .laws-list li:before {
+            content: "•";
+            color: #1e40af;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight-box {
+            background-color: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d97706;
+        }
+        
+        .highlight-title {
+            color: #92400e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #b91c1c;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #b91c1c;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #fef2f2;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 40px;
+            background-color: #fed7d7;
+            border-bottom: 1px solid #fecaca;
+        }
+        
+        .action-btn {
+            background-color: #b91c1c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #dc2626;
+        }
+        
+        .edit-mode {
+            outline: 2px dashed #4299e1;
+            padding: 5px;
+            min-height: 20px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-bar {
+                display: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .emergency-plan {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 2;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+            
+            .action-bar {
+                padding: 10px 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .action-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de acciones -->
+    <div class="action-bar">
+        <button class="action-btn" onclick="toggleEditMode()">
+            <span>✏️</span> Editar Documento
+        </button>
+        <button class="action-btn" onclick="downloadDocument()">
+            <span>⬇️</span> Descargar
+        </button>
+        <button class="action-btn" onclick="window.print()">
+            <span>🖨️</span> Imprimir
+        </button>
+    </div>
+    
+    <div class="document-container" id="docContainer">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        002
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Plan de Emergencia Resumido</div>
+        <div class="doc-code">Código: PRO-015</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#introduccion" class="toc-link">Introducción</a></li>
+                    <li class="toc-item"><a href="#leyes" class="toc-link">Leyes aplicables</a></li>
+                    <li class="toc-item"><a href="#derrames" class="toc-link">1. Plan de Emergencia por Derrames de Sustancias Químicas</a></li>
+                    <li class="toc-item"><a href="#exposicion" class="toc-link">2. Plan de Emergencia por Exposición a Sustancias Químicas Tóxicas</a></li>
+                    <li class="toc-item"><a href="#incendio" class="toc-link">3. Plan de Emergencia por Incendio o Explosión</a></li>
+                    <li class="toc-item"><a href="#fugas" class="toc-link">4. Plan de Emergencia por Fuga de Gases Tóxicos</a></li>
+                    <li class="toc-item"><a href="#intoxicacion" class="toc-link">5. Plan de Emergencia por Intoxicación de Personal o Terceros</a></li>
+                    <li class="toc-item"><a href="#inundacion" class="toc-link">6. Plan de Emergencia por Inundación</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="section" id="introduccion">
+                <div class="section-title">Introducción</div>
+                <div class="intro-text">
+                    <p>El presente documento enuncia los principales aspectos de la legislación laboral vigente considerando las leyes y reglamentos vigentes en la República de Paraguay. Las leyes aplicables en materia de Salud y Seguridad Ocupacional pueden ser revisadas en el Portal del la Dirección de Salud y Seguridad Ocupacional dependiente del Viceministerio del Trabajo.</p>
+                    <p>Al respecto nuestra organización considera como de interés organización la publicación denominada Sistema Nacional de MiPymes (Art. 8º Ley Nº 4457/12), el cual puede ser bajado desde:</p>
+                    <p><strong>https://www.mipymes.gov.py/wp-content/uploads/2020/05/PLAN-NACIONAL-DE-MIPYMES.pdf.pdf</strong></p>
+                </div>
+            </div>
+            
+            <!-- Leyes aplicables -->
+            <div class="section" id="leyes">
+                <div class="section-title">Leyes aplicables</div>
+                <div class="laws-container">
+                    <ul class="laws-list">
+                        <li><strong>Ley N° 5804/17</strong> | Establece el Sistema Nacional de Prevención de Riesgos Laborales.</li>
+                        <li><strong>Decreto Ley N° 14390/92</strong> | Reglamento general técnico.</li>
+                        <li><strong>Resolución MTESS N° 785/20</strong> | Dispone implementación de artículos que indica.</li>
+                        <li><strong>Resolución MTESS N° 3/2022</strong> | Reglamenta la frecuencia de exámenes médicos obligatorios.</li>
+                        <li><strong>Resolución MTESS N° 1028/2023</strong> | Requisitos para registro y reconocimiento de la comisión interna de prevención de accidentes.</li>
+                        <li><strong>Resolución MTESS N° 219/24</strong> | Normas laborales especiales.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 1. Plan de Emergencia por Derrames de Sustancias Químicas -->
+            <div class="section" id="derrames">
+                <div class="section-title">Plan de Emergencia por Derrames de Sustancias Químicas</div>
+                <div class="emergency-plan">
+                    <div class="objective-box">
+                        <div class="objective-title">OBJETIVO:</div>
+                        <p>Minimizar los efectos de un derrame de productos químicos utilizados en las fumigaciones, asegurando la protección de los trabajadores, el medio ambiente y las instalaciones.</p>
+                    </div>
+                    
+                    <div class="actions-container">
+                        <div class="immediate-actions">
+                            <div class="actions-title">ACCIONES INMEDIATAS:</div>
+                            <ul class="actions-list">
+                                <li><strong>Identificación del derrame:</strong> Reconocer rápidamente el tipo de sustancia química involucrada, usando fichas de datos de seguridad (FDS).</li>
+                                <li><strong>Evacuación del área:</strong> Aislar el área afectada y evacuar al personal no esencial para reducir la exposición.</li>
+                                <li><strong>Equipo de protección personal (EPP):</strong> Proveer el EPP adecuado (guantes, respiradores, trajes de protección) para los equipos de respuesta.</li>
+                                <li><strong>Contención:</strong> Utilizar barreras absorbentes o material inerte para contener el derrame y evitar su propagación.</li>
+                                <li><strong>Neutralización:</strong> Aplicar los procedimientos de neutralización específicos para la sustancia derramada.</li>
+                                <li><strong>Ventilación:</strong> Asegurar una ventilación adecuada del área para reducir la concentración de vapores tóxicos.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="posterior-actions">
+                            <div class="actions-title">ACCIONES POSTERIORES:</div>
+                            <ul class="actions-list">
+                                <li><strong>Limpieza y desinfección:</strong> Limpiar la zona afectada usando procedimientos aprobados.</li>
+                                <li><strong>Disposición de residuos:</strong> Almacenar y desechar los residuos de acuerdo con las normativas locales.</li>
+                                <li><strong>Informe:</strong> Elaborar un informe del incidente y actualizar los procedimientos si es necesario.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2. Plan de Emergencia por Exposición a Sustancias Químicas Tóxicas -->
+            <div class="section" id="exposicion">
+                <div class="section-title">Plan de Emergencia por Exposición a Sustancias Químicas Tóxicas</div>
+                <div class="emergency-plan">
+                    <div class="objective-box">
+                        <div class="objective-title">OBJETIVO:</div>
+                        <p>Responder eficazmente ante la exposición accidental de los empleados a sustancias químicas tóxicas, evitando daños mayores a la salud.</p>
+                    </div>
+                    
+                    <div class="actions-container">
+                        <div class="immediate-actions">
+                            <div class="actions-title">ACCIONES INMEDIATAS:</div>
+                            <ul class="actions-list">
+                                <li><strong>Retirada del personal afectado:</strong> Mover inmediatamente al empleado a una zona segura y ventilada.</li>
+                                <li><strong>Evaluación médica inmediata:</strong> Administrar los primeros auxilios según los protocolos de la ficha de datos de seguridad (FDS) de la sustancia.</li>
+                                <li><strong>Uso de EPP adecuado:</strong> Asegurar que el equipo de respuesta utilice el EPP correcto para manejar la sustancia y asistir al afectado.</li>
+                                <li><strong>Llamada de emergencia:</strong> Contactar a los servicios médicos de emergencia, informando sobre el producto químico y la naturaleza de la exposición.</li>
+                                <li><strong>Suministro de oxígeno:</strong> Si se trata de una exposición inhalatoria, suministrar oxígeno si está disponible, según las instrucciones de los paramédicos.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="posterior-actions">
+                            <div class="actions-title">ACCIONES POSTERIORES:</div>
+                            <ul class="actions-list">
+                                <li><strong>Atención médica especializada:</strong> Asegurar que el afectado reciba tratamiento médico adecuado y seguimiento clínico.</li>
+                                <li><strong>Evaluación de la exposición:</strong> Realizar un análisis del incidente para identificar la causa de la exposición y ajustar las medidas preventivas.</li>
+                                <li><strong>Revisión de los protocolos:</strong> Revisar los procedimientos de trabajo y reforzar la capacitación del personal en el manejo seguro de sustancias peligrosas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3. Plan de Emergencia por Incendio o Explosión -->
+            <div class="section" id="incendio">
+                <div class="section-title">Plan de Emergencia por Incendio o Explosión</div>
+                <div class="emergency-plan">
+                    <div class="objective-box">
+                        <div class="objective-title">OBJETIVO:</div>
+                        <p>Proteger a los empleados y las instalaciones en caso de incendio o explosión causada por la inflamabilidad de los productos químicos utilizados en fumigaciones.</p>
+                    </div>
+                    
+                    <div class="actions-container">
+                        <div class="immediate-actions">
+                            <div class="actions-title">ACCIONES INMEDIATAS:</div>
+                            <ul class="actions-list">
+                                <li><strong>Alarma:</strong> Activar la alarma de emergencia y notificar a los bomberos. (911)</li>
+                                <li><strong>Evacuación:</strong> Evacuar inmediatamente a todo el personal siguiendo las rutas de evacuación establecidas.</li>
+                                <li><strong>Corte de suministro eléctrico:</strong> Interrumpir el suministro eléctrico y de gas para evitar la propagación del fuego.</li>
+                                <li><strong>Equipo de lucha contra incendios:</strong> Los brigadistas de emergencia, equipados con EPP adecuado, usarán extintores y mangueras según el tipo de incendio (ABC o CO2, según la sustancia).</li>
+                                <li><strong>Aislamiento de productos químicos:</strong> Retirar, si es posible, los productos químicos inflamables o explosivos cercanos a la fuente del fuego.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="posterior-actions">
+                            <div class="actions-title">ACCIONES POSTERIORES:</div>
+                            <ul class="actions-list">
+                                <li><strong>Investigación:</strong> Investigar la causa del incendio o explosión para prevenir futuros incidentes.</li>
+                                <li><strong>Reparación de daños:</strong> Coordinar la reparación de equipos e infraestructura afectados por el incidente.</li>
+                                <li><strong>Revisión del plan de emergencia:</strong> Ajustar los planes y protocolos en función de las lecciones aprendidas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4. Plan de Emergencia por Fuga de Gases Tóxicos -->
+            <div class="section" id="fugas">
+                <div class="section-title">Plan de Emergencia por Fuga de Gases Tóxicos</div>
+                <div class="emergency-plan">
+                    <div class="objective-box">
+                        <div class="objective-title">OBJETIVO:</div>
+                        <p>Proteger al personal y a la comunidad en caso de una fuga de gases tóxicos derivados de las sustancias químicas usadas en fumigaciones.</p>
+                    </div>
+                    
+                    <div class="actions-container">
+                        <div class="immediate-actions">
+                            <div class="actions-title">ACCIONES INMEDIATAS:</div>
+                            <ul class="actions-list">
+                                <li><strong>Detección de la fuga:</strong> Usar dispositivos de monitoreo de gases para identificar la fuga rápidamente.</li>
+                                <li><strong>Evacuación:</strong> Evacuar la zona afectada y activar el plan de evacuación para áreas vecinas si la fuga es grave.</li>
+                                <li><strong>Ventilación natural:</strong> Abrir puertas y ventanas para facilitar la dispersión del gas, evitando su concentración.</li>
+                                <li><strong>Equipo de protección respiratoria:</strong> Proveer mascarillas con filtro adecuado (dependiendo del tipo de gas) al personal de respuesta.</li>
+                                <li><strong>Cierre de la fuente:</strong> Si es seguro hacerlo, cortar el suministro o cerrar válvulas que generen la fuga.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="posterior-actions">
+                            <div class="actions-title">ACCIONES POSTERIORES:</div>
+                            <ul class="actions-list">
+                                <li><strong>Monitoreo del aire:</strong> Medir la concentración del gas hasta que se alcance un nivel seguro.</li>
+                                <li><strong>Reparación de la fuga:</strong> Reparar la fuente de la fuga para evitar futuros incidentes.</li>
+                                <li><strong>Revisión del plan:</strong> Revisar y actualizar los procedimientos de manejo de gases y equipos de detección.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. Plan de Emergencia por Intoxicación de Personal o Terceros -->
+            <div class="section" id="intoxicacion">
+                <div class="section-title">Plan de Emergencia por Intoxicación de Personal o Terceros</div>
+                <div class="emergency-plan">
+                    <div class="objective-box">
+                        <div class="objective-title">OBJETIVO:</div>
+                        <p>Responder rápidamente ante un caso de intoxicación de personal o terceros debido a la exposición accidental a productos químicos utilizados en las fumigaciones.</p>
+                    </div>
+                    
+                    <div class="actions-container">
+                        <div class="immediate-actions">
+                            <div class="actions-title">ACCIONES INMEDIATAS:</div>
+                            <ul class="actions-list">
+                                <li><strong>Identificación del producto:</strong> Determinar la sustancia química involucrada y su vía de ingreso (inhalación, ingestión, contacto dérmico).</li>
+                                <li><strong>Primeros auxilios:</strong> Proporcionar primeros auxilios de acuerdo con las instrucciones de las FDS (lavado de ojos, descontaminación, administración de antídotos, etc.).</li>
+                                <li><strong>Atención médica inmediata:</strong> Llamar a los servicios médicos y suministrar la información del producto químico al equipo médico.</li>
+                                <li><strong>Notificación a las autoridades:</strong> Informar a las autoridades locales en caso de que haya afectados externos (terceros) o si el incidente tiene impacto ambiental significativo.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="posterior-actions">
+                            <div class="actions-title">ACCIONES POSTERIORES:</div>
+                            <ul class="actions-list">
+                                <li><strong>Monitoreo del personal afectado:</strong> Hacer seguimiento médico a los trabajadores expuestos para prevenir complicaciones.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 6. Plan de Emergencia por Inundación -->
+            <div class="section" id="inundacion">
+                <div class="section-title">Plan de Emergencia por Inundación</div>
+                <div class="emergency-plan">
+                    <div class="objective-box">
+                        <div class="objective-title">OBJETIVO:</div>
+                        <p>Proteger la seguridad del personal, preservar los productos químicos almacenados y minimizar los daños a la infraestructura en caso de inundación.</p>
+                    </div>
+                    
+                    <div class="actions-container">
+                        <div class="immediate-actions">
+                            <div class="actions-title">ACCIONES INMEDIATAS:</div>
+                            <ul class="actions-list">
+                                <li><strong>Activación de la alerta:</strong> Monitorear los pronósticos meteorológicos y alertar al personal ante la posibilidad de una inundación inminente.</li>
+                                <li><strong>Evacuación preventiva:</strong> Si se identifica una inundación inminente, se deben evacuar de manera ordenada todas las áreas de riesgo, siguiendo las rutas de evacuación designadas.</li>
+                                <li><strong>Protección de sustancias químicas:</strong> Trasladar productos químicos peligrosos, inflamables o reactivos a áreas seguras y elevadas para evitar contacto con el agua, utilizando procedimientos de manejo seguro.</li>
+                                <li><strong>Corte de energía:</strong> Desconectar las fuentes de energía eléctrica para prevenir cortocircuitos o incendios causados por el agua.</li>
+                                <li><strong>Bloqueo de entradas de agua:</strong> Utilizar barreras o bolsas de arena en las áreas más vulnerables para evitar la entrada masiva de agua a las instalaciones.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="posterior-actions">
+                            <div class="actions-title">ACCIONES POSTERIORES:</div>
+                            <ul class="actions-list">
+                                <li><strong>Inspección de daños:</strong> Realizar una inspección exhaustiva de las instalaciones una vez que la inundación haya pasado, priorizando el almacenamiento de productos químicos para identificar posibles fugas.</li>
+                                <li><strong>Limpieza y descontaminación:</strong> En caso de que el agua haya entrado en contacto con productos químicos, seguir los procedimientos de limpieza y descontaminación adecuados, y gestionar los residuos conforme a las normativas ambientales.</li>
+                                <li><strong>Evaluación de la infraestructura:</strong> Evaluar los daños estructurales a los edificios y equipos críticos, como sistemas eléctricos y de ventilación, para garantizar que sean seguros antes de reanudar las actividades.</li>
+                                <li><strong>Restablecimiento de operaciones:</strong> Reanudar las actividades de la empresa solo después de que se haya verificado que todas las áreas afectadas sean seguras y que los productos químicos almacenados no representan riesgo.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="long-term-actions">
+                            <div class="actions-title">ACCIONES DE PREVENCIÓN A LARGO PLAZO:</div>
+                            <ul class="actions-list">
+                                <li><strong>Mapeo de áreas de riesgo:</strong> Identificar y mapear las áreas más vulnerables a inundaciones dentro y alrededor de la empresa.</li>
+                                <li><strong>Almacenamiento en altura:</strong> Crear áreas específicas de almacenamiento elevado para productos químicos, minimizando el riesgo de contacto con agua en caso de futuras inundaciones.</li>
+                                <li><strong>Sistemas de drenaje:</strong> Mejorar los sistemas de drenaje en el perímetro de las instalaciones para evitar la acumulación de agua.</li>
+                                <li><strong>Simulacros periódicos:</strong> Realizar simulacros anuales para preparar al personal en caso de evacuaciones por inundación.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="corrective-actions">
+                            <div class="actions-title">ACCIONES CORRECTIVAS:</div>
+                            <ul class="actions-list">
+                                <li><strong>Capacitación del personal:</strong> Capacitar al personal sobre el manejo seguro de sustancias químicas durante inundaciones y el uso adecuado de equipos de protección personal (EPP).</li>
+                                <li><strong>Revisión del protocolo:</strong> Evaluar y actualizar periódicamente el plan de emergencia por inundación basado en la experiencia de incidentes previos y en la evolución de los riesgos ambientales.</li>
+                                <li><strong>Revisión del protocolo de manejo de sustancias:</strong> Evaluar el incidente y reforzar los procedimientos de manipulación y almacenamiento de sustancias peligrosas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>002</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: PRO-015 | Revisión: 002 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Variable para controlar el modo de edición
+        let isEditMode = false;
+        
+        // Función para alternar el modo de edición
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const contentElements = document.querySelectorAll('.content, .intro-text p, .doc-title, .doc-code, .org-name, .doc-info-item, .section-title, .subsection-title, .emergency-title, .objective-title, .actions-title, .laws-title, .highlight-title, .objective-box p, .emergency-plan p, .intro-text p, .laws-list li, .actions-list li, .toc-list li, .version-table td, .footer p');
+            
+            contentElements.forEach(element => {
+                if (isEditMode) {
+                    element.setAttribute('contenteditable', 'true');
+                    element.classList.add('edit-mode');
+                } else {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('edit-mode');
+                }
+            });
+            
+            // Cambiar el texto del botón
+            const editBtn = document.querySelector('.action-bar button:first-child');
+            if (editBtn) {
+                editBtn.innerHTML = isEditMode ? '<span>💾</span> Finalizar Edición' : '<span>✏️</span> Editar Documento';
+            }
+        }
+        
+        // Función para descargar el documento
+        function downloadDocument() {
+            // Crear un blob con el HTML actual
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Crear un enlace para descargar
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'PRO-015-plan-emergencia-modificado.html';
+            
+            // Simular clic en el enlace
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // Configuración del contador de secciones
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.counterReset = 'section-counter';
+            
+            // Configurar scroll suave para los links del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica si el logo existe, caso contrario muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%23b91c1c" dy="5">LOGO SGC</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Se ha colocado un logo temporal.");
+            };
+        });
+    </script>
+</body>
+</html>

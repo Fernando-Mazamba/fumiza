@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-037 Registro de Calibración de Equipos - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .form-field {
+            margin-bottom: 20px;
+        }
+        
+        .field-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        
+        .field-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .field-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .field-input.underline {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            border-radius: 0;
+            padding: 10px 0;
+        }
+        
+        .textarea-field {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .radio-label {
+            cursor: pointer;
+        }
+        
+        .certificate-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .certificate-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .signature-area {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-field {
+            display: inline-block;
+            width: 48%;
+            margin-right: 4%;
+            vertical-align: top;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: #333;
+            margin-top: 60px;
+        }
+        
+        .result-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .result-approved {
+            background-color: #f0fff4;
+            border-color: #9ae6b4;
+            border-left: 4px solid #38a169;
+        }
+        
+        .result-not-approved {
+            background-color: #fff5f5;
+            border-color: #fc8181;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .badge-approved {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .badge-not-approved {
+            background-color: #e53e3e;
+            color: white;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .print-btn, .save-btn, .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .download-btn {
+            background-color: #805ad5;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        .editable-field {
+            position: relative;
+            cursor: pointer;
+            border-bottom: 1px dashed #cbd5e0;
+            min-height: 24px;
+            padding: 2px 0;
+        }
+        
+        .editable-field:hover {
+            background-color: #f7fafc;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .save-btn, .download-btn {
+                display: none;
+            }
+            
+            .field-input.underline {
+                border-bottom: 1px solid #999;
+            }
+            
+            .toc {
+                display: none;
+            }
+            
+            .editable-field {
+                border-bottom: none;
+                cursor: default;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .signature-field {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="document-content">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable-field" data-field="fecha-emision" data-print-value="01.12.2024">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable-field" data-field="elabora" data-print-value="ESGC">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable-field" data-field="aprueba" data-print-value="CEO">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable-field" data-field="version" data-print-value="000">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Registro de Calibración de Equipos</div>
+        <div class="doc-code">Código: FORM-037-SGC</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <body style="counter-reset: section-counter;">
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#informacion-general" class="toc-link">Información General</a></li>
+                    <li class="toc-item"><a href="#resultado-calibracion" class="toc-link">Resultado de la Calibración</a></li>
+                    <li class="toc-item"><a href="#certificado-calibracion" class="toc-link">Certificado de Calibración</a></li>
+                    <li class="toc-item"><a href="#aprobacion-registro" class="toc-link">Aprobación del Registro</a></li>
+                    <li class="toc-item"><a href="#historial-versiones" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Información General -->
+            <div class="section" id="informacion-general">
+                <div class="section-title">Información General</div>
+                
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="field-label">Nombre del Equipo:</label>
+                        <input type="text" class="field-input" id="nombre-equipo" placeholder="Nombre del equipo a calibrar">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Código del Equipo:</label>
+                        <input type="text" class="field-input" id="codigo-equipo" placeholder="Código o número de identificación del equipo">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Ubicación:</label>
+                        <input type="text" class="field-input" id="ubicacion-equipo" placeholder="Ubicación del equipo en la planta o área de trabajo">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Responsable de la Calibración:</label>
+                        <input type="text" class="field-input" id="responsable-calibracion" placeholder="Nombre del responsable de realizar la calibración">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Fecha de Calibración:</label>
+                        <input type="date" class="field-input" id="fecha-calibracion">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Intervalo de Calibración:</label>
+                        <input type="text" class="field-input" id="intervalo-calibracion" placeholder="Ej: 6 meses, 1 año, etc.">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Resultado de la Calibración -->
+            <div class="section" id="resultado-calibracion">
+                <div class="section-title">Resultado de la Calibración</div>
+                
+                <div class="result-box" id="result-calibration-box">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label class="field-label">Valor de Referencia:</label>
+                            <input type="text" class="field-input" id="valor-referencia" placeholder="Valor de referencia o estándar de comparación">
+                            <small style="color: #666; font-size: 14px;">Ej: 100.0 g, 25.0 °C, 10.0 V</small>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Valor Medido:</label>
+                            <input type="text" class="field-input" id="valor-medido" placeholder="Valor medido durante la calibración">
+                            <small style="color: #666; font-size: 14px;">Ej: 100.2 g, 25.1 °C, 10.1 V</small>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Tolerancia Permitida:</label>
+                            <input type="text" class="field-input" id="tolerancia-permitida" placeholder="Tolerancia aceptable según especificaciones">
+                            <small style="color: #666; font-size: 14px;">Ej: ±0.5%, ±0.1 unidades</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <div class="form-section-title">Resultado de la Calibración:</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="resultado-aprobado" name="resultado" value="Aprobado">
+                                <label for="resultado-aprobado" class="radio-label">
+                                    <span class="status-badge badge-approved">Aprobado</span>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="resultado-no-aprobado" name="resultado" value="No Aprobado">
+                                <label for="resultado-no-aprobado" class="radio-label">
+                                    <span class="status-badge badge-not-approved">No Aprobado</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Desviación (si corresponde):</label>
+                        <textarea class="textarea-field" id="desviacion" placeholder="Detalles de la desviación si el equipo no está aprobado"></textarea>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="field-label">Comentarios:</label>
+                        <textarea class="textarea-field" id="comentarios" placeholder="Cualquier observación o recomendación sobre la calibración realizada"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Certificado de Calibración -->
+            <div class="section" id="certificado-calibracion">
+                <div class="section-title">Certificado de Calibración</div>
+                
+                <div class="certificate-box">
+                    <div class="certificate-title">Certificación de Calibración</div>
+                    <p id="texto-certificacion">El equipo ha sido calibrado siguiendo los procedimientos estándar y cumple con los requisitos de precisión especificados. El resultado se encuentra dentro de los límites permitidos.</p>
+                    
+                    <div class="signature-area">
+                        <div class="signature-field">
+                            <div class="form-section-title">Firma del Responsable de Calibración:</div>
+                            <div class="signature-line"></div>
+                            <p style="margin-top: 5px; font-size: 14px; color: #666;">Firma del responsable</p>
+                        </div>
+                        
+                        <div class="signature-field">
+                            <label class="field-label">Nombre:</label>
+                            <input type="text" class="field-input underline" id="nombre-responsable" placeholder="Nombre del responsable">
+                        </div>
+                        
+                        <div class="signature-field">
+                            <label class="field-label">Fecha:</label>
+                            <input type="date" class="field-input" id="fecha-certificacion">
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Aprobación del Registro -->
+            <div class="section" id="aprobacion-registro">
+                <div class="section-title">Aprobación del Registro</div>
+                
+                <div class="certificate-box">
+                    <div class="form-grid">
+                        <div class="signature-field">
+                            <div class="form-section-title">Aprobación:</div>
+                            <div class="signature-line"></div>
+                            <p style="margin-top: 5px; font-size: 14px; color: #666;">Firma del supervisor</p>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Nombre del Supervisor:</label>
+                            <input type="text" class="field-input underline" id="nombre-supervisor" placeholder="Nombre del supervisor">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="field-label">Fecha de Aprobación:</label>
+                            <input type="date" class="field-input" id="fecha-aprobacion">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="save-btn" onclick="guardarRegistro()">💾 Guardar Registro</button>
+                <button class="download-btn" onclick="descargarDocumento()">📥 Descargar Documento</button>
+                <button class="print-btn" onclick="imprimirDocumento()">📄 Imprimir Documento</button>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial-versiones">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </body>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: FORM-037-SGC | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar fecha actual por defecto
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('fecha-calibracion').value = formattedDate;
+            document.getElementById('fecha-certificacion').value = formattedDate;
+            document.getElementById('fecha-aprobacion').value = formattedDate;
+            
+            // Inicializar campos editáveis
+            inicializarCamposEditables();
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">SISTEMA DE GESTIÓN DE CALIDAD</text></svg>';
+                console.log("Logo no encontrado. Usando placeholder.");
+            };
+            
+            // Cambiar color del cuadro de resultado según aprobación
+            const resultadoAprobado = document.getElementById('resultado-aprobado');
+            const resultadoNoAprobado = document.getElementById('resultado-no-aprobado');
+            const resultBox = document.getElementById('result-calibration-box');
+            
+            function actualizarEstadoCalibracion() {
+                if (resultadoAprobado.checked) {
+                    resultBox.classList.remove('result-not-approved');
+                    resultBox.classList.add('result-approved');
+                } else if (resultadoNoAprobado.checked) {
+                    resultBox.classList.remove('result-approved');
+                    resultBox.classList.add('result-not-approved');
+                } else {
+                    resultBox.classList.remove('result-approved', 'result-not-approved');
+                }
+            }
+            
+            resultadoAprobado.addEventListener('change', actualizarEstadoCalibracion);
+            resultadoNoAprobado.addEventListener('change', actualizarEstadoCalibracion);
+            
+            // Calcular desviación automáticamente
+            const valorReferencia = document.getElementById('valor-referencia');
+            const valorMedido = document.getElementById('valor-medido');
+            const desviacionField = document.getElementById('desviacion');
+            
+            function calcularDesviacion() {
+                if (valorReferencia.value && valorMedido.value) {
+                    try {
+                        const ref = parseFloat(valorReferencia.value);
+                        const med = parseFloat(valorMedido.value);
+                        
+                        if (!isNaN(ref) && !isNaN(med)) {
+                            const desviacion = med - ref;
+                            const desviacionPorcentaje = (desviacion / ref) * 100;
+                            
+                            if (desviacionField) {
+                                desviacionField.value = `Desviación absoluta: ${desviacion.toFixed(4)}\nDesviación relativa: ${desviacionPorcentaje.toFixed(2)}%`;
+                            }
+                        }
+                    } catch (e) {
+                        console.log("Error al calcular desviación:", e);
+                    }
+                }
+            }
+            
+            valorReferencia.addEventListener('blur', calcularDesviacion);
+            valorMedido.addEventListener('blur', calcularDesviacion);
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Contador de secciones
+            document.body.style.counterReset = 'section-counter';
+        });
+        
+        // Inicializar campos editables
+        function inicializarCamposEditables() {
+            const camposEditables = document.querySelectorAll('.editable-field');
+            camposEditables.forEach(campo => {
+                campo.addEventListener('click', function() {
+                    const campoActual = this;
+                    const valorOriginal = campoActual.textContent;
+                    const fieldName = campoActual.getAttribute('data-field');
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = valorOriginal;
+                    input.className = 'field-input';
+                    input.style.width = '100%';
+                    input.style.marginTop = '5px';
+                    
+                    campoActual.textContent = '';
+                    campoActual.appendChild(input);
+                    input.focus();
+                    
+                    input.addEventListener('blur', function() {
+                        const nuevoValor = input.value;
+                        campoActual.textContent = nuevoValor;
+                        campoActual.setAttribute('data-print-value', nuevoValor);
+                    });
+                    
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            input.blur();
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Guardar registro
+        function guardarRegistro() {
+            const nombreEquipo = document.getElementById('nombre-equipo').value;
+            const codigoEquipo = document.getElementById('codigo-equipo').value;
+            const responsable = document.getElementById('responsable-calibracion').value;
+            
+            if (!nombreEquipo || !codigoEquipo || !responsable) {
+                alert('Por favor, complete los campos obligatorios: Nombre del Equipo, Código del Equipo y Responsable de la Calibración.');
+                return;
+            }
+            
+            const datosRegistro = {
+                informacionGeneral: {
+                    nombreEquipo: nombreEquipo,
+                    codigoEquipo: codigoEquipo,
+                    ubicacion: document.getElementById('ubicacion-equipo').value,
+                    responsable: responsable,
+                    fechaCalibracion: document.getElementById('fecha-calibracion').value,
+                    intervalo: document.getElementById('intervalo-calibracion').value
+                },
+                resultados: {
+                    valorReferencia: document.getElementById('valor-referencia').value,
+                    valorMedido: document.getElementById('valor-medido').value,
+                    tolerancia: document.getElementById('tolerancia-permitida').value,
+                    resultado: document.querySelector('input[name="resultado"]:checked')?.value || 'No especificado',
+                    desviacion: document.getElementById('desviacion').value,
+                    comentarios: document.getElementById('comentarios').value
+                },
+                certificacion: {
+                    texto: document.getElementById('texto-certificacion').textContent,
+                    nombreResponsable: document.getElementById('nombre-responsable').value,
+                    fechaCertificacion: document.getElementById('fecha-certificacion').value
+                },
+                aprobacion: {
+                    nombreSupervisor: document.getElementById('nombre-supervisor').value,
+                    fechaAprobacion: document.getElementById('fecha-aprobacion').value
+                },
+                metadatos: {
+                    fechaEmision: document.querySelector('[data-field="fecha-emision"]').textContent,
+                    elabora: document.querySelector('[data-field="elabora"]').textContent,
+                    aprueba: document.querySelector('[data-field="aprueba"]').textContent,
+                    version: document.querySelector('[data-field="version"]').textContent
+                }
+            };
+            
+            console.log('Datos del registro de calibración:', datosRegistro);
+            
+            // Guardar en localStorage
+            localStorage.setItem('registroCalibracionSGC', JSON.stringify(datosRegistro));
+            
+            alert('✅ Registro de calibración guardado correctamente en el sistema SGC.');
+        }
+        
+        // Descargar documento como HTML
+        function descargarDocumento() {
+            // Crear una copia del documento
+            const docClone = document.getElementById('document-content').cloneNode(true);
+            
+            // Actualizar valores en la copia
+            actualizarValoresEnCopia(docClone);
+            
+            // Crear el contenido HTML completo
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Calibración SGC - ${document.getElementById('codigo-equipo').value || 'Sin código'}</title>
+    <style>
+        ${document.querySelector('style').textContent}
+        
+        /* Ocultar botones en la versión descargada */
+        .action-buttons {
+            display: none !important;
+        }
+        
+        /* Estilos para impresión mejorados */
+        @media print {
+            .editable-field {
+                border: none !important;
+                background: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    ${docClone.innerHTML}
+    <script>
+        // Script mínimo para funcionalidad básica
+        document.addEventListener('DOMContentLoaded', function() {
+            // Deshabilitar edición en campos editables
+            document.querySelectorAll('.editable-field').forEach(campo => {
+                campo.style.cursor = 'default';
+                campo.onclick = null;
+            });
+            
+            console.log('Documento de calibración SGC cargado - ${new Date().toLocaleDateString()}');
+        });
+    <\/script>
+</body>
+</html>`;
+            
+            // Crear blob y descargar
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Registro_Calibracion_SGC_${document.getElementById('codigo-equipo').value || 'SGC'}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📥 Documento descargado como HTML editable');
+        }
+        
+        // Actualizar valores en la copia del documento
+        function actualizarValoresEnCopia(clone) {
+            // Actualizar campos de entrada
+            const campos = [
+                'nombre-equipo', 'codigo-equipo', 'ubicacion-equipo', 'responsable-calibracion',
+                'intervalo-calibracion', 'valor-referencia', 'valor-medido', 'tolerancia-permitida',
+                'nombre-responsable', 'nombre-supervisor'
+            ];
+            
+            campos.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    const elementoCopia = clone.querySelector(`#${id}`);
+                    if (elementoCopia && input.value) {
+                        elementoCopia.value = input.value;
+                    }
+                }
+            });
+            
+            // Actualizar fechas
+            const fechas = ['fecha-calibracion', 'fecha-certificacion', 'fecha-aprobacion'];
+            fechas.forEach(id => {
+                const input = document.getElementById(id);
+                if (input && input.value) {
+                    const elementoCopia = clone.querySelector(`#${id}`);
+                    if (elementoCopia) {
+                        // Formatear fecha para visualización
+                        const fecha = new Date(input.value);
+                        const dia = fecha.getDate().toString().padStart(2, '0');
+                        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+                        const año = fecha.getFullYear();
+                        elementoCopia.value = `${dia}/${mes}/${año}`;
+                    }
+                }
+            });
+            
+            // Actualizar textareas
+            const textareas = ['desviacion', 'comentarios'];
+            textareas.forEach(id => {
+                const textarea = document.getElementById(id);
+                if (textarea) {
+                    const textareaCopia = clone.querySelector(`#${id}`);
+                    if (textareaCopia && textarea.value) {
+                        textareaCopia.value = textarea.value;
+                    }
+                }
+            });
+            
+            // Actualizar estado de radio buttons
+            const resultadoSeleccionado = document.querySelector('input[name="resultado"]:checked');
+            if (resultadoSeleccionado) {
+                const idResultado = resultadoSeleccionado.id;
+                const radioCopia = clone.querySelector(`#${idResultado}`);
+                if (radioCopia) {
+                    radioCopia.checked = true;
+                }
+            }
+            
+            // Actualizar campos editables
+            const camposEditables = clone.querySelectorAll('.editable-field');
+            camposEditables.forEach(campo => {
+                const fieldName = campo.getAttribute('data-field');
+                const originalCampo = document.querySelector(`[data-field="${fieldName}"]`);
+                if (originalCampo) {
+                    campo.textContent = originalCampo.textContent;
+                    campo.setAttribute('data-print-value', originalCampo.textContent);
+                }
+            });
+        }
+        
+        // Imprimir documento
+        function imprimirDocumento() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

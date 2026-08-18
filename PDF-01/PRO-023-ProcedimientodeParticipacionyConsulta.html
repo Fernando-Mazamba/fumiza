@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-023 Procedimiento de Participación y Consulta - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            counter-increment: subsection-counter;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." counter(subsection-counter) ". ";
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .definition-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .definition-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .definition-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .responsibility-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .responsibility-item {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .responsibility-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .procedure-steps {
+            list-style-type: none;
+            margin: 20px 0 25px 30px;
+            counter-reset: step-counter;
+        }
+        
+        .procedure-step {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step:before {
+            content: counter(step-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #4a5568;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .reference-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .reference-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .reference-item:before {
+            content: "—";
+            color: #4a5568;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .procedure-steps {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .procedure-step {
+                padding-left: 35px;
+            }
+            
+            .procedure-step:before {
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Procedimiento de Participación y Consulta</div>
+        <div class="doc-code">Código: PRO-023</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#definiciones" class="toc-link">Definiciones</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">Procedimiento</a></li>
+                    <li class="toc-item"><a href="#documentacion" class="toc-link">Documentación</a></li>
+                    <li class="toc-item"><a href="#referencias" class="toc-link">Referencias</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Seção 1: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">Alcance</div>
+                <p class="content-text">Este procedimiento aplica a todos los procesos del Sistema de Gestión de Seguridad y Salud en el Trabajo (SGSST), en los cuales se requiera la participación y consulta activa de los trabajadores y otras partes interesadas, con el fin de garantizar su bienestar y promover un entorno laboral seguro.</p>
+                <p class="content-text">La organización implementa este procedimiento para cumplir con los requisitos de la cláusula 5.4 de la norma ISO 45001, asegurando una participación efectiva y una consulta significativa en todas las decisiones relacionadas con la seguridad y salud en el trabajo.</p>
+            </div>
+            
+            <!-- Seção 2: Definiciones -->
+            <div class="section" id="definiciones">
+                <div class="section-title">Definiciones</div>
+                <ul class="definition-list">
+                    <li class="definition-item">
+                        <div class="definition-title">Participación</div>
+                        <p class="content-text">Proceso en el cual los trabajadores tienen la oportunidad de involucrarse en las decisiones relacionadas con la seguridad y salud en el trabajo, especialmente aquellas que les afecten directamente. La organización garantiza esta participación activa en todos los niveles de toma de decisiones.</p>
+                    </li>
+                    <li class="definition-item">
+                        <div class="definition-title">Consulta</div>
+                        <p class="content-text">El proceso mediante el cual los trabajadores y otras partes interesadas son consultados para proporcionar sus opiniones, preocupaciones y sugerencias antes de la toma de decisiones en relación con la seguridad y salud laboral. La organización valora y considera sistemáticamente estas contribuciones.</p>
+                    </li>
+                    <li class="definition-item">
+                        <div class="definition-title">Interesados</div>
+                        <p class="content-text">Personas o grupos que tienen interés en el desempeño y bienestar del SGSST, tales como trabajadores, representantes sindicales, y otros grupos relevantes. La organización identifica y mantiene una relación constructiva con todas sus partes interesadas.</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Seção 3: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">Responsabilidades</div>
+                <ul class="responsibility-list">
+                    <li class="responsibility-item">
+                        <strong>Dirección General:</strong> Asegura que el procedimiento de participación y consulta se implemente de manera efectiva y conforme a la cláusula 5.4 de la ISO 45001. Provee los recursos necesarios y demuestra liderazgo activo en el compromiso con la participación de los trabajadores.
+                    </li>
+                    <li class="responsibility-item">
+                        <strong>Responsable de Seguridad y Salud en el Trabajo:</strong> Coordina las actividades de participación y consulta, garantiza que todos los trabajadores y partes interesadas sean consultados y sus opiniones sean tomadas en cuenta. Lleva registros adecuados y reporta periódicamente sobre la efectividad del proceso.
+                    </li>
+                    <li class="responsibility-item">
+                        <strong>Trabajadores:</strong> Participan activamente en los procesos de consulta y participación, proporcionando opiniones y sugerencias para mejorar las condiciones de seguridad y salud en el trabajo. Cumplen con los acuerdos establecidos y contribuyen a la mejora continua del SGSST.
+                    </li>
+                    <li class="responsibility-item">
+                        <strong>Representantes de los Trabajadores:</strong> Actúan como enlace entre los trabajadores y la dirección, facilitando la comunicación y asegurando que las preocupaciones sobre seguridad y salud sean adecuadamente consideradas en la toma de decisiones.
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Seção 4: Procedimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title">Procedimiento</div>
+                <p class="content-text">El procedimiento de participación y consulta se lleva a cabo de acuerdo con las siguientes etapas, las cuales la organización implementa sistemáticamente:</p>
+                
+                <ol class="procedure-steps">
+                    <li class="procedure-step">
+                        <div class="step-title">Identificación de los interesados</div>
+                        <p class="content-text">Se identifican a los trabajadores y otras partes interesadas que serán consultados durante el proceso. La organización mantiene un registro actualizado de todas las partes interesadas relevantes para el SGSST.</p>
+                    </li>
+                    <li class="procedure-step">
+                        <div class="step-title">Establecimiento de canales de consulta</div>
+                        <p class="content-text">Se definen los métodos y canales adecuados para la consulta, tales como reuniones periódicas, encuestas estructuradas, buzones de sugerencias físicos y digitales, comités de seguridad y salud, y plataformas digitales colaborativas.</p>
+                    </li>
+                    <li class="procedure-step">
+                        <div class="step-title">Recopilación de la información</div>
+                        <p class="content-text">Se recogen las opiniones, inquietudes y sugerencias de los trabajadores y otras partes interesadas sobre la seguridad y salud en el trabajo. La organización garantiza la confidencialidad cuando sea requerida y facilita diversos medios para expresar preocupaciones.</p>
+                    </li>
+                    <li class="procedure-step">
+                        <div class="step-title">Análisis de la información</div>
+                        <p class="content-text">La información recopilada es analizada sistemáticamente y se evalúan las posibles acciones que se derivan de la consulta. Se priorizan las propuestas según su impacto potencial en la seguridad y salud laboral.</p>
+                    </li>
+                    <li class="procedure-step">
+                        <div class="step-title">Toma de decisiones</div>
+                        <p class="content-text">Con base en los resultados de la consulta, la organización toma las decisiones adecuadas para mejorar las condiciones de seguridad y salud en el trabajo. Las decisiones son documentadas y comunicadas de manera transparente.</p>
+                    </li>
+                    <li class="procedure-step">
+                        <div class="step-title">Retroalimentación</div>
+                        <p class="content-text">Los trabajadores y partes interesadas reciben retroalimentación oportuna sobre las decisiones tomadas y cómo sus opiniones fueron consideradas en el proceso de toma de decisiones. Esta comunicación se realiza a través de canales establecidos.</p>
+                    </li>
+                    <li class="procedure-step">
+                        <div class="step-title">Evaluación continua</div>
+                        <p class="content-text">El procedimiento es evaluado regularmente para garantizar su efectividad y alineación continua con la cláusula 5.4 de la ISO 45001. Los resultados de la evaluación se utilizan para mejorar continuamente el proceso de participación y consulta.</p>
+                    </li>
+                </ol>
+            </div>
+            
+            <!-- Seção 5: Documentación -->
+            <div class="section" id="documentacion">
+                <div class="section-title">Documentación</div>
+                <p class="content-text">Toda la documentación generada en el proceso de participación y consulta es archivada y mantenida disponible para su revisión, incluyendo:</p>
+                <ul class="responsibility-list">
+                    <li class="responsibility-item">Actas de reuniones de los comités de seguridad y salud</li>
+                    <li class="responsibility-item">Resultados de encuestas y consultas a trabajadores</li>
+                    <li class="responsibility-item">Registros de sugerencias recibidas y respuestas proporcionadas</li>
+                    <li class="responsibility-item">Informes de evaluación del procedimiento</li>
+                    <li class="responsibility-item">Comunicaciones oficiales relacionadas con decisiones tomadas</li>
+                </ul>
+                <p class="content-text">La organización mantiene esta documentación por un período mínimo de cinco años, asegurando su disponibilidad para auditorías internas y externas, así como para procesos de mejora continua.</p>
+            </div>
+            
+            <!-- Seção 6: Referencias -->
+            <div class="section" id="referencias">
+                <div class="section-title">Referencias</div>
+                <ul class="reference-list">
+                    <li class="reference-item">ISO 45001:2018 - Sistemas de gestión de la seguridad y salud en el trabajo. Requisitos con orientación para su uso.</li>
+                    <li class="reference-item">Ley de Seguridad y Salud en el Trabajo (legislación nacional aplicable).</li>
+                    <li class="reference-item">ISO 9001:2015 - Sistemas de gestión de la calidad. Requisitos.</li>
+                    <li class="reference-item">ISO 14001:2015 - Sistemas de gestión ambiental. Requisitos con orientación para su uso.</li>
+                    <li class="reference-item">Procedimiento PRO-001 - Control de la Documentación del SGI.</li>
+                </ul>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-023 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Configurar contador de secciones
+        document.body.style.counterReset = 'section-counter subsection-counter';
+        
+        // Verifica se o logo existe, caso contrário mostra um placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+        }
+        
+        // Hacer elementos de contenido editables (opcional)
+        document.querySelectorAll('.content-text, .definition-title, .step-title').forEach(element => {
+            element.setAttribute('contenteditable', 'true');
+            element.addEventListener('focus', function() {
+                this.style.backgroundColor = '#f0f7ff';
+                this.style.outline = '2px solid #3182ce';
+                this.style.padding = '5px';
+                this.style.borderRadius = '3px';
+            });
+            element.addEventListener('blur', function() {
+                this.style.backgroundColor = '';
+                this.style.outline = '';
+                this.style.padding = '';
+                this.style.borderRadius = '';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-024 Gestión del Cambio - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            counter-increment: subsection-counter;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." counter(subsection-counter) ". ";
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .responsibility-item {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .responsibility-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .procedure-steps {
+            list-style-type: none;
+            margin: 20px 0 25px 30px;
+            counter-reset: step-counter;
+        }
+        
+        .procedure-step {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step:before {
+            content: counter(step-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #4a5568;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .records-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .record-item {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .record-item:before {
+            content: "—";
+            color: #4a5568;
+            position: absolute;
+            left: 0;
+        }
+        
+        .annex-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .annex-item {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .annex-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 20px 0 30px;
+        }
+        
+        .print-btn, .download-btn, .save-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover, .download-btn:hover, .save-btn:hover {
+            background-color: #718096;
+        }
+        
+        .download-btn {
+            background-color: #10b981;
+        }
+        
+        .download-btn:hover {
+            background-color: #34d399;
+        }
+        
+        .save-btn {
+            background-color: #3b82f6;
+        }
+        
+        .save-btn:hover {
+            background-color: #60a5fa;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px;
+            transition: border 0.3s;
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editable:hover, .editable:focus {
+            border: 1px dashed #718096;
+            background-color: #f9f9f9;
+        }
+        
+        .edit-notice {
+            background-color: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #0369a1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .editable {
+                border: none;
+            }
+            
+            .editable:hover, .editable:focus {
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .procedure-step {
+                padding-left: 35px;
+            }
+            
+            .procedure-step:before {
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .print-btn, .download-btn, .save-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable" contenteditable="true">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable" contenteditable="true">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable" contenteditable="true">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable" contenteditable="true">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title editable" contenteditable="true">Gestión del Cambio</div>
+        <div class="doc-code editable" contenteditable="true">Código: PRO-024</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Botones de acción -->
+            <div class="edit-notice">
+                <strong>📝 Documento completamente editable:</strong> Haga clic en cualquier texto para editarlo. Use los botones abajo para guardar o descargar el documento.
+            </div>
+            
+            <div class="action-buttons">
+                <button class="save-btn" id="saveBtn">💾 Guardar Cambios</button>
+                <button class="download-btn" id="downloadBtn">⬇️ Descargar Documento</button>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+            </div>
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title editable" contenteditable="true">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">Procedimiento</a>
+                        <ol style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#identificacion" class="toc-link">Identificación del Cambio</a></li>
+                            <li><a href="#evaluacion" class="toc-link">Evaluación del Cambio</a></li>
+                            <li><a href="#planificacion" class="toc-link">Planificación del Cambio</a></li>
+                            <li><a href="#implementacion" class="toc-link">Implementación del Cambio</a></li>
+                            <li><a href="#monitoreo" class="toc-link">Monitoreo y Evaluación del Cambio</a></li>
+                        </ol>
+                    </li>
+                    <li class="toc-item"><a href="#registros" class="toc-link">Registros</a></li>
+                    <li class="toc-item"><a href="#anexos" class="toc-link">Anexos</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title editable" contenteditable="true">Objetivo</div>
+                <p class="content-text editable" contenteditable="true">El objetivo de este procedimiento es establecer un marco formal para la gestión de cambios en los procesos, sistemas y otros aspectos que puedan afectar a la organización, con el fin de garantizar que todas las modificaciones se realicen de forma controlada y sin generar impactos negativos.</p>
+                <p class="content-text editable" contenteditable="true">La organización implementa este procedimiento para asegurar que los cambios sean gestionados de manera sistemática, minimizando riesgos y maximizando beneficios, en cumplimiento con los requisitos del Sistema de Gestión de la Calidad.</p>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title editable" contenteditable="true">Alcance</div>
+                <p class="content-text editable" contenteditable="true">Este procedimiento se aplica a todas las áreas de la organización que estén involucradas en la implementación de cambios, ya sean de carácter tecnológico, organizacional, de procesos, o cualquier otra modificación que pueda afectar la calidad, seguridad, medio ambiente o el cumplimiento normativo de la organización.</p>
+                <p class="content-text editable" contenteditable="true">La organización asegura que este procedimiento cubre todos los tipos de cambios, incluyendo pero no limitándose a:</p>
+                <ul class="records-list">
+                    <li class="record-item editable" contenteditable="true">Cambios en procesos operativos y administrativos</li>
+                    <li class="record-item editable" contenteditable="true">Implementación de nuevas tecnologías o sistemas</li>
+                    <li class="record-item editable" contenteditable="true">Modificaciones organizacionales y estructurales</li>
+                    <li class="record-item editable" contenteditable="true">Cambios en productos, servicios o metodologías</li>
+                    <li class="record-item editable" contenteditable="true">Actualizaciones de equipos, maquinaria o infraestructura</li>
+                    <li class="record-item editable" contenteditable="true">Cambios regulatorios o normativos que afecten las operaciones</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 3: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title editable" contenteditable="true">Responsabilidades</div>
+                <ul class="responsibility-list">
+                    <li class="responsibility-item editable" contenteditable="true">
+                        <strong>Responsable de Gestión del Cambio:</strong> Es el encargado de coordinar todo el proceso de gestión de cambios, asegurando que todos los cambios sean evaluados, aprobados e implementados correctamente. Mantiene el registro centralizado de todos los cambios y reporta al Comité de Gestión.
+                    </li>
+                    <li class="responsibility-item editable" contenteditable="true">
+                        <strong>Responsables de Áreas:</strong> Son los encargados de identificar la necesidad de cambio dentro de sus respectivos departamentos y asegurar la correcta implementación de los cambios. Proporcionan la información técnica necesaria y supervisan la ejecución en sus áreas.
+                    </li>
+                    <li class="responsibility-item editable" contenteditable="true">
+                        <strong>Comité de Gestión de Cambio:</strong> Este comité está compuesto por los responsables de las áreas clave de la organización y se encarga de evaluar los riesgos y beneficios de cada cambio propuesto, así como de tomar las decisiones finales sobre su implementación. Se reúne periódicamente para revisar el portafolio de cambios.
+                    </li>
+                    <li class="responsibility-item editable" contenteditable="true">
+                        <strong>Alta Dirección:</strong> Aprueba los cambios estratégicos de alto impacto y asigna los recursos necesarios para su implementación. Demuestra liderazgo y compromiso con la gestión efectiva del cambio.
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Sección 4: Procedimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title editable" contenteditable="true">Procedimiento</div>
+                <p class="content-text editable" contenteditable="true">La organización implementa un proceso formal de gestión del cambio que incluye las siguientes etapas, asegurando un control sistemático y documentado de todas las modificaciones:</p>
+                
+                <!-- Subsección 4.1 -->
+                <div class="subsection" id="identificacion">
+                    <div class="subsection-title editable" contenteditable="true">Identificación del Cambio</div>
+                    <p class="content-text editable" contenteditable="true">El primer paso en el proceso de gestión del cambio es identificar y documentar la necesidad de cambio. Esto puede ser resultado de nuevas demandas del mercado, avances tecnológicos, o mejoras en los procesos internos.</p>
+                    <p class="content-text editable" contenteditable="true">La organización establece mecanismos formales para la identificación de cambios, incluyendo:</p>
+                    <ul class="records-list">
+                        <li class="record-item editable" contenteditable="true">Revisión periódica de procesos y sistemas</li>
+                        <li class="record-item editable" contenteditable="true">Análisis de tendencias del mercado y tecnológicas</li>
+                        <li class="record-item editable" contenteditable="true">Evaluación de resultados de auditorías internas y externas</li>
+                        <li class="record-item editable" contenteditable="true">Sugerencias del personal y partes interesadas</li>
+                        <li class="record-item editable" contenteditable="true">Cambios en requisitos legales y regulatorios</li>
+                    </ul>
+                    <p class="content-text editable" contenteditable="true">Toda necesidad de cambio identificada es registrada en el Formulario de Solicitud de Cambio (Anexo 1).</p>
+                </div>
+                
+                <!-- Subsección 4.2 -->
+                <div class="subsection" id="evaluacion">
+                    <div class="subsection-title editable" contenteditable="true">Evaluación del Cambio</div>
+                    <p class="content-text editable" contenteditable="true">Una vez identificado el cambio, se procede a su evaluación. El responsable del cambio realiza una evaluación inicial de los posibles impactos en el negocio, así como los riesgos asociados.</p>
+                    <p class="content-text editable" contenteditable="true">El Comité de Gestión de Cambio es responsable de evaluar todos los riesgos, beneficios y costos asociados al cambio propuesto, considerando:</p>
+                    <ul class="records-list">
+                        <li class="record-item editable" contenteditable="true">Impacto en la calidad de productos y servicios</li>
+                        <li class="record-item editable" contenteditable="true">Riesgos para la seguridad y salud ocupacional</li>
+                        <li class="record-item editable" contenteditable="true">Consecuencias ambientales</li>
+                        <li class="record-item editable" contenteditable="true">Costo-beneficio de la implementación</li>
+                        <li class="record-item editable" contenteditable="true">Impacto en los clientes y otras partes interesadas</li>
+                        <li class="record-item editable" contenteditable="true">Requisitos de capacitación y recursos humanos</li>
+                    </ul>
+                    <p class="content-text editable" contenteditable="true">La evaluación se documenta en la Plantilla de Evaluación de Cambio (Anexo 2).</p>
+                </div>
+                
+                <!-- Subsección 4.3 -->
+                <div class="subsection" id="planificacion">
+                    <div class="subsection-title editable" contenteditable="true">Planificación del Cambio</div>
+                    <p class="content-text editable" contenteditable="true">Una vez aprobado el cambio, se crea un plan detallado para su implementación. Este plan incluye los recursos necesarios, el cronograma, las responsabilidades, y los procedimientos de monitoreo y seguimiento.</p>
+                    <p class="content-text editable" contenteditable="true">La organización desarrolla planes de cambio que consideran:</p>
+                    <ul class="records-list">
+                        <li class="record-item editable" contenteditable="true">Cronograma detallado con hitos clave</li>
+                        <li class="record-item editable" contenteditable="true">Asignación clara de responsabilidades</li>
+                        <li class="record-item editable" contenteditable="true">Presupuesto y recursos requeridos</li>
+                        <li class="record-item editable" contenteditable="true">Plan de comunicación a afectados</li>
+                        <li class="record-item editable" contenteditable="true">Plan de capacitación si es necesario</li>
+                        <li class="record-item editable" contenteditable="true">Criterios de éxito y métricas de evaluación</li>
+                        <li class="record-item editable" contenteditable="true">Plan de contingencia y reversión si aplica</li>
+                    </ul>
+                    <p class="content-text editable" contenteditable="true">El plan se documenta en el Formato de Plan de Implementación (Anexo 3).</p>
+                </div>
+                
+                <!-- Subsección 4.4 -->
+                <div class="subsection" id="implementacion">
+                    <div class="subsection-title editable" contenteditable="true">Implementación del Cambio</div>
+                    <p class="content-text editable" contenteditable="true">La implementación del cambio sigue el plan previamente establecido, asegurando que todos los pasos se realicen de manera controlada y en los tiempos establecidos. Durante esta etapa, se documentan todos los cambios realizados y los resultados obtenidos.</p>
+                    <p class="content-text editable" contenteditable="true">La organización asegura que la implementación incluye:</p>
+                    <ul class="records-list">
+                        <li class="record-item editable" contenteditable="true">Ejecución según el cronograma aprobado</li>
+                        <li class="record-item editable" contenteditable="true">Comunicación oportuna a todos los afectados</li>
+                        <li class="record-item editable" contenteditable="true">Capacitación del personal cuando sea necesario</li>
+                        <li class="record-item editable" contenteditable="true">Documentación de todas las actividades realizadas</li>
+                        <li class="record-item editable" contenteditable="true">Gestión de incidencias y desviaciones</li>
+                        <li class="record-item editable" contenteditable="true">Coordinación entre áreas involucradas</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 4.5 -->
+                <div class="subsection" id="monitoreo">
+                    <div class="subsection-title editable" contenteditable="true">Monitoreo y Evaluación del Cambio</div>
+                    <p class="content-text editable" contenteditable="true">Después de la implementación, se monitorea de cerca el impacto del cambio en los procesos y sistemas, y se evalúa si se lograron los objetivos propuestos. Cualquier desviación del plan original es documentada y corregida.</p>
+                    <p class="content-text editable" contenteditable="true">La organización realiza evaluaciones post-implementación que incluyen:</p>
+                    <ul class="records-list">
+                        <li class="record-item editable" contenteditable="true">Seguimiento de indicadores de desempeño</li>
+                        <li class="record-item editable" contenteditable="true">Evaluación del cumplimiento de objetivos</li>
+                        <li class="record-item editable" contenteditable="true">Análisis de lecciones aprendidas</li>
+                        <li class="record-item editable" contenteditable="true">Retroalimentación de usuarios y afectados</li>
+                        <li class="record-item editable" contenteditable="true">Ajustes y mejoras basadas en resultados</li>
+                        <li class="record-item editable" contenteditable="true">Cierre formal del proceso de cambio</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Registros -->
+            <div class="section" id="registros">
+                <div class="section-title editable" contenteditable="true">Registros</div>
+                <p class="content-text editable" contenteditable="true">Todos los cambios deben estar debidamente registrados. Los registros deben incluir:</p>
+                <ul class="records-list">
+                    <li class="record-item editable" contenteditable="true">Solicitudes de cambio (Formulario de Solicitud de Cambio)</li>
+                    <li class="record-item editable" contenteditable="true">Evaluación del cambio (Plantilla de Evaluación de Cambio)</li>
+                    <li class="record-item editable" contenteditable="true">Plan de implementación (Formato de Plan de Implementación)</li>
+                    <li class="record-item editable" contenteditable="true">Actas de reuniones del Comité de Gestión de Cambio</li>
+                    <li class="record-item editable" contenteditable="true">Resultados de la implementación y evidencias</li>
+                    <li class="record-item editable" contenteditable="true">Evaluación post-cambio y reportes de seguimiento</li>
+                    <li class="record-item editable" contenteditable="true">Registros de capacitación relacionada con el cambio</li>
+                </ul>
+                <p class="content-text editable" contenteditable="true">La organización mantiene estos registros por un período mínimo de cinco años, asegurando su disponibilidad para auditorías y procesos de mejora continua.</p>
+            </div>
+            
+            <!-- Sección 6: Anexos -->
+            <div class="section" id="anexos">
+                <div class="section-title editable" contenteditable="true">Anexos</div>
+                <p class="content-text editable" contenteditable="true">Se incluyen los formularios y documentos necesarios para llevar a cabo la gestión del cambio:</p>
+                <ul class="annex-list">
+                    <li class="annex-item editable" contenteditable="true">
+                        <strong>Anexo 1 - Formulario de Solicitud de Cambio:</strong> Documento formal para registrar y describir la necesidad de cambio, incluyendo justificación, alcance y solicitante.
+                    </li>
+                    <li class="annex-item editable" contenteditable="true">
+                        <strong>Anexo 2 - Plantilla de Evaluación de Cambio:</strong> Herramienta para evaluar riesgos, beneficios, costos e impactos del cambio propuesto.
+                    </li>
+                    <li class="annex-item editable" contenteditable="true">
+                        <strong>Anexo 3 - Formato de Plan de Implementación:</strong> Plantilla para desarrollar el plan detallado de implementación del cambio aprobado.
+                    </li>
+                    <li class="annex-item editable" contenteditable="true">
+                        <strong>Anexo 4 - Acta de Reunión del Comité de Gestión de Cambio:</strong> Formato para documentar decisiones y acuerdos del comité.
+                    </li>
+                    <li class="annex-item editable" contenteditable="true">
+                        <strong>Anexo 5 - Formulario de Evaluación Post-Implementación:</strong> Documento para evaluar los resultados y efectividad del cambio implementado.
+                    </li>
+                </ul>
+                <p class="content-text editable" contenteditable="true">Estos anexos están disponibles en el sistema documental de la organización y son distribuidos a los responsables correspondientes según sea necesario.</p>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title editable" contenteditable="true">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th class="editable" contenteditable="true">Versión</th>
+                                <th class="editable" contenteditable="true">Fecha</th>
+                                <th class="editable" contenteditable="true">Asiento</th>
+                                <th class="editable" contenteditable="true">Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" contenteditable="true">000</td>
+                                <td class="editable" contenteditable="true">01.12.2024</td>
+                                <td class="editable" contenteditable="true">Original</td>
+                                <td class="editable" contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p class="editable" contenteditable="true">Código: PRO-024 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar elementos editables
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Documento PRO-024 cargado y listo para edición');
+            
+            // Verificar si el logo existe, si no mostrar un placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">SGC - LOGO</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Se ha colocado un logo temporal.");
+            };
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar botón de descarga
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                // Obtener el contenido completo del documento
+                const content = document.documentElement.outerHTML;
+                
+                // Crear un blob con el contenido HTML
+                const blob = new Blob([content], { type: 'text/html' });
+                
+                // Crear un enlace para descargar el archivo
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'PRO-024-Gestion-del-Cambio-SGC.html';
+                a.click();
+                
+                URL.revokeObjectURL(a.href);
+                
+                // Notificar al usuario
+                alert('Documento descargado como: PRO-024-Gestion-del-Cambio-SGC.html');
+            });
+            
+            // Configurar botón de guardar cambios
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                // Aquí normalmente se enviarían los datos a un servidor
+                // Por ahora, simplemente notificamos al usuario
+                alert('Los cambios han sido guardados localmente. Para guardar permanentemente, descargue el documento actualizado.');
+                
+                // Podríamos usar localStorage para guardar temporalmente
+                try {
+                    // Guardar el contenido HTML en localStorage
+                    const content = document.documentElement.outerHTML;
+                    localStorage.setItem('documento_sgc_pro_024', content);
+                    console.log('Cambios guardados en localStorage');
+                } catch (e) {
+                    console.log('No se pudo guardar en localStorage:', e);
+                }
+            });
+            
+            // Cargar desde localStorage si existe
+            try {
+                const savedContent = localStorage.getItem('documento_sgc_pro_024');
+                if (savedContent) {
+                    if (confirm('¿Desea cargar la versión guardada anteriormente?')) {
+                        // Reemplazar el documento con la versión guardada
+                        document.open();
+                        document.write(savedContent);
+                        document.close();
+                    }
+                }
+            } catch (e) {
+                console.log('No se pudo cargar desde localStorage:', e);
+            }
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter subsection-counter';
+            
+            // Mejorar la experiencia de edición
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                // Guardar el contenido original
+                const originalContent = element.innerHTML;
+                
+                // Configurar eventos para mejorar la edición
+                element.addEventListener('focus', function() {
+                    this.style.backgroundColor = '#f0f7ff';
+                    this.style.border = '2px solid #3182ce';
+                    this.style.padding = '5px';
+                });
+                
+                element.addEventListener('blur', function() {
+                    this.style.backgroundColor = '';
+                    this.style.border = '';
+                    this.style.padding = '';
+                    
+                    // Si el contenido cambió, guardar en localStorage
+                    if (this.innerHTML !== originalContent) {
+                        try {
+                            localStorage.setItem('documento_sgc_pro_024', document.documentElement.outerHTML);
+                        } catch (e) {
+                            console.log('Error al guardar cambios:', e);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

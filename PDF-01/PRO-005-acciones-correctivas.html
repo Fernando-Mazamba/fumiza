@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-005 - Acciones Correctivas y Preventivas - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .control-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .control-btn:hover {
+            background-color: #718096;
+        }
+        
+        .edit-mode {
+            background-color: #3182ce;
+        }
+        
+        .edit-mode:hover {
+            background-color: #2c5282;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step::before {
+            content: counter(step-counter) ".";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .procedure-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .nonconformity-box {
+            background-color: #fed7d7;
+            border: 1px solid #fc8181;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .nonconformity-title {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .action-box {
+            background-color: #c6f6d5;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .action-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-box {
+            background-color: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #38b2ac;
+        }
+        
+        .analysis-title {
+            color: #234e52;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .reference-box {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .reference-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-box {
+            background-color: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .form-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        
+        .form-value {
+            color: #2d3748;
+            padding-left: 10px;
+        }
+        
+        .technique-box {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .technique-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls, .print-btn {
+                display: none;
+            }
+            
+            .procedure-step {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .controls {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+        
+        [contenteditable="true"] {
+            outline: 2px dashed #3182ce;
+            padding: 5px;
+            margin: -5px;
+            border-radius: 3px;
+            min-height: 20px;
+        }
+        
+        [contenteditable="true"]:focus {
+            outline: 2px solid #3182ce;
+            background-color: #ebf8ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container" id="editableDocument">
+        <!-- Controles de edición e download -->
+        <div class="controls">
+            <button class="control-btn edit-mode" id="toggleEdit">
+                <span>✏️</span> Editar Documento
+            </button>
+            <button class="control-btn" id="downloadBtn">
+                <span>⬇️</span> Descargar Documento
+            </button>
+        </div>
+        
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Acciones Correctivas y Preventivas</div>
+        <div class="doc-code">Código: PRO-005</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimiento" class="toc-link">Procedimiento</a></li>
+                    <li class="toc-item"><a href="#seguimiento" class="toc-link">Seguimiento y Evaluación de Efectividad</a></li>
+                    <li class="toc-item"><a href="#documentacion" class="toc-link">Documentación Relacionada</a></li>
+                    <li class="toc-item"><a href="#referencias" class="toc-link">Referencias Normativas</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                
+                <div class="objective-box">
+                    <div class="objective-title">Propósito del Procedimiento</div>
+                    <p><strong>El objetivo de este procedimiento es establecer un proceso claro y sistemático para identificar, analizar, corregir y prevenir las no conformidades dentro del Sistema de Gestión de la Calidad (SGC)</strong>, conforme a los requisitos establecidos en la norma ISO 9001:2015. Este procedimiento asegura que las acciones correctivas se tomen de manera efectiva para eliminar las causas raíz de las no conformidades y evitar su recurrencia, promoviendo la mejora continua del SGC.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                
+                <p>Este procedimiento es aplicable a todas las no conformidades identificadas dentro de la organización, tanto internas como externas, relacionadas con el Sistema de Gestión de la Calidad.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Áreas cubiertas:</strong> Productos, procesos, actividades, sistemas y aspectos relacionados con la calidad dentro del Sistema de Gestión de la Calidad. Las acciones correctivas se implementan para corregir cualquier desviación, defectos o incumplimientos detectados en el SGC.</p>
+                </div>
+                
+                <div class="nonconformity-box">
+                    <div class="nonconformity-title">Fuentes de No Conformidades</div>
+                    <ul class="procedure-list">
+                        <li>Auditorías internas del Sistema de Gestión de la Calidad</li>
+                        <li>Auditorías externas y de certificación</li>
+                        <li>Reclamos y quejas de clientes</li>
+                        <li>Análisis de productos no conformes</li>
+                        <li>Monitoreo y medición de procesos</li>
+                        <li>Revisiones por la dirección del SGC</li>
+                        <li>Evaluaciones de riesgos y oportunidades</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">3. Responsabilidades</div>
+                
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Responsabilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Responsable de Calidad</strong></td>
+                            <td>Coordina y supervisa la implementación de las acciones correctivas en toda la organización dentro del Sistema de Gestión de la Calidad. Asegura que las acciones correctivas se tomen dentro de los plazos establecidos, sean efectivas y se documenten adecuadamente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Responsables de Área</strong></td>
+                            <td>Identifican las no conformidades en sus respectivas áreas del SGC, colaboran en la implementación de las acciones correctivas y aseguran que se apliquen de manera efectiva, reportando el progreso al Responsable de Calidad.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Auditores Internos</strong></td>
+                            <td>Realizan la evaluación de la efectividad de las acciones correctivas durante las auditorías internas del SGC y revisan los resultados obtenidos, emitiendo hallazgos cuando sea necesario.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personal Operativo</strong></td>
+                            <td>Ejecuta las acciones correctivas que les sean asignadas según lo indicado por los responsables de área, participa en el análisis de causas raíz y aplica los cambios en sus procesos diarios.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alta Dirección</strong></td>
+                            <td>Proporciona los recursos necesarios para la implementación de acciones correctivas, revisa los informes de efectividad y asegura el compromiso organizacional con la mejora continua del Sistema de Gestión de la Calidad.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Procedimiento -->
+            <div class="section" id="procedimiento">
+                <div class="section-title">4. Procedimiento</div>
+                
+                <p>La organización implementa el siguiente proceso sistemático para la gestión de acciones correctivas dentro del Sistema de Gestión de la Calidad:</p>
+                
+                <div class="procedure-container">
+                    <div class="procedure-step">
+                        <div class="procedure-title">Identificación de la No Conformidad</div>
+                        <div class="procedure-content">
+                            <p>Las no conformidades se identifican a través de diversas fuentes dentro del Sistema de Gestión de la Calidad y se registran inmediatamente en el sistema de gestión.</p>
+                            
+                            <div class="form-box">
+                                <div class="form-title">FORMULARIO DE NO CONFORMIDAD (FNC-001)</div>
+                                <div class="form-field">
+                                    <div class="form-label">Descripción de la no conformidad:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Área/Proceso afectado:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Fecha de detección:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Persona que detecta:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Gravedad (Crítica/Mayor/Menor):</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Efectos potenciales:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Análisis de la Causa Raíz</div>
+                        <div class="procedure-content">
+                            <p>Antes de tomar cualquier acción correctiva, se realiza un análisis exhaustivo para identificar la causa raíz de la no conformidad dentro del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="technique-box">
+                                <div class="technique-title">Técnicas de Análisis de Causa Raíz</div>
+                                <ul class="procedure-list">
+                                    <li><strong>Los 5 Porqués:</strong> Método iterativo de preguntas para profundizar en las causas</li>
+                                    <li><strong>Diagrama de Ishikawa (Espina de Pescado):</strong> Análisis visual de causas por categorías (Método, Mano de obra, Material, Maquinaria, Medio ambiente, Medición)</li>
+                                    <li><strong>Análisis de Pareto:</strong> Identificación de las causas más significativas</li>
+                                    <li><strong>Análisis FODA:</strong> Evaluación de factores internos y externos</li>
+                                    <li><strong>Diagrama de Flujo de Proceso:</strong> Identificación de puntos críticos en los procesos del SGC</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="analysis-box">
+                                <div class="analysis-title">Principio Fundamental</div>
+                                <p>El análisis debe ser exhaustivo y no limitarse a acciones superficiales que solo resuelvan los síntomas de la no conformidad. Se debe identificar y abordar la causa raíz real dentro del Sistema de Gestión de la Calidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Definición de Acciones Correctivas</div>
+                        <div class="procedure-content">
+                            <p>Una vez identificada la causa raíz, se definen las acciones correctivas que aborden esa causa de manera efectiva dentro del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="action-box">
+                                <div class="action-title">Tipos de Acciones Correctivas</div>
+                                <ul class="procedure-list">
+                                    <li><strong>Cambios en procesos operativos:</strong> Modificación de flujos de trabajo o secuencias</li>
+                                    <li><strong>Modificación de procedimientos:</strong> Actualización de instrucciones de trabajo o procedimientos del SGC</li>
+                                    <li><strong>Capacitación del personal:</strong> Programas de formación específicos para abordar deficiencias identificadas</li>
+                                    <li><strong>Mejora en controles de calidad:</strong> Implementación de puntos de control adicionales o más estrictos</li>
+                                    <li><strong>Actualización de equipos:</strong> Reparación, calibración o reemplazo de equipos</li>
+                                    <li><strong>Cambios en diseño:</strong> Modificación de especificaciones o diseños de productos</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="highlight-box">
+                                <p><strong>Principio de Proporcionalidad:</strong> Las acciones correctivas deben ser proporcionales a la gravedad de la no conformidad y al riesgo asociado dentro del Sistema de Gestión de la Calidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Implementación de las Acciones Correctivas</div>
+                        <div class="procedure-content">
+                            <p>Las acciones correctivas se implementan de manera eficiente y dentro de los plazos establecidos en el Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="form-box">
+                                <div class="form-title">PLAN DE ACCIÓN CORRECTIVA</div>
+                                <div class="form-field">
+                                    <div class="form-label">Acción correctiva definida:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Responsable de implementación:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Fecha límite de implementación:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Recursos necesarios:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                                <div class="form-field">
+                                    <div class="form-label">Indicadores de éxito:</div>
+                                    <div class="form-value">________________________________</div>
+                                </div>
+                            </div>
+                            
+                            <p>El personal involucrado se capacita o informa sobre las nuevas medidas o procedimientos que deben seguir dentro del Sistema de Gestión de la Calidad.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Verificación de la Eficacia de las Acciones Correctivas</div>
+                        <div class="procedure-content">
+                            <p>Una vez implementadas las acciones correctivas, se verifica que hayan sido efectivas en la eliminación de la causa raíz y en la prevención de la recurrencia de la no conformidad dentro del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="analysis-box">
+                                <div class="analysis-title">Métodos de Verificación</div>
+                                <ul class="procedure-list">
+                                    <li>Auditorías de seguimiento específicas</li>
+                                    <li>Monitoreo de indicadores de proceso relevantes</li>
+                                    <li>Análisis estadístico de datos posteriores a la implementación</li>
+                                    <li>Encuestas o entrevistas al personal afectado</li>
+                                    <li>Revisión de registros y evidencias documentales</li>
+                                    <li>Evaluación de satisfacción del cliente (cuando aplica)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Cierre de la No Conformidad</div>
+                        <div class="procedure-content">
+                            <p>Si las acciones correctivas son exitosas, la no conformidad se considera cerrada dentro del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="action-box">
+                                <div class="action-title">Proceso de Cierre</div>
+                                <ul class="procedure-list">
+                                    <li>El registro de la no conformidad se actualiza para reflejar las acciones correctivas tomadas y su efectividad</li>
+                                    <li>Se documentan las evidencias de la efectividad de las acciones</li>
+                                    <li>El Responsable de Calidad revisa y aprueba el cierre de la no conformidad</li>
+                                    <li>Se notifica a todas las partes interesadas relevantes</li>
+                                    <li>La información se incluye en el informe de Revisión por la Dirección del SGC</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Documentación y Registro</div>
+                        <div class="procedure-content">
+                            <p>Todos los registros relacionados con las no conformidades y las acciones correctivas se mantienen de acuerdo con el procedimiento de control de registros del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="highlight-box">
+                                <p><strong>Documentación requerida:</strong> Formulario de no conformidad, análisis de causa raíz, plan de acciones correctivas, evidencias de implementación, resultados de verificación de efectividad, y acta de cierre de la no conformidad.</p>
+                            </div>
+                            
+                            <p>La documentación es accesible para su revisión durante auditorías internas, revisión de gestión o investigaciones posteriores del Sistema de Gestión de la Calidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Seguimiento y Evaluación de Efectividad -->
+            <div class="section" id="seguimiento">
+                <div class="section-title">5. Seguimiento y Evaluación de Efectividad</div>
+                
+                <div class="procedure-container">
+                    <div class="procedure-step">
+                        <div class="procedure-title">Monitoreo Continuo</div>
+                        <div class="procedure-content">
+                            <p>Después de la implementación de las acciones correctivas, se realiza un seguimiento continuo para asegurar que no se repitan las no conformidades dentro del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="analysis-box">
+                                <div class="analysis-title">Actividades de Seguimiento</div>
+                                <ul class="procedure-list">
+                                    <li>Evaluaciones periódicas de los procesos afectados</li>
+                                    <li>Auditorías de seguimiento programadas</li>
+                                    <li>Revisión de indicadores de desempeño relevantes</li>
+                                    <li>Análisis de tendencias de no conformidades</li>
+                                    <li>Encuestas de satisfacción interna y externa</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="procedure-step">
+                        <div class="procedure-title">Revisión de Tendencias</div>
+                        <div class="procedure-content">
+                            <p>El Responsable de Calidad revisa periódicamente las tendencias de las no conformidades y las acciones correctivas implementadas para identificar áreas de mejora y oportunidades para optimizar los procesos del Sistema de Gestión de la Calidad.</p>
+                            
+                            <div class="action-box">
+                                <div class="action-title">Análisis de Tendencias</div>
+                                <ul class="procedure-list">
+                                    <li>Análisis mensual de no conformidades por área y tipo</li>
+                                    <li>Evaluación trimestral de la efectividad de acciones correctivas</li>
+                                    <li>Revisión anual de tendencias para la planificación de mejora continua</li>
+                                    <li>Comparación con benchmarks del sector cuando estén disponibles</li>
+                                    <li>Identificación de patrones recurrentes para acciones preventivas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Documentación Relacionada -->
+            <div class="section" id="documentacion">
+                <div class="section-title">6. Documentación Relacionada</div>
+                
+                <ul class="procedure-list">
+                    <li>Formulario de No Conformidad (FNC-001)</li>
+                    <li>Registro de Acciones Correctivas (RAC-001)</li>
+                    <li>Informe de Auditoría Interna del SGC</li>
+                    <li>Procedimiento de Control de Registros (PRO-002)</li>
+                    <li>Procedimiento de Auditorías Internas (PRO-004)</li>
+                    <li>Procedimiento de Control de Producto No Conforme (PRO-003)</li>
+                    <li>Manual del Sistema de Gestión de la Calidad</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 7: Referencias Normativas -->
+            <div class="section" id="referencias">
+                <div class="section-title">7. Referencias Normativas</div>
+                
+                <div class="reference-box">
+                    <div class="reference-title">Normas de Referencia</div>
+                    <ul class="procedure-list">
+                        <li><strong>ISO 9001:2015</strong> - Sistema de Gestión de la Calidad (Cláusula 10.2)</li>
+                        <li>Requisitos legales y reglamentarios aplicables a los sistemas de gestión</li>
+                        <li>Directrices para la mejora continua y la gestión de la calidad</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-005 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let isEditMode = false;
+            const editableDoc = document.getElementById('editableDocument');
+            const toggleEditBtn = document.getElementById('toggleEdit');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter';
+            document.body.style.counterReset = 'step-counter';
+            
+            // Verifica si el logo existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA ORGANIZACIÓN</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                };
+            }
+            
+            // Función para alternar modo de edición
+            toggleEditBtn.addEventListener('click', function() {
+                isEditMode = !isEditMode;
+                
+                if (isEditMode) {
+                    // Activar modo edición
+                    editableDoc.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, td, th, span, div:not(.controls)').forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                    });
+                    toggleEditBtn.innerHTML = '<span>💾</span> Guardar y Salir';
+                    toggleEditBtn.classList.add('edit-mode');
+                    alert('Modo de edición activado. Puede editar cualquier texto en el documento.');
+                } else {
+                    // Desactivar modo edición
+                    editableDoc.querySelectorAll('[contenteditable="true"]').forEach(element => {
+                        element.removeAttribute('contenteditable');
+                    });
+                    toggleEditBtn.innerHTML = '<span>✏️</span> Editar Documento';
+                    toggleEditBtn.classList.remove('edit-mode');
+                    alert('Modo de edición desactivado. Los cambios se han guardado temporalmente.');
+                }
+            });
+            
+            // Función para descargar el documento
+            downloadBtn.addEventListener('click', function() {
+                // Crear un blob con el contenido HTML actual
+                const htmlContent = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-005 - Acciones Correctivas y Preventivas - SGC</title>
+    <style>
+        ${document.querySelector('style').textContent}
+    </style>
+</head>
+<body>
+    ${editableDoc.outerHTML.replace('id="editableDocument"', '').replace(/contenteditable="true"/g, '')}
+</body>
+</html>`;
+                
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                // Crear enlace de descarga
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-005-Acciones-Correctivas-Preventivas-SGC.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento descargado exitosamente como PRO-005-Acciones-Correctivas-Preventivas-SGC.html');
+            });
+            
+            // Asegurar que los botones de control no sean editables
+            document.querySelectorAll('.control-btn').forEach(btn => {
+                btn.setAttribute('contenteditable', 'false');
+            });
+        });
+    </script>
+</body>
+</html>

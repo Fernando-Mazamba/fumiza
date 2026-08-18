@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-006 Política Ambiental del Sistema de Gestión Integrado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .policy-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 20px;
+        }
+        
+        .environmental-logo-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .environmental-logo {
+            max-width: 150px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        .policy-intro {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 40px;
+            color: #4a5568;
+        }
+        
+        .principles-container {
+            margin: 40px 0;
+        }
+        
+        .principle-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #f0fff4;
+            border-radius: 8px;
+            border-left: 4px solid #38a169;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .principle-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .principle-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-color: #38a169;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .principle-title {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: bold;
+            color: #22543d;
+            margin-bottom: 15px;
+        }
+        
+        .principle-description {
+            color: #4a5568;
+            line-height: 1.7;
+            margin-left: 47px;
+        }
+        
+        .commitment-section {
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+            border-left: 4px solid #1890ff;
+        }
+        
+        .commitment-title {
+            color: #0050b3;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .commitment-text {
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+            color: #4a5568;
+        }
+        
+        .environmental-goals {
+            background-color: #faf5ff;
+            border: 1px solid #d6bcfa;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 40px 0;
+            border-left: 4px solid #805ad5;
+        }
+        
+        .goals-title {
+            color: #553c9a;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .goals-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .goals-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .goals-list li:before {
+            content: "🌱";
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+        
+        .signature-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #2c5282;
+            text-align: center;
+        }
+        
+        .signature-line {
+            margin: 40px 0;
+        }
+        
+        .signature-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #2c5282;
+        }
+        
+        .signature-title {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .company-stamp {
+            margin-top: 30px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .policy-title {
+                font-size: 28px;
+            }
+            
+            .principle-item {
+                padding: 20px;
+            }
+            
+            .principle-title {
+                font-size: 18px;
+            }
+            
+            .principle-description {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Política Ambiental</div>
+        <div class="doc-code">Código: DOC-006</div>
+        
+        <!-- Panel de controles de edición -->
+        <div class="controls-panel" id="controlsPanel">
+            <button class="edit-btn" id="editContentBtn">EDITAR CONTENIDO</button>
+            <button class="action-btn secondary" id="saveBtn">GUARDAR EN NAVEGADOR</button>
+            <button class="action-btn" id="exportBtn">EXPORTAR COMO HTML</button>
+            <button class="action-btn secondary" id="loadBtn">CARGAR EDICIONES GUARDADAS</button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura activo</span>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content" id="mainContent">
+            <!-- Encabezado de la política -->
+            <div class="policy-header">
+                <div class="policy-title">POLÍTICA AMBIENTAL <span id="editIndicator1" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                
+                
+      <div class="environmental-logo-container"> <img src="../Logotipo/14001.png" width="124" height="103"></div>
+                
+                <div class="policy-intro editable" id="policy-introduction">
+                    Nuestra organización reafirma su compromiso con la protección del medio ambiente, integrando prácticas sostenibles en sus operaciones y gestionando sus aspectos ambientales con responsabilidad. Aspiramos a minimizar los impactos negativos de nuestras actividades, cumplir con la normativa vigente y avanzar hacia una mejora continua de nuestro desempeño ambiental.
+                </div>
+            </div>
+            
+            <!-- Principios rectores -->
+            <div class="principles-container">
+                <div class="section-description editable" id="principles-intro">
+                    Este compromiso se refleja en los siguientes principios rectores:
+                </div>
+                
+                <!-- Principio 1 -->
+                <div class="principle-item">
+                    <div class="principle-number">1</div>
+                    <div class="principle-title editable" id="principle1-title">Responsabilidad Legal y Normativa</div>
+                    <div class="principle-description editable" id="principle1-description">
+                        Nos aseguramos de cumplir con todas las leyes, reglamentos y compromisos ambientales aplicables, incluyendo aquellos voluntariamente asumidos por la organización.
+                    </div>
+                </div>
+                
+                <!-- Principio 2 -->
+                <div class="principle-item">
+                    <div class="principle-number">2</div>
+                    <div class="principle-title editable" id="principle2-title">Control y Prevención de Impactos Ambientales</div>
+                    <div class="principle-description editable" id="principle2-description">
+                        Adoptamos un enfoque preventivo frente a la contaminación, implementando controles eficaces para reducir o evitar emisiones, residuos y otros impactos perjudiciales derivados de nuestras actividades.
+                    </div>
+                </div>
+                
+                <!-- Principio 3 -->
+                <div class="principle-item">
+                    <div class="principle-number">3</div>
+                    <div class="principle-title editable" id="principle3-title">Eficiencia en el Uso de Recursos</div>
+                    <div class="principle-description editable" id="principle3-description">
+                        Promovemos la optimización en el uso de materias primas, energía y agua, fomentando una gestión racional que permita disminuir nuestra huella ambiental.
+                    </div>
+                </div>
+                
+                <!-- Principio 4 -->
+                <div class="principle-item">
+                    <div class="principle-number">4</div>
+                    <div class="principle-title editable" id="principle4-title">Mejora Continua del Desempeño Ambiental</div>
+                    <div class="principle-description editable" id="principle4-description">
+                        Establecemos objetivos y metas ambientales claras, revisadas de manera periódica, que orientan nuestros esfuerzos hacia un rendimiento cada vez más sostenible y alineado con las mejores prácticas del sector.
+                    </div>
+                </div>
+                
+                <!-- Principio 5 -->
+                <div class="principle-item">
+                    <div class="principle-number">5</div>
+                    <div class="principle-title editable" id="principle5-title">Cultura Ambiental y Formación Interna</div>
+                    <div class="principle-description editable" id="principle5-description">
+                        Fomentamos una cultura organizacional orientada al respeto por el entorno natural, sensibilizando y capacitando a nuestro personal en prácticas ambientalmente responsables.
+                    </div>
+                </div>
+                
+                <!-- Principio 6 -->
+                <div class="principle-item">
+                    <div class="principle-number">6</div>
+                    <div class="principle-title editable" id="principle6-title">Cadena de Valor Responsable</div>
+                    <div class="principle-description editable" id="principle6-description">
+                        Trabajamos en conjunto con proveedores y contratistas para asegurar que sus acciones también reflejen un compromiso con la sostenibilidad, promoviendo una gestión ambiental coherente a lo largo de toda nuestra cadena de suministro.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Objetivos ambientales -->
+            <div class="environmental-goals">
+                <div class="goals-title">Objetivos Ambientales Estratégicos <span id="editIndicator2" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <ul class="goals-list editable" id="environmental-goals-list">
+                    <li>Reducir el consumo de energía en un 15% para finales de 2025</li>
+                    <li>Minimizar la generación de residuos mediante programas de reducción y reciclaje</li>
+                    <li>Implementar sistemas de gestión eficiente del agua en todas nuestras operaciones</li>
+                    <li>Disminuir las emisiones de gases de efecto invernadero en nuestras actividades</li>
+                    <li>Promover el uso de materiales reciclados y productos ecológicos</li>
+                    <li>Capacitar al 100% del personal en prácticas ambientales sostenibles</li>
+                </ul>
+            </div>
+            
+            <!-- Compromiso de la organización -->
+            <div class="commitment-section">
+                <div class="commitment-title">Compromiso de la Organización <span id="editIndicator3" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="commitment-text editable" id="commitment-text">
+                    Esta política es comunicada a todos los niveles de la organización y se revisa regularmente para asegurar su adecuación a los cambios legislativos, tecnológicos y sociales, así como a la evolución de nuestras actividades. La Alta Dirección se compromete a proporcionar los recursos necesarios para la implementación y mantenimiento del Sistema de Gestión Ambiental, asegurando su mejora continua y el cumplimiento de los principios establecidos en esta política.
+                </div>
+            </div>
+            
+            <!-- Firma y aprobación -->
+            <div class="signature-section">
+                <div class="signature-line">
+                    <div style="border-top: 1px solid #333; width: 300px; margin: 0 auto; padding-top: 40px;"></div>
+                    <div class="signature-name editable" id="signature-name">
+                        [Nombre del Presidente/Director General]
+                    </div>
+                    <div class="signature-title editable" id="signature-title">
+                        Presidente / Director General
+                    </div>
+                </div>
+                
+                <div class="company-stamp editable" id="company-stamp">
+                    [Nombre de la Organización]
+                </div>
+                
+                <div class="section-description editable" id="signature-date" style="margin-top: 20px;">
+                    Fecha: 01 de diciembre de 2024
+                </div>
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: DOC-006 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-006-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Se detectaron ediciones guardadas. Use "CARGAR EDICIONES GUARDADAS" para cargarlas.');
+                }
+                
+                // Verificar si los logos existen
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO ORGANIZACIÓN</text></svg>';
+                        console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+                
+                const isoLogo = document.getElementById('iso14001Logo');
+                if (isoLogo) {
+                    isoLogo.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="100" viewBox="0 0 150 100"><rect width="150" height="100" fill="#f0fff4"/><text x="75" y="50" font-family="Arial" font-size="14" text-anchor="middle" fill="%2238a169" dy="5">ISO 14001:2015</text><text x="75" y="70" font-family="Arial" font-size="10" text-anchor="middle" fill="%2322543d">Gestión Ambiental</text></svg>';
+                        console.log("Logo ISO 14001 no encontrado en logo/14001.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESACTIVAR EDICIÓN';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo edición activo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTENIDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo lectura activo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Active el modo edición primero para poder guardar cambios.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('Las ediciones han sido guardadas en el navegador correctamente.');
+                } catch (error) {
+                    alert('Error al guardar las ediciones: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('No se encontraron ediciones guardadas en el navegador.');
+                    return;
+                }
+                
+                if (confirm('¿Cargar las ediciones guardadas? Esto sobrescribirá el contenido actual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Ediciones cargadas correctamente desde el navegador.');
+                    } catch (error) {
+                        alert('Error al cargar las ediciones: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para los logos)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror') && !script.textContent.includes('iso14001Logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-006-Politica-Ambiental-SGI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. Descargando...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todas las ediciones actuales.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Contenido original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

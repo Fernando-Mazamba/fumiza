@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-011 Organigrama de la Organización</title>
+    <style>
+        /* Todos los estilos anteriores se mantienen igual */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .org-chart-container {
+            margin: 40px 0;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .org-chart-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .org-image-container {
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        
+        .org-image-wrapper {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .org-image-wrapper:hover {
+            transform: scale(1.01);
+        }
+        
+        .org-image-wrapper.zoomed {
+            transform: scale(1.3);
+            z-index: 100;
+            position: relative;
+            cursor: zoom-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .org-image {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .org-image.zoomed {
+            cursor: zoom-out;
+        }
+        
+        .zoom-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        
+        .zoom-overlay.active {
+            display: flex;
+        }
+        
+        .zoom-overlay-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border: 2px solid white;
+            border-radius: 5px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .zoom-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: none;
+        }
+        
+        .org-image-container:hover .zoom-indicator {
+            display: block;
+        }
+        
+        .simple-zoom-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .simple-zoom-controls:hover {
+            opacity: 1;
+        }
+        
+        .simple-zoom-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .simple-zoom-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .image-info {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .simple-zoom-controls {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+            
+            .zoom-indicator {
+                display: none !important;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .org-chart-container {
+                padding: 15px;
+            }
+            
+            .simple-zoom-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .simple-zoom-btn {
+                width: 150px;
+            }
+            
+            .org-image-wrapper.zoomed {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Organigrama Organizacional</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        22.10.2025
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Revisión:</strong><br>
+                        04
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Vigencia:</strong><br>
+                        23.10.2025
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Organigrama General de la Organización</div>
+        <div class="doc-code">Código: DOC-011</div>
+        
+        <!-- Panel de controles de edición -->
+        <div class="controls-panel" id="controlsPanel">
+            <button class="edit-btn" id="editContentBtn">EDITAR CONTENIDO</button>
+            <button class="action-btn secondary" id="saveBtn">GUARDAR EN NAVEGADOR</button>
+            <button class="action-btn" id="exportBtn">EXPORTAR COMO HTML</button>
+            <button class="action-btn secondary" id="loadBtn">CARGAR EDICIONES GUARDADAS</button>
+            <span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo lectura activo</span>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content" id="mainContent">
+            <!-- Introducción -->
+            <div class="section">
+                <div class="section-title">Introducción <span id="editIndicator1" class="edit-indicator" style="display: none;">EDITANDO</span></div>
+                <div class="section-description editable" id="introduction">
+                    El presente Organigrama define la estructura organizacional de acuerdo con los requisitos del Sistema de Gestión de Calidad ISO 9001. Este documento establece de forma clara las relaciones jerárquicas, responsabilidades, autoridades y canales de comunicación, asegurando una gestión eficaz y alineada con los objetivos de calidad de la organización.
+                </div>
+            </div>
+            
+            <!-- Organigrama Visual -->
+            <div class="org-chart-container">
+                <div class="org-chart-title">Organigrama General de la Organización</div>
+                
+                <div class="org-image-container">
+                    <div class="org-image-wrapper" id="imageWrapper">
+                        <img src="../img/organigrama.png" alt="Organigrama General" class="org-image" id="orgImage" width="4535" height="2834">
+                        <div class="zoom-indicator">Haz clic para ampliar</div>
+                    </div>
+                    
+                    <!-- Controles de zoom simples -->
+                    <div class="simple-zoom-controls">
+                        <button class="simple-zoom-btn" id="simpleZoomInBtn">
+                            <span>🔍+</span> Ampliar
+                        </button>
+                        <button class="simple-zoom-btn" id="simpleZoomOutBtn">
+                            <span>🔍-</span> Reducir
+                        </button>
+                        <button class="simple-zoom-btn" id="simpleResetBtn">
+                            <span>↺</span> Tamaño original
+                        </button>
+                    </div>
+                    
+                    <div class="image-info editable" id="image-caption">
+                        Figura 1: Representación gráfica del Organigrama General conforme a los requisitos del Sistema de Gestión de Calidad.
+                    </div>
+                </div>
+                
+                <div class="section-description editable" id="chart-description" style="margin-top: 20px;">
+                    El organigrama ilustra la estructura organizacional formal, mostrando las relaciones de autoridad, responsabilidad y comunicación entre los distintos niveles jerárquicos, departamentos y funciones, conforme a los requisitos de la norma ISO 9001.
+                </div>
+            </div>
+            
+            <!-- Overlay para zoom a pantalla completa -->
+            <div class="zoom-overlay" id="zoomOverlay">
+                <img src="" alt="Organigrama ampliado" class="zoom-overlay-image" id="zoomOverlayImage">
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Revisión</th>
+                                <th>Fecha de Emisión</th>
+                                <th>Fecha de Vigencia</th>
+                                <th>Cambios Principales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>04</td>
+                                <td>22/10/2025</td>
+                                <td>23/10/2025</td>
+                                <td>Versión actual del organigrama organizacional</td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>15/07/2025</td>
+                                <td>16/07/2025</td>
+                                <td>Ajustes en estructura operativa</td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>10/04/2025</td>
+                                <td>11/04/2025</td>
+                                <td>Creación de nuevos departamentos</td>
+                            </tr>
+                            <tr>
+                                <td>01</td>
+                                <td>05/01/2025</td>
+                                <td>06/01/2025</td>
+                                <td>Versión inicial del organigrama</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: DOC-011 | Revisión: 04 | Fecha de Vigencia: 23/10/2025 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-011-organigrama-edited-content';
+                this.originalContent = {};
+                this.zoomLevel = 1;
+                this.minZoom = 0.5;
+                this.maxZoom = 2;
+                this.zoomStep = 0.1;
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Configurar zoom simple
+                const orgImage = document.getElementById('orgImage');
+                const imageWrapper = document.getElementById('imageWrapper');
+                const zoomOverlay = document.getElementById('zoomOverlay');
+                const zoomOverlayImage = document.getElementById('zoomOverlayImage');
+                
+                // Click en la imagen para overlay de pantalla completa
+                orgImage.addEventListener('click', () => {
+                    zoomOverlayImage.src = orgImage.src;
+                    zoomOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                // Cerrar overlay
+                zoomOverlay.addEventListener('click', () => {
+                    zoomOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+                
+                // Controles de zoom simple
+                document.getElementById('simpleZoomInBtn').addEventListener('click', () => {
+                    if (this.zoomLevel < this.maxZoom) {
+                        this.zoomLevel += this.zoomStep;
+                        this.applySimpleZoom();
+                    }
+                });
+                
+                document.getElementById('simpleZoomOutBtn').addEventListener('click', () => {
+                    if (this.zoomLevel > this.minZoom) {
+                        this.zoomLevel -= this.zoomStep;
+                        this.applySimpleZoom();
+                    }
+                });
+                
+                document.getElementById('simpleResetBtn').addEventListener('click', () => {
+                    this.zoomLevel = 1;
+                    this.applySimpleZoom();
+                });
+                
+                // Zoom con rueda del mouse sobre la imagen
+                orgImage.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    if (e.deltaY < 0 && this.zoomLevel < this.maxZoom) {
+                        // Zoom in
+                        this.zoomLevel += this.zoomStep;
+                    } else if (e.deltaY > 0 && this.zoomLevel > this.minZoom) {
+                        // Zoom out
+                        this.zoomLevel -= this.zoomStep;
+                    }
+                    this.applySimpleZoom();
+                });
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Se detectaron ediciones guardadas. Use "CARGAR EDICIONES GUARDADAS" para cargarlas.');
+                }
+                
+                // Verificar si los logos existen
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO ORGANIZACIÓN</text></svg>';
+                        console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                    };
+                }
+                
+                if (orgImage) {
+                    orgImage.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"><rect width="800" height="500" fill="#f8f9fa"/><text x="400" y="250" font-family="Arial" font-size="16" text-anchor="middle" fill="%23666">Organigrama - Imagen no encontrada en ../img/organigrama.png</text><text x="400" y="280" font-family="Arial" font-size="14" text-anchor="middle" fill="%23999">Por favor, añada la imagen del organigrama en la carpeta ../img/</text></svg>';
+                        console.log("Imagen del organigrama no encontrada. Por favor, añada la imagen en la carpeta ../img/.");
+                    };
+                }
+            }
+            
+            applySimpleZoom() {
+                const orgImage = document.getElementById('orgImage');
+                const imageWrapper = document.getElementById('imageWrapper');
+                
+                // Aplicar transformación de zoom
+                orgImage.style.transform = `scale(${this.zoomLevel})`;
+                
+                // Si el zoom es mayor que 1, agregar clase para mejor visualización
+                if (this.zoomLevel > 1) {
+                    imageWrapper.classList.add('zoomed');
+                } else {
+                    imageWrapper.classList.remove('zoomed');
+                }
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESACTIVAR EDICIÓN';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo edición activo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTENIDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo lectura activo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Active el modo edición primero para poder guardar cambios.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('Las ediciones han sido guardadas en el navegador correctamente.');
+                } catch (error) {
+                    alert('Error al guardar las ediciones: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('No se encontraron ediciones guardadas en el navegador.');
+                    return;
+                }
+                
+                if (confirm('¿Cargar las ediciones guardadas? Esto sobrescribirá el contenido actual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Ediciones cargadas correctamente desde el navegador.');
+                    } catch (error) {
+                        alert('Error al cargar las ediciones: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover controles de zoom simples
+                const simpleZoomControls = docClone.querySelector('.simple-zoom-controls');
+                if (simpleZoomControls) {
+                    simpleZoomControls.remove();
+                }
+                
+                // Remover overlay de zoom
+                const zoomOverlay = docClone.querySelector('.zoom-overlay');
+                if (zoomOverlay) {
+                    zoomOverlay.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para las imágenes)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror') && !script.textContent.includes('orgImage.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Restablecer el zoom de la imagen
+                const orgImage = docClone.querySelector('.org-image');
+                if (orgImage) {
+                    orgImage.style.transform = 'none';
+                }
+                
+                const imageWrapper = docClone.querySelector('.org-image-wrapper');
+                if (imageWrapper) {
+                    imageWrapper.classList.remove('zoomed');
+                    const zoomIndicator = imageWrapper.querySelector('.zoom-indicator');
+                    if (zoomIndicator) {
+                        zoomIndicator.remove();
+                    }
+                }
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-011-Organigrama-General.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. Descargando...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('¿Restaurar contenido original? Esto eliminará todas las ediciones actuales.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Contenido original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

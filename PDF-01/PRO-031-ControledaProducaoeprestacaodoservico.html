@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-031 Control de la Producción y Prestación del Servicio - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #065f46;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #065f46;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #065f46;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #065f46;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #065f46;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #065f46;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #065f46;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .subsection-title {
+            color: #064e3b;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #065f46;
+            counter-increment: subsection-counter;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." counter(subsection-counter) ". ";
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .definition-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .definition-title {
+            font-weight: bold;
+            color: #064e3b;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .definition-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .responsibility-table th {
+            background-color: #065f46;
+            color: white;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin: 15px 0 25px 30px;
+        }
+        
+        .procedure-item {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .procedure-item:before {
+            content: "•";
+            color: #065f46;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .sub-item {
+            margin: 10px 0 10px 20px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .sub-item:before {
+            content: "○";
+            color: #10b981;
+            position: absolute;
+            left: 0;
+        }
+        
+        .indicator-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .indicator-table th, .indicator-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .indicator-table th {
+            background-color: #064e3b;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .indicator-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .documentation-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .documentation-item {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .documentation-item:before {
+            content: "—";
+            color: #065f46;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #065f46;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #065f46;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 20px 40px;
+        }
+        
+        .action-btn {
+            background-color: #065f46;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #10b981;
+        }
+        
+        .print-btn {
+            background-color: #065f46;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #10b981;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px;
+            transition: border 0.3s, background-color 0.3s;
+        }
+        
+        .editable:hover {
+            border: 1px dashed #10b981;
+            background-color: #f9f9f9;
+        }
+        
+        .edit-mode {
+            border: 2px solid #065f46 !important;
+            background-color: #f0fdf4 !important;
+        }
+        
+        .edit-mode .editable {
+            border: 1px dashed #10b981;
+            background-color: #f0fdf4;
+            padding: 5px;
+            min-height: 20px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .action-buttons {
+                display: none;
+            }
+            
+            .editable {
+                border: none;
+            }
+            
+            .editable:hover {
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .responsibility-table th, .responsibility-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .indicator-table th, .indicator-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .responsibility-table, .indicator-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+                margin: 20px 20px;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botões de ação -->
+        <div class="action-buttons">
+            <button id="editBtn" class="action-btn">
+                <span>✏️</span> Modo Edición
+            </button>
+            <button id="downloadBtn" class="action-btn">
+                <span>⬇️</span> Descargar HTML
+            </button>
+            <button onclick="window.print()" class="action-btn">
+                <span>📄</span> Imprimir
+            </button>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Control de la Producción y Prestación del Servicio</div>
+        <div class="doc-code">Código: PRO-031</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#definiciones" class="toc-link">Definiciones</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimientos" class="toc-link">Procedimientos</a>
+                        <ol style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#planificacion-control" class="toc-link">Planificación y Control de la Producción y Prestación de Servicios</a></li>
+                            <li><a href="#control-calidad" class="toc-link">Control de Calidad</a></li>
+                            <li><a href="#gestion-riesgos" class="toc-link">Gestión de Riesgos en el Entorno Laboral</a></li>
+                            <li><a href="#monitoreo-evaluacion" class="toc-link">Monitoreo y Evaluación del Desempeño</a></li>
+                            <li><a href="#acciones-correctivas" class="toc-link">Acciones Correctivas y Preventivas</a></li>
+                            <li><a href="#control-proveedores" class="toc-link">Control de Proveedores</a></li>
+                            <li><a href="#cumplimiento-regulatorio" class="toc-link">Cumplimiento Regulatorio</a></li>
+                            <li><a href="#documentacion-registros" class="toc-link">Documentación y Registros</a></li>
+                        </ol>
+                    </li>
+                    <li class="toc-item"><a href="#monitoreo-evaluacion-seccion" class="toc-link">Monitoreo y Evaluación</a>
+                        <ol style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#indicadores-desempeno" class="toc-link">Indicadores de Desempeño</a></li>
+                            <li><a href="#revision-mejora" class="toc-link">Revisión y Mejora Continua</a></li>
+                        </ol>
+                    </li>
+                    <li class="toc-item"><a href="#documentos-relacionados" class="toc-link">Documentos Relacionados</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">Objetivo</div>
+                <p class="content-text editable">El objetivo de este procedimiento es asegurar que todos los procesos de producción y prestación de servicios sean planificados, controlados y monitoreados de manera eficiente para garantizar la calidad, la seguridad, el cumplimiento y la satisfacción del cliente, conforme a los requisitos de la organización y a las normativas aplicables.</p>
+                <p class="content-text editable">La organización implementa este procedimiento para establecer un sistema de control integral que abarque todos los aspectos de la producción y prestación de servicios, asegurando la excelencia operativa y el cumplimiento de los más altos estándares de calidad.</p>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">Alcance</div>
+                <p class="content-text editable">Este procedimiento aplica a todos los procesos de producción y prestación de servicios de la organización, incluyendo:</p>
+                <ul class="procedure-list editable">
+                    <li class="procedure-item editable">Planificación y control de la producción.</li>
+                    <li class="procedure-item editable">Control de la calidad de productos y servicios.</li>
+                    <li class="procedure-item editable">Monitoreo y evaluación de riesgos en el entorno laboral.</li>
+                    <li class="procedure-item editable">Garantía del cumplimiento legal y normativo durante el proceso productivo.</li>
+                    <li class="procedure-item editable">Gestión de proveedores y cadena de suministro relacionada con la producción.</li>
+                    <li class="procedure-item editable">Control de procesos de servicio posventa y atención al cliente.</li>
+                </ul>
+                <p class="content-text editable">La organización garantiza que este procedimiento cubre todas las actividades operativas, desde la recepción de materias primas hasta la entrega del producto o servicio final al cliente.</p>
+            </div>
+            
+            <!-- Sección 3: Definiciones -->
+            <div class="section" id="definiciones">
+                <div class="section-title">Definiciones</div>
+                <ul class="definition-list editable">
+                    <li class="definition-item editable">
+                        <div class="definition-title editable">Producción</div>
+                        <p class="content-text editable">Actividad relacionada con la creación de productos o servicios ofrecidos por la organización. Incluye todos los procesos de transformación, fabricación, ensamblaje y preparación de productos terminados.</p>
+                    </li>
+                    <li class="definition-item editable">
+                        <div class="definition-title editable">Prestación de Servicio</div>
+                        <p class="content-text editable">Actividad relacionada con la entrega de un servicio al cliente, incluyendo el servicio posventa. Comprende todas las interacciones con el cliente y la ejecución de servicios contratados.</p>
+                    </li>
+                    <li class="definition-item editable">
+                        <div class="definition-title editable">Control de Producción</div>
+                        <p class="content-text editable">Conjunto de medidas para asegurar que los procesos de producción cumplan con los requisitos de calidad, seguridad y cumplimiento. Incluye monitoreo, verificación y ajuste de procesos.</p>
+                    </li>
+                    <li class="definition-item editable">
+                        <div class="definition-title editable">Calidad</div>
+                        <p class="content-text editable">Características de un producto o servicio que cumplen con los requisitos establecidos y las expectativas del cliente. La organización define criterios de calidad específicos para cada producto y servicio.</p>
+                    </li>
+                    <li class="definition-item editable">
+                        <div class="definition-title editable">Seguridad y Salud</div>
+                        <p class="content-text editable">Medidas para proteger a los trabajadores de riesgos ocupacionales y garantizar un ambiente laboral seguro. Incluye prevención de accidentes, control de riesgos y promoción del bienestar laboral.</p>
+                    </li>
+                    <li class="definition-item editable">
+                        <div class="definition-title editable">Cumplimiento</div>
+                        <p class="content-text editable">Aseguramiento de que todas las operaciones de producción y prestación de servicios cumplen con los requisitos legales, regulatorios y normativos aplicables.</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Sección 4: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">Responsabilidades</div>
+                <table class="responsibility-table editable">
+                    <thead>
+                        <tr>
+                            <th>Responsable</th>
+                            <th>Responsabilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable">Alta Dirección</td>
+                            <td class="editable">Aprobar las políticas de control de producción y servicios, y garantizar los recursos necesarios para su implementación. Establecer objetivos estratégicos y demostrar liderazgo en la gestión de calidad.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable">Responsable del SGC</td>
+                            <td class="editable">Coordinar el control de la producción y servicios, asegurando que los procesos cumplan con los requisitos del SGC y de conformidad. Supervisar la implementación integral de los sistemas de gestión.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable">Responsables de Producción</td>
+                            <td class="editable">Controlar y monitorear los procesos de producción y servicios para garantizar la calidad, seguridad y conformidad con las normas. Gestionar los recursos operativos y optimizar los procesos productivos.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable">Responsables de Calidad</td>
+                            <td class="editable">Monitorear los procesos de producción y servicios, implementando acciones correctivas y preventivas para cumplir con los estándares de calidad. Realizar inspecciones, pruebas y auditorías de calidad.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable">Responsables de Seguridad</td>
+                            <td class="editable">Asegurar que los riesgos ocupacionales sean controlados y que el entorno de trabajo sea seguro para todos los colaboradores. Implementar y supervisar programas de seguridad y salud en el trabajo.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable">Responsables de Cumplimiento</td>
+                            <td class="editable">Monitorear y controlar el cumplimiento de requisitos legales y normativos en las operaciones de producción y asegurar la conformidad regulatoria.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Procedimientos -->
+            <div class="section" id="procedimientos">
+                <div class="section-title">Procedimientos</div>
+                <p class="content-text editable">La organización implementa los siguientes procedimientos para garantizar el control efectivo de todos los procesos de producción y prestación de servicios:</p>
+                
+                <!-- Subsección 5.1 -->
+                <div class="subsection" id="planificacion-control">
+                    <div class="subsection-title editable">Planificación y Control de la Producción y Prestación de Servicios</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">Establecer objetivos claros de producción, considerando las necesidades del cliente y los requisitos de calidad, seguridad y cumplimiento.</li>
+                        <li class="procedure-item editable">Planificar el proceso de producción o prestación de servicios, considerando los recursos necesarios (materiales, personal, equipos) y los plazos de entrega establecidos.</li>
+                        <li class="procedure-item editable">Asegurar que los procesos se ejecuten dentro de los límites de calidad, seguridad y cumplimiento establecidos en las especificaciones técnicas y procedimientos operativos.</li>
+                        <li class="procedure-item editable">Implementar sistemas de programación de producción que optimicen el uso de recursos y minimicen tiempos de inactividad.</li>
+                        <li class="procedure-item editable">Desarrollar planes de contingencia para situaciones excepcionales que puedan afectar la producción o prestación de servicios.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.2 -->
+                <div class="subsection" id="control-calidad">
+                    <div class="subsection-title editable">Control de Calidad</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">Implementar un sistema de control de calidad en todas las etapas del proceso, desde la recepción de materias primas hasta la entrega del producto o servicio final.</li>
+                        <li class="procedure-item editable">Inspeccionar materias primas y productos terminados para asegurar que cumplan los requisitos de calidad establecidos en las especificaciones técnicas.</li>
+                        <li class="procedure-item editable">Realizar pruebas y mediciones para verificar la conformidad con las especificaciones, utilizando equipos calibrados y métodos de ensayo validados.</li>
+                        <li class="procedure-item editable">Monitorear continuamente la calidad durante el proceso de producción mediante puntos de control críticos y muestreos estadísticos.</li>
+                        <li class="procedure-item editable">Documentar y analizar los resultados de las inspecciones de calidad para identificar tendencias y oportunidades de mejora.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.3 -->
+                <div class="subsection" id="gestion-riesgos">
+                    <div class="subsection-title editable">Gestión de Riesgos en el Entorno Laboral</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">Identificar riesgos ocupacionales asociados a los procesos de producción y prestación de servicios mediante evaluaciones sistemáticas.</li>
+                        <li class="procedure-item editable">Establecer medidas preventivas y correctivas para mitigar riesgos de seguridad y salud en el trabajo, priorizando aquellos con mayor potencial de daño.</li>
+                        <li class="procedure-item editable">Implementar acciones para mejorar las condiciones de trabajo y garantizar la seguridad del personal.</li>
+                        <li class="procedure-item editable">Capacitar al personal en procedimientos de trabajo seguro relevantes para sus funciones.</li>
+                        <li class="procedure-item editable">Realizar simulacros y ejercicios periódicos para verificar la efectividad de los planes de emergencia y respuesta a incidentes.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.4 -->
+                <div class="subsection" id="monitoreo-evaluacion">
+                    <div class="subsection-title editable">Monitoreo y Evaluación del Desempeño</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">Monitorear los procesos mediante indicadores de desempeño como eficiencia de producción, calidad del servicio, nivel de satisfacción del cliente y cumplimiento de plazos.</li>
+                        <li class="procedure-item editable">Realizar auditorías internas para verificar el cumplimiento de las políticas, procedimientos y requisitos del SGC y normativos aplicables.</li>
+                        <li class="procedure-item editable">Evaluar la eficacia de las acciones correctivas y preventivas implementadas, verificando que hayan abordado las causas raíz de las no conformidades.</li>
+                        <li class="procedure-item editable">Analizar datos de desempeño para identificar patrones, tendencias y oportunidades de mejora en los procesos productivos y de servicio.</li>
+                        <li class="procedure-item editable">Implementar sistemas de medición y seguimiento que permitan la toma de decisiones basada en datos objetivos y evidencias.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.5 -->
+                <div class="subsection" id="acciones-correctivas">
+                    <div class="subsection-title editable">Acciones Correctivas y Preventivas</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable"><strong>Acciones correctivas:</strong> Cuando se identifica un problema, se implementan acciones para corregirlo y evitar su recurrencia, incluyendo:
+                            <div class="sub-item editable">Investigación de la causa raíz del problema.</div>
+                            <div class="sub-item editable">Desarrollo e implementación de acciones correctivas específicas.</div>
+                            <div class="sub-item editable">Verificación de la efectividad de las acciones implementadas.</div>
+                            <div class="sub-item editable">Documentación de todo el proceso y lecciones aprendidas.</div>
+                        </li>
+                        <li class="procedure-item editable"><strong>Acciones preventivas:</strong> Implementar medidas basadas en el análisis de tendencias e historial de no conformidades para prevenir futuros problemas, incluyendo:
+                            <div class="sub-item editable">Análisis proactivo de datos de calidad, seguridad y cumplimiento.</div>
+                            <div class="sub-item editable">Identificación de riesgos potenciales antes de que se materialicen.</div>
+                            <div class="sub-item editable">Desarrollo e implementación de barreras preventivas.</div>
+                            <div class="sub-item editable">Revisión y actualización de procedimientos basada en mejores prácticas.</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.6 -->
+                <div class="subsection" id="control-proveedores">
+                    <div class="subsection-title editable">Control de Proveedores</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">Asegurar que los proveedores de materias primas o servicios cumplan con los requisitos de calidad, seguridad y cumplimiento establecidos por la organización.</li>
+                        <li class="procedure-item editable">Realizar auditorías a proveedores para verificar su conformidad con criterios de calidad, seguridad y cumplimiento, priorizando aquellos considerados críticos.</li>
+                        <li class="procedure-item editable">Monitorear su capacidad para cumplir con los requisitos de producción y entrega, evaluando su desempeño periódicamente.</li>
+                        <li class="procedure-item editable">Establecer acuerdos de nivel de servicio con proveedores clave que definan expectativas claras y métricas de desempeño.</li>
+                        <li class="procedure-item editable">Desarrollar relaciones estratégicas con proveedores que compartan los valores de calidad, seguridad y cumplimiento de la organización.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.7 -->
+                <div class="subsection" id="cumplimiento-regulatorio">
+                    <div class="subsection-title editable">Cumplimiento Regulatorio</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">Verificar el cumplimiento de las normativas locales e internacionales aplicables durante la producción o prestación del servicio, manteniendo un registro actualizado de requisitos legales.</li>
+                        <li class="procedure-item editable">Asegurar que todos los productos y servicios entregados cumplan con los requisitos legales, incluyendo normas de seguridad laboral y de calidad específicas del sector.</li>
+                        <li class="procedure-item editable">Realizar revisiones periódicas de cambios regulatorios que puedan afectar los procesos de producción y prestación de servicios.</li>
+                        <li class="procedure-item editable">Implementar sistemas de alerta temprana para cambios normativos que requieran ajustes en los procesos operativos.</li>
+                        <li class="procedure-item editable">Mantener documentación que evidencie el cumplimiento de todos los requisitos regulatorios aplicables.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.8 -->
+                <div class="subsection" id="documentacion-registros">
+                    <div class="subsection-title editable">Documentación y Registros</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">Mantener registros de todos los procesos de control de producción, incluyendo planes, informes de calidad, inspecciones de seguridad, auditorías y acciones correctivas.</li>
+                        <li class="procedure-item editable">Garantizar que toda la documentación esté accesible y organizada, conforme a los requisitos del SGC y las normas aplicables, implementando sistemas de gestión documental efectivos.</li>
+                        <li class="procedure-item editable">Establecer períodos de retención para los diferentes tipos de registros, asegurando su disponibilidad para auditorías, análisis de tendencias y cumplimiento legal.</li>
+                        <li class="procedure-item editable">Proteger la confidencialidad e integridad de los registros, especialmente aquellos que contienen información sensible o propiedad intelectual.</li>
+                        <li class="procedure-item editable">Implementar sistemas de control de versiones para documentación crítica que aseguren que siempre se utilicen las versiones vigentes.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Monitoreo y Evaluación -->
+            <div class="section" id="monitoreo-evaluacion-seccion">
+                <div class="section-title">Monitoreo y Evaluación</div>
+                
+                <!-- Subsección 6.1 -->
+                <div class="subsection" id="indicadores-desempeno">
+                    <div class="subsection-title editable">Indicadores de Desempeño</div>
+                    <p class="content-text editable">La organización monitorea el desempeño de los procesos de producción y prestación de servicios mediante los siguientes indicadores clave:</p>
+                    <table class="indicator-table editable">
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>Descripción</th>
+                                <th>Meta</th>
+                                <th>Frecuencia de Medición</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable">Eficiencia de Producción</td>
+                                <td class="editable">Medir la cantidad producida en relación con el tiempo y recursos utilizados (productividad).</td>
+                                <td class="editable">≥ 95%</td>
+                                <td class="editable">Semanal</td>
+                            </tr>
+                            <tr>
+                                <td class="editable">Tasa de Defectos</td>
+                                <td class="editable">Monitorear la cantidad de productos o servicios que no cumplen los estándares establecidos (PPM - Partes por Millón).</td>
+                                <td class="editable">≤ 500 PPM</td>
+                                <td class="editable">Mensual</td>
+                            </tr>
+                            <tr>
+                                <td class="editable">Satisfacción del Cliente</td>
+                                <td class="editable">Evaluar la percepción del cliente sobre la calidad de los productos y servicios mediante encuestas e índices de satisfacción.</td>
+                                <td class="editable">≥ 90%</td>
+                                <td class="editable">Trimestral</td>
+                            </tr>
+                            <tr>
+                                <td class="editable">Seguridad en el Trabajo</td>
+                                <td class="editable">Medir el número de accidentes o incidentes relacionados con la producción o servicios (tasa de frecuencia y severidad).</td>
+                                <td class="editable">0 accidentes graves</td>
+                                <td class="editable">Mensual</td>
+                            </tr>
+                            <tr>
+                                <td class="editable">Cumplimiento de Plazos</td>
+                                <td class="editable">Porcentaje de productos o servicios entregados dentro de los plazos acordados con los clientes.</td>
+                                <td class="editable">≥ 98%</td>
+                                <td class="editable">Semanal</td>
+                            </tr>
+                            <tr>
+                                <td class="editable">Cumplimiento Normativo</td>
+                                <td class="editable">Porcentaje de cumplimiento de los requisitos legales y regulatorios aplicables a los procesos de producción y servicios.</td>
+                                <td class="editable">100%</td>
+                                <td class="editable">Mensual</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Subsección 6.2 -->
+                <div class="subsection" id="revision-mejora">
+                    <div class="subsection-title editable">Revisión y Mejora Continua</div>
+                    <ul class="procedure-list editable">
+                        <li class="procedure-item editable">La Alta Dirección, junto con el equipo responsable del SGC, revisa periódicamente los resultados obtenidos e implementa mejoras continuas en los procesos de producción y prestación de servicios.</li>
+                        <li class="procedure-item editable"><strong>Revisión de metas:</strong> Ajustar los objetivos de producción, calidad y seguridad de acuerdo con las nuevas exigencias del mercado, las mejores prácticas del sector y los resultados de las evaluaciones de desempeño.</li>
+                        <li class="procedure-item editable"><strong>Análisis de tendencias:</strong> Evaluar datos históricos para identificar patrones y anticipar necesidades de ajuste en los procesos operativos.</li>
+                        <li class="procedure-item editable"><strong>Implementación de mejoras:</strong> Desarrollar e implementar planes de mejora basados en los resultados de las revisiones, asignando recursos y responsabilidades claras.</li>
+                        <li class="procedure-item editable"><strong>Seguimiento de mejoras:</strong> Monitorear la efectividad de las mejoras implementadas, realizando ajustes cuando sea necesario para alcanzar los objetivos establecidos.</li>
+                        <li class="procedure-item editable"><strong>Comunicación de resultados:</strong> Informar a todas las partes interesadas sobre los resultados de las revisiones y las mejoras implementadas, fomentando una cultura de transparencia y mejora continua.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Documentos Relacionados -->
+            <div class="section" id="documentos-relacionados">
+                <div class="section-title">Documentos Relacionados</div>
+                <ul class="documentation-list editable">
+                    <li class="documentation-item editable">Plan de Producción y Servicios - Documento que detalla la programación, recursos y objetivos de producción y servicios.</li>
+                    <li class="documentation-item editable">Informe de Auditoría de Calidad - Resultados de auditorías internas y externas de los sistemas de calidad.</li>
+                    <li class="documentation-item editable">Informe de Inspección de Seguridad - Documentación de inspecciones de seguridad realizadas en instalaciones y procesos.</li>
+                    <li class="documentation-item editable">Documentación de Control de Proveedores - Evaluaciones, auditorías y registros de desempeño de proveedores.</li>
+                    <li class="documentation-item editable">Registros de Acciones Correctivas y Preventivas - Evidencia de la implementación y seguimiento de acciones correctivas y preventivas.</li>
+                    <li class="documentation-item editable">PRO-001 - Procedimiento de Control de la Documentación del SGC.</li>
+                    <li class="documentation-item editable">PRO-005 - Procedimiento de Control de Producto No Conforme.</li>
+                    <li class="documentation-item editable">PRO-008 - Procedimiento de Auditorías Internas.</li>
+                    <li class="documentation-item editable">PRO-026 - Procedimiento de Identificación y Trazabilidad.</li>
+                    <li class="documentation-item editable">PRO-030 - Procedimiento de Preservación de Producto.</li>
+                </ul>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table editable">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" contenteditable="true">000</td>
+                                <td class="editable" contenteditable="true">01.12.2024</td>
+                                <td class="editable" contenteditable="true">Original</td>
+                                <td class="editable" contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-031 | Revisión: 000 | Página 1 de 1 | Sistema de Gestión de la Calidad (SGC)</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar elementos editables
+        document.addEventListener('DOMContentLoaded', function() {
+            let editMode = false;
+            const editBtn = document.getElementById('editBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Configurar modo de edición
+            editBtn.addEventListener('click', function() {
+                editMode = !editMode;
+                
+                if (editMode) {
+                    // Ativar modo de edición
+                    enableEditMode();
+                    editBtn.innerHTML = '<span>💾</span> Guardar y Salir';
+                    editBtn.style.backgroundColor = '#10b981';
+                } else {
+                    // Desativar modo de edición
+                    disableEditMode();
+                    editBtn.innerHTML = '<span>✏️</span> Modo Edición';
+                    editBtn.style.backgroundColor = '#065f46';
+                }
+            });
+            
+            // Función para ativar modo de edición
+            function enableEditMode() {
+                document.body.classList.add('edit-mode');
+                
+                // Tornar todos os elementos con classe 'editable' editáveis
+                const editableElements = document.querySelectorAll('.editable');
+                
+                editableElements.forEach(element => {
+                    element.setAttribute('contenteditable', 'true');
+                    element.style.border = '1px dashed #10b981';
+                    element.style.padding = '5px';
+                    element.style.minHeight = '20px';
+                });
+                
+                alert('Modo de edición activado. Puede editar cualquier texto en el documento.');
+            }
+            
+            // Función para desativar modo de edición
+            function disableEditMode() {
+                document.body.classList.remove('edit-mode');
+                
+                // Remover atributo contenteditable
+                document.querySelectorAll('[contenteditable="true"]').forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.style.border = '';
+                    element.style.padding = '';
+                    element.style.minHeight = '';
+                });
+                
+                alert('Modo de edición desactivado. Los cambios se han guardado.');
+            }
+            
+            // Configurar download do documento
+            downloadBtn.addEventListener('click', function() {
+                // Criar um blob com o conteúdo HTML
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                
+                // Criar um link para download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'PRO-031-Control-Produccion-Prestacion-Servicio-SGC.html';
+                
+                // Simular clique no link
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                alert('Documento descargado como PRO-031-Control-Produccion-Prestacion-Servicio-SGC.html');
+            });
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter subsection-counter';
+            
+            // Verifica si el logo existe, caso contrário muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%23065f46" dy="5">LOGO SGC</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Se ha mostrado un placeholder.");
+                };
+            }
+        });
+    </script>
+</body>
+</html>

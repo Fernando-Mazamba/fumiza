@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-008 Política RSE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #805ad5 0%, #9f7aea 100%);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .policy-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .policy-subtitle {
+            font-size: 20px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .policy-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .rse-logo {
+            width: 140px;
+            height: 140px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .rse-logo .icon {
+            font-size: 60px;
+            color: #805ad5;
+        }
+        
+        .policy-intro {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: justify;
+            padding: 0 10px;
+            color: #2d3748;
+        }
+        
+        .principles-container {
+            margin: 40px 0;
+        }
+        
+        .principles-title {
+            color: #805ad5;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9d8fd;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .principle-card {
+            background-color: #faf5ff;
+            border-radius: 8px;
+            padding: 30px 25px;
+            border-left: 5px solid #805ad5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .principle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .principle-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #805ad5, #9f7aea);
+        }
+        
+        .principle-number {
+            display: inline-block;
+            background-color: #805ad5;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .principle-name {
+            color: #805ad5;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .principle-description {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .policy-closing {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #faf5ff;
+            border-radius: 8px;
+            border-left: 5px solid #9f7aea;
+        }
+        
+        .policy-closing p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #553c9a;
+        }
+        
+        .signature-section {
+            text-align: right;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e9d8fd;
+        }
+        
+        .signature-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #805ad5;
+            margin-bottom: 10px;
+        }
+        
+        .signature-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a202c;
+            margin-top: 30px;
+        }
+        
+        .signature-role {
+            font-size: 16px;
+            color: #4a5568;
+            font-style: italic;
+        }
+        
+        .version-history {
+            margin-top: 60px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .print-btn, .download-btn, .edit-btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .download-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #48bb78;
+        }
+        
+        .edit-btn {
+            background-color: #d69e2e;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #ecc94b;
+        }
+        
+        .edit-btn.editing {
+            background-color: #c53030;
+        }
+        
+        .edit-btn.editing:hover {
+            background-color: #e53e3e;
+        }
+        
+        .edit-notice {
+            background-color: #fffaf0;
+            border: 1px solid #f6ad55;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #744210;
+            display: none;
+        }
+        
+        .edit-notice.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .editing-mode .editable {
+            border: 1px dashed #f6ad55;
+            background-color: #fffaf0;
+        }
+        
+        .editing-mode .editable:focus {
+            outline: none;
+            border: 1px solid #4299e1;
+            background-color: #ebf8ff;
+        }
+        
+        .rse-icon {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .rse-icon .icon {
+            font-size: 48px;
+            color: #805ad5;
+        }
+        
+        .community-badge {
+            display: inline-block;
+            background-color: #ebf4ff;
+            color: #434190;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 5px 0;
+            border: 1px solid #c3dafe;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons, .edit-notice {
+                display: none;
+            }
+            
+            .principle-card {
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+            
+            .policy-header {
+                background: #805ad5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .editable {
+                border: none !important;
+                background-color: transparent !important;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .policy-title {
+                font-size: 26px;
+            }
+            
+            .policy-intro {
+                font-size: 16px;
+            }
+            
+            .rse-logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .rse-logo .icon {
+                font-size: 48px;
+            }
+            
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .print-btn, .download-btn, .edit-btn {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <!-- NOMBRE DE ORGANIZACIÓN ELIMINADO - NO APARECE EN EL DOCUMENTO ORIGINAL -->
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title editable">Política de Responsabilidad Social Empresarial</div>
+        <div class="doc-code editable">Código: DOC-008 - Sistema de Gestión de la Calidad (SGC)</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Aviso de documento editable -->
+            <div class="edit-notice" id="editNotice">
+                <strong>✏️ MODO EDICIÓN ACTIVADO:</strong> Puede editar cualquier texto resaltado. Haga clic fuera del texto para guardar los cambios. Use el botón "Guardar y Salir" para finalizar.
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="download-btn" id="downloadBtn">💾 Descargar</button>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+                <button class="edit-btn" id="editBtn">✏️ Editar Documento</button>
+            </div>
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title editable">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#politica-rse" class="toc-link editable">Política de RSE</a></li>
+                    <li class="toc-item"><a href="#principios-fundamentales" class="toc-link editable">Principios Fundamentales</a></li>
+                    <li class="toc-item"><a href="#declaracion-cierre" class="toc-link editable">Declaración y Cierre</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link editable">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Política de RSE -->
+            <div class="section" id="politica-rse">
+                <div class="policy-header">
+                    <div class="policy-title editable">POLÍTICA DE RESPONSABILIDAD SOCIAL EMPRESARIAL</div>
+                    <div class="policy-subtitle editable">Compromiso con el Desarrollo Sostenible y el Bienestar Comunitario</div>
+                    
+                    <div class="policy-logo-container">
+                        <div class="rse-logo">
+                            <div class="icon editable">🤝</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="policy-intro editable">
+                    La organización se compromete a actuar de manera ética y responsable, promoviendo un desarrollo sostenible y contribuyendo al bienestar de la comunidad. Nos alineamos con los principios del Sistema de Gestión de la Calidad (SGC) y de responsabilidad social y sostenibilidad ambiental, asegurando que nuestras operaciones tengan un impacto positivo en la sociedad y el entorno.
+                </div>
+            </div>
+            
+            <!-- Sección 2: Principios Fundamentales -->
+            <div class="section" id="principios-fundamentales">
+                <div class="principles-container">
+                    <div class="principles-title editable">Principios Fundamentales de la Política de Responsabilidad Social</div>
+                    
+                    <div class="principles-grid">
+                        <!-- Principio 1 -->
+                        <div class="principle-card">
+                            <div class="principle-number editable">1</div>
+                            <div class="principle-name editable">Compromiso con la Comunidad</div>
+                            <div class="principle-description editable">
+                                Asegurar que nuestras operaciones tengan un impacto positivo en la comunidad local, promoviendo proyectos que mejoren la calidad de vida, alineados con nuestro Sistema de Gestión de la Calidad (SGC).
+                            </div>
+                            <div class="community-badge editable">Impacto Social</div>
+                            <div class="community-badge editable">Desarrollo Local</div>
+                            <div class="community-badge editable">SGC</div>
+                        </div>
+                        
+                        <!-- Principio 2 -->
+                        <div class="principle-card">
+                            <div class="principle-number editable">2</div>
+                            <div class="principle-name editable">Sostenibilidad Ambiental</div>
+                            <div class="principle-description editable">
+                                Adoptar prácticas que minimicen el impacto ambiental de nuestras actividades y promover la sostenibilidad en todas nuestras operaciones, integradas en el Sistema de Gestión de la Calidad (SGC).
+                            </div>
+                            <div class="community-badge editable">Medio Ambiente</div>
+                            <div class="community-badge editable">Sostenibilidad</div>
+                            <div class="community-badge editable">SGC</div>
+                        </div>
+                        
+                        <!-- Principio 3 -->
+                        <div class="principle-card">
+                            <div class="principle-number editable">3</div>
+                            <div class="principle-name editable">Ética y Transparencia</div>
+                            <div class="principle-description editable">
+                                Actuar con la máxima integridad y transparencia en todas nuestras operaciones, manteniendo una relación de confianza con todas las partes interesadas, conforme a los principios del Sistema de Gestión de la Calidad (SGC).
+                            </div>
+                            <div class="community-badge editable">Integridad</div>
+                            <div class="community-badge editable">Transparencia</div>
+                            <div class="community-badge editable">SGC</div>
+                        </div>
+                        
+                        <!-- Principio 4 -->
+                        <div class="principle-card">
+                            <div class="principle-number editable">4</div>
+                            <div class="principle-name editable">Colaboración con Proveedores y Contratistas</div>
+                            <div class="principle-description editable">
+                                Fomentar que nuestros proveedores y contratistas adopten prácticas responsables que respeten los principios de responsabilidad social y sostenibilidad, integrados en nuestro Sistema de Gestión de la Calidad (SGC).
+                            </div>
+                            <div class="community-badge editable">Cadena de Valor</div>
+                            <div class="community-badge editable">Colaboración</div>
+                            <div class="community-badge editable">SGC</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Declaración de cierre -->
+            <div class="section" id="declaracion-cierre">
+                <div class="policy-closing">
+                    <p class="editable">Esta política de Responsabilidad Social Empresarial está integrada en nuestro Sistema de Gestión de la Calidad (SGC) y será revisada periódicamente para asegurar su efectividad y mejora continua.</p>
+                    <p class="editable">La organización se compromete a asignar los recursos necesarios para implementar y mantener esta política, asegurando que todos los empleados y partes interesadas comprendan y adopten estos principios.</p>
+                    
+                    <div class="signature-section">
+                        <div class="signature-title editable">El Presidente</div>
+                        <div class="signature-name editable">___________________________</div>
+                        <div class="signature-role editable">Presidente y Director Ejecutivo</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Historial de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title editable">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th class="editable">Versión</th>
+                                <th class="editable">Fecha</th>
+                                <th class="editable">Asiento</th>
+                                <th class="editable">Aprueba</th>
+                                <th class="editable">Elabora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable">000</td>
+                                <td class="editable">01.12.2024</td>
+                                <td class="editable">Original</td>
+                                <td class="editable">CEO</td>
+                                <td class="editable">ESGC</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p class="editable">Código: DOC-008 | Revisión: 000 | Página 1 de 1 | Sistema de Gestión de la Calidad (SGC)</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const editBtn = document.getElementById('editBtn');
+            const editNotice = document.getElementById('editNotice');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const editables = document.querySelectorAll('.editable');
+            const documentContainer = document.querySelector('.document-container');
+            
+            // Estado de edición
+            let isEditing = false;
+            
+            // Verifica si el logo principal existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                };
+            }
+            
+            // Efecto de hover mejorado para las tarjetas de principios
+            const principleCards = document.querySelectorAll('.principle-card');
+            principleCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    if (!isEditing) {
+                        this.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.12)';
+                        this.style.transform = 'translateY(-5px)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    if (!isEditing) {
+                        this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+                        this.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            // Agregar animación sutil a las tarjetas al cargar la página
+            setTimeout(() => {
+                principleCards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 300);
+            
+            // Agregar animación al logo RSE
+            const rseLogo = document.querySelector('.rse-logo');
+            if (rseLogo) {
+                rseLogo.style.transform = 'scale(0.8)';
+                rseLogo.style.opacity = '0';
+                
+                setTimeout(() => {
+                    rseLogo.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
+                    rseLogo.style.transform = 'scale(1)';
+                    rseLogo.style.opacity = '1';
+                }, 500);
+            }
+            
+            // Rotación suave de badges
+            const badges = document.querySelectorAll('.community-badge');
+            badges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    if (!isEditing) {
+                        this.style.transform = 'scale(1.05)';
+                        this.style.transition = 'transform 0.2s ease';
+                    }
+                });
+                
+                badge.addEventListener('mouseleave', function() {
+                    if (!isEditing) {
+                        this.style.transform = 'scale(1)';
+                    }
+                });
+            });
+            
+            // Función para descargar el documento
+            downloadBtn.addEventListener('click', function() {
+                // Obtener el contenido HTML completo
+                const htmlContent = document.documentElement.outerHTML;
+                
+                // Crear un blob con el contenido HTML
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                
+                // Crear un enlace temporal para la descarga
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = 'DOC-008-Politica-RSE-SGC.html';
+                
+                // Simular clic en el enlace
+                downloadLink.click();
+                
+                // Liberar el objeto URL
+                URL.revokeObjectURL(downloadLink.href);
+                
+                // Mostrar mensaje de confirmación
+                const originalText = this.innerHTML;
+                this.innerHTML = '✅ Documento descargado';
+                this.style.backgroundColor = '#38a169';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.backgroundColor = '';
+                }, 2000);
+            });
+            
+            // Función para activar/desactivar el modo edición
+            editBtn.addEventListener('click', function() {
+                isEditing = !isEditing;
+                
+                if (isEditing) {
+                    // Activar modo edición
+                    documentContainer.classList.add('editing-mode');
+                    editNotice.classList.add('visible');
+                    this.classList.add('editing');
+                    this.innerHTML = '💾 Guardar y Salir';
+                    
+                    // Hacer todos los elementos editables
+                    editables.forEach(element => {
+                        element.contentEditable = true;
+                        element.spellcheck = true;
+                    });
+                    
+                    // Deshabilitar hover effects en modo edición
+                    principleCards.forEach(card => {
+                        card.style.transform = 'none';
+                        card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+                    });
+                    
+                    // Enfocar el primer elemento editable
+                    if (editables.length > 0) {
+                        editables[0].focus();
+                    }
+                    
+                    console.log('Modo edición activado');
+                } else {
+                    // Desactivar modo edición
+                    documentContainer.classList.remove('editing-mode');
+                    editNotice.classList.remove('visible');
+                    this.classList.remove('editing');
+                    this.innerHTML = '✏️ Editar Documento';
+                    
+                    // Hacer todos los elementos no editables
+                    editables.forEach(element => {
+                        element.contentEditable = false;
+                        element.spellcheck = false;
+                    });
+                    
+                    console.log('Modo edición desactivado');
+                    
+                    // Mostrar mensaje de confirmación
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '✅ Cambios guardados';
+                    this.style.backgroundColor = '#38a169';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.style.backgroundColor = '';
+                    }, 2000);
+                }
+            });
+            
+            // Permitir guardar con Ctrl+S en modo edición
+            document.addEventListener('keydown', function(e) {
+                if (isEditing && (e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    
+                    // Simular clic en el botón de guardar
+                    editBtn.click();
+                    
+                    // Mostrar mensaje temporal
+                    const message = document.createElement('div');
+                    message.innerHTML = '<div class="edit-notice visible" style="margin-top: 10px; animation: fadeIn 0.3s;">💾 Cambios guardados con Ctrl+S</div>';
+                    document.querySelector('.content').prepend(message);
+                    
+                    setTimeout(() => {
+                        message.remove();
+                    }, 3000);
+                }
+                
+                // Permitir salir del modo edición con Escape
+                if (isEditing && e.key === 'Escape') {
+                    editBtn.click();
+                }
+            });
+            
+            // Guardar automáticamente cuando se pierde el foco de un elemento editable
+            editables.forEach(element => {
+                element.addEventListener('blur', function() {
+                    // Podríamos guardar los cambios en localStorage aquí si fuera necesario
+                    console.log('Cambio guardado:', this.textContent.substring(0, 50) + '...');
+                });
+            });
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Si estamos en modo edición, enfocar el primer elemento editable de la sección
+                        if (isEditing && targetElement.querySelector('.editable')) {
+                            setTimeout(() => {
+                                targetElement.querySelector('.editable').focus();
+                            }, 500);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-013 Plan de Acción Climática - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .action-plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .action-plan-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+        }
+        
+        .action-plan-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .action-plan-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .action-plan-table tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .climate-highlight {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .climate-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .responsibility-list {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+        
+        .responsibility-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .responsibility-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .responsibility-list li:before {
+            content: "▸";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .kpi-list {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+        
+        .kpi-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .kpi-list li:before {
+            content: "✓";
+            color: #38a169;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .download-btn, .edit-btn, .cancel-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .download-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .edit-btn {
+            background-color: #ed8936;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #dd6b20;
+        }
+        
+        .cancel-btn {
+            background-color: #e53e3e;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #c53030;
+        }
+        
+        .save-btn.hidden, .cancel-btn.hidden, .edit-btn.hidden {
+            display: none;
+        }
+        
+        .edit-mode-indicator {
+            background-color: #fed7d7;
+            color: #9b2c2c;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { background-color: #fed7d7; }
+            50% { background-color: #feebc8; }
+            100% { background-color: #fed7d7; }
+        }
+        
+        .editable-field {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 8px 12px;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .editable-field.readonly {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            cursor: default;
+        }
+        
+        .editable-field:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+            background-color: #fffde7;
+        }
+        
+        .editable-table-cell {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 8px;
+            width: 100%;
+            min-height: 40px;
+        }
+        
+        .editable-table-cell.readonly {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons, .edit-mode-indicator {
+                display: none;
+            }
+            
+            .action-plan-table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .action-plan-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .action-plan-table th,
+            .action-plan-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable-field readonly" id="issue-date">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable-field readonly" id="elaborated-by">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable-field readonly" id="approved-by">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable-field readonly" id="version">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Plan de Acción Climática - Sistema de Gestión de la Calidad</div>
+        <div class="doc-code">Código: <span class="editable-field readonly" id="doc-code">FORM-013</span></div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Indicador de modo edición -->
+            <div class="edit-mode-indicator" id="editModeIndicator">
+                <i class="fas fa-edit"></i>
+                MODO EDICIÓN ACTIVADO - Los campos ahora son editables
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="action-buttons">
+                <button class="edit-btn" id="editBtn">
+                    <i class="fas fa-edit"></i>
+                    EDITAR DOCUMENTO
+                </button>
+                <button class="save-btn hidden" id="saveBtn">
+                    <i class="fas fa-save"></i>
+                    GUARDAR CAMBIOS
+                </button>
+                <button class="cancel-btn hidden" id="cancelBtn">
+                    <i class="fas fa-times"></i>
+                    CANCELAR
+                </button>
+                <button class="download-btn" id="downloadBtn">
+                    <i class="fas fa-download"></i>
+                    DESCARGAR PDF
+                </button>
+                <button class="print-btn" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                    IMPRIMIR
+                </button>
+            </div>
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#introduccion" class="toc-link">Introducción</a></li>
+                    <li class="toc-item"><a href="#objetivos" class="toc-link">Objetivos</a></li>
+                    <li class="toc-item"><a href="#estrategias" class="toc-link">Estrategias de Acción</a></li>
+                    <li class="toc-item"><a href="#seguimiento" class="toc-link">Mecanismos de Seguimiento y Evaluación</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#ajustes" class="toc-link">Ajustes y Mejoras</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="section" id="introduccion">
+                <div class="section-title">Introducción</div>
+                
+                <div class="climate-highlight">
+                    <div class="climate-title">Cumplimiento con las Enmiendas Climáticas ISO 2024</div>
+                    <p>El presente documento establece el <strong>Plan de Acción Climática</strong>, definiendo estrategias y medidas para mitigar el impacto del cambio climático en las operaciones de la empresa, alineándose con los requisitos de la <strong>ISO 9001:2015/Amd.1:2024</strong>.</p>
+                    <p>Este plan forma parte integral de nuestro Sistema de Gestión de la Calidad (SGC) y responde a nuestro compromiso con la sostenibilidad y la responsabilidad ambiental, cumpliendo con las expectativas de las partes interesadas y los requisitos normativos actualizados.</p>
+                </div>
+            </div>
+            
+            <!-- Objetivos -->
+            <div class="section" id="objetivos">
+                <div class="section-title">Objetivos</div>
+                
+                <div class="intro-text">
+                    <p>El Plan de Acción Climática tiene como propósito principal establecer un marco estratégico para la gestión proactiva de los aspectos climáticos en nuestras operaciones. Los objetivos específicos son:</p>
+                </div>
+                
+                <ul class="kpi-list" id="objectives-list">
+                    <li><strong>Reducir la huella ambiental</strong> de las actividades operativas, enfocándose en la eficiencia energética y la gestión de residuos.</li>
+                    <li><strong>Asegurar el cumplimiento</strong> de regulaciones ambientales aplicables y de los requisitos de la norma ISO 9001.</li>
+                    <li><strong>Fomentar prácticas sostenibles</strong> en toda la cadena de valor, incluyendo proveedores y clientes.</li>
+                    <li><strong>Establecer mecanismos de seguimiento y mejora continua</strong> para evaluar la efectividad de las acciones implementadas.</li>
+                    <li><strong>Promover una cultura organizacional</strong> consciente del cambio climático y comprometida con la acción climática.</li>
+                </ul>
+            </div>
+            
+            <!-- Estrategias de Acción -->
+            <div class="section" id="estrategias">
+                <div class="section-title">Estrategias de Acción</div>
+                
+                <div class="intro-text">
+                    <p>Las siguientes estrategias y acciones específicas han sido diseñadas para lograr los objetivos del Plan de Acción Climática. Cada acción cuenta con responsables definidos, plazos establecidos e indicadores de seguimiento para medir su efectividad.</p>
+                </div>
+                
+                <table class="action-plan-table">
+                    <thead>
+                        <tr>
+                            <th>Estrategia</th>
+                            <th>Acción Específica</th>
+                            <th>Responsable</th>
+                            <th>Plazo</th>
+                            <th>Indicador de Seguimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="editable-field readonly" contenteditable="false">Eficiencia Energética</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Implementar tecnología LED en instalaciones y optimizar sistemas de climatización</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Área de Operaciones</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">6 meses</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">% de reducción en consumo energético</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="editable-field readonly" contenteditable="false">Energía Renovable</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Evaluar viabilidad de paneles solares para suministro energético</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Dirección Técnica</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">12 meses</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Estudio de factibilidad completado</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="editable-field readonly" contenteditable="false">Gestión de Residuos</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Aumentar reciclaje y reducir desperdicio mediante programas de segregación</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Gestión Ambiental</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">9 meses</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Toneladas de residuos reciclados vs. enviados a vertedero</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="editable-field readonly" contenteditable="false">Proveedores Sostenibles</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Priorizar compras a proveedores con certificación ambiental</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Compras</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">12 meses</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">% de proveedores certificados ambientalmente</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="editable-field readonly" contenteditable="false">Capacitación</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Formar empleados en prácticas sostenibles y conciencia climática</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Recursos Humanos</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">3 meses</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Número de empleados capacitados / % de participación</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="editable-field readonly" contenteditable="false">Transporte Sostenible</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Evaluar opciones de movilidad eléctrica para flota corporativa</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Logística</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">8 meses</span></td>
+                            <td><span class="editable-field readonly" contenteditable="false">Número de vehículos eléctricos incorporados</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box">
+                    <div class="section-subtitle">Alineación con el SGC</div>
+                    <p>Las estrategias aquí definidas se alinean directamente con:</p>
+                    <ul class="kpi-list" id="alignment-list">
+                        <li><strong>ISO 9001:2015/Amd.1:2024:</strong> Consideración del cambio climático en el contexto de la organización</li>
+                        <li><strong>Política de Calidad:</strong> Compromiso con la sostenibilidad y mejora continua</li>
+                        <li><strong>Objetivos de Calidad:</strong> Integración de aspectos ambientales en los objetivos organizacionales</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Mecanismos de Seguimiento -->
+            <div class="section" id="seguimiento">
+                <div class="section-title">Mecanismos de Seguimiento y Evaluación</div>
+                
+                <div class="intro-text">
+                    <p>Para garantizar la efectividad del Plan de Acción Climática, se implementarán las siguientes actividades de monitoreo y evaluación, integradas en los procesos del Sistema de Gestión de la Calidad:</p>
+                </div>
+                
+                <div class="climate-highlight">
+                    <div class="climate-title">Sistema de Monitoreo Integrado</div>
+                    
+                    <ul class="kpi-list" id="monitoring-list">
+                        <li><strong>Auditorías internas:</strong> Evaluación periódica del cumplimiento de las estrategias y acciones establecidas.</li>
+                        <li><strong>Indicadores clave de desempeño (KPIs):</strong> Medición del impacto de las acciones en la sostenibilidad de la empresa.</li>
+                        <li><strong>Reportes de sostenibilidad:</strong> Elaboración de informes trimestrales con los avances y mejoras implementadas.</li>
+                        <li><strong>Revisión anual:</strong> Ajuste de estrategias en función de los resultados obtenidos y cambios en el contexto.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">Responsabilidades</div>
+                
+                <div class="intro-text">
+                    <p>Cada departamento tiene un rol fundamental en la implementación y cumplimiento del Plan de Acción Climática. La siguiente tabla detalla las responsabilidades asignadas:</p>
+                </div>
+                
+                <ul class="responsibility-list" id="responsibilities-list">
+                    <li><strong>Dirección General:</strong> Aprobar y supervisar la ejecución del plan, asignar recursos necesarios.</li>
+                    <li><strong>Gestión de Calidad (SGC):</strong> Coordinar las acciones del plan, evaluar los impactos, monitorear indicadores.</li>
+                    <li><strong>Área de Operaciones:</strong> Implementar medidas de eficiencia energética y gestión de residuos.</li>
+                    <li><strong>Departamento de Compras:</strong> Garantizar la selección de proveedores sostenibles.</li>
+                    <li><strong>Recursos Humanos:</strong> Diseñar e impartir programas de capacitación en sostenibilidad.</li>
+                    <li><strong>Dirección Técnica:</strong> Evaluar e implementar soluciones tecnológicas para la eficiencia energética.</li>
+                    <li><strong>Logística y Transporte:</strong> Gestionar la movilidad sostenible y optimizar rutas.</li>
+                </ul>
+            </div>
+            
+            <!-- Ajustes y Mejoras -->
+            <div class="section" id="ajustes">
+                <div class="section-title">Ajustes y Mejoras</div>
+                
+                <div class="intro-text">
+                    <p>El Plan de Acción Climática es un documento dinámico que se revisará periódicamente para asegurar su efectividad y relevancia. Los ajustes y mejoras se realizarán basándose en:</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <ul class="kpi-list" id="improvements-list">
+                        <li><strong>Nuevas regulaciones ambientales:</strong> Actualización del plan para cumplir con legislación actualizada.</li>
+                        <li><strong>Avances tecnológicos:</strong> Incorporación de nuevas tecnologías en eficiencia energética.</li>
+                        <li><strong>Revisión de desempeño:</strong> Análisis de resultados de indicadores KPIs y auditorías.</li>
+                        <li><strong>Cambios en el contexto organizacional:</strong> Adaptación a nuevas operaciones o servicios.</li>
+                    </ul>
+                </div>
+                
+                <div class="climate-highlight">
+                    <div class="climate-title">Ciclo de Mejora Continua PDCA</div>
+                    <p>El Plan de Acción Climática se gestiona bajo el ciclo <strong>Planificar-Hacer-Verificar-Actuar (PDCA)</strong> del SGC:</p>
+                    <ul class="kpi-list" id="pdca-list">
+                        <li><strong>Planificar:</strong> Establecer objetivos, estrategias e indicadores (este documento)</li>
+                        <li><strong>Hacer:</strong> Implementar las acciones planificadas</li>
+                        <li><strong>Verificar:</strong> Monitorear resultados mediante auditorías e indicadores</li>
+                        <li><strong>Actuar:</strong> Realizar ajustes y mejoras basadas en los hallazgos</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody id="version-history-body">
+                            <tr>
+                                <td><span class="editable-field readonly">000</span></td>
+                                <td><span class="editable-field readonly">01.12.2024</span></td>
+                                <td><span class="editable-field readonly">Original</span></td>
+                                <td><span class="editable-field readonly">CEO</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: <span class="editable-field readonly" id="footer-code">FORM-013</span> | Revisión: <span class="editable-field readonly" id="footer-revision">000</span> | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Variable para controlar el modo de edición
+        let isEditMode = false;
+        let originalData = {};
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                };
+            }
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar botones
+            document.getElementById('editBtn').addEventListener('click', function() {
+                toggleEditMode(true);
+            });
+            
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                saveChanges();
+                toggleEditMode(false);
+            });
+            
+            document.getElementById('cancelBtn').addEventListener('click', function() {
+                restoreOriginalData();
+                toggleEditMode(false);
+            });
+            
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                downloadAsPDF();
+            });
+            
+            // Cargar datos guardados
+            loadSavedData();
+        });
+        
+        // Función para alternar modo edición
+        function toggleEditMode(enable) {
+            isEditMode = enable;
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const editIndicator = document.getElementById('editModeIndicator');
+            
+            if (enable) {
+                // Guardar datos originales antes de editar
+                saveOriginalData();
+                
+                // Cambiar botones
+                editBtn.classList.add('hidden');
+                saveBtn.classList.remove('hidden');
+                cancelBtn.classList.remove('hidden');
+                
+                // Mostrar indicador de modo edición
+                editIndicator.style.display = 'flex';
+                
+                // Hacer campos editables
+                const editableFields = document.querySelectorAll('.editable-field.readonly');
+                editableFields.forEach(field => {
+                    field.classList.remove('readonly');
+                    field.contentEditable = true;
+                    field.style.backgroundColor = '#fffde7';
+                    field.style.border = '1px solid #3182ce';
+                    field.style.padding = '8px 12px';
+                });
+                
+                // Hacer elementos de lista editables
+                const listItems = document.querySelectorAll('.kpi-list li, .responsibility-list li');
+                listItems.forEach(item => {
+                    item.contentEditable = true;
+                    item.style.backgroundColor = '#fffde7';
+                    item.style.border = '1px solid #e2e8f0';
+                    item.style.padding = '8px 12px';
+                    item.style.borderRadius = '4px';
+                    item.style.marginBottom = '8px';
+                });
+                
+            } else {
+                // Restaurar botones
+                editBtn.classList.remove('hidden');
+                saveBtn.classList.add('hidden');
+                cancelBtn.classList.add('hidden');
+                
+                // Ocultar indicador de modo edición
+                editIndicator.style.display = 'none';
+                
+                // Hacer campos de solo lectura
+                const editableFields = document.querySelectorAll('.editable-field:not(.readonly)');
+                editableFields.forEach(field => {
+                    field.classList.add('readonly');
+                    field.contentEditable = false;
+                    field.style.backgroundColor = 'transparent';
+                    field.style.border = 'none';
+                    field.style.padding = '0';
+                });
+                
+                // Restaurar elementos de lista
+                const listItems = document.querySelectorAll('.kpi-list li, .responsibility-list li');
+                listItems.forEach(item => {
+                    item.contentEditable = false;
+                    item.style.backgroundColor = 'transparent';
+                    item.style.border = 'none';
+                    item.style.padding = '0 0 0 25px';
+                    item.style.marginBottom = '12px';
+                });
+            }
+        }
+        
+        // Función para guardar datos originales
+        function saveOriginalData() {
+            originalData = {};
+            
+            // Guardar campos editables
+            const editableFields = document.querySelectorAll('.editable-field');
+            editableFields.forEach((field, index) => {
+                originalData[`field_${index}`] = field.innerHTML;
+            });
+            
+            // Guardar elementos de lista
+            const listItems = document.querySelectorAll('.kpi-list li, .responsibility-list li');
+            listItems.forEach((item, index) => {
+                originalData[`listItem_${index}`] = item.innerHTML;
+            });
+            
+            // Guardar contenido de párrafos
+            const paragraphs = document.querySelectorAll('.climate-highlight p, .intro-text p, .highlight-box p');
+            paragraphs.forEach((p, index) => {
+                originalData[`paragraph_${index}`] = p.innerHTML;
+            });
+            
+            console.log('Datos originales guardados');
+        }
+        
+        // Función para restaurar datos originales
+        function restoreOriginalData() {
+            // Restaurar campos editables
+            const editableFields = document.querySelectorAll('.editable-field');
+            editableFields.forEach((field, index) => {
+                const key = `field_${index}`;
+                if (originalData[key]) {
+                    field.innerHTML = originalData[key];
+                }
+            });
+            
+            // Restaurar elementos de lista
+            const listItems = document.querySelectorAll('.kpi-list li, .responsibility-list li');
+            listItems.forEach((item, index) => {
+                const key = `listItem_${index}`;
+                if (originalData[key]) {
+                    item.innerHTML = originalData[key];
+                }
+            });
+            
+            // Restaurar contenido de párrafos
+            const paragraphs = document.querySelectorAll('.climate-highlight p, .intro-text p, .highlight-box p');
+            paragraphs.forEach((p, index) => {
+                const key = `paragraph_${index}`;
+                if (originalData[key]) {
+                    p.innerHTML = originalData[key];
+                }
+            });
+            
+            console.log('Datos originales restaurados');
+        }
+        
+        // Función para guardar cambios
+        function saveChanges() {
+            // Crear objeto con datos del documento
+            const documentData = {
+                issueDate: document.getElementById('issue-date').innerHTML,
+                elaboratedBy: document.getElementById('elaborated-by').innerHTML,
+                approvedBy: document.getElementById('approved-by').innerHTML,
+                version: document.getElementById('version').innerHTML,
+                docCode: document.getElementById('doc-code').innerHTML,
+                footerCode: document.getElementById('footer-code').innerHTML,
+                footerRevision: document.getElementById('footer-revision').innerHTML,
+                savedDate: new Date().toISOString()
+            };
+            
+            // Guardar datos de lista
+            const objectivesList = [];
+            document.querySelectorAll('#objectives-list li').forEach(li => {
+                objectivesList.push(li.innerHTML);
+            });
+            
+            const alignmentList = [];
+            document.querySelectorAll('#alignment-list li').forEach(li => {
+                alignmentList.push(li.innerHTML);
+            });
+            
+            const monitoringList = [];
+            document.querySelectorAll('#monitoring-list li').forEach(li => {
+                monitoringList.push(li.innerHTML);
+            });
+            
+            const responsibilitiesList = [];
+            document.querySelectorAll('#responsibilities-list li').forEach(li => {
+                responsibilitiesList.push(li.innerHTML);
+            });
+            
+            const improvementsList = [];
+            document.querySelectorAll('#improvements-list li').forEach(li => {
+                improvementsList.push(li.innerHTML);
+            });
+            
+            const pdcaList = [];
+            document.querySelectorAll('#pdca-list li').forEach(li => {
+                pdcaList.push(li.innerHTML);
+            });
+            
+            // Guardar datos de tabla
+            const tableData = [];
+            document.querySelectorAll('.action-plan-table tbody tr').forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('span').forEach(cell => {
+                    rowData.push(cell.innerHTML);
+                });
+                tableData.push(rowData);
+            });
+            
+            // Guardar todo en localStorage
+            localStorage.setItem('plan-accion-climatica-data', JSON.stringify({
+                documentData,
+                objectivesList,
+                alignmentList,
+                monitoringList,
+                responsibilitiesList,
+                improvementsList,
+                pdcaList,
+                tableData,
+                lastModified: new Date().toLocaleString()
+            }));
+            
+            alert('Cambios guardados exitosamente.');
+            console.log('Datos guardados:', documentData);
+        }
+        
+        // Función para cargar datos guardados
+        function loadSavedData() {
+            const savedData = localStorage.getItem('plan-accion-climatica-data');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                
+                // Cargar datos del documento
+                if (data.documentData) {
+                    const docData = data.documentData;
+                    
+                    if (docData.issueDate) document.getElementById('issue-date').innerHTML = docData.issueDate;
+                    if (docData.elaboratedBy) document.getElementById('elaborated-by').innerHTML = docData.elaboratedBy;
+                    if (docData.approvedBy) document.getElementById('approved-by').innerHTML = docData.approvedBy;
+                    if (docData.version) document.getElementById('version').innerHTML = docData.version;
+                    if (docData.docCode) document.getElementById('doc-code').innerHTML = docData.docCode;
+                    if (docData.footerCode) document.getElementById('footer-code').innerHTML = docData.footerCode;
+                    if (docData.footerRevision) document.getElementById('footer-revision').innerHTML = docData.footerRevision;
+                }
+                
+                // Cargar listas
+                if (data.objectivesList) {
+                    const listItems = document.querySelectorAll('#objectives-list li');
+                    data.objectivesList.forEach((item, index) => {
+                        if (listItems[index]) {
+                            listItems[index].innerHTML = item;
+                        }
+                    });
+                }
+                
+                if (data.alignmentList) {
+                    const listItems = document.querySelectorAll('#alignment-list li');
+                    data.alignmentList.forEach((item, index) => {
+                        if (listItems[index]) {
+                            listItems[index].innerHTML = item;
+                        }
+                    });
+                }
+                
+                // Cargar datos de tabla
+                if (data.tableData) {
+                    const tableRows = document.querySelectorAll('.action-plan-table tbody tr');
+                    data.tableData.forEach((rowData, rowIndex) => {
+                        if (tableRows[rowIndex]) {
+                            const cells = tableRows[rowIndex].querySelectorAll('span');
+                            rowData.forEach((cellData, cellIndex) => {
+                                if (cells[cellIndex]) {
+                                    cells[cellIndex].innerHTML = cellData;
+                                }
+                            });
+                        }
+                    });
+                }
+                
+                console.log('Datos cargados desde localStorage');
+            }
+        }
+        
+        // Función para descargar como PDF
+        function downloadAsPDF() {
+            const element = document.querySelector('.document-container');
+            const orgName = document.querySelector('.org-name').textContent.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            const filename = `plan_accion_climatica_${orgName}_${formattedDate}.pdf`;
+            
+            const opt = {
+                margin: [15, 15, 15, 15],
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            
+            // Mostrar mensaje de procesamiento
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERANDO PDF...';
+            downloadBtn.disabled = true;
+            
+            // Generar PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restaurar botón
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+                
+                alert(`PDF generado exitosamente: ${filename}`);
+            }).catch((error) => {
+                // Restaurar botón en caso de error
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+                console.error('Error generando PDF:', error);
+                alert('Error al generar el PDF. Intente nuevamente.');
+            });
+        }
+    </script>
+</body>
+</html>

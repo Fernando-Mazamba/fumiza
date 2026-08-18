@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-020 Gestión de Equipos de Protección Individual - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #1e40af;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e40af;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #1e40af;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1e40af;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #1e40af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #1e3a8a;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 10px;
+            border-left: 4px solid #1e40af;
+        }
+        
+        .subsection-title {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #1e40af;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #1e40af;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .check-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .check-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .check-list li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .arrow-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .arrow-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .arrow-list li:before {
+            content: "➜";
+            color: #1e40af;
+            position: absolute;
+            left: 0;
+        }
+        
+        .numbered-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+            counter-reset: item;
+        }
+        
+        .numbered-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            counter-increment: item;
+        }
+        
+        .numbered-list li:before {
+            content: counter(item) ".";
+            color: #1e40af;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .definition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .definition-table th, .definition-table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .definition-table th {
+            background-color: #1e40af;
+            color: white;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .definition-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .definition-table tr:hover {
+            background-color: #eff6ff;
+        }
+        
+        .responsibility-container {
+            margin: 25px 0;
+        }
+        
+        .responsibility-item {
+            background-color: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .responsibility-title {
+            color: #1e40af;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .process-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .process-title {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .criteria-box {
+            background-color: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+        
+        .criteria-title {
+            color: #065f46;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .indicator-box {
+            background-color: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .indicator-title {
+            color: #92400e;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .indicator-list {
+            list-style-type: none;
+            margin: 10px 0 15px 20px;
+        }
+        
+        .indicator-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .indicator-list li:before {
+            content: "▶";
+            color: #f59e0b;
+            position: absolute;
+            left: 0;
+        }
+        
+        .discipline-box {
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .discipline-title {
+            color: #991b1b;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .records-box {
+            background-color: #f8f9fa;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .records-title {
+            color: #374151;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #1e40af;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #1e40af;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            text-align: right;
+            padding: 20px 40px 10px;
+        }
+        
+        .action-btn {
+            background-color: #1e40af;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #3b82f6;
+        }
+        
+        .edit-btn {
+            background-color: #10b981;
+        }
+        
+        .edit-btn:hover {
+            background-color: #059669;
+        }
+        
+        .save-btn {
+            background-color: #3b82f6;
+            display: none;
+        }
+        
+        .save-btn:hover {
+            background-color: #1e40af;
+        }
+        
+        .download-btn {
+            background-color: #8b5cf6;
+        }
+        
+        .download-btn:hover {
+            background-color: #7c3aed;
+        }
+        
+        .print-btn {
+            background-color: #1e40af;
+        }
+        
+        .print-btn:hover {
+            background-color: #3b82f6;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px;
+            transition: border 0.3s;
+        }
+        
+        .editable:hover {
+            border: 1px dashed #3b82f6;
+            background-color: #f9f9f9;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .editable {
+                border: none;
+            }
+            
+            .editable:hover {
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .definition-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .definition-table th,
+            .definition-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .action-buttons {
+                text-align: center;
+                padding: 10px 20px;
+            }
+            
+            .action-btn {
+                margin: 5px;
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGC
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Procedimiento de Gestión de Equipos de Protección Individual (EPIs)</div>
+        <div class="doc-code">Código: PRO-020</div>
+        
+        <!-- Botones de acción -->
+        <div class="action-buttons">
+            <button class="action-btn download-btn" onclick="downloadDocument()">💾 Descargar</button>
+            <button class="action-btn edit-btn" onclick="enableEditing()">✏️ Habilitar Edición</button>
+            <button class="action-btn save-btn" onclick="saveDocument()">💾 Guardar Cambios</button>
+            <button class="action-btn print-btn" onclick="window.print()">📄 Imprimir</button>
+        </div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">1. Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">2. Alcance</a></li>
+                    <li class="toc-item"><a href="#marco" class="toc-link">3. Marco Normativo</a></li>
+                    <li class="toc-item"><a href="#definiciones" class="toc-link">4. Definiciones Clave</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">5. Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#proceso" class="toc-link">6. Proceso Detallado</a></li>
+                    <li class="toc-item"><a href="#registros" class="toc-link">7. Registros y Documentación</a></li>
+                    <li class="toc-item"><a href="#disciplina" class="toc-link">8. Disciplina y Sanciones</a></li>
+                    <li class="toc-item"><a href="#revision" class="toc-link">9. Revisión y Mejora</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                <div class="content-text editable">
+                    Establecer un sistema integral para la gestión de EPIs que garantice:
+                </div>
+                <ul class="bullet-list editable">
+                    <li>La selección adecuada de equipos basada en evaluación de riesgos</li>
+                    <li>La provisión oportuna y mantenimiento correcto</li>
+                    <li>El uso consistente y cumplimiento normativo</li>
+                    <li>La capacitación efectiva y supervisión continua</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                <div class="content-text editable">
+                    Aplica a:
+                </div>
+                <ul class="check-list editable">
+                    <li>Todos los colaboradores (plantilla fija, temporal, contratistas)</li>
+                    <li>Visitantes en áreas de riesgo controlado</li>
+                    <li>Todas las instalaciones y proyectos de la organización</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 3: Marco Normativo -->
+            <div class="section" id="marco">
+                <div class="section-title">3. Marco Normativo</div>
+                <ul class="bullet-list editable">
+                    <li>Requisitos de la <strong>ISO 45001:2018</strong> (cláusulas 6.1.2, 8.1.2)</li>
+                    <li>Legislación laboral aplicable en materia de SST</li>
+                    <li>Normas técnicas internacionales (ANSI, EN, ISO)</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 4: Definiciones Clave -->
+            <div class="section" id="definiciones">
+                <div class="section-title">4. Definiciones Clave</div>
+                
+                <table class="definition-table editable">
+                    <thead>
+                        <tr>
+                            <th>Término</th>
+                            <th>Definición</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>EPI</strong></td>
+                            <td>Dispositivo destinado a ser llevado por el trabajador para protección contra riesgos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vida útil</strong></td>
+                            <td>Período durante el cual el EPI mantiene sus propiedades protectoras</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Certificación</strong></td>
+                            <td>Documentación que acredita el cumplimiento con estándares de seguridad</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title">5. Responsabilidades</div>
+                
+                <div class="subsection-title">5.1 Dirección General</div>
+                <ul class="bullet-list editable">
+                    <li>Asignar presupuesto suficiente</li>
+                    <li>Garantizar cumplimiento legal</li>
+                </ul>
+                
+                <div class="subsection-title">5.2 Comité de SST</div>
+                <ul class="bullet-list editable">
+                    <li>Validar la matriz de riesgos y EPIs asociados</li>
+                    <li>Revisar incidentes relacionados con EPIs</li>
+                </ul>
+                
+                <div class="subsection-title">5.3 Supervisores</div>
+                <ul class="bullet-list editable">
+                    <li>Verificar uso correcto diariamente</li>
+                    <li>Retirar EPIs defectuosos inmediatamente</li>
+                </ul>
+                
+                <div class="subsection-title">5.4 Trabajadores</div>
+                <ul class="bullet-list editable">
+                    <li>Utilizar los EPIs asignados correctamente</li>
+                    <li>Reportar daños o necesidades de reemplazo</li>
+                </ul>
+            </div>
+            
+            <!-- Sección 6: Proceso Detallado -->
+            <div class="section" id="proceso">
+                <div class="section-title">6. Proceso Detallado</div>
+                
+                <div class="process-box editable">
+                    <div class="process-title">6.1 Identificación de Necesidades</div>
+                    <div class="content-text">
+                        Metodología:
+                    </div>
+                    <ol class="numbered-list">
+                        <li>Análisis de puesto de trabajo</li>
+                        <li>Evaluación cualitativa/cuantitativa de riesgos</li>
+                        <li>Jerarquización de controles (aplicando jerarquía de controles)</li>
+                    </ol>
+                </div>
+                
+                <div class="process-box editable">
+                    <div class="process-title">6.2 Especificación Técnica</div>
+                    <div class="content-text">
+                        Criterios de selección:
+                    </div>
+                    <div class="criteria-box">
+                        <div class="criteria-title">Criterios Técnicos para Selección de EPIs</div>
+                        <ul class="check-list">
+                            <li>Nivel de protección requerido</li>
+                            <li>Compatibilidad con otros EPIs</li>
+                            <li>Confort y ergonomía</li>
+                            <li>Certificaciones vigentes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="process-box editable">
+                    <div class="process-title">6.3 Adquisición y Control de Calidad</div>
+                    <div class="content-text">
+                        Proceso:
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Evaluación de proveedores certificados</li>
+                        <li>Verificación de lotes recibidos (muestreo aleatorio)</li>
+                        <li>Pruebas funcionales iniciales</li>
+                    </ul>
+                </div>
+                
+                <div class="process-box editable">
+                    <div class="process-title">6.4 Sistema de Distribución</div>
+                    <div class="content-text">
+                        Mecanismos implementados:
+                    </div>
+                    <ul class="arrow-list">
+                        <li>Centro de distribución centralizado</li>
+                        <li>Puntos de reposición en campo</li>
+                        <li>Sistema de préstamo para visitantes</li>
+                    </ul>
+                </div>
+                
+                <div class="process-box editable">
+                    <div class="process-title">6.5 Capacitación Obligatoria</div>
+                    <div class="content-text">
+                        Contenido mínimo:
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Demostración práctica de uso correcto</li>
+                        <li>Limitaciones de protección</li>
+                        <li>Señales de deterioro</li>
+                        <li>Protocolo de reemplazo</li>
+                    </ul>
+                </div>
+                
+                <div class="process-box editable">
+                    <div class="process-title">6.6 Mantenimiento Programado</div>
+                    <div class="content-text">
+                        Programa de:
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Limpieza profesional periódica</li>
+                        <li>Inspecciones técnicas certificadas</li>
+                        <li>Pruebas de funcionalidad</li>
+                    </ul>
+                </div>
+                
+                <div class="process-box editable">
+                    <div class="process-title">6.7 Auditorías de Cumplimiento</div>
+                    <div class="content-text">
+                        Indicadores clave:
+                    </div>
+                    <div class="indicator-box">
+                        <div class="indicator-title">Indicadores de Desempeño de EPIs</div>
+                        <ul class="indicator-list">
+                            <li>Tasa de utilización efectiva</li>
+                            <li>Índice de reemplazos oportunos</li>
+                            <li>Cumplimiento de estándares</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección 7: Registros y Documentación -->
+            <div class="section" id="registros">
+                <div class="section-title">7. Registros y Documentación</div>
+                <div class="content-text editable">
+                    Documentos obligatorios:
+                </div>
+                
+                <div class="records-box editable">
+                    <div class="records-title">Documentación Obligatoria del Sistema EPI</div>
+                    <ol class="numbered-list">
+                        <li>Registro individual de entrega</li>
+                        <li>Historial de mantenimientos</li>
+                        <li>Reportes de no conformidades</li>
+                        <li>Certificados de capacitación</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Sección 8: Disciplina y Sanciones -->
+            <div class="section" id="disciplina">
+                <div class="section-title">8. Disciplina y Sanciones</div>
+                <div class="content-text editable">
+                    Escala progresiva:
+                </div>
+                
+                <div class="discipline-box editable">
+                    <div class="discipline-title">Escala Progresiva de Sanciones</div>
+                    <ol class="numbered-list">
+                        <li>Amonestación verbal</li>
+                        <li>Capacitación correctiva</li>
+                        <li>Suspensión temporal</li>
+                        <li>Medidas disciplinarias graves</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Sección 9: Revisión y Mejora -->
+            <div class="section" id="revision">
+                <div class="section-title">9. Revisión y Mejora</div>
+                <div class="content-text editable">
+                    <strong>Frecuencia:</strong>
+                </div>
+                <ul class="bullet-list editable">
+                    <li>Revisión trimestral de indicadores</li>
+                    <li>Actualización anual del procedimiento</li>
+                    <li>Benchmarking con estándares internacionales</li>
+                </ul>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table editable">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td contenteditable="true">000</td>
+                                <td contenteditable="true">01.12.2024</td>
+                                <td contenteditable="true">Original</td>
+                                <td contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: PRO-020 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Estado de edición
+        let isEditingEnabled = false;
+        
+        // Habilitar/Deshabilitar edición
+        function enableEditing() {
+            const editables = document.querySelectorAll('.editable');
+            const editBtn = document.querySelector('.edit-btn');
+            const saveBtn = document.querySelector('.save-btn');
+            
+            if (!isEditingEnabled) {
+                // Habilitar edición en elementos editables básicos
+                editables.forEach(element => {
+                    if (!element.matches('table') && !element.matches('ul') && !element.matches('ol') && !element.matches('.criteria-box') && !element.matches('.indicator-box') && !element.matches('.discipline-box') && !element.matches('.records-box') && !element.matches('.process-box')) {
+                        element.setAttribute('contenteditable', 'true');
+                        element.style.backgroundColor = '#ffff99';
+                        element.style.border = '2px solid #1e40af';
+                    }
+                });
+                
+                // Habilitar edición en elementos hijos de contenedores especiales
+                const specialContainers = document.querySelectorAll('.criteria-box, .indicator-box, .discipline-box, .records-box, .process-box');
+                specialContainers.forEach(container => {
+                    const childElements = container.querySelectorAll('td, th, li, p, div:not(.criteria-title):not(.indicator-title):not(.discipline-title):not(.records-title):not(.process-title)');
+                    childElements.forEach(child => {
+                        child.setAttribute('contenteditable', 'true');
+                        child.style.border = '1px dashed #3b82f6';
+                        child.style.padding = '5px';
+                        child.style.minHeight = '20px';
+                        child.style.backgroundColor = '#ffff99';
+                    });
+                });
+                
+                // Habilitar edición en tablas y listas
+                const tables = document.querySelectorAll('table.editable');
+                tables.forEach(table => {
+                    const cells = table.querySelectorAll('td, th');
+                    cells.forEach(cell => {
+                        cell.setAttribute('contenteditable', 'true');
+                        cell.style.border = '2px solid #1e40af';
+                        cell.style.backgroundColor = '#ffff99';
+                    });
+                });
+                
+                const lists = document.querySelectorAll('ul.editable, ol.editable');
+                lists.forEach(list => {
+                    const items = list.querySelectorAll('li');
+                    items.forEach(item => {
+                        item.setAttribute('contenteditable', 'true');
+                        item.style.border = '1px dashed #3b82f6';
+                        item.style.padding = '5px';
+                        item.style.backgroundColor = '#ffff99';
+                    });
+                });
+                
+                editBtn.textContent = '✏️ Deshabilitar Edición';
+                editBtn.style.backgroundColor = '#ef4444';
+                saveBtn.style.display = 'inline-block';
+                
+                isEditingEnabled = true;
+                console.log('Modo edición habilitado');
+            } else {
+                // Deshabilitar edición
+                editables.forEach(element => {
+                    element.setAttribute('contenteditable', 'false');
+                    element.style.backgroundColor = '';
+                    element.style.border = '';
+                });
+                
+                const allEditableElements = document.querySelectorAll('[contenteditable="true"]');
+                allEditableElements.forEach(element => {
+                    element.setAttribute('contenteditable', 'false');
+                    element.style.backgroundColor = '';
+                    element.style.border = '';
+                    element.style.padding = '';
+                    element.style.minHeight = '';
+                });
+                
+                editBtn.textContent = '✏️ Habilitar Edición';
+                editBtn.style.backgroundColor = '#10b981';
+                saveBtn.style.display = 'none';
+                
+                isEditingEnabled = false;
+                console.log('Modo edición deshabilitado');
+            }
+        }
+        
+        // Guardar documento
+        function saveDocument() {
+            alert('Cambios guardados localmente. Para guardar permanentemente, descargue el documento.');
+        }
+        
+        // Descargar documento
+        function downloadDocument() {
+            // Obtener el HTML completo del documento
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Crear un blob con el contenido HTML
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Crear un enlace para descargar
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = 'PRO-020-Procedimiento-gestion-EPIs-SGC.html';
+            
+            // Simular clic en el enlace
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            // Mostrar mensaje de confirmación
+            alert('Documento descargado como "PRO-020-Procedimiento-gestion-EPIs-SGC.html"');
+        }
+        
+        // Configuración inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si el logo existe
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%231e40af" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Inicialmente deshabilitar edición
+            const editables = document.querySelectorAll('.editable');
+            editables.forEach(element => {
+                element.setAttribute('contenteditable', 'false');
+            });
+        });
+    </script>
+</body>
+</html>

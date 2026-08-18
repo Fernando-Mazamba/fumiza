@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-017 Plan de Acción para Seguridad y Salud Ocupacional - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 15px;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .sso-section {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .sso-title {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 14px;
+        }
+        
+        .action-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .action-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .action-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .action-table tr:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .objective-row {
+            background-color: #fed7d7 !important;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .objective-cell {
+            font-weight: bold;
+            color: #c53030;
+        }
+        
+        .objective-code {
+            display: inline-block;
+            background-color: #c53030;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        
+        .followup-list {
+            list-style-type: none;
+            margin: 20px 0 20px 20px;
+        }
+        
+        .followup-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .followup-list li:before {
+            content: "•";
+            color: #e53e3e;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .action-table {
+                page-break-inside: auto;
+            }
+        }
+        
+        @media screen and (max-width: 1200px) {
+            .action-table {
+                font-size: 13px;
+            }
+            
+            .action-table th, .action-table td {
+                padding: 10px 12px;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .action-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .sso-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title">Plan de Acción para Seguridad y Salud Ocupacional</div>
+        <div class="doc-code">Código: DOC-017</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">1. Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">2. Alcance</a></li>
+                    <li class="toc-item"><a href="#acciones" class="toc-link">3. Acciones Planificadas</a></li>
+                    <li class="toc-item"><a href="#seguimiento" class="toc-link">4. Seguimiento y Evaluación</a></li>
+                    <li class="toc-item"><a href="#disposiciones" class="toc-link">5. Disposiciones Finales</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Introducción -->
+            <div class="intro-text">
+                <p><strong>Este documento establece el Plan de Acción para Seguridad y Salud Ocupacional (SSO)</strong> del Sistema de Gestión Integrado (SGI), en cumplimiento con los requisitos de la norma ISO 45001:2018. El plan define objetivos específicos, acciones concretas, responsables, plazos y mecanismos de seguimiento para garantizar la prevención de incidentes y la mejora continua en seguridad y salud ocupacional.</p>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title">1. Objetivo</div>
+                
+                <div class="sso-section">
+                    <p>Definir las acciones necesarias para alcanzar los objetivos de Seguridad y Salud Ocupacional (SSO), garantizando la prevención de incidentes, la mejora continua y el cumplimiento de la norma ISO 45001:2018.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title">2. Alcance</div>
+                
+                <div class="sso-section">
+                    <p>Este plan de acción se aplica a todas las áreas y procesos de la organización, involucrando a empleados, contratistas y otras partes interesadas en el SGI.</p>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Acciones Planificadas -->
+            <div class="section" id="acciones">
+                <div class="section-title">3. Acciones Planificadas</div>
+                
+                <div class="intro-text">
+                    <p>A continuación se presentan los objetivos de Seguridad y Salud Ocupacional con sus respectivas acciones, responsables, plazos y mecanismos de seguimiento:</p>
+                </div>
+                
+                <table class="action-table">
+                    <thead>
+                        <tr>
+                            <th width="20%">Objetivo</th>
+                            <th width="25%">Acción</th>
+                            <th width="15%">Responsable</th>
+                            <th width="10%">Plazo</th>
+                            <th width="15%">Recursos Necesarios</th>
+                            <th width="15%">Indicador de Desempeño</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- OC-001 -->
+                        <tr class="objective-row">
+                            <td colspan="6" class="objective-cell">
+                                <span class="objective-code">OC-001</span> Cumplir con la Legislación y Requisitos en SYSO
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+                            <td>Implementar auditorías de cumplimiento normativo periódicas.</td>
+                            <td>Responsable de SYSO</td>
+                            <td>12 meses</td>
+                            <td>Recursos para auditoría, tiempo del personal</td>
+                            <td>Porcentaje de Cumplimiento de Normas de SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Realizar capacitaciones sobre normativa vigente.</td>
+                            <td>Responsable de Capacitación</td>
+                            <td>6 meses</td>
+                            <td>Material de capacitación, tiempo de los empleados</td>
+                            <td>Porcentaje de Cumplimiento de Normas de SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Elaborar planes de acción correctiva en caso de no conformidades.</td>
+                            <td>Responsable de SYSO</td>
+                            <td>3 meses</td>
+                            <td>Herramientas para plan de acción</td>
+                            <td>Porcentaje de Cumplimiento de Normas de SYSO</td>
+                        </tr>
+                        
+                        <!-- OC-002 -->
+                        <tr class="objective-row">
+                            <td colspan="6" class="objective-cell">
+                                <span class="objective-code">OC-002</span> Prevenir Lesiones y Enfermedades Ocupacionales
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+                            <td>Implementar programas de prevención de riesgos.</td>
+                            <td>Coordinador de Seguridad</td>
+                            <td>12 meses</td>
+                            <td>Material informativo, presupuesto para prevención</td>
+                            <td>Índice de Incidencia de Lesiones y Enfermedades Ocupacionales</td>
+                        </tr>
+                        <tr>
+                            <td>Realizar inspecciones de seguridad periódicas.</td>
+                            <td>Responsable de SYSO</td>
+                            <td>6 meses</td>
+                            <td>Equipo para inspección, recursos humanos</td>
+                            <td>Índice de Incidencia de Lesiones y Enfermedades Ocupacionales</td>
+                        </tr>
+                        <tr>
+                            <td>Fortalecer la cultura de reporte de incidentes y actos inseguros.</td>
+                            <td>Recursos Humanos</td>
+                            <td>9 meses</td>
+                            <td>Campañas de concienciación, presupuesto para materiales</td>
+                            <td>Índice de Incidencia de Lesiones y Enfermedades Ocupacionales</td>
+                        </tr>
+                        
+                        <!-- OC-003 -->
+                        <tr class="objective-row">
+                            <td colspan="6" class="objective-cell">
+                                <span class="objective-code">OC-003</span> Fomentar la Participación y Consulta de los Trabajadores
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+                            <td>Implementar reuniones periódicas de seguridad.</td>
+                            <td>Gerentes de Área</td>
+                            <td>3 meses</td>
+                            <td>Espacios para reuniones, tiempo del personal</td>
+                            <td>Porcentaje de Participación en Reuniones de SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Fomentar la consulta y sugerencias de los empleados.</td>
+                            <td>Responsable de SYSO</td>
+                            <td>6 meses</td>
+                            <td>Herramientas para consultas, recursos para incentivos</td>
+                            <td>Porcentaje de Participación en Reuniones de SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Desarrollar campañas de concienciación sobre SYSO.</td>
+                            <td>Departamento de Comunicación</td>
+                            <td>9 meses</td>
+                            <td>Materiales gráficos, presupuesto para campañas</td>
+                            <td>Porcentaje de Participación en Reuniones de SYSO</td>
+                        </tr>
+                        
+                        <!-- OC-004 -->
+                        <tr class="objective-row">
+                            <td colspan="6" class="objective-cell">
+                                <span class="objective-code">OC-004</span> Mejorar Continuamente en Seguridad y Salud Ocupacional
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+                            <td>Implementar planes de mejora basados en auditorías y evaluaciones de riesgos.</td>
+                            <td>Responsable de SYSO</td>
+                            <td>Anual</td>
+                            <td>Recursos para auditorías, tiempo del personal</td>
+                            <td>Número de Acciones Correctivas Implementadas en SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Monitorear la implementación de acciones correctivas.</td>
+                            <td>Coordinador de SYSO</td>
+                            <td>6 meses</td>
+                            <td>Herramientas para seguimiento, equipo de trabajo</td>
+                            <td>Número de Acciones Correctivas Implementadas en SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Revisar periódicamente el desempeño en SYSO.</td>
+                            <td>Alta Dirección</td>
+                            <td>12 meses</td>
+                            <td>Reportes de desempeño, reuniones periódicas</td>
+                            <td>Número de Acciones Correctivas Implementadas en SYSO</td>
+                        </tr>
+                        
+                        <!-- OC-005 -->
+                        <tr class="objective-row">
+                            <td colspan="6" class="objective-cell">
+                                <span class="objective-code">OC-005</span> Capacitar al Personal en Seguridad y Salud Ocupacional
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+                            <td>Implementar un programa de formación continua en SYSO.</td>
+                            <td>Responsable de Capacitación</td>
+                            <td>12 meses</td>
+                            <td>Recursos para formación, materiales didácticos</td>
+                            <td>Porcentaje de Personal Capacitado en SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Evaluar la efectividad de las capacitaciones mediante pruebas y encuestas.</td>
+                            <td>Departamento de Capacitación</td>
+                            <td>6 meses</td>
+                            <td>Encuestas, materiales para evaluaciones</td>
+                            <td>Porcentaje de Personal Capacitado en SYSO</td>
+                        </tr>
+                        <tr>
+                            <td>Desarrollar materiales didácticos adaptados a cada área de la empresa.</td>
+                            <td>Responsable de Capacitación</td>
+                            <td>6 meses</td>
+                            <td>Materiales, recursos para diseño</td>
+                            <td>Porcentaje de Personal Capacitado en SYSO</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 4: Seguimiento y Evaluación -->
+            <div class="section" id="seguimiento">
+                <div class="section-title">4. Seguimiento y Evaluación</div>
+                
+                <div class="sso-section">
+                    <ul class="followup-list">
+                        <li>Se realizarán reuniones trimestrales para evaluar el progreso del plan.</li>
+                        <li>Se asignarán responsables para supervisar el cumplimiento de cada acción.</li>
+                        <li>En caso de desviaciones, se implementarán medidas correctivas y ajustes al plan.</li>
+                        <li>Se documentarán los resultados y aprendizajes para futuras mejoras.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Disposiciones Finales -->
+            <div class="section" id="disposiciones">
+                <div class="section-title">5. Disposiciones Finales</div>
+                
+                <div class="sso-section">
+                    <p>Este plan de acción será revisado periódicamente para garantizar su alineación con los objetivos estratégicos de la organización y las normativas vigentes.</p>
+                </div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Código: DOC-017 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+            };
+        }
+        
+        // Configurar contador de secciones
+        document.body.style.counterReset = 'section-counter';
+    </script>
+</body>
+</html>

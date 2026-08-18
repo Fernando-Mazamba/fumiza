@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAN005 - Manual de Trabajo Seguro - SGI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .subsubsection-title {
+            color: #4a5568;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 15px 0 8px;
+        }
+        
+        .note-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #fdcb6e;
+        }
+        
+        .note-title {
+            color: #856404;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .warning-box {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .warning-title {
+            color: #721c24;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .info-box {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #0c5460;
+        }
+        
+        .info-title {
+            color: #0c5460;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .procedure-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .procedure-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .equipment-list {
+            background-color: #f0f4f8;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .equipment-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .equipment-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight {
+            background-color: #e6fffa;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .regulation-reference {
+            background-color: #e8f4fd;
+            border-left: 3px solid #3182ce;
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-style: italic;
+            color: #2d3748;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .document-image {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .image-caption {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .table-container {
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .comparison-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabeçalho com logo e informações da organização -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión Integrado (SGI)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        01.12.2024
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        ESGI
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        CEO
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        000
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título do documento -->
+        <div class="doc-title">Manual de Trabajo Seguro</div>
+        <div class="doc-code">Código: MAN005</div>
+        
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#instrucciones-generales" class="toc-link">1 - INSTRUCCIONES GENERALES</a></li>
+                    <li class="toc-item"><a href="#trabajos-peligrosos" class="toc-link">1.1 - Trabajos peligrosos que requieren Permiso de Trabajo</a></li>
+                    <li class="toc-item"><a href="#permisos-trabajo" class="toc-link">2 - PERMISOS DE TRABAJO</a></li>
+                    <li class="toc-item"><a href="#trabajo-altura" class="toc-link">2.1 - PERMISO DE TRABAJOS EN ALTURA</a></li>
+                    <li class="toc-item"><a href="#trabajo-caliente" class="toc-link">2.2 - PERMISO DE TRABAJO EN CALIENTE</a></li>
+                    <li class="toc-item"><a href="#espacios-confinados" class="toc-link">2.3 - PERMISO DE INGRESO A ESPACIOS CONFINADOS</a></li>
+                    <li class="toc-item"><a href="#trabajo-electrico" class="toc-link">2.4 - PERMISO DE TRABAJO ELÉCTRICO</a></li>
+                    <li class="toc-item"><a href="#izaje-cargas" class="toc-link">2.5 - PERMISO DE TRABAJO DE IZAJE DE CARGAS</a></li>
+                    <li class="toc-item"><a href="#excavacion" class="toc-link">2.6 - PERMISO DE TRABAJO EN EXCAVACIÓN</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1 - INSTRUCCIONES GENERALES -->
+            <div class="section" id="instrucciones-generales">
+                <div class="section-title">1 - INSTRUCCIONES GENERALES</div>
+                
+                <div class="section-subtitle" id="trabajos-peligrosos">1.1 - Trabajos peligrosos que requieren Permiso de Trabajo</div>
+                
+                <div class="note-box">
+                    <div class="note-title">Importante:</div>
+                    <p>Para los siguientes trabajos peligrosos se requiere <strong>Permiso de Trabajo</strong> por escrito debidamente autorizado por el Técnico de Seguridad y Salud en el Trabajo de la organización.</p>
+                </div>
+                
+                <div class="procedure-box">
+                    <div class="procedure-title">Trabajos que requieren permiso especial:</div>
+                    <ul>
+                        <li><strong>Trabajo en altura:</strong> a partir de 1,5 metros aproximadamente.</li>
+                        <li><strong>Trabajo en caliente:</strong> trabajos con llamas abiertas, quemar gases, soldadura, taladrado, perforado, limado o esmerilado, y otros que produzcan chispas.</li>
+                        <li><strong>Trabajo en espacio confinado:</strong> lugares en los cuales podría haber deficiencia de oxigeno y/o atmósfera peligrosa, por ejemplo: tanques, excavaciones, tuberías de gran tamaño, cámaras subterráneas, entre otros.</li>
+                        <li><strong>Trabajos en media y alta tensión:</strong> mayor a 220 voltios.</li>
+                        <li><strong>Trabajos con energías peligrosas:</strong> vapor, líquidos y gases inflamables, recipientes con presión, sustancias químicas, energía eléctrica.</li>
+                        <li><strong>Trabajos de Izaje de carga:</strong> Cuyo levantamiento de carga se realice con grúa, y es un trabajo no rutinario.</li>
+                        <li><strong>Trabajo de excavación:</strong> Cualquier corte, cavidad, zanja o depresión artificial en el terreno, con respecto al nivel actual, creada por extracción de material. La realización de trabajos de excavaciones mayores o iguales a 1,20 m. de profundidad, se consideran de alto impacto.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 2 - PERMISOS DE TRABAJO -->
+            <div class="section" id="permisos-trabajo">
+                <div class="section-title">2 - PERMISOS DE TRABAJO</div>
+                
+                <!-- 2.1 - PERMISO DE TRABAJOS EN ALTURA -->
+                <div class="section-subtitle" id="trabajo-altura">2.1 - PERMISO DE TRABAJOS EN ALTURA</div>
+                
+                <div class="subsection-title">2.1.1 - Riesgos asociados</div>
+                <p>Se distinguen tres tipos de riesgos asociados a este tipo de labores:</p>
+                <ul>
+                    <li>Caída de personas.</li>
+                    <li>Caída de materiales o herramientas.</li>
+                    <li>Contacto con conductores eléctricos aéreos (directo o arco eléctrico).</li>
+                </ul>
+                
+                <p>Para cada tipo de riesgo mencionado, existe una forma de controlarlo, minimizarlo o eliminarlo:</p>
+                <ul>
+                    <li><strong>Equipos de protección individual (EPIs):</strong> Arneses anti caídas, cabos de vida.</li>
+                    <li><strong>Equipos de protección colectivas (EPCs):</strong> Barandas, pasarelas, etc.</li>
+                </ul>
+                
+                <div class="subsection-title">2.1.2 - Equipos de Protección individual</div>
+                <p>Se debe en todo momento utilizar los siguientes equipos de protección individual:</p>
+                
+                <div class="equipment-list">
+                    <div class="equipment-item">Calzado de seguridad.</div>
+                    <div class="equipment-item">Arnés de seguridad.</div>
+                    <div class="equipment-item">Cola de amarre.</div>
+                    <div class="equipment-item">Amortiguador de impacto.</div>
+                    <div class="equipment-item">Gafas de seguridad.</div>
+                    <div class="equipment-item">Casco con barbijo.</div>
+                    <div class="equipment-item">Vestimenta adecuada: Pantalón y camisa con mangas largas de algodón.</div>
+                    <div class="equipment-item">Guante de seguridad.</div>
+                </div>
+                
+                <div class="note-box">
+                    <div class="note-title">Nota:</div>
+                    <p>Para el caso de trabajos en altura con riesgo eléctrico: se utilizarán equipos de protección dieléctricos.</p>
+                </div>
+                
+                <div class="subsection-title">2.1.3 - Revisión de equipos y accesorios</div>
+                
+                <div class="procedure-box">
+                    <div class="procedure-title">Arnés:</div>
+                    <ul>
+                        <li>El arnés debe estar homologado.</li>
+                        <li>Es obligatorio que el usuario revise el arnés antes de cada utilización. Para ello deberá seguir con el tacto todas las cintas, comprobando que no tienen ningún corte lateral. Las costuras siempre están hechas en un color diferente al de las cintas del arnés para poder comprobar su buen estado. El arnés deberá estar en perfecto estado de conservación.</li>
+                        <li>Al repasar todas las cintas y costuras se mirarán por delante y por detrás y especialmente en los puntos que quedan ocultos. También se revisarán las anillas, que no deben estar dobladas, oxidadas ni con fisuras. Asimismo, se mirarán las trabillas, hebillas y porta materiales.</li>
+                    </ul>
+                </div>
+                
+                <div class="procedure-box">
+                    <div class="procedure-title">Talabarte o cola de amarre:</div>
+                    <ul>
+                        <li>Las costuras deben estar en buen estado y la cinta no debe presentar cortes.</li>
+                        <li>En alturas mayores a 4.5 m:
+                            <ul>
+                                <li>Se necesitaría una cola de amarre con disipador de energía, el mismo debe de estar con su funda original. No se permitirá el uso de una cola de amarre con el disipador ya desplegado.</li>
+                                <li>Los mismos deben de contar con dos ganchos de 55 mm (talabarte en Y) con el fin de suprimir el tiempo de desanclaje en los trabajos en alturas.</li>
+                            </ul>
+                        </li>
+                        <li>En alturas inferiores se podrá utilizar un talabarte simple sin disipador.</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">2.1.4 - Consideraciones -- Pre operación</div>
+                <ul>
+                    <li>Todo el perímetro donde se esté realizando el trabajo debe ser señalizado y delimitado, al menos con conos o cintas delimitadoras, para dar visibilidad a los trabajadores expuestos al peligro de circulación de vehículos.</li>
+                    <li>El personal que permanece en la zona de trabajo debe tomar las medidas establecidas en este procedimiento y en el correspondiente permiso de trabajo.</li>
+                    <li>El equipo de trabajo debe estar compuesto como mínimo por 2 (dos) personas por cuestiones de seguridad denominadas Responsable de la tarea y Ayudante en este documento.</li>
+                </ul>
+                
+                <div class="subsection-title">2.1.5 - Punto de anclaje</div>
+                <p>Para punto de anclaje se debe seleccionar un punto de anclaje por encima del hombro, y debe ser capaz de sostener 750 Kg. para cada persona atada a ella.</p>
+                
+                <div class="regulation-reference">
+                    Art. 197 del Decreto 14390/92
+                </div>
+                
+                <div class="subsection-title">2.1.6 - Emisión de Permiso de Trabajo</div>
+                <p>Para la emisión de Permisos de Trabajo, se deben analizar las siguientes condiciones:</p>
+                <ul>
+                    <li>Condiciones climáticas en que serán desarrolladas las actividades (vientos, lluvia, descargas eléctricas).</li>
+                    <li>Iluminación de la zona de trabajo.</li>
+                    <li>Verificación de todos los riesgos relativos a la tarea.</li>
+                    <li>Verificación de todos los EPIS y equipos a ser utilizados en la tarea.</li>
+                    <li>Proximidad y contacto con la red eléctricas energizadas.</li>
+                    <li>Aislamientos y señalización de toda el área.</li>
+                    <li>Piso irregular o de baja resistencia.</li>
+                    <li>Existencia de superficies mojadas.</li>
+                </ul>
+                
+                <div class="subsection-title">2.1.7 - Escalera</div>
+                
+                <div class="warning-box">
+                    <div class="warning-title">Escalera de mano (Art. 23 -- Decreto 14390/92)</div>
+                    <ul>
+                        <li>Las escaleras de mano ofrecerán siempre las necesarias garantías de solidez, estabilidad y seguridad, y en su caso, de aislamiento o incombustibilidad.</li>
+                        <li>Cuando sean de madera, los largueros serán de una sola pieza y los peldaños estarán bien re ensamblados y no solamente clavados. En estos casos la madera empleada deberá ser sana, sin corteza y sin nudos que puedan mermar la resistencia de la misma.</li>
+                        <li>Las escaleras de madera no deberán pintarse, salvo con barniz transparente para evitar que se queden ocultos posibles defectos.</li>
+                        <li>Se prohíbe el empalme de dos escaleras, a no ser que en su estructura cuenten con dispositivos especialmente preparados para ello.</li>
+                        <li>Las escaleras de mano no deben salvar alturas mayores de 7 metros salvo que utilicen escaleras especiales susceptibles de ser fijadas sólidamente por su cabeza y su base, siendo obligatorio, en este último caso, utilizar cinturón de seguridad.</li>
+                    </ul>
+                </div>
+                
+                <div class="procedure-box">
+                    <div class="procedure-title">En la utilización de escaleras de mano se adoptarán las siguientes precauciones:</div>
+                    <ol>
+                        <li>Se apoyarán en superficies planas y sólidas, y en su defecto, sobre placas horizontales de suficiente resistencia y fijeza.</li>
+                        <li>En función de la superficie de apoyo, estarán provistas de zapatas, puntas de hierro, grapas u otro mecanismo antideslizante en su pie o sujetas en la parte superior mediante cuerdas o ganchos de sujeción.</li>
+                        <li>Para el acceso a los lugares elevados, sobrepasarán en un metro los puntos superiores de apoyo.</li>
+                        <li>El ascenso, descenso y trabajo se hará siempre de frente a las mismas.</li>
+                        <li>Cuando se apoyen en postes se emplearán abrazadaderas de sujeción.</li>
+                        <li>No se utilizarán simultáneamente por dos trabajadores.</li>
+                        <li>Se prohíbe transportar a brazo, pesos superiores a 25 kilógramos sobre la misma.</li>
+                        <li>La distancia entre los pies y la vertical de su punto de apoyo será la cuarta parte de la longitud de la escalera.</li>
+                        <li>Las escaleras de tijeras estarán provistas de cadenas o cables que impidan se abertura al ser utilizadas, y de topes en su extremo superior.</li>
+                    </ol>
+                </div>
+                
+                <div class="procedure-box">
+                    <div class="procedure-title">Reglas básicas para el uso de escaleras portátiles</div>
+                    <ul>
+                        <li>Siempre suba de frente a la escalera, contando con los 3 puntos de apoyo en todo momento.</li>
+                        <li>Nunca lleve las herramientas consigo sin asegurar.</li>
+                        <li>Debe mantener la proporción 4:1 simplemente parándose en la parte inferior de la escalera y extendiendo su brazo en posición recta. Tiene que poder tocar la escalera.</li>
+                        <li>La escalera debe sobresalir sobre la zona de descanso a lo menos 1 metro o 3 peldaños.</li>
+                        <li>Asegure la parte superior e inferior de la escalera.</li>
+                        <li>Restrinja el uso a una persona a la vez.</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">2.1.8 - Andamios</div>
+                <p>Se deberá utilizar andamios siempre que se necesite trabajar en altura, prohibiéndose el uso de elementos precarios como cajones, tambores, racks, esqueletos, caballetes, etc. Solo las plataformas auto elevables, las escaleras portátiles o el uso de guindolas pueden reemplazar (total o parcialmente) al andamio.</p>
+                
+                <p>La estructura deberá ser de construcción firme para las cargas previstas y su estabilidad deberá asegurarse mediante fijaciones estructurales confiables.</p>
+                
+                <div class="regulation-reference">
+                    Art. 200 del Decreto 14390/92
+                </div>
+                
+                <ul>
+                    <li>Los andamios deben montarse y desmontarse cuidadosamente por personal calificado.</li>
+                    <li>Todos los andamios deben ser nivelados y aplomados sobre una base firme.</li>
+                    <li>Todo andamio habilitado deberá contar con tarjeta de identificación <strong>VERDE</strong> que será llenada e instalada por el Capataz a cargo del andamio, cuando este se encuentre listo para su uso, sin riesgos de originar un accidente consensuado con el Técnico de SIN de la empresa.</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <div class="warning-title">En caso contrario, se identificará el andamio con una tarjeta roja indicando la prohibición de su uso, será llenada y colocada por el Capataz a cargo del andamio cuando:</div>
+                    <ul>
+                        <li>El andamio está siendo construido.</li>
+                        <li>El andamio está siendo desarmado.</li>
+                        <li>El andamio presenta una condición de riesgo.</li>
+                    </ul>
+                </div>
+                
+                <p>Se <strong>PROHIBE</strong> el uso de cualquier andamio que tenga instalada una TARJETA ROJA.</p>
+                <p>Es responsabilidad de los usuarios, controlar la calidad del andamio antes de su uso y mantener el rotulado correspondiente.</p>
+                
+                <div class="table-container">
+                    <table class="comparison-table">
+                        <tr>
+                            <th style="background-color: #38a169; color: white;">ATENCIÓN</th>
+                            <th style="background-color: #e53e3e; color: white;">ATENCIÓN</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Este andamio ha sido construido de acuerdo con las especificaciones de seguridad del proyecto y es seguro para todo uso.</strong><br><br>
+                                <strong>NO LO MODIFIQUE</strong><br><br>
+                                <strong>Fecha:</strong> ________________<br>
+                                <strong>Nombre del Responsable:</strong> ________________
+                            </td>
+                            <td>
+                                <strong>NO USE ESTE ANDAMIO</strong><br><br>
+                                <strong>A L É J E S E</strong><br><br>
+                                <strong>ESTE ANDAMIO ESTÁ SIENDO ENSAMBLADO O DESMANTELADO</strong><br><br>
+                                Solo personal autorizado puede estar en él, usando equipo de protección personal.<br><br>
+                                <strong>Fecha:</strong> ________________<br>
+                                <strong>Nombre del Responsable:</strong> ________________
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="subsection-title">2.1.9 - Elevadores aéreos</div>
+                <ul>
+                    <li>Un elevador aéreo es un vehículo motorizado y articulado que permite a los trabajadores tener un acceso rápido y seguro al ejecutar un trabajo en altura.</li>
+                    <li>El trabajador debe en todo momento usar su arnés de seguridad y conectado al punto de anclaje indicado en el manual del fabricante.</li>
+                    <li>El trabajador <strong>NUNCA</strong> debe conectar su arnés de seguridad a la baranda del elevador aéreo.</li>
+                    <li>El trabajador <strong>NUNCA</strong> debe trepar por la baranda de un elevador aéreo.</li>
+                    <li><strong>NO</strong> debe usar un elevador aéreo sin antes recibir capacitación en el funcionamiento y restricciones de seguridad de este equipo.</li>
+                    <li>Las escaleras o dispositivos improvisados <strong>NUNCA</strong> deben ser usados encima de un elevador aéreo para aumentar la altura de trabajo.</li>
+                </ul>
+            </div>
+            
+            <!-- 2.2 - PERMISO DE TRABAJO EN CALIENTE -->
+            <div class="section-subtitle" id="trabajo-caliente">2.2 - PERMISO DE TRABAJO EN CALIENTE</div>
+            
+            <div class="subsection-title">2.2.1 - ¿A que llamamos trabajo en caliente?</div>
+            <p>Se denomina trabajo en caliente a aquel que tiende a producir fuentes de ignición y se realice FUERA DEL TALLER. Las siguientes son las actividades que deben considerarse como trabajos en caliente:</p>
+            <ul>
+                <li>Soldadura</li>
+                <li>Corte</li>
+                <li>Taladrado</li>
+                <li>Limado o esmerilado</li>
+                <li>Perforado</li>
+                <li>Trabajos de metales en general, como así toda operación que pueda generar chispas.</li>
+            </ul>
+            
+            <div class="subsection-title">2.2.2 - PREVENCIÓN antes de realizar el trabajo</div>
+            <ul>
+                <li>Antes del inicio del trabajo, disponer un extintor portátil ABC, el cual se colocará a 2 metros como mínimo de los trabajos y en un punto opuesto al sentido de la dirección del viento; y los recipientes necesarios para acopio y disposición de residuos sólidos y líquidos.</li>
+                <li>Retirar fuera de un radio de 20 metros todo peligro potencial de incendio o explosión como: materiales combustibles, pinturas, aceites, grasas, solventes, gases comprimidos, metales en polvo, vapores o gases explosivos.</li>
+                <li>Si hay materiales combustibles que no se puedan retirar, protegerlos con mamparas o mantas ignífugas o incluso humedecerlos previamente con agua.</li>
+                <li>En el caso que haya tuberías de gases inflamables cercanas, cerrar las válvulas de paso.</li>
+                <li>Las herramientas y equipos para realizar el trabajo deben estar en óptimas condiciones.</li>
+                <li>Si el trabajo se lleva a cabo en depósitos o contenedores que contienen o han contenido líquidos o vapores inflamables, consultar con un especialista antes de realizar el trabajo.</li>
+                <li>Todo trabajo en caliente al aire libre debe suspenderse si se dan condiciones de lluvia, sin embargo, puede continuarse si se cuenta con cobertores y ventilación adecuada, que preste la adecuada seguridad al trabajador.</li>
+                <li>El equipo de oxicorte debe contar con válvulas antiretorno de llama en las dos líneas hacia los cilindros.</li>
+                <li>Los elementos accesorios como tenazas, cables, uniones deben estar en perfectas condiciones operativas. Es importante que las mangueras del equipo de oxicorte deban estar aseguradas a sus conexiones por presión, y no con abrazaderas, y ser del mismo color del cilindro al cual está conectada.</li>
+                <li>En caso de soldadura toma especial cuidado para que las llamas o chispas no alcancen los balones de oxígeno o acetileno.</li>
+                <li>Una vez terminado el trabajo, dejar en condiciones de orden y limpieza.</li>
+            </ul>
+            
+            <div class="subsection-title">2.2.3 - Equipos de protección personal necesarios</div>
+            <p>Los equipos de protección personal de uso obligatorio para trabajos en caliente son:</p>
+            
+            <div class="equipment-list">
+                <div class="equipment-item">Casco de seguridad.</div>
+                <div class="equipment-item">Careta de soldar.</div>
+                <div class="equipment-item">Respirador con filtros para vapores y gases metálicos.</div>
+                <div class="equipment-item">Guantes de cuero.</div>
+                <div class="equipment-item">Delantal de cuero.</div>
+                <div class="equipment-item">Polaina.</div>
+                <div class="equipment-item">Zapatos de seguridad con punta de acero.</div>
+            </div>
+            
+            <div class="note-box">
+                <div class="note-title">Nota importante:</div>
+                <p>El equipo de protección personal anteriormente mencionado debe ser utilizado tanto para el soldador/esmerilador <strong>como para su ayudante</strong>, pues ambos están expuestos a los peligros que este tipo de actividades representan.</p>
+            </div>
+            
+            <div class="warning-box">
+                <div class="warning-title">Precauciones adicionales:</div>
+                <ul>
+                    <li>Verificar que la ropa no esté impregnada con gasolina, petróleo, grasas, aceites u otros materiales combustibles o inflamables.</li>
+                    <li>No debe introducirse la basta del pantalón, dentro de la caña de los zapatos de seguridad.</li>
+                    <li>Los bolsillos y puños de la indumentaria deben quedar cerrados para evitar alojar chispas o escorias calientes.</li>
+                    <li>No debe mantenerse en los bolsillos material inflamable o combustible.</li>
+                    <li>Si los trabajos en caliente se realizan a distinto nivel, se debe dar cumplimiento a los procedimientos considerados para trabajos a distinto nivel.</li>
+                </ul>
+            </div>
+            
+            <div class="subsection-title">2.2.4 - VIGILANCIA, posterior al trabajo</div>
+            <ul>
+                <li>Se debe dejar la zona de trabajo limpia, sin residuos, y las herramientas usadas debidamente recogidas.</li>
+                <li>Si se ha desconectado el sistema de detección de incendios, rearmarlo correctamente.</li>
+                <li>Comprobar, de forma continua después de realizar el trabajo y durante mínimo 30 minutos, la ausencia de objetos incandescentes o focos de incendio, y solamente entonces devolver los equipos de extinción a su posición original.</li>
+            </ul>
+            
+            <!-- 2.3 - PERMISO DE INGRESO A ESPACIOS CONFINADOS -->
+            <div class="section-subtitle" id="espacios-confinados">2.3 - PERMISO DE INGRESO A ESPACIOS CONFINADOS</div>
+            
+            <div class="subsection-title">2.3.1 - ¿A que llamamos espacio confinado?</div>
+            <p>Es un espacio suficientemente grande como para que un empleado pueda entrar el cuerpo completo y hacer un trabajo. Tiene una entrada o salida limitada o restringida. No está diseñado para ser ocupado de manera continua por el empleado, dentro del cual hay riesgo para la salud por lo menos debido a una de las siguientes condiciones:</p>
+            <ul>
+                <li>Ventilación insuficiente.</li>
+                <li>Deficiencia o enriquecimiento de oxígeno.</li>
+                <li>Atmósfera inflamable.</li>
+                <li>Atmósfera tóxica o venenosa.</li>
+            </ul>
+            
+            <div class="subsection-title">2.3.2 - Tipos de espacios confinados</div>
+            <p>Las siguientes áreas son definidas como espacios confinados, que pueden contener una atmósfera peligrosa y/o deficiencia de oxígeno:</p>
+            <ul>
+                <li>Tanques de almacenamiento.</li>
+                <li>Tuberías de gran diámetro.</li>
+                <li>Sistemas cloacales y pluviales.</li>
+                <li>Túneles de servicio y bóvedas subterráneas.</li>
+                <li>Bocas de acceso y cámaras subterráneas.</li>
+                <li>Excavaciones de más de 1,5 m de profundidad cercanas a áreas de procesos.</li>
+                <li>Entre otros.</li>
+            </ul>
+            
+            <div class="subsection-title">2.3.3 - Formación del equipo de trabajo</div>
+            <p>El equipo para trabajo de espacios confinados estará compuesto por el siguiente personal:</p>
+            
+            <div class="procedure-box">
+                <div class="procedure-title">Composición del equipo:</div>
+                <ul>
+                    <li><strong>Autorizante:</strong> Habilita el permiso de trabajo (Técnico de Seguridad).</li>
+                    <li><strong>Ejecutor(es):</strong> persona(s) que ejecuta(n) el trabajo.</li>
+                    <li><strong>Observador o Vigía:</strong> Controlan los trabajos.</li>
+                    <li><strong>Rescatista:</strong> Persona entrenada para conducir operaciones de rescate dentro de un espacio confinado. Este rol podrá se cubierto por un Brigadista de Emergencia.</li>
+                </ul>
+            </div>
+            
+            <div class="subsection-title">2.3.4 - Permiso Entrada</div>
+            <p>Antes del ingreso a un espacio confinado, el <strong>Técnico de Seguridad</strong> autoriza la entrada, debe completar y firmar el Permiso de Trabajo. Terminado el trabajo, el permiso es cancelado por la misma persona que autorizó la entrada. Cualquier evento casual debe ser anotado en el permiso.</p>
+            
+            <div class="subsection-title">2.3.5 - Precauciones</div>
+            <p>Antes de ingresar a un espacio confinado, debe seguirse ciertas precauciones:</p>
+            <ul>
+                <li>Vaciar su contenido.</li>
+                <li>Limpiar los restos de su contenido y otros materiales.</li>
+                <li>Aislar las fuentes de energía.</li>
+                <li>Bloquear los equipos para eliminar todo tipo de movimiento inesperado.</li>
+                <li>Condiciones climáticas adecuadas.</li>
+                <li>Mediciones de atmósfera.</li>
+            </ul>
+            
+            <div class="subsection-title">2.3.6 - Mediciones previas para el ingreso</div>
+            
+            <div class="warning-box">
+                <div class="warning-title">Importante:</div>
+                <p>"Que haya buen aire en la entrada no quiere decir que también es bueno en el fondo".</p>
+            </div>
+            
+            <p>Antes de ingresar a un espacio confinado, se debe realizar distintas determinaciones:</p>
+            
+            <div class="procedure-box">
+                <div class="procedure-title">Parámetros a medir:</div>
+                <ul>
+                    <li><strong>Chequeo del contenido de Oxígeno O₂:</strong> Mínimo de 19,5% y menos de 23,5%.</li>
+                    <li><strong>Chequeo de nivel de combustibles o Nivel de Explosividad (LEL):</strong> Máximo del 10%.</li>
+                    <li><strong>Chequeo de Monóxido de Carbono CO:</strong> &lt;35 ppm. El CO no tiene olor.</li>
+                    <li><strong>Chequeo de Sulfuro de Hidrógeno H₂S:</strong> &lt;10 ppm. Fuerte olor a podrido.</li>
+                    <li>Chequeo de cualquier otro material peligroso que se presuma en el espacio confinado.</li>
+                    <li>Ventilación.</li>
+                </ul>
+            </div>
+            
+            <p>Se debe realizar las mediciones con el sistema de extracción detenido, y comenzando por la boca de ingreso continuando luego con el interior en la parte superior, media e inferior.</p>
+            
+            <div class="subsection-title">2.3.7 - Pre Operación</div>
+            <ul>
+                <li>Definir el medio de comunicación entre el vigía y el ejecutante.</li>
+                <li>El Técnico de Seguridad debe hacer una revisión general de los equipos a ser utilizados en la tarea.</li>
+            </ul>
+            
+            <div class="subsection-title">2.3.8 - Durante la Operación</div>
+            
+            <div class="procedure-box">
+                <div class="procedure-title">Responsabilidades durante la operación:</div>
+                <ul>
+                    <li><strong>Técnico de Seguridad:</strong> Realizar mediciones de gases para monitorear continuamente las condiciones del espacio confinado, para asegurar que las condiciones de ingreso y permanencia sean seguras.</li>
+                    <li><strong>Observador o vigía:</strong> No se debe iniciar el trabajo sin la presencia del Observador o Vigía. Este debe permanecer junto al lugar de ingreso de espacio confinado, con las atribuciones siguientes:
+                        <ul>
+                            <li>Controlar la entrada y salida del ejecutante autorizado.</li>
+                            <li>Restringir el ingreso a personal no autorizado.</li>
+                            <li>Mantener comunicación permanente con el ejecutante.</li>
+                            <li>Convocar inmediatamente a servicios de rescate y emergencia cuando se produzca una emergencia dentro del recinto.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Ejecutante:</strong> Realizar el trabajo, tomando una pausa cada 25 min. para salir del recinto. En cada pausa deberá permanecer mínimamente 5 min. fuera del recinto, antes de volver a ingresar.</li>
+                    <li><strong>Rescatista:</strong> Responsable de guiar las actividades en caso de emergencias.</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <div class="warning-title">Regla fundamental:</div>
+                <p>El vigía bajo ninguna circunstancia podrá ingresar al espacio confinado; y no podrá dedicarse a otra actividad.</p>
+            </div>
+            
+            <p>Durante la permanencia del ejecutante dentro de un espacio confinado se deberá mantener condiciones de extracción forzada, si fuera necesario.</p>
+            
+            <div class="subsection-title">2.3.9 - Señales de intoxicación</div>
+            <ul>
+                <li>Dificultad de respirar.</li>
+                <li>Vértigo, soñolencia.</li>
+                <li>Sensación ardiente.</li>
+                <li>Debilidad, cansancio.</li>
+                <li>Frío, náuseas.</li>
+                <li>Sabor extraño en el gusto.</li>
+            </ul>
+            
+            <div class="subsection-title">2.3.10 - Elementos de Protección Personal</div>
+            <p>Los elementos de Protección Personal necesarios varían según el tipo de trabajo a desarrollar dentro del espacio confinado, pudiéndose requerir los siguientes:</p>
+            
+            <div class="equipment-list">
+                <div class="equipment-item">Casco.</div>
+                <div class="equipment-item">Antiparras.</div>
+                <div class="equipment-item">Protección respiratoria (Ej. Máscara para gases y vapores, Equipo de Protección Respiratoria Autónoma o Semi autónoma), ésta deberá ser adecuadamente seleccionada en función a los riesgos de la atmósfera del lugar (insuficiencia de oxígeno, presencia de contaminantes, etc.), y al tipo de tarea a desarrollar (soldadura, pintura, limpieza, etc.).</div>
+                <div class="equipment-item">Protección de cuerpo mediante ropa adecuada químicamente resistente, si así se requiere.</div>
+                <div class="equipment-item">Protección de manos, seleccionando el modelo de guantes acorde a la tarea a realizar.</div>
+                <div class="equipment-item">Zapatos de seguridad.</div>
+                <div class="equipment-item">Arnés unido a un cabo de vida mediante un gancho tipo mosquetón para permitir su desprendimiento rápido en caso de emergencia, cuando sea el caso.</div>
+            </div>
+            
+            <div class="subsection-title">2.3.11 - Equipos de apoyo</div>
+            <p>En caso que sea necesario, utilizar arnés de seguridad (para ingreso a tanques de profundidad), linternas portátiles (de preferencia LED) y extractores.</p>
+            
+            <div class="subsection-title">2.3.12 - Medios de Comunicación</div>
+            <p>Debe establecerse un sistema de comunicación eficaz, con el objetivo de mantener contacto directo entre las personas que estén dentro del espacio confinado y el vigía; y entre el vigía y el equipo de rescate.</p>
+            
+            <p>La comunicación puede ser por uno de los siguientes métodos:</p>
+            <ul>
+                <li>Radio.</li>
+                <li>Silbato.</li>
+                <li>Cuerda con un código de señales pre-establecido.</li>
+            </ul>
+            
+            <div class="note-box">
+                <div class="note-title">Nota:</div>
+                <p>En sectores donde haya posibilidad de atmósferas explosivas los equipos de comunicación deben ser aptos para esos ambientes.</p>
+            </div>
+            
+            <!-- 2.4 - PERMISO DE TRABAJO ELÉCTRICO -->
+            <div class="section-subtitle" id="trabajo-electrico">2.4 - PERMISO DE TRABAJO ELÉCTRICO</div>
+            
+            <div class="subsection-title">2.4.1 - ¿A que llamamos trabajo eléctrico?</div>
+            <p>Es aquel donde existe la posibilidad de contacto del cuerpo humano con la corriente eléctrica. Se deben dar las siguientes circunstancias: Que el cuerpo humano sea conductor (capaz de transmitir la energía eléctrica). Que el cuerpo humano forme parte de un circuito.</p>
+            
+            <div class="subsection-title">2.4.2 - Requisitos para instalaciones y equipamientos</div>
+            
+            <div class="procedure-box">
+                <div class="procedure-title">Revisión de las instalaciones:</div>
+                <p>Se deben aplicar las cinco reglas para trabajo en equipo sin tensión:</p>
+                
+                <div class="subsubsection-title">A. Corte efectivo de todas las fuentes de tensión:</div>
+                <ul>
+                    <li>Antes de iniciar cualquier trabajo en baja tensión, se procederá a identificar el conducto o instalación en donde se tiene que efectuar el mismo.</li>
+                    <li>Efectuar la desconexión de todas las fuentes de tensión, mediante interruptores y demás equipos de seccionamiento.</li>
+                    <li>En aquellos aparatos en que el corte no pueda ser visible, debe existir un dispositivo que permita identificar claramente las posiciones de apertura y cierre de manera que se garantice que el corte sea efectivo.</li>
+                </ul>
+                
+                <div class="subsubsection-title">B. Enclavamiento o bloqueo de los aparatos de corte:</div>
+                <ul>
+                    <li>Operación que impide la reconexión del dispositivo sobre el que se ha efectuado el corte efectivo, permite mantenerlo en la posición determinada e imposibilita su cierre intempestivo (inoportuno). Para ello se utilizará candado de condenación y podrá complementarse con la instalación de las tarjetas de aviso.</li>
+                    <li>En los casos en que no sea posible el bloqueo mecánico, deben adoptarse medidas equivalentes como, por ejemplo, retirar de su alojamiento los elementos extraíbles.</li>
+                </ul>
+                
+                <div class="subsubsection-title">C. En los trabajos que se efectúen sin tensión:</div>
+                <ul>
+                    <li>Será aislada la parte en la que se vaya a trabajar de cualquier posible alimentación, mediante la apertura de los aparatos de seccionamiento más próximos a la zona de trabajo.</li>
+                    <li>Será bloqueado en posición de apertura, si es posible, cada uno de los aparatos de seccionamiento citados, colocando en su mando un letrero con la prohibición de maniobra.</li>
+                    <li>Se comprobará, mediante un verificador, la ausencia de tensión en cada una de las partes eléctricamente separadas de la instalación (fases, ambos extremos de los fusibles, etc.).</li>
+                    <li>No se restablecerá el servicio al finalizar los trabajos sin comprobar que no existe peligro alguno.</li>
+                </ul>
+                
+                <div class="subsubsection-title">D. Poner a tierra y en cortocircuito todas las posibles fuentes de tensión que inciden en la zona de trabajo:</div>
+                <ul>
+                    <li>El equipo de puesta a tierra debe estar en perfecto estado, los conductores utilizados deben ser adecuados y tener la sección suficiente para la corriente de cortocircuito de la instalación en que se utilizan.</li>
+                    <li>Se debe usar los elementos de protección personal.</li>
+                    <li>Debe guardarse las distancias de seguridad dependiendo del nivel de tensión.</li>
+                </ul>
+                
+                <div class="subsubsection-title">E. Cuando se realicen trabajos en instalaciones eléctricas en tensión:</div>
+                <ul>
+                    <li>El personal encargado de realizarlos estará adiestrado en los métodos de trabajo a seguir en cada caso y en el empleo del material de seguridad, equipo y herramientas.</li>
+                </ul>
+            </div>
+            
+            <div class="subsection-title">2.4.3 - Revisión de los equipos, accesorios y herramientas</div>
+            
+            <div class="procedure-box">
+                <div class="procedure-title">Requisitos de seguridad para máquinas eléctricas:</div>
+                <ol>
+                    <li>Las máquinas cuyo manejo implique un grave riesgo deberán estar provistas de un sistema de bloqueo o enclavamiento que conecte con los resguardos de los sistemas de mando o el circuito eléctrico de maniobra, de forma que impida el funcionamiento de la máquina cuando aquellos no estén en su lugar.</li>
+                    <li>El enclavamiento incorporado a un resguardo debe garantizar que:
+                        <ul>
+                            <li>La máquina no pueda ser accionada hasta que el resguardo no esté perfectamente cerrado.</li>
+                            <li>El resguardo permanece cerrado y bloqueado de manera que no pueda abrirse hasta que la máquina haya sido parada y haya cesado el movimiento peligroso; en el caso de que el movimiento residual o de inercia sea insuficiente para originar peligro, al abrir el resguardo se desconectará la máquina.</li>
+                        </ul>
+                    </li>
+                    <li>Los dispositivos de enclavamiento pueden ser mecánicos, eléctricos, hidráulicos, neumáticos o de cualquier combinación de éstos. El tipo y forma de operación del enclavamiento deberá ser estudiado de acuerdo con el proceso al cual se aplica.</li>
+                </ol>
+            </div>
+            
+            <p>Además, según corresponda al tipo de trabajo, se empleará en cada caso el material de seguridad más adecuado entre los siguientes, deberá verificar el buen estado y la no modificación de:</p>
+            
+            <div class="equipment-list">
+                <div class="equipment-item">Guantes aislantes;</div>
+                <div class="equipment-item">Banquetas o alfombras aislantes;</div>
+                <div class="equipment-item">Vainas o caperuzas aislantes;</div>
+                <div class="equipment-item">Comprobadores o discriminadores de tensión;</div>
+                <div class="equipment-item">Herramientas aislantes;</div>
+                <div class="equipment-item">Material de señalización (discos, barreras, banderines, etc.);</div>
+                <div class="equipment-item">Lámparas portátiles;</div>
+                <div class="equipment-item">Transformadores;</div>
+                <div class="equipment-item">Transformadores de separación de circuitos.</div>
+            </div>
+            
+            <div class="note-box">
+                <div class="note-title">Nota sobre manilas dieléctricas:</div>
+                <p>Deben ser almacenadas, transportadas en recipientes plásticos que permitan cubrirse o aislarse del medio externo. Durante su uso se debe evitar el contacto directo con el suelo u otros productos que deterioren el elemento. Estas deben manipularse con guantes limpios.</p>
+            </div>
+            
+            <div class="subsection-title">2.4.4 - Consideraciones de Pre operación</div>
+            <ul>
+                <li>Identificar y analizar los planos eléctricos actualizados del sistema a intervenir (diagrama unifilar).</li>
+                <li>Determinar método de trabajo.</li>
+                <li>Determinar el tiempo de ejecución de la tarea y el tiempo necesario para la ejecución de los procedimientos operativos y de gestión de seguridad.</li>
+                <li>Todo el perímetro donde se esté realizando el trabajo debe ser señalizado y delimitado, al menos con conos (80 cm) o cintas delimitadoras para dar visibilidad a los trabajadores expuestos al peligro de circulación de vehículos o del peligro expuesto en dichas áreas.</li>
+                <li>El personal que permanece en la zona de trabajo debe tomar las medidas establecidas en este procedimiento y en el correspondiente permiso de trabajo.</li>
+                <li>El equipo de trabajo debe estar compuesto como mínimo por 2 (dos) personas por cuestiones de seguridad denominadas Responsable de la tarea y Ayudante en este documento.</li>
+            </ul>
+            
+            <div class="subsection-title">2.4.5 - Equipos de Protección individual</div>
+            <p>Se debe en todo momento utilizar los siguientes equipos de protección individual:</p>
+            
+            <div class="equipment-list">
+                <div class="equipment-item">Casco dieléctrico.</div>
+                <div class="equipment-item">Gafas de seguridad.</div>
+                <div class="equipment-item">Careta antiflama para arco eléctrico.</div>
+                <div class="equipment-item">Guantes dieléctricos apropiados al nivel de tensión que se manipula, con protección de cuero.</div>
+                <div class="equipment-item">Vestimenta adecuada: Pantalón y camisa con mangas largas de algodón.</div>
+                <div class="equipment-item">Zapato de seguridad dieléctrico (con puntera de PVC).</div>
+            </div>
+            
+            <!-- 2.5 - PERMISO DE TRABAJO DE IZAJE DE CARGAS -->
+            <div class="section-subtitle" id="izaje-cargas">2.5 - PERMISO DE TRABAJO DE IZAJE DE CARGAS</div>
+            
+            <div class="subsection-title">2.5.1 - ¿A que llamamos trabajo de izaje de cargas?</div>
+            <p>Es aquel que permite elevar o bajar cargas de manera segura, ya que previamente se realiza una planeación y cálculos precisos que involucran tablas de carga de los equipos, resistencia de accesorios, espacio, clima, entre otros aspectos.</p>
+            
+            <div class="subsection-title">2.5.2 - Consideraciones de Operación</div>
+            <ul>
+                <li>Todo el perímetro donde se esté realizando el trabajo debe ser señalizado y delimitado, al menos con conos (80 cm) o cintas delimitadoras, para dar visibilidad a los trabajadores expuestos al peligro de circulación de vehículos (el perímetro de seguridad debe de ser por lo menos el doble de distancia del objeto a izar).</li>
+                <li>El personal que permanece en la zona de trabajo debe tomar las medidas establecidas en este procedimiento y en el correspondiente permiso de trabajo.</li>
+                <li>El equipo de trabajo debe estar compuesto como mínimo por 2 (dos) personas por cuestiones de seguridad denominadas <strong>Operador de grúa</strong> y <strong>Ayudante</strong> (Señalero de Izaje).</li>
+                <li>Está prohibido el paso de personas por debajo de la carga suspendida.</li>
+                <li>Se realizará una inspección previa a la grúa o equipo de izaje y accesorios del mismo, con el fin de determinar las condiciones generales del equipo y la tenencia de materiales adecuados para el izaje, también se podría solicitar una prueba del brazo hidráulico con el objeto de afirmar su funcionamiento e identificar posibles fugas de fluido.</li>
+                <li>Sólo se realizarán maniobras de izaje con equipos homologados y en buenas condiciones.</li>
+                <li>La grúa debe de contar con su respectiva tabla de carga, de no poder determinar la capacidad de la grúa y el peso de la carga a izar, no se realizará la habilitación del permiso de trabajo.</li>
+                <li>Considerando la tabla de carga se comparará la capacidad máxima de trabajo con el radio de la maniobra a realizar, en donde la carga no debe sobrepasar el 80% de la capacidad trabajo en la configuración deseada.</li>
+                <li>En todo momento no se permitirá el manipuleo directo de la carga, se empleará para el mismo una cuerda utilitaria como guía para poder direccionar la carga al lugar deseado.</li>
+                <li>En el caso de emplearse solo dos personas (Ayudante y Operador de grúa) y es necesario guiar la carga por medio de una cuerda, se necesitará de otra persona que actué de <strong>Rigger</strong> (señalero).</li>
+                <li>Todas las patolas o pies estabilizadores de la grúa deben de posicionarse correctamente y deben de contar con sus plataformas de base que sean tres veces mayor a la medida de la base de la patola. En el caso de emplearse maderas, deben de estar en buenas condiciones y no presentar rajaduras en el material.</li>
+            </ul>
+            
+            <div class="subsection-title">2.5.3 - Equipos de Protección Individual requeridos</div>
+            
+            <div class="equipment-list">
+                <div class="equipment-item">Casco.</div>
+                <div class="equipment-item">Gafas de seguridad.</div>
+                <div class="equipment-item">Vestimenta adecuada: pantalón y camisa con mangas largas de algodón.</div>
+                <div class="equipment-item">Reflectivo.</div>
+                <div class="equipment-item">Guantes de cuero.</div>
+                <div class="equipment-item">Calzado con puntera de acero.</div>
+            </div>
+            
+            <!-- 2.6 - PERMISO DE TRABAJO EN EXCAVACIÓN -->
+            <div class="section-subtitle" id="excavacion">2.6 - PERMISO DE TRABAJO EN EXCAVACIÓN</div>
+            
+            <div class="subsection-title">2.6.1 - ¿A que llamamos trabajo de excavación?</div>
+            <p>Consiste en el conjunto de operaciones necesarias para abrir zanjas y pozos. Su ejecución incluye las operaciones de excavación, nivelación y evacuación del terreno, y el consiguiente transporte de los productos removidos a depósito o lugar de empleo.</p>
+            
+            <div class="subsection-title">2.6.2 - Medidas de seguridad</div>
+            
+            <div class="procedure-box">
+                <div class="procedure-title">Principales medidas de seguridad en excavaciones:</div>
+                <ul>
+                    <li>En trabajos de excavaciones se adoptarán medidas de precauciones necesarias para prevenir accidentes según la naturaleza, condiciones del terreno y forma de realizar los trabajos. Previamente al inicio de los trabajos de excavación, se efectuarán los análisis del suelo para establecer medidas de seguridad.</li>
+                    <li>Todos los árboles, postes, bloques de piedra, así como los objetos que se encuentren en las proximidades, serán eliminados o sólidamente apuntalados, en caso de que la ejecución de la obra pudiera comprometer su equilibrio.</li>
+                    <li>Se consultará por planos, relevaciones, croquis, y diseños que puedan aportar información de las condiciones del lugar. Si no se tiene certeza, y el rigor del trabajo lo exige, será necesario realizar sondeos y peritajes no destructivos con dispositivos y sensores dedicados.</li>
+                    <li>Cuando haya cables subterráneos de energía eléctrica en las proximidades de las excavaciones, las mismas solo podrán ser iniciadas cuando el cable sea desconectado, si la energía no puede ser desconectada deberá el servicio ser acompañado por el electricista responsable. Deben ser identificados y localizados antes de comenzar el trabajo.</li>
+                    <li>Las excavaciones con más de 1,25 m de profundidad deben disponer de escaleras o rampas para acceso de los funcionarios y para retirada de materiales.</li>
+                    <li>Las excavaciones deberán estar debidamente aisladas y señalizadas con letreros de advertencia, con señalización luminosa nocturna y barrera de acceso.</li>
+                    <li>Esta expresamente prohibido el acceso de personas no autorizadas a las áreas de excavación.</li>
+                    <li>A partir de 1,50 m de profundidad el personal destinado al local de la excavación, deberá estar usando además de los EPPs básicos (botas, cascos, guantes, etc) también arnés de seguridad con cuerdas de vida debidamente montadas, acompañado continuamente desde el exterior, por un observador de seguridad con un plan de contingencia definido previamente y actuar ante cualquier eventualidad.</li>
+                </ul>
+            </div>
+            
+            <div class="subsection-title">2.6.3 - Equipos de Protección Individual requeridos</div>
+            
+            <div class="equipment-list">
+                <div class="equipment-item">Casco.</div>
+                <div class="equipment-item">Gafas de seguridad.</div>
+                <div class="equipment-item">Vestimenta adecuada: pantalón y camisa con mangas largas de algodón.</div>
+                <div class="equipment-item">Reflectivo.</div>
+                <div class="equipment-item">Guantes de cuero.</div>
+                <div class="equipment-item">Calzado con puntera de acero.</div>
+            </div>
+            
+            <!-- Botón de impresión -->
+            <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th>Versión</th>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000</td>
+                                <td>01.12.2024</td>
+                                <td>Original</td>
+                                <td>CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p>Código: MAN005 | Revisión: 000 | Seguridad y Salud en el Trabajo</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGO DE LA EMPRESA</text></svg>';
+                    console.log("Logo no encontrado en logo/logo.png. Por favor, añada el logo en la carpeta especificada.");
+                };
+            }
+        });
+    </script>
+</body>
+</html>

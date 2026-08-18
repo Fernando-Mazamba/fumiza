@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-026 Procedimiento de Identificación y Trazabilidad - SGC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            counter-increment: subsection-counter;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." counter(subsection-counter) ". ";
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .definition-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .definition-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .definition-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin: 15px 0 25px 30px;
+        }
+        
+        .procedure-item {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .procedure-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .sub-item {
+            margin: 10px 0 10px 20px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .sub-item:before {
+            content: "○";
+            color: #718096;
+            position: absolute;
+            left: 0;
+        }
+        
+        .indicator-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .indicator-table th, .indicator-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .indicator-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .indicator-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .documentation-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .documentation-item {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .documentation-item:before {
+            content: "—";
+            color: #4a5568;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 20px 0 30px;
+        }
+        
+        .print-btn, .download-btn, .save-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover, .download-btn:hover, .save-btn:hover {
+            background-color: #718096;
+        }
+        
+        .download-btn {
+            background-color: #10b981;
+        }
+        
+        .download-btn:hover {
+            background-color: #34d399;
+        }
+        
+        .save-btn {
+            background-color: #3b82f6;
+        }
+        
+        .save-btn:hover {
+            background-color: #60a5fa;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 2px;
+            transition: border 0.3s;
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editable:hover, .editable:focus {
+            border: 1px dashed #718096;
+            background-color: #f9f9f9;
+        }
+        
+        .edit-notice {
+            background-color: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #0369a1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .editable {
+                border: none;
+            }
+            
+            .editable:hover, .editable:focus {
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .responsibility-table th, .responsibility-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .indicator-table th, .indicator-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .responsibility-table, .indicator-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .print-btn, .download-btn, .save-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Cabecera con logo e información de la organización -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo/logo.png" alt="Logo de la Organización" class="logo">
+            </div>
+            <div class="org-info">
+                <div class="org-name">Sistema de Gestión de la Calidad (SGC)</div>
+                <div class="doc-info">
+                    <div class="doc-info-item">
+                        <strong>Fecha de emisión:</strong><br>
+                        <span class="editable" contenteditable="true">01.12.2024</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Elabora:</strong><br>
+                        <span class="editable" contenteditable="true">ESGC</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Aprueba:</strong><br>
+                        <span class="editable" contenteditable="true">CEO</span>
+                    </div>
+                    <div class="doc-info-item">
+                        <strong>Versión:</strong><br>
+                        <span class="editable" contenteditable="true">000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Título del documento -->
+        <div class="doc-title editable" contenteditable="true">Procedimiento de Identificación y Trazabilidad</div>
+        <div class="doc-code editable" contenteditable="true">Código: PRO-026</div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Botones de acción -->
+            <div class="edit-notice">
+                <strong>📝 Documento completamente editable:</strong> Haga clic en cualquier texto para editarlo. Use los botones abajo para guardar o descargar el documento.
+            </div>
+            
+            <div class="action-buttons">
+                <button class="save-btn" id="saveBtn">💾 Guardar Cambios</button>
+                <button class="download-btn" id="downloadBtn">⬇️ Descargar Documento</button>
+                <button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+            </div>
+            
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <div class="toc-title editable" contenteditable="true">Contenido</div>
+                <ol class="toc-list">
+                    <li class="toc-item"><a href="#objetivo" class="toc-link">Objetivo</a></li>
+                    <li class="toc-item"><a href="#alcance" class="toc-link">Alcance</a></li>
+                    <li class="toc-item"><a href="#definiciones" class="toc-link">Definiciones</a></li>
+                    <li class="toc-item"><a href="#responsabilidades" class="toc-link">Responsabilidades</a></li>
+                    <li class="toc-item"><a href="#procedimientos" class="toc-link">Procedimientos</a>
+                        <ol style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#identificacion" class="toc-link">Identificación de Productos y Servicios</a></li>
+                            <li><a href="#trazabilidad-produccion" class="toc-link">Trazabilidad en el Proceso de Producción</a></li>
+                            <li><a href="#control-informacion" class="toc-link">Control de Información y Registros</a></li>
+                            <li><a href="#auditorias" class="toc-link">Auditorías y Verificación de Trazabilidad</a></li>
+                            <li><a href="#acciones" class="toc-link">Acciones Correctivas y Preventivas</a></li>
+                            <li><a href="#proveedores" class="toc-link">Gestión de Proveedores</a></li>
+                        </ol>
+                    </li>
+                    <li class="toc-item"><a href="#indicadores" class="toc-link">Indicadores de Desempeño</a></li>
+                    <li class="toc-item"><a href="#documentacion" class="toc-link">Documentación Relacionada</a></li>
+                    <li class="toc-item"><a href="#historial" class="toc-link">Historial de Versiones</a></li>
+                </ol>
+            </div>
+            
+            <!-- Sección 1: Objetivo -->
+            <div class="section" id="objetivo">
+                <div class="section-title editable" contenteditable="true">Objetivo</div>
+                <p class="content-text editable" contenteditable="true">El objetivo de este procedimiento es establecer las directrices y acciones necesarias para asegurar que todos los productos y servicios sean identificados y trazados correctamente a lo largo de su ciclo de vida. Esto incluye garantizar la conformidad con los requisitos de calidad, seguridad y medio ambiente, así como facilitar el seguimiento de cada producto o servicio para asegurar que cumpla con las normativas y estándares establecidos.</p>
+                <p class="content-text editable" contenteditable="true">La organización implementa este procedimiento para mantener un control preciso sobre todos los productos y servicios, permitiendo su rastreo completo desde el origen hasta el destino final, en cumplimiento con los requisitos del Sistema de Gestión de la Calidad y las normativas aplicables.</p>
+            </div>
+            
+            <!-- Sección 2: Alcance -->
+            <div class="section" id="alcance">
+                <div class="section-title editable" contenteditable="true">Alcance</div>
+                <p class="content-text editable" contenteditable="true">Este procedimiento se aplica a todos los productos y servicios producidos o prestados por la organización, desde el origen de las materias primas hasta el entregue al cliente, incluyendo:</p>
+                <ul class="procedure-list">
+                    <li class="procedure-item editable" contenteditable="true">La identificación de cada producto en todas las etapas de producción, almacenamiento, distribución y venta.</li>
+                    <li class="procedure-item editable" contenteditable="true">La trazabilidad de cada producto o servicio, asegurando que se pueda seguir el camino completo desde su fabricación hasta su destino final.</li>
+                    <li class="procedure-item editable" contenteditable="true">El control de la información relacionada con la identificación y trazabilidad de los productos.</li>
+                </ul>
+                <p class="content-text editable" contenteditable="true">La organización garantiza que este procedimiento cubre todos los aspectos del ciclo de vida de productos y servicios, incluyendo materias primas, productos intermedios, productos terminados y servicios prestados.</p>
+            </div>
+            
+            <!-- Sección 3: Definiciones -->
+            <div class="section" id="definiciones">
+                <div class="section-title editable" contenteditable="true">Definiciones</div>
+                <ul class="definition-list">
+                    <li class="definition-item">
+                        <div class="definition-title editable" contenteditable="true">Identificación</div>
+                        <p class="content-text editable" contenteditable="true">Acción de asignar un código único, número de serie, lote o referencia a un producto o servicio para poder diferenciarlo de otros. La organización implementa sistemas de identificación únicos para cada producto o lote.</p>
+                    </li>
+                    <li class="definition-item">
+                        <div class="definition-title editable" contenteditable="true">Trazabilidad</div>
+                        <p class="content-text editable" contenteditable="true">Capacidad de seguir el recorrido de un producto o servicio a lo largo de todo su ciclo de vida, desde la materia prima hasta el consumo final. La organización mantiene registros completos que permiten esta trazabilidad.</p>
+                    </li>
+                    <li class="definition-item">
+                        <div class="definition-title editable" contenteditable="true">Lote</div>
+                        <p class="content-text editable" contenteditable="true">Conjunto de productos fabricados bajo condiciones similares, lo que permite identificarlos y rastrearlos como un único conjunto. La organización define y controla los lotes según criterios establecidos.</p>
+                    </li>
+                    <li class="definition-item">
+                        <div class="definition-title editable" contenteditable="true">Rastreabilidad</div>
+                        <p class="content-text editable" contenteditable="true">Proceso que permite verificar la historia, ubicación y trayectoria de un producto a lo largo de su ciclo de vida. La organización implementa sistemas que garantizan la rastreabilidad completa.</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Sección 4: Responsabilidades -->
+            <div class="section" id="responsabilidades">
+                <div class="section-title editable" contenteditable="true">Responsabilidades</div>
+                <table class="responsibility-table">
+                    <thead>
+                        <tr>
+                            <th class="editable" contenteditable="true">Responsable</th>
+                            <th class="editable" contenteditable="true">Responsabilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" contenteditable="true">Alta Dirección</td>
+                            <td class="editable" contenteditable="true">Aprobar el procedimiento de identificación y trazabilidad, y garantizar los recursos necesarios para su implementación. Demostrar liderazgo y compromiso con el sistema de trazabilidad.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Responsable del SGC</td>
+                            <td class="editable" contenteditable="true">Coordinar y supervisar la implementación del procedimiento, asegurando que se cumpla con los estándares de trazabilidad. Mantener actualizado el sistema y realizar revisiones periódicas.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Responsables de Producción</td>
+                            <td class="editable" contenteditable="true">Asegurar que los productos sean identificados adecuadamente en todas las etapas del proceso de producción. Implementar y mantener los sistemas de identificación en las líneas de producción.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Responsables de Calidad</td>
+                            <td class="editable" contenteditable="true">Verificar que los productos cumplan con los requisitos de trazabilidad y realizar auditorías periódicas. Validar la exactitud de los registros de trazabilidad.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Responsables de Logística</td>
+                            <td class="editable" contenteditable="true">Controlar el almacenamiento, distribución y transporte de productos, asegurando su identificación y trazabilidad continua. Gestionar la documentación de envíos y recepciones.</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Responsables de Almacenamiento</td>
+                            <td class="editable" contenteditable="true">Garantizar que los productos almacenados estén debidamente identificados y etiquetados para facilitar su trazabilidad. Mantener la organización y control del inventario.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Sección 5: Procedimientos -->
+            <div class="section" id="procedimientos">
+                <div class="section-title editable" contenteditable="true">Procedimientos</div>
+                <p class="content-text editable" contenteditable="true">La organización implementa los siguientes procedimientos para garantizar la identificación y trazabilidad efectiva de todos sus productos y servicios:</p>
+                
+                <!-- Subsección 5.1 -->
+                <div class="subsection" id="identificacion">
+                    <div class="subsection-title editable" contenteditable="true">Identificación de Productos y Servicios</div>
+                    <ul class="procedure-list">
+                        <li class="procedure-item editable" contenteditable="true">Cada producto o servicio debe ser identificado de manera única mediante un número de serie, código de barras, etiqueta o número de lote, según corresponda.</li>
+                        <li class="procedure-item editable" contenteditable="true">La identificación debe incluir:
+                            <div class="sub-item editable" contenteditable="true">El nombre del producto o servicio.</div>
+                            <div class="sub-item editable" contenteditable="true">El número de lote o fecha de fabricación.</div>
+                            <div class="sub-item editable" contenteditable="true">El número de serie o código de referencia.</div>
+                            <div class="sub-item editable" contenteditable="true">La información sobre el proveedor o el origen de los materiales.</div>
+                        </li>
+                        <li class="procedure-item editable" contenteditable="true">Se actualiza la identificación en caso de cambios o actualizaciones en el producto o servicio, manteniendo el historial de modificaciones.</li>
+                        <li class="procedure-item editable" contenteditable="true">La organización utiliza sistemas automatizados de identificación cuando sea posible para aumentar la precisión y eficiencia.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.2 -->
+                <div class="subsection" id="trazabilidad-produccion">
+                    <div class="subsection-title editable" contenteditable="true">Trazabilidad en el Proceso de Producción</div>
+                    <ul class="procedure-list">
+                        <li class="procedure-item editable" contenteditable="true">Los productos deben ser seguros y rastreables en cada una de las etapas de producción, incluyendo:
+                            <div class="sub-item editable" contenteditable="true"><strong>Fabricación:</strong> Identificación de materiales y productos intermedios con códigos únicos.</div>
+                            <div class="sub-item editable" contenteditable="true"><strong>Almacenamiento:</strong> Registro de ubicación de los productos y materiales en el almacén con sistemas de localización.</div>
+                            <div class="sub-item editable" contenteditable="true"><strong>Distribución y Transporte:</strong> Seguimiento de productos desde el almacén hasta el punto de venta o cliente final con documentos de trazabilidad.</div>
+                        </li>
+                        <li class="procedure-item editable" contenteditable="true">Cada etapa del proceso de producción y distribución se registra en el sistema de trazabilidad, manteniendo la continuidad de la información.</li>
+                        <li class="procedure-item editable" contenteditable="true">La organización implementa controles en cada punto de transferencia para verificar y registrar la trazabilidad.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.3 -->
+                <div class="subsection" id="control-informacion">
+                    <div class="subsection-title editable" contenteditable="true">Control de Información y Registros</div>
+                    <ul class="procedure-list">
+                        <li class="procedure-item editable" contenteditable="true">Se mantienen registros completos de la identificación y trazabilidad de todos los productos, incluyendo:
+                            <div class="sub-item editable" contenteditable="true"><strong>Fecha de fabricación</strong> exacta y hora cuando corresponda.</div>
+                            <div class="sub-item editable" contenteditable="true"><strong>Número de lote o serie</strong> único asignado.</div>
+                            <div class="sub-item editable" contenteditable="true"><strong>Historial de producción</strong> (incluyendo cambios de procesos, materiales, operadores, etc.).</div>
+                            <div class="sub-item editable" contenteditable="true"><strong>Registros de almacenamiento y distribución</strong> con fechas y responsables.</div>
+                        </li>
+                        <li class="procedure-item editable" contenteditable="true">Los registros son accesibles, actualizados de forma regular y guardados durante un período de tiempo determinado por la normativa o requisitos de la organización.</li>
+                        <li class="procedure-item editable" contenteditable="true">La organización implementa sistemas de gestión documental que garantizan la integridad y seguridad de los registros de trazabilidad.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.4 -->
+                <div class="subsection" id="auditorias">
+                    <div class="subsection-title editable" contenteditable="true">Auditorías y Verificación de Trazabilidad</div>
+                    <ul class="procedure-list">
+                        <li class="procedure-item editable" contenteditable="true">Se realizan auditorías periódicas para verificar que los productos están siendo correctamente identificados y trazados en todas las etapas de su ciclo de vida.</li>
+                        <li class="procedure-item editable" contenteditable="true">Las auditorías incluyen:
+                            <div class="sub-item editable" contenteditable="true">Revisión de la documentación de identificación y trazabilidad para verificar su completitud y exactitud.</div>
+                            <div class="sub-item editable" contenteditable="true">Seguimiento de productos específicos para asegurar que la trazabilidad se mantenga a lo largo de su ciclo de vida (pruebas de trazabilidad).</div>
+                            <div class="sub-item editable" contenteditable="true">Evaluación de la eficacia de los procedimientos de trazabilidad implementados y su cumplimiento con los requisitos.</div>
+                        </li>
+                        <li class="procedure-item editable" contenteditable="true">Los resultados de las auditorías se documentan y se utilizan para la mejora continua del sistema de trazabilidad.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.5 -->
+                <div class="subsection" id="acciones">
+                    <div class="subsection-title editable" contenteditable="true">Acciones Correctivas y Preventivas</div>
+                    <ul class="procedure-list">
+                        <li class="procedure-item editable" contenteditable="true">Si durante la auditoría o el monitoreo se identifican fallas en la trazabilidad, se implementan acciones correctivas y preventivas para corregir las deficiencias y evitar futuras incidencias.</li>
+                        <li class="procedure-item editable" contenteditable="true">Las acciones incluyen:
+                            <div class="sub-item editable" contenteditable="true">Investigación de la causa raíz de la falla en la trazabilidad utilizando metodologías estructuradas.</div>
+                            <div class="sub-item editable" contenteditable="true">Ajustes en los procesos de identificación y registro de productos para eliminar las causas identificadas.</div>
+                            <div class="sub-item editable" contenteditable="true">Capacitación del personal en los procedimientos de trazabilidad y concienciación sobre su importancia.</div>
+                        </li>
+                        <li class="procedure-item editable" contenteditable="true">La organización realiza seguimiento a las acciones implementadas para verificar su efectividad.</li>
+                    </ul>
+                </div>
+                
+                <!-- Subsección 5.6 -->
+                <div class="subsection" id="proveedores">
+                    <div class="subsection-title editable" contenteditable="true">Gestión de Proveedores</div>
+                    <ul class="procedure-list">
+                        <li class="procedure-item editable" contenteditable="true">Los proveedores deben proporcionar productos con sistemas de identificación y trazabilidad adecuados que cumplan con los requisitos de la organización.</li>
+                        <li class="procedure-item editable" contenteditable="true">La trazabilidad de los materiales se confirma mediante la documentación proporcionada por el proveedor, que debe incluir información como el origen de los materiales y el número de lote o certificados de calidad.</li>
+                        <li class="procedure-item editable" contenteditable="true">La organización evalúa periódicamente a los proveedores en cuanto a su capacidad para mantener la trazabilidad de los materiales suministrados.</li>
+                        <li class="procedure-item editable" contenteditable="true">Se establecen acuerdos contractuales que incluyen requisitos específicos de trazabilidad con los proveedores críticos.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Indicadores de Desempeño -->
+            <div class="section" id="indicadores">
+                <div class="section-title editable" contenteditable="true">Indicadores de Desempeño</div>
+                <table class="indicator-table">
+                    <thead>
+                        <tr>
+                            <th class="editable" contenteditable="true">Indicador</th>
+                            <th class="editable" contenteditable="true">Descripción</th>
+                            <th class="editable" contenteditable="true">Meta</th>
+                            <th class="editable" contenteditable="true">Frecuencia de Medición</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="editable" contenteditable="true">% de productos identificados correctamente</td>
+                            <td class="editable" contenteditable="true">Porcentaje de productos identificados correctamente en cada etapa del proceso (materias primas, producción, almacenamiento, distribución).</td>
+                            <td class="editable" contenteditable="true">≥ 99%</td>
+                            <td class="editable" contenteditable="true">Mensual</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">% de trazabilidad completa</td>
+                            <td class="editable" contenteditable="true">Porcentaje de productos con trazabilidad completa desde el origen de materias primas hasta el cliente final.</td>
+                            <td class="editable" contenteditable="true">100%</td>
+                            <td class="editable" contenteditable="true">Trimestral</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Número de fallos en trazabilidad</td>
+                            <td class="editable" contenteditable="true">Número de incidentes relacionados con fallos en la trazabilidad identificados en auditorías o quejas.</td>
+                            <td class="editable" contenteditable="true">≤ 2 por trimestre</td>
+                            <td class="editable" contenteditable="true">Trimestral</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Tiempo de respuesta a incidencias de trazabilidad</td>
+                            <td class="editable" contenteditable="true">Tiempo promedio para resolver problemas de trazabilidad identificados (desde detección hasta solución).</td>
+                            <td class="editable" contenteditable="true">≤ 48 horas</td>
+                            <td class="editable" contenteditable="true">Trimestral</td>
+                        </tr>
+                        <tr>
+                            <td class="editable" contenteditable="true">Tasa de cumplimiento de proveedores</td>
+                            <td class="editable" contenteditable="true">Porcentaje de proveedores que cumplen con los requisitos de trazabilidad establecidos.</td>
+                            <td class="editable" contenteditable="true">≥ 95%</td>
+                            <td class="editable" contenteditable="true">Semestral</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="content-text editable" contenteditable="true">La organización revisa estos indicadores regularmente y toma acciones de mejora cuando no se alcanzan las metas establecidas.</p>
+            </div>
+            
+            <!-- Sección 7: Documentación Relacionada -->
+            <div class="section" id="documentacion">
+                <div class="section-title editable" contenteditable="true">Documentación Relacionada</div>
+                <ul class="documentation-list">
+                    <li class="documentation-item editable" contenteditable="true">Registros de Identificación de Productos - Formularios y bases de datos que contienen la información de identificación de cada producto.</li>
+                    <li class="documentation-item editable" contenteditable="true">Registros de Producción y Distribución - Documentación que detalla el proceso de fabricación, almacenamiento y distribución de productos.</li>
+                    <li class="documentation-item editable" contenteditable="true">Informe de Auditoría de Trazabilidad - Resultados de las auditorías realizadas al sistema de trazabilidad.</li>
+                    <li class="documentation-item editable" contenteditable="true">Documentación de Proveedores - Certificados, facturas y documentos que respaldan la trazabilidad de materiales suministrados.</li>
+                    <li class="documentation-item editable" contenteditable="true">Registros de Acciones Correctivas y Preventivas - Documentación de las acciones tomadas para corregir fallas en la trazabilidad.</li>
+                    <li class="documentation-item editable" contenteditable="true">PRO-001 - Procedimiento de Control de la Documentación del SGC.</li>
+                    <li class="documentation-item editable" contenteditable="true">PRO-005 - Procedimiento de Control de Producto No Conforme.</li>
+                    <li class="documentation-item editable" contenteditable="true">PRO-008 - Procedimiento de Auditorías Internas.</li>
+                </ul>
+            </div>
+            
+            <!-- Histórico de versiones -->
+            <div class="version-history" id="historial">
+                <div class="section-title editable" contenteditable="true">Historial de Versiones</div>
+                <div class="table-container">
+                    <table class="version-table">
+                        <thead>
+                            <tr>
+                                <th class="editable" contenteditable="true">Versión</th>
+                                <th class="editable" contenteditable="true">Fecha</th>
+                                <th class="editable" contenteditable="true">Asiento</th>
+                                <th class="editable" contenteditable="true">Aprueba</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="editable" contenteditable="true">000</td>
+                                <td class="editable" contenteditable="true">01.12.2024</td>
+                                <td class="editable" contenteditable="true">Original</td>
+                                <td class="editable" contenteditable="true">CEO</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <div class="footer">
+            <p class="editable" contenteditable="true">Código: PRO-026 | Revisión: 000 | Página 1 de 1</p>
+        </div>
+    </div>
+
+    <script>
+        // Configurar elementos editables
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Documento PRO-026 cargado y listo para edición');
+            
+            // Verificar si el logo existe, si no mostrar un placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">SGC - LOGO</text></svg>';
+                console.log("Logo no encontrado en logo/logo.png. Se ha colocado un logo temporal.");
+            };
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar botón de descarga
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                // Obtener el contenido completo del documento
+                const content = document.documentElement.outerHTML;
+                
+                // Crear un blob con el contenido HTML
+                const blob = new Blob([content], { type: 'text/html' });
+                
+                // Crear un enlace para descargar el archivo
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'PRO-026-Procedimiento-Identificacion-Trazabilidad-SGC.html';
+                a.click();
+                
+                URL.revokeObjectURL(a.href);
+                
+                // Notificar al usuario
+                alert('Documento descargado como: PRO-026-Procedimiento-Identificacion-Trazabilidad-SGC.html');
+            });
+            
+            // Configurar botón de guardar cambios
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                // Aquí normalmente se enviarían los datos a un servidor
+                // Por ahora, simplemente notificamos al usuario
+                alert('Los cambios han sido guardados localmente. Para guardar permanentemente, descargue el documento actualizado.');
+                
+                // Podríamos usar localStorage para guardar temporalmente
+                try {
+                    // Guardar el contenido HTML en localStorage
+                    const content = document.documentElement.outerHTML;
+                    localStorage.setItem('documento_sgc_pro_026', content);
+                    console.log('Cambios guardados en localStorage');
+                } catch (e) {
+                    console.log('No se pudo guardar en localStorage:', e);
+                }
+            });
+            
+            // Cargar desde localStorage si existe
+            try {
+                const savedContent = localStorage.getItem('documento_sgc_pro_026');
+                if (savedContent) {
+                    if (confirm('¿Desea cargar la versión guardada anteriormente?')) {
+                        // Reemplazar el documento con la versión guardada
+                        document.open();
+                        document.write(savedContent);
+                        document.close();
+                    }
+                }
+            } catch (e) {
+                console.log('No se pudo cargar desde localStorage:', e);
+            }
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter subsection-counter';
+            
+            // Mejorar la experiencia de edición
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                // Guardar el contenido original
+                const originalContent = element.innerHTML;
+                
+                // Configurar eventos para mejorar la edición
+                element.addEventListener('focus', function() {
+                    this.style.backgroundColor = '#f0f7ff';
+                    this.style.border = '2px solid #3182ce';
+                    this.style.padding = '5px';
+                });
+                
+                element.addEventListener('blur', function() {
+                    this.style.backgroundColor = '';
+                    this.style.border = '';
+                    this.style.padding = '';
+                    
+                    // Si el contenido cambió, guardar en localStorage
+                    if (this.innerHTML !== originalContent) {
+                        try {
+                            localStorage.setItem('documento_sgc_pro_026', document.documentElement.outerHTML);
+                        } catch (e) {
+                            console.log('Error al guardar cambios:', e);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
