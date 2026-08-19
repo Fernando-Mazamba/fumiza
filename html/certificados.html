@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado ISO 9001:2015 | FUMIZA S. de R.L.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        fumiza: {
+                            verde: '#1a6b3c',
+                            verdeclaro: '#2d8f4e',
+                            dorado: '#d4a843',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.4s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        .certificate-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .certificate-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        .tab-indicator {
+            position: relative;
+            overflow: hidden;
+        }
+        .tab-indicator::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1a6b3c, #2d8f4e);
+            border-radius: 3px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .tab-indicator.active::after {
+            transform: translateX(0);
+        }
+        .info-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background: rgba(26, 107, 60, 0.1);
+            border: 1px solid rgba(26, 107, 60, 0.2);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: #1a6b3c;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #1a6b3c 0%, #2d8f4e 50%, #3aa55c 100%);
+        }
+        .gold-accent {
+            color: #d4a843;
+        }
+        .bg-gold-light {
+            background-color: rgba(212, 168, 67, 0.1);
+        }
+        .border-gold {
+            border-color: #d4a843;
+        }
+        .cert-badge {
+            background: linear-gradient(135deg, #d4a843 0%, #b8922f 100%);
+            color: #1a6b3c;
+        }
+        .fumiza-icon {
+            background: linear-gradient(135deg, #1a6b3c, #2d8f4e);
+        }
+        .scope-list li i {
+            color: #2d8f4e;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-green-50 font-sans">
+    <div class="min-h-screen p-4 md:p-6">
+        <!-- Header con efecto glass -->
+        <div class="glass-effect rounded-2xl shadow-lg p-4 md:p-6 mb-6 animate-fade-in">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                <div>
+                    <nav class="flex items-center text-sm text-gray-600 mb-2">
+                        <a href="index.html" class="hover:text-fumiza-verde transition-colors flex items-center">
+                            <i class="fas fa-home mr-2"></i> Inicio
+                        </a>
+                        <span class="mx-2">/</span>
+                        <span class="text-fumiza-verde font-medium">Certificado ISO 9001</span>
+                    </nav>
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
+                        <span class="bg-gradient-to-r from-fumiza-verde to-fumiza-verdeclaro bg-clip-text text-transparent">
+                            Certificado ISO 9001:2015
+                        </span>
+                    </h1>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span class="info-chip">
+                        <i class="fas fa-shield-check text-fumiza-verde mr-2"></i>
+                        Certificado Vigente
+                    </span>
+                </div>
+            </div>
+            <p class="text-gray-600 text-lg">FUMIZA S. de R.L. cuenta con la certificación internacional que avala nuestro compromiso con la excelencia en el Manejo Integrado de Plagas y servicios sanitarios.</p>
+        </div>
+
+        <!-- Tarjeta principal del certificado -->
+        <div class="glass-effect rounded-2xl shadow-xl overflow-hidden mb-8 animate-slide-up">
+            <!-- Navegación con tabs - Español e Inglés -->
+            <div class="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-primary-50/30">
+                <div class="flex">
+                    <button id="tab-espanol" 
+                            class="tab-indicator active flex-1 py-5 px-6 text-center font-semibold text-fumiza-verde transition-colors flex items-center justify-center"
+                            onclick="changeCertTab('espanol')">
+                        <i class="fas fa-flag mr-3 text-lg text-fumiza-verde"></i>
+                        <span class="text-base">Versión en Español</span>
+                    </button>
+                    <button id="tab-ingles" 
+                            class="tab-indicator flex-1 py-5 px-6 text-center font-semibold text-gray-700 hover:text-fumiza-verde transition-colors flex items-center justify-center"
+                            onclick="changeCertTab('ingles')">
+                        <i class="fas fa-language mr-3 text-lg text-gray-500"></i>
+                        <span class="text-base">English Version</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenido del certificado en español -->
+            <div id="content-espanol" class="tab-content p-6 md:p-8">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Encabezado del certificado -->
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <div class="w-14 h-14 rounded-xl fumiza-icon flex items-center justify-center mr-4 shadow-lg">
+                                    <i class="fas fa-spray-can text-white text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold text-gray-900">Certificado ISO 9001:2015</h2>
+                                    <p class="text-gray-600">Sistema de Gestión de la Calidad</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4 md:mt-0">
+                            <span class="info-chip">
+                                <i class="fas fa-calendar-check mr-2"></i>
+                                Válido hasta: 18.08.2029
+                            </span>
+                            <span class="info-chip">
+                                <i class="fas fa-hashtag mr-2"></i>
+                                SIS1170826Q050
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Información principal en español -->
+                    <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                        <!-- Columna izquierda -->
+                        <div class="space-y-6">
+                            <!-- Empresa -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-building text-fumiza-verde mr-2"></i>
+                                    Empresa Certificada
+                                </h3>
+                                <p class="text-2xl font-bold text-fumiza-verde mb-2">FUMIZA S. de R.L.</p>
+                                <div class="space-y-2 text-gray-600">
+                                    <p class="flex items-center">
+                                        <i class="fas fa-map-marker-alt text-gray-400 mr-2 w-5"></i>
+                                        Centro Comercial Plaza San Pedro, Cubículo L-05
+                                    </p>
+                                    <p class="flex items-center pl-7 text-sm">
+                                        Bulevar de las Fuerzas Armadas
+                                    </p>
+                                    <p class="flex items-center pl-7">
+                                        Distrito Central, Francisco Morazán, Honduras
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Alcance -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-bullseye text-fumiza-verde mr-2"></i>
+                                    Alcance del Certificado
+                                </h3>
+                                <p class="text-gray-700 leading-relaxed">
+                                    Prestación integral de servicios de Manejo Integrado de Plagas (MIP), abarcando los servicios de desinsectación, desratización, descarización, desinfección y sanitización, control y reubicación de fauna; formación profesional y capacitación técnica especializada del personal laboral; asesoría y consultoría ambiental para licenciamiento, informes y documentación técnica especializada; ejecución de auditorías integrales e inspecciones diagnósticas de control sanitario; así como el suministro y comercialización de equipos y productos de grado profesional para el control de plagas.
+                                </p>
+                                <div class="mt-3 pt-3 border-t border-gray-100">
+                                    <span class="text-sm text-gray-500">Código IAF: 35</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha -->
+                        <div class="space-y-6">
+                            <!-- Detalles del certificado -->
+                            <div class="bg-gradient-to-br from-fumiza-verde/5 to-fumiza-verdeclaro/10 rounded-xl p-6 shadow-sm border border-fumiza-verde/10">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                    <i class="fas fa-info-circle text-fumiza-verde mr-2"></i>
+                                    Detalles del Certificado
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Número de Certificado</p>
+                                        <p class="font-bold text-gray-900 text-sm">SIS1170826Q050</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Registro Inicial</p>
+                                        <p class="font-bold text-gray-900">19.08.2026</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Última Emisión</p>
+                                        <p class="font-bold text-gray-900">19.08.2026</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Fecha de Expiración</p>
+                                        <p class="font-bold text-gray-900">18.08.2029</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Próxima Vigilancia</p>
+                                        <p class="font-bold text-gray-900">19.07.2027</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Re-certificación</p>
+                                        <p class="font-bold text-gray-900">19.07.2029</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Organismo Certificador -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-certificate text-fumiza-verde mr-2"></i>
+                                    Organismo Certificador
+                                </h3>
+                                <p class="font-bold text-gray-900 mb-1">SIS CERTIFICATIONS PRIVATE LIMITED</p>
+                                <p class="text-sm text-gray-600 mb-3">Organismo de certificación acreditado</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <p>Unidad No. 514, 5º Piso, Vipul Business Park, Sector-48</p>
+                                    <p>Carretera Sohna, Gurgaon-122018, Haryana, India</p>
+                                    <p class="mt-2">
+                                        <i class="fas fa-envelope mr-1"></i> support@siscertifications.com
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-globe mr-1"></i> www.siscertifications.com
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Información de Contacto -->
+                            <div class="bg-gold-light rounded-xl p-6 border border-gold/20">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-address-card text-gold-accent mr-2"></i>
+                                    Información de Contacto
+                                </h3>
+                                <div class="space-y-2 text-sm text-gray-700">
+                                    <p><i class="fas fa-phone text-fumiza-verde mr-2"></i> +504 3210-4795 / +504 8853-6860</p>
+                                    <p><i class="fas fa-envelope text-fumiza-verde mr-2"></i> allanizaguirre@consultoresvib.com</p>
+                                    <p><i class="fas fa-globe text-fumiza-verde mr-2"></i> www.consultoresvib.com</p>
+                                    <p><i class="fas fa-graduation-cap text-fumiza-verde mr-2"></i> www.academiavib.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visualización del certificado -->
+                    <div class="bg-gradient-to-r from-gray-50 to-primary-50/30 rounded-2xl p-6 md:p-8 border border-gray-200">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Vista Previa del Certificado</h3>
+                                <p class="text-gray-600">Vista previa del documento oficial</p>
+                            </div>
+                            <div class="mt-4 md:mt-0 flex flex-wrap gap-3">
+                                <a href="../NormasISO/Certificados/Espanhol/90011-ESP.pdf" 
+                                   target="_blank" 
+                                   class="inline-flex items-center bg-fumiza-verde hover:bg-fumiza-verdeclaro text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                    <i class="fas fa-file-pdf mr-3 text-lg"></i>
+                                    Descargar PDF
+                                </a>
+                                <a href="https://siscertifications.com" 
+                                   target="_blank" 
+                                   class="inline-flex items-center bg-gold-accent hover:bg-amber-500 text-fumiza-verde font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                    <i class="fas fa-shield-alt mr-3 text-lg"></i>
+                                    Verificar en SIS Cert
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="certificate-card bg-white rounded-xl p-4 shadow-lg border border-gray-200">
+                            <a href="../NormasISO/Certificados/Espanhol/90011-ESP.png" target="_blank" class="block overflow-hidden rounded-lg">
+                                <img src="../NormasISO/Certificados/Espanhol/90011-ESP.png" 
+                                     alt="Certificado ISO 9001 en español" 
+                                     class="w-full h-auto rounded-lg transition-transform duration-500 hover:scale-[1.02]">
+                            </a>
+                            <div class="flex justify-center mt-6">
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <i class="fas fa-expand-alt mr-2"></i>
+                                    Haz clic en la imagen para ampliar
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nota importante -->
+                    <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl text-sm text-gray-600">
+                        <p class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-600 mr-2 mt-0.5"></i>
+                            <span><strong>Nota:</strong> El certificado es propiedad de SIS Certifications. La validez del certificado está sujeta a la finalización exitosa de la Auditoría de Vigilancia en o antes de la fecha establecida. La organización certificada es responsable de mantener el cumplimiento de las normas correspondientes. Cualquier cambio significativo en el alcance de la certificación o en la norma mencionada invalida este certificado.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido del certificado en inglés -->
+            <div id="content-ingles" class="tab-content p-6 md:p-8 hidden">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Certificate Header -->
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <div class="w-14 h-14 rounded-xl fumiza-icon flex items-center justify-center mr-4 shadow-lg">
+                                    <i class="fas fa-spray-can text-white text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold text-gray-900">ISO 9001:2015 Certificate</h2>
+                                    <p class="text-gray-600">Quality Management System</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4 md:mt-0">
+                            <span class="info-chip">
+                                <i class="fas fa-calendar-check mr-2"></i>
+                                Valid until: 18.08.2029
+                            </span>
+                            <span class="info-chip">
+                                <i class="fas fa-hashtag mr-2"></i>
+                                SIS1170826Q050
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Main Information in English -->
+                    <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                        <!-- Left Column -->
+                        <div class="space-y-6">
+                            <!-- Company -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-building text-fumiza-verde mr-2"></i>
+                                    Certified Company
+                                </h3>
+                                <p class="text-2xl font-bold text-fumiza-verde mb-2">FUMIZA S. de R.L.</p>
+                                <div class="space-y-2 text-gray-600">
+                                    <p class="flex items-center">
+                                        <i class="fas fa-map-marker-alt text-gray-400 mr-2 w-5"></i>
+                                        Centro Comercial Plaza San Pedro, Cubículo L-05
+                                    </p>
+                                    <p class="flex items-center pl-7 text-sm">
+                                        Boulevard de las Fuerzas Armadas
+                                    </p>
+                                    <p class="flex items-center pl-7">
+                                        Distrito Central, Francisco Morazán, Honduras
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Scope -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-bullseye text-fumiza-verde mr-2"></i>
+                                    Certificate Scope
+                                </h3>
+                                <p class="text-gray-700 leading-relaxed">
+                                    Comprehensive provision of Integrated Pest Management (IPM) services, including insect control, rodent control, mite control, disinfection and sanitization, as well as wildlife control and relocation; professional training and specialized technical instruction for personnel; environmental advisory and consulting services for licensing, reports, and specialized technical documentation; implementation of comprehensive audits and diagnostic sanitary control inspections; as well as the supply and commercialization of professional-grade equipment and products for pest control.
+                                </p>
+                                <div class="mt-3 pt-3 border-t border-gray-100">
+                                    <span class="text-sm text-gray-500">IAF Code: 35</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="space-y-6">
+                            <!-- Certificate Details -->
+                            <div class="bg-gradient-to-br from-fumiza-verde/5 to-fumiza-verdeclaro/10 rounded-xl p-6 shadow-sm border border-fumiza-verde/10">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                    <i class="fas fa-info-circle text-fumiza-verde mr-2"></i>
+                                    Certificate Details
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Certificate Number</p>
+                                        <p class="font-bold text-gray-900 text-sm">SIS1170826Q050</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Initial Registration</p>
+                                        <p class="font-bold text-gray-900">19.08.2026</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Latest Issue</p>
+                                        <p class="font-bold text-gray-900">19.08.2026</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Expiry Date</p>
+                                        <p class="font-bold text-gray-900">18.08.2029</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Next Surveillance</p>
+                                        <p class="font-bold text-gray-900">19.07.2027</p>
+                                    </div>
+                                    <div class="bg-white/70 rounded-lg p-4">
+                                        <p class="text-sm text-gray-500 mb-1">Re-certification</p>
+                                        <p class="font-bold text-gray-900">19.07.2029</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Certification Body -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-certificate text-fumiza-verde mr-2"></i>
+                                    Certification Body
+                                </h3>
+                                <p class="font-bold text-gray-900 mb-1">SIS CERTIFICATIONS PRIVATE LIMITED</p>
+                                <p class="text-sm text-gray-600 mb-3">Accredited certification body</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <p>Unit No. 514, 5th Floor, Vipul Business Park, Sector-48</p>
+                                    <p>Sohna Road, Gurgaon-122018, Haryana, India</p>
+                                    <p class="mt-2">
+                                        <i class="fas fa-envelope mr-1"></i> support@siscertifications.com
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-globe mr-1"></i> www.siscertifications.com
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="bg-gold-light rounded-xl p-6 border border-gold/20">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <i class="fas fa-address-card text-gold-accent mr-2"></i>
+                                    Contact Information
+                                </h3>
+                                <div class="space-y-2 text-sm text-gray-700">
+                                    <p><i class="fas fa-phone text-fumiza-verde mr-2"></i> +504 3210-4795 / +504 8853-6860</p>
+                                    <p><i class="fas fa-envelope text-fumiza-verde mr-2"></i> allanizaguirre@consultoresvib.com</p>
+                                    <p><i class="fas fa-globe text-fumiza-verde mr-2"></i> www.consultoresvib.com</p>
+                                    <p><i class="fas fa-graduation-cap text-fumiza-verde mr-2"></i> www.academiavib.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificate Preview -->
+                    <div class="bg-gradient-to-r from-gray-50 to-primary-50/30 rounded-2xl p-6 md:p-8 border border-gray-200">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Certificate Preview</h3>
+                                <p class="text-gray-600">Official document preview</p>
+                            </div>
+                            <div class="mt-4 md:mt-0 flex flex-wrap gap-3">
+                                <a href="../NormasISO/Certificados/Ingles/9001-Ingles.pdf" 
+                                   target="_blank" 
+                                   class="inline-flex items-center bg-fumiza-verde hover:bg-fumiza-verdeclaro text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                    <i class="fas fa-file-pdf mr-3 text-lg"></i>
+                                    Download PDF
+                                </a>
+                                <a href="https://siscertifications.com" 
+                                   target="_blank" 
+                                   class="inline-flex items-center bg-gold-accent hover:bg-amber-500 text-fumiza-verde font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                    <i class="fas fa-shield-alt mr-3 text-lg"></i>
+                                    Verify at SIS Cert
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="certificate-card bg-white rounded-xl p-4 shadow-lg border border-gray-200">
+                            <a href="../NormasISO/Certificados/Ingles/9001-Ingles.png" target="_blank" class="block overflow-hidden rounded-lg">
+                                <img src="../NormasISO/Certificados/Ingles/9001-Ingles.png" 
+                                     alt="ISO 9001 Certificate in English" 
+                                     class="w-full h-auto rounded-lg transition-transform duration-500 hover:scale-[1.02]">
+                            </a>
+                            <div class="flex justify-center mt-6">
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <i class="fas fa-expand-alt mr-2"></i>
+                                    Click the image to enlarge
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important Note -->
+                    <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl text-sm text-gray-600">
+                        <p class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-600 mr-2 mt-0.5"></i>
+                            <span><strong>Note:</strong> The certificate is the property of SIS Certifications. The validity of the Certificate is subject to the successful completion of Surveillance Audit on or before the due date. The certified organization is responsible for maintaining the compliance of the relevant standard rules. Any significant changes in the scope of the certification or standard referred above render this certificate invalid.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beneficios y valores -->
+        <div class="glass-effect rounded-2xl shadow-lg p-6 md:p-8 mb-8 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Beneficios de nuestra certificación</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-white to-green-50 rounded-xl p-6 border border-green-100 hover:border-fumiza-verde/30 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-fumiza-verde/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-bug text-fumiza-verde text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Control de Plagas Eficaz</h3>
+                    <p class="text-gray-600">Procesos estandarizados que garantizan la máxima eficiencia en el Manejo Integrado de Plagas.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-white to-green-50 rounded-xl p-6 border border-green-100 hover:border-fumiza-verde/30 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-fumiza-verde/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-handshake text-fumiza-verde text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Confianza del Cliente</h3>
+                    <p class="text-gray-600">Garantía de calidad certificada internacionalmente que brinda seguridad a nuestros clientes.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-white to-green-50 rounded-xl p-6 border border-green-100 hover:border-fumiza-verde/30 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-fumiza-verde/10 flex items-center justify-center mb-4">
+                        <i class="fas fa-sync-alt text-fumiza-verde text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Mejora Continua</h3>
+                    <p class="text-gray-600">Sistema de gestión que promueve la innovación y el crecimiento sostenido de nuestros servicios.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página informativo -->
+        <div class="header-gradient rounded-2xl shadow-xl p-6 md:p-8 text-white animate-fade-in">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">¿Necesitas verificar nuestro certificado?</h3>
+                    <p class="text-green-100">Consulta la validez oficial en el sitio web de SIS Certifications</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <a href="https://siscertifications.com" 
+                       target="_blank" 
+                       class="inline-flex items-center justify-center bg-white text-fumiza-verde font-semibold py-3 px-6 rounded-xl hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-shield-alt mr-3"></i>
+                        Verificar en SIS Cert
+                    </a>
+                    <a href="https://www.iafcertsearch.org" 
+                       target="_blank" 
+                       class="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white font-semibold py-3 px-6 rounded-xl border border-white/20 hover:bg-white/20 transition-colors">
+                        <i class="fas fa-search mr-3"></i>
+                        Verificar en IAF CertSearch
+                    </a>
+                </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-white/10 text-center text-xs text-white/70">
+                <p>Número de Certificado: SIS1170826Q050 | Válido hasta: 18.08.2029</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar entre pestañas de certificados
+        function changeCertTab(lang) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(`content-${lang}`).classList.remove('hidden');
+            
+            // Actualizar indicadores de pestañas
+            document.querySelectorAll('.tab-indicator').forEach(tab => {
+                tab.classList.remove('active', 'text-fumiza-verde');
+                tab.classList.add('text-gray-700');
+            });
+            
+            // Resaltar pestaña activa
+            document.getElementById(`tab-${lang}`).classList.add('active', 'text-fumiza-verde');
+        }
+
+        // Efecto de animación al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            changeCertTab('espanol');
+            
+            // Añadir animaciones a elementos
+            const cards = document.querySelectorAll('.certificate-card, .glass-effect');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Efecto de scroll para el header
+        let lastScroll = 0;
+        const header = document.querySelector('.glass-effect');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.style.transform = 'translateY(-100%)';
+                header.style.transition = 'transform 0.3s ease';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
